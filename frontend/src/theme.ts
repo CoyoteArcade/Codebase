@@ -18,7 +18,7 @@ export const theme = createTheme({
   },
   primaryColor: 'coyote-blue',
   primaryShade: {
-    // light: 4,
-    // dark: 7,
+    light: 4,
+    dark: 7,
   },
 });
