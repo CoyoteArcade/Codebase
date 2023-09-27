@@ -1,11 +1,14 @@
 .wrapper {
+  padding: 0;
+}
+
+.wrapper-flex {
   gap: var(--mantine-spacing-xs);
   align-items: center;
-  padding: var(--mantine-spacing-xs) 0;
 }
 
 .img {
-  width: 40px;
+  width: 35px;
   height: auto;
 }
 

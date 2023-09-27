@@ -18,13 +18,10 @@ export default function Header() {
           <Button variant="transparent" className={classes.button}>
             Home
           </Button>
-
           <GamesButton />
-
           <Button variant="transparent" className={classes.button}>
             Upload
           </Button>
-
           <Button variant="transparent" className={classes.button}>
             About
           </Button>
@@ -35,11 +32,9 @@ export default function Header() {
         {/* Button-Row Right-Side */}
         <Flex className={`${classes['button-row']} ${classes['button-row-right']}`}>
           <CartButton />
-
           <Button variant="transparent" className={classes.button}>
             Login
           </Button>
-
           <Button variant="transparent" className={classes.button}>
             Register
           </Button>
