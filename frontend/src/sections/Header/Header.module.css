@@ -1,0 +1,79 @@
+.wrapper {
+  height: 100%;
+  padding-left: var(--mantine-spacing-md);
+  padding-right: var(--mantine-spacing-md);
+  background-color: var(--mantine-primary-color-light);
+
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: nowrap;
+  gap: var(--mantine-spacing-md);
+}
+
+/* Button Styles */
+
+.button {
+  padding: 0;
+  font-size: var(--mantine-h3-font-size);
+  font-weight: 400;
+  letter-spacing: -1px;
+
+  @mixin light {
+    color: var(--mantine-color-dark-light-color);
+  }
+}
+
+.button:hover {
+  @mixin light {
+    color: var(--mantine-color-dark-filled-color);
+  }
+}
+
+.button:active {
+  @mixin light {
+    color: var(--mantine-color-dark-3);
+  }
+}
+
+.button::after {
+  content: '';
+  display: block;
+  width: 0%;
+  height: 3px;
+  transition: width 0.1s ease-in;
+  margin-top: -2px; /* Underline Placement */
+  background-color: var(--mantine-primary-color-filled);
+}
+
+.button:hover::after {
+  width: 100%;
+}
+
+.button:active::after {
+  background-color: var(--mantine-color-coyote-blue-2);
+}
+
+/* Button-Row Styles */
+
+.button-row {
+  justify-content: space-between;
+  gap: var(--mantine-spacing-md);
+}
+
+.button-row-left {
+  flex: 1;
+  min-width: 20rem;
+  max-width: 25rem;
+}
+
+.button-row-right {
+  flex: 1;
+  min-width: 10rem;
+  max-width: 18rem;
+}
+
+/* Searchbar Styles for Header */
+
+.search-bar {
+  align-self: center;
+}

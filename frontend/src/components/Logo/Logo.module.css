@@ -1,0 +1,17 @@
+.wrapper {
+  gap: var(--mantine-spacing-xs);
+  align-items: center;
+  padding: var(--mantine-spacing-xs) 0;
+}
+
+.img {
+  width: 40px;
+  height: auto;
+}
+
+.text {
+  font-family: 'Gajraj One';
+  font-weight: 700;
+  font-size: var(--mantine-h2-font-size);
+  line-height: 1;
+}
