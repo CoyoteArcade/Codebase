@@ -21,4 +21,7 @@ export const theme = createTheme({
     light: 4,
     dark: 7,
   },
+
+  fontFamily:
+    'Work Sans, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji',
 });
