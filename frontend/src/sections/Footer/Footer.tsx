@@ -1,5 +1,7 @@
 import classes from './Footer.module.css';
 
-export default function Footer() {
+function Footer() {
   return <></>;
 }
+
+export default Footer;
