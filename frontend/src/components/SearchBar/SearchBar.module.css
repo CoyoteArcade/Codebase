@@ -1,0 +1,36 @@
+.search-bar {
+}
+
+.magnify-icon {
+  width: 1rem;
+  height: 1rem;
+  stroke-width: 1.5;
+}
+
+.arrow-icon {
+  position: relative;
+  overflow: hidden;
+
+  color: var(--mantine-primary-color-filled);
+  border-color: var(--mantine-primary-color-filled);
+}
+
+.arrow-icon::before {
+  content: '';
+  position: absolute;
+  opacity: 100%;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 100%;
+  background-color: transparent;
+  transition: all 0.15s;
+  z-index: -1;
+}
+
+.arrow-icon:hover::before {
+  width: 100%;
+  @mixin light {
+    background-color: var(--mantine-primary-color-light);
+  }
+}

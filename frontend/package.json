@@ -15,6 +15,8 @@
   "dependencies": {
     "@mantine/core": "7.0.1",
     "@mantine/hooks": "7.0.1",
+    "@tabler/icons-react": "^2.35.0",
+    "normalize.css": "^8.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.11.2"
@@ -38,6 +40,7 @@
     "postcss-simple-vars": "^7.0.1",
     "prettier": "^2.8.8",
     "typescript": "^5.0.4",
+    "unplugin-fonts": "^1.0.3",
     "vite": "^4.3.9"
   }
 }
