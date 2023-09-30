@@ -1,6 +1,6 @@
 import { Image, Container, Title, Button, Group, Text, List, ThemeIcon, rem } from '@mantine/core';
 import { IconCheck } from '@tabler/icons-react';
-import image from './image.png';
+import image from './image.svg';
 import classes from './Hero.module.css';
 
 export default function HeroBullets() {
@@ -49,7 +49,7 @@ export default function HeroBullets() {
             </Button>
           </Group>
         </div>
-        <Image src={image.src} className={classes.image} />
+        <Image src={image} className={classes.image} />
       </div>
     </Container>
   );
