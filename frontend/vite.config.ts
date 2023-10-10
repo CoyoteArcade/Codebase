@@ -18,7 +18,7 @@ export default defineConfig({
         families: [
           'Gajraj One',
           {
-            name: 'Work Sans',
+            name: 'Gabarito',
             styles: 'wght@200;400;500;600;700',
             defer: true,
           },

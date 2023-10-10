@@ -17,7 +17,7 @@
   padding: 0;
   font-size: var(--mantine-h3-font-size);
   font-weight: 400;
-  letter-spacing: -1px;
+  letter-spacing: 0px;
 
   @mixin light {
     color: var(--mantine-color-dark-light-color);
