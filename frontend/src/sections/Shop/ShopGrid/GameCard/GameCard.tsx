@@ -15,7 +15,7 @@ function GameCard({ gameObj }: any) {
   const titleHeight = 2;
 
   // eslint-disable-next-line
-  const { ref, width, height } = useElementSize(); //
+  const { ref, width, height } = useElementSize(); // Used for 'mb' style prop
 
   /** GAME BANNER */
   const aspectRatio = 16 / 10;
