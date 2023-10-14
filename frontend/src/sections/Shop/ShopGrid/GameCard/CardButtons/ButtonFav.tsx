@@ -14,7 +14,7 @@ function FavButton({ size = 'lg' }) {
     <ActionIcon
       size={size}
       variant="subtle"
-      color="red"
+      color="var(--mantine-color-red-6)"
       aria-label="Favorite"
       radius="xl"
       onClick={() => favToggle()}
