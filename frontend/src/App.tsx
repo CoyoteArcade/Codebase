@@ -7,6 +7,7 @@ import Header from './sections/Header/Header';
 import Hero from './sections/Hero/Hero';
 import Navbar from './sections/Navbar/Navbar';
 import Shop from './sections/Shop/Shop';
+import Footer from './sections/Footer/Footer';
 
 export default function App() {
   return (
@@ -17,8 +18,10 @@ export default function App() {
         <Group>
           <Hero />
           <Shop />
+          <Footer />
         </Group>
       </Flex >
+      
       
     </MantineProvider>
   );
