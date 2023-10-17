@@ -13,9 +13,11 @@
     "test": "npm run typecheck && npm run prettier && npm run lint && npm run build"
   },
   "dependencies": {
-    "@mantine/core": "7.0.1",
-    "@mantine/hooks": "7.0.1",
+    "@mantine/carousel": "^7.1.3",
+    "@mantine/core": "^7.1.3",
+    "@mantine/hooks": "^7.1.3",
     "@tabler/icons-react": "^2.35.0",
+    "embla-carousel-react": "^7.1.0",
     "normalize.css": "^8.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

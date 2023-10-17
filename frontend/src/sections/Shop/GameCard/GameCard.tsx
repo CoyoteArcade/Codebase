@@ -47,8 +47,12 @@ function GameCard({ gameObj }: any) {
         <AspectRatio ratio={aspectRatio} className={classes['card-banner']}>
           <Image
             className={classes['card-banner-img']}
-            src={gameObj.banner.src}
-            alt={gameObj.banner.alt}
+            src={
+              'banner' in gameObj
+                ? gameObj.banner.src
+                : 'https://placehold.co/1600x900?text=Game\\nBanner'
+            }
+            alt={'banner' in gameObj ? gameObj.banner.alt : 'Game Banner'}
             w={bannerFilled ? '100%' : 'auto'}
             loading="lazy"
           />
