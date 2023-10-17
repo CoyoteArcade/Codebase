@@ -1,8 +1,8 @@
 .card {
-  margin: auto;
+  margin: auto 0 rem(35px);
 
   @media (max-width: $mantine-breakpoint-sm) {
-    min-width: rem(180px);
+    min-width: rem(170px);
     max-width: rem(220px);
     padding: var(--mantine-spacing-sm);
   }
