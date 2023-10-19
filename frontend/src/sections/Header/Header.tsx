@@ -19,7 +19,7 @@ export default function Header() {
             Home
           </Button>
           <GamesButton />
-          <Button variant="transparent" className={classes.button}>
+          <Button disabled variant="transparent" className={classes.button}>
             Upload
           </Button>
           <Button variant="transparent" className={classes.button}>
@@ -33,10 +33,10 @@ export default function Header() {
         <Flex className={`${classes['button-row']} ${classes['button-row-right']}`}>
           <CartButton />
           <Button variant="transparent" className={classes.button}>
-            Login
+            Register
           </Button>
           <Button variant="transparent" className={classes.button}>
-            Register
+            Log In
           </Button>
         </Flex>
       </Flex>
