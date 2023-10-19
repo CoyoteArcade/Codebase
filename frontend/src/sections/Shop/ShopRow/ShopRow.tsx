@@ -25,7 +25,7 @@ function GameRow() {
       draggable={false}
       nextControlIcon={<IconArrowRight style={{ width: rem(16), height: rem(16) }} />}
       previousControlIcon={<IconArrowLeft style={{ width: rem(16), height: rem(16) }} />}
-      slideSize={{ base: '50%', xs: '33.333333%', sm: '33.333333%', md: '25%' }}
+      slideSize={{ base: '50%', xs: '33.333333%', sm: '33.333333%', md: '25%', lg: '20%' }}
       slideGap={{ base: '5', sm: 'md', lg: 'xl' }}
       align="start"
       slidesToScroll="auto"
