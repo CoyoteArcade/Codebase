@@ -22,7 +22,12 @@ function GameCard({ gameObj }: any) {
   const bodyHeight = { mobile: 2, desktop: 3 };
 
   return (
-    <Card className={classes.card} shadow="lg" radius="md" withBorder>
+    <Card
+      className={`${classes.card} ${classes['card-simple']}`}
+      shadow="lg"
+      radius="md"
+      withBorder
+    >
       {/* GAME BANNER */}
       <Card.Section>
         <AspectRatio ratio={aspectRatio} className={classes['card-banner']}>
