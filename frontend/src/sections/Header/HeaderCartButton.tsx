@@ -11,7 +11,7 @@ export default function CartButton() {
         leftSection={
           <Indicator
             position="top-start"
-            label="5"
+            label="0"
             radius="xl"
             size="16"
             color="var(--mantine-color-teal-6)"
