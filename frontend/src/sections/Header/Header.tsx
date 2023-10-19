@@ -19,7 +19,7 @@ export default function Header() {
             Home
           </Button>
           <GamesButton />
-          <Button disabled variant="transparent" className={classes.button}>
+          <Button variant="transparent" className={classes.button}>
             Upload
           </Button>
           <Button variant="transparent" className={classes.button}>
