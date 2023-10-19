@@ -15,7 +15,7 @@
 .button {
   height: inherit;
   padding: 0;
-  font-size: var(--mantine-h3-font-size);
+  font-size: rem(22px);
   font-weight: 400;
   letter-spacing: 0px;
 
@@ -32,7 +32,7 @@
 
     &:active {
       @mixin light {
-        color: var(--mantine-color-dark-3);
+        color: var(--mantine-color-gray-5);
       }
     }
 
@@ -42,7 +42,7 @@
       content: '';
       width: 0%;
       height: 3px;
-      background-color: var(--mantine-primary-color-filled);
+      background-color: var(--mantine-color-dark-filled);
       display: block;
       transition: width 0.1s ease-in;
       position: absolute;
@@ -51,6 +51,37 @@
 
     &:hover::before {
       width: 100%;
+    }
+
+    &:active::before {
+      background-color: var(--mantine-color-dark-light);
+    }
+  }
+
+  &.button-register {
+    @mixin light {
+      color: var(--mantine-color-coyote-blue-4);
+    }
+
+    &:hover {
+      @mixin light {
+        color: var(--mantine-color-coyote-blue-filled);
+      }
+    }
+
+    &:active {
+      @mixin light {
+        color: var(--mantine-color-coyote-blue-2);
+      }
+    }
+
+    &::before {
+      width: 100%;
+      background-color: var(--mantine-color-coyote-blue-3);
+    }
+
+    &:hover::before {
+      background-color: var(--mantine-color-coyote-blue-filled);
     }
 
     &:active::before {

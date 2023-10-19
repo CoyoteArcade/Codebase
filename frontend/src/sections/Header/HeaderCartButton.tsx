@@ -2,13 +2,11 @@ import { Button, Indicator } from '@mantine/core';
 import { IconShoppingCart } from '@tabler/icons-react';
 import classes from './Header.module.css';
 
-export default function CartButton() {
-  const cartDisabled = true;
-
+export default function CartButton({ disabled }: any) {
   return (
     <Button
       className={classes.button}
-      disabled={cartDisabled}
+      disabled={disabled}
       variant="transparent"
       leftSection={
         <Indicator
@@ -16,7 +14,7 @@ export default function CartButton() {
           label="0"
           radius="xl"
           size="16"
-          color={cartDisabled ? 'var(--mantine-color-teal-1)' : 'var(--mantine-color-teal-6'}
+          color={disabled ? 'var(--mantine-color-teal-1)' : 'var(--mantine-color-teal-6'}
         >
           <IconShoppingCart size={25} />
         </Indicator>
