@@ -31,8 +31,11 @@ export default function Header() {
 
         {/* Button-Row Right-Side */}
         <Flex className={`${classes['button-row']} ${classes['button-row-right']}`}>
-          <CartButton />
-          <Button variant="transparent" className={classes.button}>
+          <CartButton disabled />
+          <Button
+            variant="transparent"
+            className={`${classes.button} ${classes['button-register']}`}
+          >
             Register
           </Button>
           <Button variant="transparent" className={classes.button}>
