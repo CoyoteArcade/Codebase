@@ -18,6 +18,13 @@ initializeApp(firebaseConfig);
 
 const db = getFirestore();
 
+/**
+ * Get all games or games that match a specific query.
+ * @param {Object} q - Query object with property and value to filter games.
+ * @param {string} q.prop - Property to filter games.
+ * @param {string} q.val - Value to filter games.
+ * @returns {Array} - Array of game objects.
+ */
 const getGames = async (q=undefined) => {
     const gamesCol = collection(db, "games");
     let gameSnapshot;
@@ -35,6 +42,11 @@ const getGames = async (q=undefined) => {
     return gameList;
 };
 
+/**
+ * Get all games that belong to a specific category.
+ * @param {string} category - Category to filter games.
+ * @returns {Array} - Array of game objects.
+ */
 const getCategory = async (category=undefined) => {
     if(category === undefined) return;
     const gamesCol = collection(db, "games");
@@ -47,37 +59,27 @@ const getCategory = async (category=undefined) => {
     return gameList;
 };
 
-const addGame = async (game) => {
-    // Add a new document with a generated id.
-    // game =  { Title: string, Description: string, Category: [string], "Publisher/Developer": string, Rating: integer, "Release Date": string, "Screenshots/Images": [string], "System Requirements": { Graphics: string, Memory: string, OS: string, Processor: string, Storage: string } };
+/**
+ * Add a new game to the database.
+ * @param {Object} game - Game object to add to the database.
+ * @param {string} game.Title - Title of the game.
+ * @param {string} game.Description - Description of the game.
+ * @param {Array} game.Category - Array of categories the game belongs to.
+ * @param {string} game.Publisher/Developer - Publisher or developer of the game.
+ * @param {number} game.Rating - Rating of the game.
+ * @param {string} game.Release Date - Release date of the game.
+ * @param {Array} game.Screenshots/Images - Array of URLs for screenshots or images of the game.
+ * @param {Object} game.System Requirements - Object containing system requirements for the game.
+ * @param {string} game.System Requirements.Graphics - Graphics card required for the game.
+ * @param {string} game.System Requirements.Memory - Amount of memory required for the game.
+ * @param {string} game.System Requirements.OS - Operating system required for the game.
+ * @param {string} game.System Requirements.Processor - Processor required for the game.
+ * @param {string} game.System Requirements.Storage - Amount of storage required for the game.
+ */
+const addGame = async (game=undefined) => {
+    if(game === undefined) return;
     const docRef = await addDoc(collection(db, "games"), game);
     console.log("Document written with ID: ", docRef.id);
 };
-
-// const newGame = {
-//     Title: "Cyberpunk 2077",
-//     Description: "Cyberpunk 2077 is an open-world, action-adventure story set in Night City, a megalopolis obsessed with power, glamour and body modification. You play as V, a mercenary outlaw going after a one-of-a-kind implant that is the key to immortality. You can customize your character’s cyberware, skillset and playstyle, and explore a vast city where the choices you make shape the story and the world around you.",
-//     Category: ["Action", "Adventure", "RPG"],
-//     "Publisher/Developer": "CD Projekt Red",
-//     Rating: 44,
-//     "Release Date": "2020-12-10",
-//     "Screenshots/Images": ["https://cdn.cloudflare.steamstatic.com/steam/apps/1091500/ss_3a0d6d1c7f8b8f9e6b9c7b7b3b6d7b9b2a4f7f7b.jpg?t=1633018251", "https://cdn.cloudflare.steamstatic.com/steam/apps/1091500/ss_4a9b6c1e4e1f6e9a0e1c8b4b7a9c7b1b5b7f7f7b.jpg?t=1633018251", "https://cdn.cloudflare.steamstatic.com/steam/apps/1091500/ss_7e3a9a1f4c4d3d8e0e8f8b3b9a6d7b1b7b4f7f7b.jpg?t=1633018251"],
-//     "System Requirements": {
-//         Graphics: "NVIDIA GeForce GTX 780 3GB / AMD Radeon RX 470",
-//         Memory: "8 GB",
-//         OS: "Windows 10 64-bit",
-//         Processor: "Intel Core i5-3570K / AMD FX-8310",
-//         Storage: "70 GB"
-//     }
-// }
-
-// addGame(newGame).then(() => {
-//     console.log("Game added");
-// });
-
-// getGames().then(games => {
-//     console.log(games);
-//     process.exit();
-// });
 
 module.exports = { getGames, addGame, getCategory };
