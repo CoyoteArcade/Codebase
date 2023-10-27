@@ -1,0 +1,26 @@
+.shop {
+  padding: 20px;
+}
+
+.heading {
+  margin-bottom: rem(15px);
+
+  &:is(h2) {
+    @media (max-width: $mantine-breakpoint-sm) {
+      font-size: var(--mantine-font-size-xl);
+      line-height: var(--mantine-line-height-xl);
+    }
+  }
+
+  &:is(h3) {
+    @media (max-width: $mantine-breakpoint-sm) {
+      font-size: var(--mantine-font-size-lg);
+      line-height: var(--mantine-line-height-md);
+    }
+  }
+}
+
+.categories {
+  margin: 0 auto;
+  max-width: rem(1500px);
+}

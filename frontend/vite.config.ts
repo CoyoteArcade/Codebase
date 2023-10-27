@@ -16,10 +16,14 @@ export default defineConfig({
 
         // Google Fonts to Import
         families: [
-          'Gajraj One',
           {
-            name: 'Work Sans',
+            name: 'Gabarito',
             styles: 'wght@200;400;500;600;700',
+            defer: true,
+          },
+          {
+            name: 'Orbitron',
+            styles: 'wght@900',
             defer: true,
           },
         ],

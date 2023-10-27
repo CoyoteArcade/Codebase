@@ -18,10 +18,14 @@ export const theme = createTheme({
   },
   primaryColor: 'coyote-blue',
   primaryShade: {
-    light: 4,
+    light: 6,
     dark: 7,
   },
 
+  breakpoints: {
+    xxl: '100em',
+  },
+
   fontFamily:
-    'Work Sans, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji',
+    'Gabarito, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji',
 });

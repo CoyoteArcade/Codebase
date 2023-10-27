@@ -14,8 +14,8 @@
 }
 
 .text {
-  font-family: 'Gajraj One';
-  font-weight: 700;
+  font-family: 'Orbitron';
+  font-weight: 900;
   font-size: var(--mantine-h2-font-size);
   line-height: 1;
 }
