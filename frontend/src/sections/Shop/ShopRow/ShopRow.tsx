@@ -8,27 +8,25 @@ import GameCardSimple from '../GameCard/GameCardSimple';
 
 import classes from './ShopRow.module.css';
 
-import gameData from '../games.json';
+// import gameData from '../games.json';
 
-function GameRow({ category }: any) {
+function GameRow({ gameData, category }: any) {
   const isMobile = useMediaQuery(`(max-width: ${em(768)}`);
 
   const controlSize = isMobile ? 25 : 30;
   const iconSize = isMobile ? 12 : 16;
 
-  const games = gameData.filter((gameObj) => {
+  const games = gameData.filter((gameObj: any) => {
     return gameObj.Category.includes(category);
   });
 
-  const gameList = games.map((game) => (
+  const gameList = games.map((game: any) => (
     <Carousel.Slide>
       <GameCardSimple gameObj={game} />
     </Carousel.Slide>
   ));
 
-  return games.length === 0 ? (
-    <></>
-  ) : (
+  return (
     <MantineProvider
       theme={{
         components: {
