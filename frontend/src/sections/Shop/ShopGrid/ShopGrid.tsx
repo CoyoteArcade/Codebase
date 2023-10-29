@@ -4,7 +4,36 @@ import GameCard from '../GameCard/GameCard';
 
 import classes from './ShopGrid.module.css';
 
-import games from '../games.json';
+import games from '@/sections/Shop/games.json';
+import { getGames, getCategory } from '@/api/index';
+
+// getGames().then(games => {
+//     console.log(games);
+// });
+
+// let q = {
+//     prop: "Title",
+//     val: "Cyberpunk 2077"
+// };
+
+// getGames(q).then(games => {
+//     console.log("Query:", q.prop, "==", q.val);
+//     console.log(games);
+// });
+
+const main = async () => {
+  try {
+    const gamesData = await getGames();
+    let arrayThing = gamesData;
+    const actionGames = await getCategory('Multiplayer');
+    console.log(arrayThing);
+    return actionGames[0];
+  } catch (error: any) {
+    throw new Error(error);
+  }
+};
+
+main();
 
 function GameGrid() {
   const gameList = games.map((game) => (

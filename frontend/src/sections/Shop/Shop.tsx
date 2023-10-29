@@ -18,15 +18,11 @@ export default function Shop() {
       }}
     >
       <Box className={classes.shop}>
-        <Stack className={classes.categories} mb={rem('50px')}>
-          <Box>
-            <Title order={3}>Category One</Title>
-            <ShopRow />
-          </Box>
-          <Box>
-            <Title order={3}>Category Two</Title>
-            <ShopRow />
-          </Box>
+        <Stack className={classes.categories} my={rem('50px')}>
+          <ShopRow category={'FPS'} />
+          <ShopRow category={'Multiplayer'} />
+          <ShopRow category={'DoesNotExist'} />
+          <ShopRow category={'Action'} />
         </Stack>
 
         <Title order={2}>All Games</Title>
