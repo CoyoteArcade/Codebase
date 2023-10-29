@@ -16,8 +16,8 @@ function GameRow() {
   const controlSize = isMobile ? 25 : 30;
   const iconSize = isMobile ? 12 : 16;
 
-  const gameList = games.map((game) => (
-    <Carousel.Slide>
+  const gameList = games.map((game, idx) => (
+    <Carousel.Slide key={idx}>
       <GameCardSimple gameObj={game} />
     </Carousel.Slide>
   ));
