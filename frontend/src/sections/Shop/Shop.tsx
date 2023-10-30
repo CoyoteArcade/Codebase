@@ -1,14 +1,20 @@
 import { Box, Title, Stack, MantineProvider, rem } from '@mantine/core';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ShopGrid from './ShopGrid/ShopGrid';
 import ShopCategories from './ShopCategories/ShopCategories';
 
+
 import classes from './Shop.module.css';
-import gamesData from '@/assets/games.json';
-import { getGames, getCategory } from '@/api/index';
 
 export default function Shop() {
-  const [games, setGameData] = useState(gamesData);
+  const [games, setGameData] = useState([]);
+
+  useEffect(() => {
+      fetch('http://localhost:3000/games')
+      .then(response => response.json())
+      .then(data => setGameData(data))
+      .catch(error => console.log(error));
+  }, []);
 
   // const main = async () => {
   //   const games = await getGames();

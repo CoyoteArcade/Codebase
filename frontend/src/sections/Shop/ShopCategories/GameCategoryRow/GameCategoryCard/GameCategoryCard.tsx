@@ -55,7 +55,7 @@ function GameCategoryCard({ gameObj }: any) {
             ref={ref}
             // mb={height > parseInt(`${px('2em')}`, 10) ? '0' : '1.5em'} // Whitespace for one-line titles only
           >
-            {`${title}`}
+            {`${gameObj.Title}`}
           </Text>
         </Group>
 
@@ -67,7 +67,7 @@ function GameCategoryCard({ gameObj }: any) {
           c="dimmed"
           lineClamp={isMobile ? descHeight.mobile : descHeight.desktop}
         >
-          {description}
+          {gameObj.Description}
         </Text>
       </Stack>
     </Card>

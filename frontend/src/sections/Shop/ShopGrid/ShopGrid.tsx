@@ -4,9 +4,6 @@ import ShopGridCard from './ShopGridCard/ShopGridCard';
 
 import classes from './ShopGrid.module.css';
 
-// import games from '@/sections/Shop/games.json';
-import { getGames, getCategory } from '@/api/index';
-
 function GameGrid({ gameData }: any) {
   // Rendered game grid
   const gameList = gameData.map((game: any) => (

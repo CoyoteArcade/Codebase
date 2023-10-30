@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import { getGames, addGame, getCategory } from './index.js'; // Replace 'yourProvidedCodeFile' with the name of the file that contains the provided code.
+import { getGames, addGame, getCategory } from './index.js';
 
 const app = express();
 const PORT = 3000;
