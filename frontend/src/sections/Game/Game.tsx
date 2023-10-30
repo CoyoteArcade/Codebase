@@ -10,19 +10,19 @@ export function Game() {
 
     return (
         <div>
-            <h1>Title: {game.Title}</h1>
-            <p>Description: {game.Description}</p>
-            <p>Release Date: {game["Release Date"]}</p>
-            <p>Developer: {game["Publisher/Developer"]}</p>
-            <p>Rating: {game.Rating}</p>
+            <h1>Title: {game.Title || "Unknown"}</h1>
+            <p>Description: {game.Description || "Unknown"}</p>
+            <p>Release Date: {game["Release Date"] || "Unknown"}</p>
+            <p>Developer: {game["Publisher/Developer"] || "Unknown"}</p>
+            <p>Rating: {game.Rating || "Unknown"}</p>
             <div>
             <h2>System Requirements</h2>
                 <ul>
-                    <li>Graphics: {game["System Requirements"].Graphics}</li>
-                    <li>OS: {game["System Requirements"].OS}</li>
-                    <li>Storage: {game["System Requirements"].Storage}</li>
-                    <li>Memory: {game["System Requirements"].Memory}</li>
-                    <li>Processor: {game["System Requirements"].Processor}</li>
+                    <li>Graphics: {game["System Requirements"].Graphics || "Unknown"}</li>
+                    <li>OS: {game["System Requirements"].OS || "Unknown"}</li>
+                    <li>Storage: {game["System Requirements"].Storage || "Unknown"}</li>
+                    <li>Memory: {game["System Requirements"].Memory || "Unknown"}</li>
+                    <li>Processor: {game["System Requirements"].Processor || "Unknown"}</li>
                 </ul>
             </div>
         </div>
