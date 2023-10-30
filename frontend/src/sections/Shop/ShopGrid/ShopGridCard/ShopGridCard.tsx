@@ -4,12 +4,16 @@ import { useMediaQuery, useElementSize } from '@mantine/hooks';
 import ButtonCart from './CardButtons/ButtonCart';
 import ButtonFav from './CardButtons/ButtonFav';
 
-import classes from './GameCard.module.css';
+import classes from './ShopGridCard.module.css';
 
-function GameCard({ gameObj }: any) {
+function ShopGridCard({ gameObj }: any) {
   const isMobile = useMediaQuery(`(max-width: ${em(768)}`);
 
   /***** Card Variable Settings *****/
+  const { id } = gameObj;
+  const title = gameObj.Title;
+  const description = gameObj.Description;
+  let genres = [...gameObj.Category];
 
   /** GAME TITLE */
   const titleHeight = 2;
@@ -23,17 +27,15 @@ function GameCard({ gameObj }: any) {
 
   /** BADGES */
   const badgeSize = isMobile ? 'xs' : 'md';
-  //---- Price Badge
-  const priceText = gameObj.price > 0 ? `$${gameObj.price}` : 'Free';
-  //---- Genre Badges
-  const genres = gameObj.genre.slice(0, 2).map((genre = '', idx:number) => (
-    <Badge size={badgeSize} color="grey" variant="light" key={idx}>
+  // const priceText = gameObj.price > 0 ? `$${gameObj.price}` : 'Free';
+  genres = genres.slice(0, 2).map((genre = '', idx) => (
+    <Badge key={idx} size={badgeSize} color="grey" variant="light">
       {genre}
     </Badge>
   ));
 
   /** GAME BODY/DESCRIPTION */
-  const bodyHeight = { mobile: 3, desktop: 4 };
+  const descHeight = { mobile: 3, desktop: 3 };
 
   /** ACTION BUTTONS */
   const buttonSize = isMobile ? 'lg' : 'xl';
@@ -47,12 +49,8 @@ function GameCard({ gameObj }: any) {
         <AspectRatio ratio={aspectRatio} className={classes['card-banner']}>
           <Image
             className={classes['card-banner-img']}
-            src={
-              'banner' in gameObj
-                ? gameObj.banner.src
-                : 'https://placehold.co/1600x900?text=Game\\nBanner'
-            }
-            alt={'banner' in gameObj ? gameObj.banner.alt : 'Game Banner'}
+            src={`https://placehold.co/1600x900/457EAC/FFF?text=${title}`}
+            alt={title}
             w={bannerFilled ? '100%' : 'auto'}
             loading="lazy"
           />
@@ -68,20 +66,20 @@ function GameCard({ gameObj }: any) {
             className={classes['card-content-upper-title']}
             lineClamp={titleHeight}
             ref={ref}
-            mb={height > parseInt(`${px('2em')}`, 10) ? '0' : '1.5em'} // Whitespace for one-line titles only
+            // mb={height > parseInt(`${px('2em')}`, 10) ? '0' : '1.5em'} // Whitespace for one-line titles only
           >
-            {`${gameObj.title}`}
+            {`${title}`}
           </Text>
 
           {/* PRICE BADGE */}
-          <Badge
+          {/* <Badge
             className={classes['card-content-upper-price']}
             size={badgeSize}
             color="dark"
             variant="light"
           >
             {priceText}
-          </Badge>
+          </Badge> */}
         </Group>
 
         {/* --Lower Content-- */}
@@ -90,13 +88,13 @@ function GameCard({ gameObj }: any) {
           {genres}
         </Group>
 
-        {/* BODY/DESCPIPTION */}
+        {/* DESCPIPTION */}
         <Text
           className={classes['card-content-body']}
           c="dimmed"
-          lineClamp={isMobile ? bodyHeight.mobile : bodyHeight.desktop}
+          lineClamp={isMobile ? descHeight.mobile : descHeight.desktop}
         >
-          {gameObj.description}
+          {description}
         </Text>
 
         {/* ACTION BUTTONS */}
@@ -111,4 +109,4 @@ function GameCard({ gameObj }: any) {
   );
 }
 
-export default GameCard;
+export default ShopGridCard;

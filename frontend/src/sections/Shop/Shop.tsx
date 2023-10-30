@@ -1,10 +1,25 @@
 import { Box, Title, Stack, MantineProvider, rem } from '@mantine/core';
+import { useState } from 'react';
 import ShopGrid from './ShopGrid/ShopGrid';
-import ShopRow from './ShopRow/ShopRow';
+import ShopCategories from './ShopCategories/ShopCategories';
 
 import classes from './Shop.module.css';
+import gamesData from '@/assets/games.json';
+import { getGames, getCategory } from '@/api/index';
 
 export default function Shop() {
+  const [games, setGameData] = useState(gamesData);
+
+  // const main = async () => {
+  //   const games = await getGames();
+  //   let arrayThing = games;
+  //   console.log(arrayThing);
+  //   const actionGames = await getCategory('Multiplayer');
+  //   console.log(actionGames[0]);
+  // };
+
+  // main();
+
   return (
     <MantineProvider
       theme={{
@@ -18,19 +33,8 @@ export default function Shop() {
       }}
     >
       <Box className={classes.shop}>
-        <Stack className={classes.categories} mb={rem('50px')}>
-          <Box>
-            <Title order={3}>Category One</Title>
-            <ShopRow />
-          </Box>
-          <Box>
-            <Title order={3}>Category Two</Title>
-            <ShopRow />
-          </Box>
-        </Stack>
-
-        <Title order={2}>All Games</Title>
-        <ShopGrid />
+        <ShopCategories gameData={games} />
+        <ShopGrid gameData={games} />
       </Box>
     </MantineProvider>
   );
