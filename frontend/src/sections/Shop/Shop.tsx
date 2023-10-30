@@ -10,7 +10,7 @@ export default function Shop() {
   const [games, setGameData] = useState([]);
 
   useEffect(() => {
-      fetch('http://localhost:3000/games')
+      fetch('https://delightful-sombrero-slug.cyclic.app/games')
       .then(response => response.json())
       .then(data => setGameData(data))
       .catch(error => console.log(error));
