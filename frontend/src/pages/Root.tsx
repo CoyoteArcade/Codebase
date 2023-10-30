@@ -9,6 +9,7 @@ export default function RootPage() {
     <>
       <Header />
       <Hero />
+      {/* Add Navbar */}
       <Shop />
       <Footer />
     </>
