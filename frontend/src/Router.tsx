@@ -5,6 +5,7 @@ import About from './pages/About';
 import ErrorPage from './pages/ErrorPage';
 import {loader as gamesLoader} from './pages/Root';
 import {Game} from './sections/Game/Game';
+import {Search} from './sections/Search/Search';
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,14 @@ const router = createBrowserRouter([
       {
         path: '/games/:id',
         element: <Game />,
+      },
+      {
+        path: '/search/:query',
+        element: <Search />
+      },
+      {
+        path: '*',
+        element: <ErrorPage />,
       }
     ],
     errorElement: <ErrorPage />,
