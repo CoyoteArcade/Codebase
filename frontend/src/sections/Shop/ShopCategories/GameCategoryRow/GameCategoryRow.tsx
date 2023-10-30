@@ -4,15 +4,11 @@ import { useMediaQuery } from '@mantine/hooks';
 import { IconArrowRight, IconArrowLeft } from '@tabler/icons-react';
 import '@mantine/carousel/styles.css';
 
-import GameCardSimple from '../GameCard/GameCardSimple';
+import GameCategoryCard from './GameCategoryCard/GameCategoryCard';
+import classes from './GameCategoryRow.module.css';
 
-import classes from './ShopRow.module.css';
-
-// import gameData from '../games.json';
-
-function GameRow({ gameData, category }: any) {
+function GameCategoryRow({ gameData, category }: any) {
   const isMobile = useMediaQuery(`(max-width: ${em(768)}`);
-
   const controlSize = isMobile ? 25 : 30;
   const iconSize = isMobile ? 12 : 16;
 
@@ -20,9 +16,9 @@ function GameRow({ gameData, category }: any) {
     return gameObj.Category.includes(category);
   });
 
-  const gameList = games.map((game: any) => (
-    <Carousel.Slide>
-      <GameCardSimple gameObj={game} />
+  const categoryGames = games.map((game: any) => (
+    <Carousel.Slide key={game.id}>
+      <GameCategoryCard gameObj={game} />
     </Carousel.Slide>
   ));
 
@@ -60,11 +56,11 @@ function GameRow({ gameData, category }: any) {
           align="start"
           slidesToScroll="auto"
         >
-          {gameList}
+          {categoryGames}
         </Carousel>
       </Box>
     </MantineProvider>
   );
 }
 
-export default GameRow;
+export default GameCategoryRow;

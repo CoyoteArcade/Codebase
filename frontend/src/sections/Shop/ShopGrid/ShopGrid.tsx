@@ -1,6 +1,6 @@
 import { Grid } from '@mantine/core';
 
-import GameCard from '../GameCard/GameCard';
+import ShopGridCard from './ShopGridCard/ShopGridCard';
 
 import classes from './ShopGrid.module.css';
 
@@ -9,8 +9,8 @@ import { getGames, getCategory } from '@/api/index';
 
 function GameGrid({ gameData }: any) {
   const gameList = gameData.map((game: any) => (
-    <Grid.Col span={{ base: 6, xs: 4, sm: 4, md: 4, lg: 3, xl: 3, xxl: 2.4 }}>
-      <GameCard gameObj={game} />
+    <Grid.Col key={game.id} span={{ base: 6, xs: 4, sm: 4, md: 4, lg: 3, xl: 3, xxl: 2.4 }}>
+      <ShopGridCard gameObj={game} />
     </Grid.Col>
   ));
 

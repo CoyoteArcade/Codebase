@@ -1,15 +1,19 @@
-import { Card, Image, Text, Group, Stack, AspectRatio, em, px } from '@mantine/core';
+import { Card, Image, Text, Badge, Group, Stack, AspectRatio, em, px } from '@mantine/core';
 import { useMediaQuery, useElementSize } from '@mantine/hooks';
 
-import classes from './GameCard.module.css';
+import ButtonCart from './CardButtons/ButtonCart';
+import ButtonFav from './CardButtons/ButtonFav';
 
-function GameCard({ gameObj }: any) {
+import classes from './ShopGridCard.module.css';
+
+function ShopGridCard({ gameObj }: any) {
   const isMobile = useMediaQuery(`(max-width: ${em(768)}`);
 
   /***** Card Variable Settings *****/
   const { id } = gameObj;
   const title = gameObj.Title;
   const description = gameObj.Description;
+  let genres = [...gameObj.Category];
 
   /** GAME TITLE */
   const titleHeight = 2;
@@ -21,22 +25,31 @@ function GameCard({ gameObj }: any) {
   const aspectRatio = 16 / 10;
   const bannerFilled = true;
 
+  /** BADGES */
+  const badgeSize = isMobile ? 'xs' : 'md';
+  // const priceText = gameObj.price > 0 ? `$${gameObj.price}` : 'Free';
+  genres = genres.slice(0, 2).map((genre = '', idx) => (
+    <Badge key={idx} size={badgeSize} color="grey" variant="light">
+      {genre}
+    </Badge>
+  ));
+
   /** GAME BODY/DESCRIPTION */
-  const descHeight = { mobile: 2, desktop: 3 };
+  const descHeight = { mobile: 3, desktop: 4 };
+
+  /** ACTION BUTTONS */
+  const buttonSize = isMobile ? 'lg' : 'xl';
+  //---- Cart Action
+  const cartDisabled = gameObj.price <= 0;
 
   return (
-    <Card
-      className={`${classes.card} ${classes['card-simple']}`}
-      shadow="lg"
-      radius="md"
-      withBorder
-    >
+    <Card className={classes.card} shadow="lg" radius="md" withBorder>
       {/* GAME BANNER */}
       <Card.Section>
         <AspectRatio ratio={aspectRatio} className={classes['card-banner']}>
           <Image
             className={classes['card-banner-img']}
-            src={`https://placehold.co/1600x900?text=${title}`}
+            src={`https://placehold.co/1600x900/457EAC/FFF?text=${title}`}
             alt={title}
             w={bannerFilled ? '100%' : 'auto'}
             loading="lazy"
@@ -57,11 +70,25 @@ function GameCard({ gameObj }: any) {
           >
             {`${title}`}
           </Text>
+
+          {/* PRICE BADGE */}
+          {/* <Badge
+            className={classes['card-content-upper-price']}
+            size={badgeSize}
+            color="dark"
+            variant="light"
+          >
+            {priceText}
+          </Badge> */}
         </Group>
 
         {/* --Lower Content-- */}
+        {/* GENRE BADGES */}
+        <Group gap="xs" wrap="wrap">
+          {genres}
+        </Group>
 
-        {/* BODY/DESCPIPTION */}
+        {/* DESCPIPTION */}
         <Text
           className={classes['card-content-body']}
           c="dimmed"
@@ -69,9 +96,17 @@ function GameCard({ gameObj }: any) {
         >
           {description}
         </Text>
+
+        {/* ACTION BUTTONS */}
+        <Group justify="space-between" wrap="nowrap">
+          {/* Fav Action */}
+          <ButtonFav size={buttonSize} />
+          {/* Cart Action */}
+          <ButtonCart size={buttonSize} disabled={cartDisabled} />
+        </Group>
       </Stack>
     </Card>
   );
 }
 
-export default GameCard;
+export default ShopGridCard;
