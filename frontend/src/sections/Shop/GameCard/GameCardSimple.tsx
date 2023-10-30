@@ -56,7 +56,7 @@ function GameCard({ gameObj }: any) {
             ref={ref}
             mb={height > parseInt(`${px('2em')}`, 10) ? '0' : '1.5em'} // Whitespace for one-line titles only
           >
-            {`${gameObj.title}`}
+            {`${gameObj.Title}`}
           </Text>
         </Group>
 
@@ -68,7 +68,7 @@ function GameCard({ gameObj }: any) {
           c="dimmed"
           lineClamp={isMobile ? bodyHeight.mobile : bodyHeight.desktop}
         >
-          {gameObj.description}
+          {gameObj.Description}
         </Text>
       </Stack>
     </Card>

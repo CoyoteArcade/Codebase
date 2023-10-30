@@ -10,13 +10,13 @@ import classes from './ShopRow.module.css';
 
 import games from '../games.json';
 
-function GameRow() {
+function GameRow({gameData}:any) {
   const isMobile = useMediaQuery(`(max-width: ${em(768)}`);
 
   const controlSize = isMobile ? 25 : 30;
   const iconSize = isMobile ? 12 : 16;
 
-  const gameList = games.map((game, idx) => (
+  const gameList = gameData.map((game:any, idx:number) => (
     <Carousel.Slide key={idx}>
       <GameCardSimple gameObj={game} />
     </Carousel.Slide>
