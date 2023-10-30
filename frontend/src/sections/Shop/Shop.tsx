@@ -1,26 +1,26 @@
 import { Box, Title, Stack, MantineProvider, rem } from '@mantine/core';
+import { useState } from 'react';
 import ShopGrid from './ShopGrid/ShopGrid';
-import ShopRow from './ShopRow/ShopRow';
+import ShopCategories from './ShopCategories/ShopCategories';
 
 import { useEffect, useState } from 'react';
 
 import classes from './Shop.module.css';
+import gamesData from '@/assets/games.json';
+import { getGames, getCategory } from '@/api/index';
 
 export default function Shop() {
-  const [gameData, setGameData] = useState([]);
+  const [games, setGameData] = useState(gamesData);
 
-  useEffect(() => {
-    fetch('http://localhost:3000/games')
-    .then(response => response.json())
-    .then(data => {
-      console.log(data); // This will print the list of games.
-      setGameData(data);
-    })
-    .catch(error => {
-      console.error('Error fetching games:', error);
-    });
-  }, []);
+  // const main = async () => {
+  //   const games = await getGames();
+  //   let arrayThing = games;
+  //   console.log(arrayThing);
+  //   const actionGames = await getCategory('Multiplayer');
+  //   console.log(actionGames[0]);
+  // };
 
+  // main();
 
   return (
     <MantineProvider
@@ -35,19 +35,8 @@ export default function Shop() {
       }}
     >
       <Box className={classes.shop}>
-        <Stack className={classes.categories} mb={rem('50px')}>
-          <Box>
-            <Title order={3}>Category One</Title>
-            <ShopRow gameData={gameData}/>
-          </Box>
-          <Box>
-            <Title order={3}>Category Two</Title>
-            <ShopRow gameData={gameData}/>
-          </Box>
-        </Stack>
-
-        <Title order={2}>All Games</Title>
-        <ShopGrid />
+        <ShopCategories gameData={games} />
+        <ShopGrid gameData={games} />
       </Box>
     </MantineProvider>
   );

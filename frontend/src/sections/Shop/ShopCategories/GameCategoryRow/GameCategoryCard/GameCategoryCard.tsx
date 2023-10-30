@@ -1,12 +1,15 @@
 import { Card, Image, Text, Group, Stack, AspectRatio, em, px } from '@mantine/core';
 import { useMediaQuery, useElementSize } from '@mantine/hooks';
 
-import classes from './GameCard.module.css';
+import classes from './GameCategoryCard.module.css';
 
-function GameCard({ gameObj }: any) {
+function GameCategoryCard({ gameObj }: any) {
   const isMobile = useMediaQuery(`(max-width: ${em(768)}`);
 
   /***** Card Variable Settings *****/
+  const { id } = gameObj;
+  const title = gameObj.Title;
+  const description = gameObj.Description;
 
   /** GAME TITLE */
   const titleHeight = 2;
@@ -19,7 +22,7 @@ function GameCard({ gameObj }: any) {
   const bannerFilled = true;
 
   /** GAME BODY/DESCRIPTION */
-  const bodyHeight = { mobile: 2, desktop: 3 };
+  const descHeight = { mobile: 2, desktop: 3 };
 
   return (
     <Card
@@ -33,12 +36,8 @@ function GameCard({ gameObj }: any) {
         <AspectRatio ratio={aspectRatio} className={classes['card-banner']}>
           <Image
             className={classes['card-banner-img']}
-            src={
-              'banner' in gameObj
-                ? gameObj.banner.src
-                : 'https://placehold.co/1600x900?text=Game\\nBanner'
-            }
-            alt={'banner' in gameObj ? gameObj.banner.alt : 'Game Banner'}
+            src={`https://placehold.co/1600x900?text=${title}`}
+            alt={title}
             w={bannerFilled ? '100%' : 'auto'}
             loading="lazy"
           />
@@ -54,9 +53,13 @@ function GameCard({ gameObj }: any) {
             className={classes['card-content-upper-title']}
             lineClamp={titleHeight}
             ref={ref}
-            mb={height > parseInt(`${px('2em')}`, 10) ? '0' : '1.5em'} // Whitespace for one-line titles only
+            // mb={height > parseInt(`${px('2em')}`, 10) ? '0' : '1.5em'} // Whitespace for one-line titles only
           >
+<<<<<<< HEAD:frontend/src/sections/Shop/GameCard/GameCardSimple.tsx
             {`${gameObj.Title}`}
+=======
+            {`${title}`}
+>>>>>>> origin/main:frontend/src/sections/Shop/ShopCategories/GameCategoryRow/GameCategoryCard/GameCategoryCard.tsx
           </Text>
         </Group>
 
@@ -66,13 +69,17 @@ function GameCard({ gameObj }: any) {
         <Text
           className={classes['card-content-body']}
           c="dimmed"
-          lineClamp={isMobile ? bodyHeight.mobile : bodyHeight.desktop}
+          lineClamp={isMobile ? descHeight.mobile : descHeight.desktop}
         >
+<<<<<<< HEAD:frontend/src/sections/Shop/GameCard/GameCardSimple.tsx
           {gameObj.Description}
+=======
+          {description}
+>>>>>>> origin/main:frontend/src/sections/Shop/ShopCategories/GameCategoryRow/GameCategoryCard/GameCategoryCard.tsx
         </Text>
       </Stack>
     </Card>
   );
 }
 
-export default GameCard;
+export default GameCategoryCard;
