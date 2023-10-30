@@ -26,8 +26,8 @@ function GameCard({ gameObj }: any) {
   //---- Price Badge
   const priceText = gameObj.price > 0 ? `$${gameObj.price}` : 'Free';
   //---- Genre Badges
-  const genres = gameObj.genre.slice(0, 2).map((genre = '') => (
-    <Badge size={badgeSize} color="grey" variant="light">
+  const genres = gameObj.genre.slice(0, 2).map((genre = '', idx:number) => (
+    <Badge size={badgeSize} color="grey" variant="light" key={idx}>
       {genre}
     </Badge>
   ));

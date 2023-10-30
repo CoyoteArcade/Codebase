@@ -1,8 +1,8 @@
 
-const { getFirestore, collection, getDocs, addDoc, query, where } = require("firebase/firestore");
-const { initializeApp } = require("firebase/app");
+import { getFirestore, collection, getDocs, addDoc, query, where } from "firebase/firestore";
+import { initializeApp } from "firebase/app";
 
-require("dotenv").config();
+import  "dotenv/config";
 
 const firebaseConfig = {
     apiKey: process.env.FIREBASE_API_KEY,
@@ -82,4 +82,4 @@ const addGame = async (game=undefined) => {
     console.log("Document written with ID: ", docRef.id);
 };
 
-module.exports = { getGames, addGame, getCategory };
+export { getGames, addGame, getCategory };

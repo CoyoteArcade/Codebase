@@ -7,8 +7,8 @@ import classes from './ShopGrid.module.css';
 import games from '../games.json';
 
 function GameGrid() {
-  const gameList = games.map((game) => (
-    <Grid.Col span={{ base: 6, xs: 4, sm: 4, md: 4, lg: 3, xl: 3, xxl: 2.4 }}>
+  const gameList = games.map((game, idx) => (
+    <Grid.Col span={{ base: 6, xs: 4, sm: 4, md: 4, lg: 3, xl: 3, xxl: 2.4 }} key={idx}>
       <GameCard gameObj={game} />
     </Grid.Col>
   ));
