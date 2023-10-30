@@ -55,11 +55,7 @@ function GameCategoryCard({ gameObj }: any) {
             ref={ref}
             // mb={height > parseInt(`${px('2em')}`, 10) ? '0' : '1.5em'} // Whitespace for one-line titles only
           >
-<<<<<<< HEAD:frontend/src/sections/Shop/GameCard/GameCardSimple.tsx
             {`${gameObj.Title}`}
-=======
-            {`${title}`}
->>>>>>> origin/main:frontend/src/sections/Shop/ShopCategories/GameCategoryRow/GameCategoryCard/GameCategoryCard.tsx
           </Text>
         </Group>
 
@@ -71,11 +67,7 @@ function GameCategoryCard({ gameObj }: any) {
           c="dimmed"
           lineClamp={isMobile ? descHeight.mobile : descHeight.desktop}
         >
-<<<<<<< HEAD:frontend/src/sections/Shop/GameCard/GameCardSimple.tsx
           {gameObj.Description}
-=======
-          {description}
->>>>>>> origin/main:frontend/src/sections/Shop/ShopCategories/GameCategoryRow/GameCategoryCard/GameCategoryCard.tsx
         </Text>
       </Stack>
     </Card>
