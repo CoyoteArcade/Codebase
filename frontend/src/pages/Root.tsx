@@ -3,12 +3,13 @@ import Header from '../sections/Header/Header';
 // import Navbar from '../sections/Navbar/Navbar';
 // import Shop from '../sections/Shop/Shop';
 import Footer from '../sections/Footer/Footer';
+import { Outlet } from 'react-router-dom';
 
 export default function RootPage() {
   return (
     <>
       <Header />
-      {/* Add Navbar */}
+      <Outlet />
       <Footer />
     </>
   );
