@@ -4,7 +4,7 @@ import GameCategoryRow from './GameCategoryRow/GameCategoryRow';
 
 import classes from './ShopCategories.module.css';
 
-function ShopCategories({ gameData }: any) {
+function ShopCategories({ gameData, maxCategories }: { gameData: any; maxCategories?: number }) {
   const categories: Array<string> = [];
 
   for (const game of gameData) {
@@ -25,7 +25,7 @@ function ShopCategories({ gameData }: any) {
       <Title tt="uppercase" order={2} mb={rem('10px')}>
         Game Categories
       </Title>
-      {gameCategories}
+      {gameCategories.slice(0, maxCategories)}
     </Stack>
   );
 }

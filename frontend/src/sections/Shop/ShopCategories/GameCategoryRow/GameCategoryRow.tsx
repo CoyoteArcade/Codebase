@@ -15,7 +15,6 @@ function GameCategoryRow({ gameData, category }: any) {
   const games = gameData.filter((gameObj: any) => {
     return gameObj.Category.includes(category);
   });
-  console.log(games);
 
   const categoryGames = games.map((game: any) => (
     <Carousel.Slide key={game.id}>

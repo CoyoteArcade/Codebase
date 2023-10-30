@@ -3,11 +3,11 @@ import Hero from '../sections/Hero/Hero';
 import Shop from '../sections/Shop/Shop';
 
 export default function Home() {
-    return (
-        <>
-        <Hero />
-        {/* Add Navbar */}
-        <Shop />
-        </>
-    );
+  return (
+    <>
+      <Hero />
+      {/* Add Navbar */}
+      <Shop />
+    </>
+  );
 }
