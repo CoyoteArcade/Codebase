@@ -1,20 +1,22 @@
 import { Box, Title, Stack, MantineProvider, rem } from '@mantine/core';
-import { useEffect, useState } from 'react';
 import ShopGrid from './ShopGrid/ShopGrid';
 import ShopCategories from './ShopCategories/ShopCategories';
-
-
+import { useLoaderData } from 'react-router-dom';
 import classes from './Shop.module.css';
+import { useContext, useEffect, useState } from 'react';
+
+import { GamesContext } from '@/pages/Root';
 
 export default function Shop() {
-  const [games, setGameData] = useState([]);
+  const games:any = useContext(GamesContext);
+  // const [games, setGameData] = useState([]);
 
-  useEffect(() => {
-      fetch('https://delightful-sombrero-slug.cyclic.app/games')
-      .then(response => response.json())
-      .then(data => setGameData(data))
-      .catch(error => console.log(error));
-  }, []);
+  // useEffect(() => {
+  //     fetch('https://delightful-sombrero-slug.cyclic.app/games')
+  //     .then(response => response.json())
+  //     .then(data => setGameData(data))
+  //     .catch(error => console.log(error));
+  // }, []);
 
   // const main = async () => {
   //   const games = await getGames();
