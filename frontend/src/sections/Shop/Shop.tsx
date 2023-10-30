@@ -14,15 +14,6 @@ export default function Shop() {
   //   const games = await getGames();
   //   let arrayThing = games;
   //   console.log(arrayThing);
-  //   const categories: Array<string> = [];
-  //   for (const game of arrayThing) {
-  //     for (const item of game.Category.values()) {
-  //       if (!categories.includes(item)) {
-  //         categories.push(item);
-  //       }
-  //     }
-  //   }
-  //   console.log(categories);
   //   const actionGames = await getCategory('Multiplayer');
   //   console.log(actionGames[0]);
   // };
@@ -43,7 +34,6 @@ export default function Shop() {
     >
       <Box className={classes.shop}>
         <ShopCategories gameData={games} />
-        <Title order={2}>All Games</Title>
         <ShopGrid gameData={games} />
       </Box>
     </MantineProvider>

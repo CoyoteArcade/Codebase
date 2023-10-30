@@ -35,7 +35,7 @@ function ShopGridCard({ gameObj }: any) {
   ));
 
   /** GAME BODY/DESCRIPTION */
-  const descHeight = { mobile: 3, desktop: 4 };
+  const descHeight = { mobile: 3, desktop: 3 };
 
   /** ACTION BUTTONS */
   const buttonSize = isMobile ? 'lg' : 'xl';

@@ -15,6 +15,7 @@ function GameCategoryRow({ gameData, category }: any) {
   const games = gameData.filter((gameObj: any) => {
     return gameObj.Category.includes(category);
   });
+  console.log(games);
 
   const categoryGames = games.map((game: any) => (
     <Carousel.Slide key={game.id}>
@@ -23,43 +24,29 @@ function GameCategoryRow({ gameData, category }: any) {
   ));
 
   return (
-    <MantineProvider
-      theme={{
-        components: {
-          Title: Title.extend({
-            classNames: {
-              root: classes.heading,
-            },
-          }),
-        },
-      }}
-    >
-      <Box>
-        <Title tt="uppercase" order={3} mb={rem('20px')}>
-          {category} Games
-        </Title>
-        <Carousel
-          classNames={classes}
-          height="100%"
-          w="100%"
-          controlSize={controlSize}
-          controlsOffset="xs"
-          draggable={isMobile}
-          nextControlIcon={
-            <IconArrowRight style={{ width: rem(iconSize), height: rem(iconSize) }} />
-          }
-          previousControlIcon={
-            <IconArrowLeft style={{ width: rem(iconSize), height: rem(iconSize) }} />
-          }
-          slideSize={{ base: '50%', xs: '33.333333%', sm: '33.333333%', md: '25%', lg: '20%' }}
-          slideGap={{ base: '5', sm: 'md', lg: 'lg' }}
-          align="start"
-          slidesToScroll="auto"
-        >
-          {categoryGames}
-        </Carousel>
-      </Box>
-    </MantineProvider>
+    <Box>
+      <Title tt="capitalize" order={3} mb={rem('20px')}>
+        {category} Games
+      </Title>
+      <Carousel
+        classNames={classes}
+        height="100%"
+        w="100%"
+        controlSize={controlSize}
+        controlsOffset="xs"
+        draggable={isMobile}
+        nextControlIcon={<IconArrowRight style={{ width: rem(iconSize), height: rem(iconSize) }} />}
+        previousControlIcon={
+          <IconArrowLeft style={{ width: rem(iconSize), height: rem(iconSize) }} />
+        }
+        slideSize={{ base: '50%', xs: '33.333333%', sm: '33.333333%', md: '25%', lg: '20%' }}
+        slideGap={{ base: '5', sm: 'md', lg: 'lg' }}
+        align="start"
+        slidesToScroll="auto"
+      >
+        {categoryGames}
+      </Carousel>
+    </Box>
   );
 }
 
