@@ -2,7 +2,7 @@
   margin: auto 0 rem(35px);
 
   @media (max-width: $mantine-breakpoint-sm) {
-    min-width: rem(170px);
+    min-width: rem(150px);
     max-width: rem(220px);
     padding: var(--mantine-spacing-sm);
   }

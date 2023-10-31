@@ -1,8 +1,8 @@
 import { Card, Image, Text, Group, Stack, AspectRatio, em, px } from '@mantine/core';
 import { useMediaQuery, useElementSize } from '@mantine/hooks';
 
-import classes from './GameCategoryCard.module.css';
 import { Link } from 'react-router-dom';
+import classes from './GameCategoryCard.module.css';
 
 function GameCategoryCard({ gameObj }: any) {
   const isMobile = useMediaQuery(`(max-width: ${em(768)}`);

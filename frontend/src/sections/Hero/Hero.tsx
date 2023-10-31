@@ -27,7 +27,7 @@ export default function HeroImageRight() {
 
             <Button
               variant="gradient"
-              gradient={{ from: '#055fb3', to: '#1FA6C1' }}
+              gradient={{ from: '#1088F9', to: '#1FA6C1' }}
               size="xl"
               className={classes.control}
               mt={40}

@@ -13,7 +13,7 @@ export default function InputWithButton(props: TextInputProps) {
   };
 
   const handleSearch = () => {
-    if(inputValue) {
+    if (inputValue) {
       navigate(`/search/${inputValue}`);
       setInputValue('');
     }
@@ -23,17 +23,23 @@ export default function InputWithButton(props: TextInputProps) {
     <TextInput
       className={classes['search-bar']}
       radius="md"
-      size="lg"
+      size="md"
       placeholder="Search games"
       rightSectionWidth={42}
       leftSection={<IconSearch className={classes['magnify-icon']} />}
       value={inputValue}
       onChange={handleChange}
       rightSection={
-        <ActionIcon size={32} radius="lg" variant="outline" className={classes['arrow-icon']} onClick={handleSearch}>
+        <ActionIcon
+          size={rem(30)}
+          radius="lg"
+          variant="outline"
+          className={classes['arrow-icon']}
+          onClick={handleSearch}
+        >
           <IconArrowRight
             style={{
-              width: rem(18),
+              width: rem(15),
               height: rem(18),
             }}
             stroke={3}

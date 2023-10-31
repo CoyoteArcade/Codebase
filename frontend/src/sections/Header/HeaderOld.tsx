@@ -1,12 +1,11 @@
 import { Flex, Button } from '@mantine/core';
 
+import { Link } from 'react-router-dom';
 import Logo from '../../components/Logo/Logo';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import DarkModeButton from '@/components/ColorSchemeToggle/ColorSchemeToggle';
 import GamesButton from './HeaderGamesButton';
 import CartButton from './HeaderCartButton';
-
-import { Link } from 'react-router-dom';
 
 import classes from './Header.module.css';
 

@@ -1,5 +1,6 @@
 import { Card, Image, Text, Badge, Group, Stack, AspectRatio, em, px } from '@mantine/core';
 import { useMediaQuery, useElementSize } from '@mantine/hooks';
+import { Link } from 'react-router-dom';
 
 import ButtonCart from './CardButtons/ButtonCart';
 import ButtonFav from './CardButtons/ButtonFav';
@@ -47,13 +48,15 @@ function ShopGridCard({ gameObj }: any) {
       {/* GAME BANNER */}
       <Card.Section>
         <AspectRatio ratio={aspectRatio} className={classes['card-banner']}>
-          <Image
-            className={classes['card-banner-img']}
-            src={`https://placehold.co/1600x900/457EAC/FFF?text=${title}`}
-            alt={title}
-            w={bannerFilled ? '100%' : 'auto'}
-            loading="lazy"
-          />
+          <Link to={`/games/${id}`} className={classes['card-banner-link']}>
+            <Image
+              className={classes['card-banner-img']}
+              src={`https://placehold.co/1600x900/457EAC/FFF?text=${title}`}
+              alt={title}
+              w={bannerFilled ? '100%' : 'auto'}
+              loading="lazy"
+            />
+          </Link>
         </AspectRatio>
       </Card.Section>
 

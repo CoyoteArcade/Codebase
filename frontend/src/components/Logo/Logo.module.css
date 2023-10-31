@@ -9,13 +9,13 @@
 }
 
 .img {
-  width: 35px;
+  width: 30px;
   height: auto;
 }
 
 .text {
+  font-size: rem(20px);
   font-family: 'Orbitron';
   font-weight: 900;
-  font-size: var(--mantine-h2-font-size);
   line-height: 1;
 }
