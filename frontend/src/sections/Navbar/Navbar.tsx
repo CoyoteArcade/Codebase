@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Group, Code } from '@mantine/core';
+import { Group, Box, Code } from '@mantine/core';
 import {
   IconBellRinging,
   IconBrowser,
@@ -45,25 +45,14 @@ export default function NavbarSimple() {
   ));
 
   return (
-    <nav className={classes.navbar}>
+    <Box component="nav" visibleFrom="xl" className={classes.navbar}>
       <div className={classes.navbarMain}>
         <Group className={classes.header} justify="center">
           <Logo />
+          <Code>v1.0.0</Code>
         </Group>
         {links}
       </div>
-
-      {/* <div className={classes.footer}>
-        <a href="#" className={classes.link} onClick={(event) => event.preventDefault()}>
-          <IconSwitchHorizontal className={classes.linkIcon} stroke={1.5} />
-          <span>Change account</span>
-        </a>
-
-        <a href="#" className={classes.link} onClick={(event) => event.preventDefault()}>
-          <IconLogout className={classes.linkIcon} stroke={1.5} />
-          <span>Logout</span>
-        </a>
-      </div> */}
-    </nav>
+    </Box>
   );
 }

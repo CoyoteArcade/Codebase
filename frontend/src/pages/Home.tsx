@@ -1,11 +1,12 @@
+import { Box, Grid, Title } from '@mantine/core';
 import Hero from '../sections/Hero/Hero';
 import Navbar from '../sections/Navbar/Navbar';
-import ShopCategories from '../sections/Shop/ShopCategories/ShopCategories';
+import Shop from '@/sections/Shop/Shop';
 import { useContext } from 'react';
-import { GamesContext } from './Root'; 
+import { GamesContext } from './Root';
 
 export default function Home() {
-  const games:any = useContext(GamesContext);
+  const games: any = useContext(GamesContext);
   return (
     <>
       {/* <div>
@@ -17,10 +18,15 @@ export default function Home() {
         ))}
       </div> */}
       <Hero />
-      <div style={{display:"flex"}}>
-        <Navbar />
-        <ShopCategories gameData={games} />
-        </div> 
+      <Grid>
+        <Grid.Col span={{ base: 0, xl: 2 }}>
+          <Navbar />
+        </Grid.Col>
+        <Grid.Col span={{ base: 12, xl: 10 }}>
+          <Title>Here's a </Title>
+          <Shop showGrid={false} maxCategories={5} />
+        </Grid.Col>
+      </Grid>
     </>
   );
 }

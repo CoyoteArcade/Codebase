@@ -22,9 +22,6 @@ function ShopCategories({ gameData, maxCategories }: { gameData: any; maxCategor
 
   return (
     <Stack className={classes.categories} my={rem('50px')}>
-      <Title tt="uppercase" order={2} mb={rem('10px')}>
-        Game Categories
-      </Title>
       {gameCategories.slice(0, maxCategories)}
     </Stack>
   );

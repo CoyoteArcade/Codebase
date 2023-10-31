@@ -1,4 +1,4 @@
-import { MantineProvider, Box, Title, rem, em } from '@mantine/core';
+import { Box, Title, rem, em } from '@mantine/core';
 import { Carousel } from '@mantine/carousel';
 import { useMediaQuery } from '@mantine/hooks';
 import { IconArrowRight, IconArrowLeft } from '@tabler/icons-react';

@@ -1,16 +1,17 @@
-import Header from '../sections/Header/Header';
-// import Hero from '../sections/Hero/Hero';
-// import Navbar from '../sections/Navbar/Navbar';
-// import Shop from '../sections/Shop/Shop';
-import Footer from '../sections/Footer/Footer';
+import { createContext } from 'react';
 import { Outlet, useLoaderData } from 'react-router-dom';
-import React from 'react';
+import { Box, Container, Stack } from '@mantine/core';
+
+import Header from '../sections/Header/Header';
+import Footer from '../sections/Footer/Footer';
+
+import classes from './Root.module.css';
 
 export async function getGames() {
   let games = [];
   const gamesResponse = await fetch('https://delightful-sombrero-slug.cyclic.app/games');
   const gamesJson = await gamesResponse.json();
-  if(gamesJson.length) {
+  if (gamesJson.length) {
     games = gamesJson;
     console.log(games);
   }
@@ -22,16 +23,18 @@ export async function loader() {
   return games;
 }
 
-export const GamesContext = React.createContext([]);
+export const GamesContext = createContext([]);
 
 export default function RootPage() {
-  const games:any = useLoaderData();
+  const games: any = useLoaderData();
 
   return (
-      <GamesContext.Provider value={games}>
+    <GamesContext.Provider value={games}>
+      <Box className={classes.root}>
         <Header />
         <Outlet />
-        <Footer />
-      </GamesContext.Provider>
+      </Box>
+      <Footer />
+    </GamesContext.Provider>
   );
 }

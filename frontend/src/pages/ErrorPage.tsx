@@ -1,8 +1,6 @@
-import { useRouteError } from "react-router-dom";
+import { useRouteError } from 'react-router-dom';
 
 // export default function ErrorPage() {
-//     const error:any = useRouteError();
-//     console.error(error);
 
 //     return (
 //         <div id="error-page">
@@ -20,10 +18,12 @@ import { Title, Text, Button, Container, Group } from '@mantine/core';
 import classes from './ErrorPage.module.css';
 
 export default function ServerError() {
+  const error: any = useRouteError();
+
   return (
     <div className={classes.root}>
       <Container>
-        <div className={classes.label}>500</div>
+        <div className={classes.label}>ERROR</div>
         <Title className={classes.title}>Something bad just happened...</Title>
         <Text size="lg" ta="center" className={classes.description}>
           Our servers could not handle your request. Don&apos;t worry, our development team was

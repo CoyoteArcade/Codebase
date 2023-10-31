@@ -1,32 +1,43 @@
 import { Box, Title, Stack, MantineProvider, rem } from '@mantine/core';
-import ShopGrid from './ShopGrid/ShopGrid';
-import ShopCategories from './ShopCategories/ShopCategories';
-import { useLoaderData } from 'react-router-dom';
-import classes from './Shop.module.css';
-import { useContext, useEffect, useState } from 'react';
+import { useContext } from 'react';
 
 import { GamesContext } from '@/pages/Root';
+import ShopGrid from './ShopGrid/ShopGrid';
+import ShopCategories from './ShopCategories/ShopCategories';
 
-export default function Shop() {
-  const games:any = useContext(GamesContext);
-  // const [games, setGameData] = useState([]);
+import classes from './Shop.module.css';
 
-  // useEffect(() => {
-  //     fetch('https://delightful-sombrero-slug.cyclic.app/games')
-  //     .then(response => response.json())
-  //     .then(data => setGameData(data))
-  //     .catch(error => console.log(error));
-  // }, []);
+export default function Shop({
+  showGrid = true,
+  showCategories = true,
+  maxCategories,
+}: {
+  showGrid?: boolean;
+  showCategories?: boolean;
+  maxCategories?: number;
+}) {
+  const games: any = useContext(GamesContext);
 
-  // const main = async () => {
-  //   const games = await getGames();
-  //   let arrayThing = games;
-  //   console.log(arrayThing);
-  //   const actionGames = await getCategory('Multiplayer');
-  //   console.log(actionGames[0]);
-  // };
+  /*
+  const [games, setGameData] = useState([]);
 
-  // main();
+  useEffect(() => {
+      fetch('https://delightful-sombrero-slug.cyclic.app/games')
+      .then(response => response.json())
+      .then(data => setGameData(data))
+      .catch(error => console.log(error));
+  }, []);
+
+  const main = async () => {
+    const games = await getGames();
+    let arrayThing = games;
+    console.log(arrayThing);
+    const actionGames = await getCategory('Multiplayer');
+    console.log(actionGames[0]);
+  };
+
+  main();
+  */
 
   return (
     <MantineProvider
@@ -41,8 +52,8 @@ export default function Shop() {
       }}
     >
       <Box className={classes.shop}>
-        <ShopCategories gameData={games} />
-        <ShopGrid gameData={games} />
+        {showCategories && <ShopCategories gameData={games} maxCategories={maxCategories} />}
+        {showGrid && <ShopGrid gameData={games} />}
       </Box>
     </MantineProvider>
   );
