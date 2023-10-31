@@ -3,34 +3,70 @@
   background-size: cover;
   background-position: center;
   width: 100%;
-  background-image: linear-gradient(250deg, rgba(130, 201, 30, 0) 50%, #00a2ff 120%),
+  background-image: linear-gradient(
+      105deg,
+      rgba(118, 12, 128, 0.24) 50%,
+      rgba(5, 62, 116, 0.747) 50%
+        /*
+          Dark Mode Colors?
+          rgba(57, 5, 70, 0.349) calc(50vw),
+          rgba(10, 38, 116, 0.596) calc(50vw)
+      */
+    ),
     url(https://images.unsplash.com/photo-1550828486-68812fa3f966?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80);
-  padding-top: calc(var(--mantine-spacing-xl) * 3);
-  padding-bottom: calc(var(--mantine-spacing-xl) * 3);
+  padding-top: calc(var(--mantine-spacing-xl) * 2);
+  padding-bottom: calc(var(--mantine-spacing-xl) * 2);
+
+  @media (max-width: $mantine-breakpoint-md) {
+    background-position: 0px;
+    background-image: linear-gradient(250deg, rgba(4, 20, 73, 0.664) 30%, rgba(69, 11, 92, 0.753)),
+      url(hero1.jpg);
+    padding-block: 0px;
+  }
+
+  @media (min-width: $mantine-breakpoint-md) and (max-width: $mantine-breakpoint-lg) {
+    background-size: cover;
+    background-position: bottom 100%;
+    background-image: linear-gradient(100deg, rgba(5, 28, 90, 0.74) 10%, rgba(255, 255, 255, 0)),
+      url(hero2.jpg);
+  }
 }
 
 .inner {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
 
   @media (max-width: $mantine-breakpoint-md) {
     flex-direction: column;
+    margin: 0 10vw;
   }
-}
 
-.image {
-  @media (max-width: $mantine-breakpoint-md) {
-    display: none;
+  @media (min-width: $mantine-breakpoint-md) and (max-width: $mantine-breakpoint-lg) {
+    justify-content: flex-start;
   }
 }
 
 .content {
+  max-width: em(375px);
   padding-top: calc(var(--mantine-spacing-xl) * 2);
   padding-bottom: calc(var(--mantine-spacing-xl) * 2);
-  margin-right: calc(var(--mantine-spacing-xl) * 3);
 
   @media (max-width: $mantine-breakpoint-md) {
-    margin-right: 0;
+    margin: auto;
+    max-width: rem(315px);
+  }
+
+  @media (min-width: $mantine-breakpoint-md) and (max-width: $mantine-breakpoint-lg) {
+    margin-left: em(5vw);
+    max-width: em(300px);
+  }
+
+  @media (min-width: $mantine-breakpoint-lg) and (max-width: $mantine-breakpoint-xl) {
+    margin-right: em(5vw);
+  }
+
+  @media (min-width: $mantine-breakpoint-xl) {
+    margin-right: em(10vw);
   }
 }
 
@@ -39,19 +75,21 @@
   font-family: Greycliff CF, var(--mantine-font-family);
   font-weight: 900;
   line-height: 1.05;
-  max-width: rem(500px);
   font-size: rem(48px);
 
   @media (max-width: $mantine-breakpoint-md) {
     max-width: 100%;
-    font-size: rem(34px);
+    font-size: rem(36px);
     line-height: 1.15;
+  }
+
+  @media (min-width: $mantine-breakpoint-md) and (max-width: $mantine-breakpoint-lg) {
+    font-size: rem(36px);
   }
 }
 
 .description {
   color: var(--mantine-color-white);
-  opacity: 0.75;
   max-width: rem(500px);
 
   @media (max-width: $mantine-breakpoint-md) {
@@ -69,54 +107,3 @@
     width: 100%;
   }
 }
-
-/* .inner {
-    display: flex;
-    justify-content: space-between;
-    padding-top: calc(var(--mantine-spacing-xl) * 4);
-    padding-bottom: calc(var(--mantine-spacing-xl) * 4);
-  }
-  
-  .content {
-    max-width: rem(480px);
-    margin-right: calc(var(--mantine-spacing-xl) * 3);
-  
-    @media (max-width: $mantine-breakpoint-md) {
-      max-width: 100%;
-      margin-right: 0;
-    }
-  }
-  
-  .title {
-    color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
-    font-family: Greycliff CF, var(--mantine-font-family);
-    font-size: rem(44px);
-    line-height: 1.2;
-    font-weight: 900;
-  
-    @media (max-width: $mantine-breakpoint-xs) {
-      font-size: rem(28px);
-    }
-  }
-  
-  .control {
-    @media (max-width: $mantine-breakpoint-xs) {
-      flex: 1;
-    }
-  }
-  
-  .image {
-    width: rem(376px);
-    height: rem(356px);
-  
-    @media (max-width: $mantine-breakpoint-md) {
-      display: none;
-    }
-  }
-  
-  .highlight {
-    position: relative;
-    background-color: var(--mantine-color-blue-light);
-    border-radius: var(--mantine-radius-sm);
-    padding: rem(4px) rem(12px);
-  } */

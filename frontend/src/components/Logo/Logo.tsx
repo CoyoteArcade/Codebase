@@ -4,11 +4,7 @@ import classes from './Logo.module.css';
 
 function StyledText({ children }: { children: string }) {
   return (
-    <Text
-      variant="gradient"
-      gradient={{ from: 'coyote-blue', to: 'cyan', deg: 90 }}
-      className={classes.text}
-    >
+    <Text c="coyote-blue" className={classes.text}>
       {children}
     </Text>
   );
