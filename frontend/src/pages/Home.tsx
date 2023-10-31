@@ -1,6 +1,6 @@
 import Hero from '../sections/Hero/Hero';
-// import Navbar from '../sections/Navbar/Navbar';
-import Shop from '../sections/Shop/Shop';
+import Navbar from '../sections/Navbar/Navbar';
+import ShopCategories from '../sections/Shop/ShopCategories/ShopCategories';
 import { useContext } from 'react';
 import { GamesContext } from './Root'; 
 
@@ -17,8 +17,10 @@ export default function Home() {
         ))}
       </div> */}
       <Hero />
-      {/* Add Navbar */}
-      <Shop />
+      <div style={{display:"flex"}}>
+        <Navbar />
+        <ShopCategories gameData={games} />
+        </div> 
     </>
   );
 }

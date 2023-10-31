@@ -2,9 +2,9 @@ const aboutText = `This is Coyote Arcade, an exclusive digital gaming platform t
 
 export default function About() {
     return (
-        <div style={{height:"600px"}}>
-            <h1 style={{textAlign:"center", marginBottom:"50px"}}>Coyote Arcade</h1>
-            <p style={{lineHeight:"3", padding:"100px"}}>{aboutText}</p>
+        <div style={{height:"600px", maxWidth: "900px", margin:"auto"}}>
+            <h1 style={{textAlign:"center", marginBottom:"50px"}}> About Coyote Arcade</h1>
+            <p style={{lineHeight:"2", padding:"100px", fontSize:"18px"}}>{aboutText}</p>
         </div>
     );
 }
