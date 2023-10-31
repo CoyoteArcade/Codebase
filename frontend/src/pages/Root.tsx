@@ -2,7 +2,7 @@ import { createContext } from 'react';
 import { Outlet, useLoaderData } from 'react-router-dom';
 import { Box, Container, Stack } from '@mantine/core';
 
-import Header from '../sections/Header/Header';
+import Header from '../sections/Header/HeaderMegaMenu';
 import Footer from '../sections/Footer/Footer';
 
 import classes from './styles/Root.module.css';
@@ -32,9 +32,11 @@ export default function RootPage() {
     <GamesContext.Provider value={games}>
       <Box className={classes.root}>
         <Header />
-        <Outlet />
+        <Box mih="80vh">
+          <Outlet />
+        </Box>
+        <Footer />
       </Box>
-      <Footer />
     </GamesContext.Provider>
   );
 }

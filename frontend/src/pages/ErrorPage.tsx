@@ -1,4 +1,4 @@
-import { useRouteError } from 'react-router-dom';
+import { Link, useRouteError } from 'react-router-dom';
 
 // export default function ErrorPage() {
 
@@ -30,9 +30,11 @@ export default function ServerError() {
           already notified. Try refreshing the page.
         </Text>
         <Group justify="center">
-          <Button variant="white" size="md">
-            Refresh the page
-          </Button>
+          <Link to="/">
+            <Button variant="white" size="md">
+              Take me home, please!
+            </Button>
+          </Link>
         </Group>
       </Container>
     </div>

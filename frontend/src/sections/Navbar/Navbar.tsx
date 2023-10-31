@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Group, Box, Code } from '@mantine/core';
+import { Group, Box, Title } from '@mantine/core';
 import {
   IconBellRinging,
   IconBrowser,
@@ -48,8 +48,7 @@ export default function NavbarSimple() {
     <Box component="nav" visibleFrom="xl" className={classes.navbar}>
       <div className={classes.navbarMain}>
         <Group className={classes.header} justify="center">
-          <Logo />
-          <Code>v1.0.0</Code>
+          <Title order={3}>Navigation Bar</Title>
         </Group>
         {links}
       </div>

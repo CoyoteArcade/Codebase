@@ -1,11 +1,12 @@
 .root {
+  position: relative;
   background-color: #11284b;
   background-size: cover;
   background-position: center;
   width: 100%;
   background-image: linear-gradient(
       105deg,
-      rgba(118, 12, 128, 0.24) 50%,
+      rgba(235, 11, 255, 0.062) 50%,
       rgba(5, 62, 116, 0.747) 50%
         /*
           Dark Mode Colors?

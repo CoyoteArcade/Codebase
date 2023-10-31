@@ -1,10 +1,12 @@
 import { Image, Text, Flex, Stack, Container } from '@mantine/core';
 import arcade from '../../assets/coyotearcade.png';
 import classes from './Logo.module.css';
+import { theme } from '@/theme';
 
 function StyledText({ children }: { children: string }) {
   return (
-    <Text c="coyote-blue" className={classes.text}>
+    // @ts-ignore
+    <Text c={theme.colors['coyote-blue'][4]} className={classes.text}>
       {children}
     </Text>
   );

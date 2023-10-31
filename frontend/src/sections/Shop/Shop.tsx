@@ -8,12 +8,14 @@ import ShopCategories from './ShopCategories/ShopCategories';
 import classes from './Shop.module.css';
 
 export default function Shop({
-  title = '',
+  titleCategories = '',
+  titleGrid = '',
   showGrid = true,
   showCategories = true,
   maxCategories,
 }: {
-  title?: string;
+  titleCategories?: string;
+  titleGrid?: string;
   showGrid?: boolean;
   showCategories?: boolean;
   maxCategories?: number;
@@ -54,8 +56,18 @@ export default function Shop({
       }}
     >
       <Box className={classes.shop}>
-        <Title order={2}>{title}</Title>
+        {showCategories && (
+          <Title mb={rem('30px')} order={2}>
+            {titleCategories}
+          </Title>
+        )}
         {showCategories && <ShopCategories gameData={games} maxCategories={maxCategories} />}
+        {showGrid && (
+          <Title mb={rem('50px')} order={2}>
+            {titleGrid}
+          </Title>
+        )}
+
         {showGrid && <ShopGrid gameData={games} />}
       </Box>
     </MantineProvider>

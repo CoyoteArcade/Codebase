@@ -20,7 +20,7 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <Grid>
+      <Grid gutter={0}>
         <Grid.Col span={{ base: 0, xl: 2 }}>
           <Navbar />
         </Grid.Col>
