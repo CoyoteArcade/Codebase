@@ -19,6 +19,7 @@ export default function Shop({
   showGrid?: boolean;
   showCategories?: boolean;
   maxCategories?: number;
+  title?: string;
 }) {
   const games: any = useContext(GamesContext);
 
