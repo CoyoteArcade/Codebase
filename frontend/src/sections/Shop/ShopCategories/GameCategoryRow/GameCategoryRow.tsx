@@ -12,9 +12,7 @@ function GameCategoryRow({ gameData, category }: any) {
   const controlSize = isMobile ? 25 : 30;
   const iconSize = isMobile ? 12 : 16;
 
-  const games = gameData.filter((gameObj: any) => {
-    return gameObj.Category.includes(category);
-  });
+  const games = gameData.filter((gameObj: any) => gameObj.Category.includes(category));
 
   const categoryGames = games.map((game: any) => (
     <Carousel.Slide key={game.id}>

@@ -25,7 +25,7 @@ export default function Home() {
           <Navbar />
         </Grid.Col>
         <Grid.Col span={{ base: 12, xl: 10 }}>
-          <Shop title={`POPULAR GAME CATEGORIES`} showGrid={false} maxCategories={5} />
+          <Shop title="POPULAR GAME CATEGORIES" showGrid={false} maxCategories={5} />
         </Grid.Col>
       </Grid>
     </>

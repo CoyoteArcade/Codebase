@@ -13,7 +13,7 @@ export default function InputWithButton(props: TextInputProps) {
   };
 
   const handleSearch = () => {
-    if(inputValue) {
+    if (inputValue) {
       navigate(`/search/${inputValue}`);
       setInputValue('');
     }

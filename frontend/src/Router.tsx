@@ -1,9 +1,8 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import Root from './pages/Root';
+import Root, { loader as gamesLoader } from './pages/Root';
 import Home from './pages/Home';
 import About from './pages/About';
 import ErrorPage from './pages/ErrorPage';
-import { loader as gamesLoader } from './pages/Root';
 import { Game } from './sections/Game/Game';
 import { Search } from './sections/Search/Search';
 
