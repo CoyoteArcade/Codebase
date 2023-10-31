@@ -1,4 +1,4 @@
-import { Stack, Title, rem } from '@mantine/core';
+import { Stack, rem } from '@mantine/core';
 
 import GameCategoryRow from './GameCategoryRow/GameCategoryRow';
 

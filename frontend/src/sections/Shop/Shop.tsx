@@ -8,10 +8,12 @@ import ShopCategories from './ShopCategories/ShopCategories';
 import classes from './Shop.module.css';
 
 export default function Shop({
+  title = '',
   showGrid = true,
   showCategories = true,
   maxCategories,
 }: {
+  title?: string;
   showGrid?: boolean;
   showCategories?: boolean;
   maxCategories?: number;
@@ -52,6 +54,7 @@ export default function Shop({
       }}
     >
       <Box className={classes.shop}>
+        <Title order={2}>{title}</Title>
         {showCategories && <ShopCategories gameData={games} maxCategories={maxCategories} />}
         {showGrid && <ShopGrid gameData={games} />}
       </Box>

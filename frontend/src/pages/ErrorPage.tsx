@@ -15,7 +15,7 @@ import { useRouteError } from 'react-router-dom';
 // }
 
 import { Title, Text, Button, Container, Group } from '@mantine/core';
-import classes from './ErrorPage.module.css';
+import classes from './styles/ErrorPage.module.css';
 
 export default function ServerError() {
   const error: any = useRouteError();
