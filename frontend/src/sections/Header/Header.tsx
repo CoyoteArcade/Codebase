@@ -33,7 +33,7 @@ import {
 } from '@tabler/icons-react';
 
 import Search from '@/components/SearchBar/SearchBar';
-import classes from './HeaderMegaMenu.module.css';
+import classes from './Header.module.css';
 
 const mockdata = [
   {
