@@ -33,6 +33,7 @@ import {
 } from '@tabler/icons-react';
 
 import Search from '@/components/SearchBar/SearchBar';
+import DarkModeToggle from '@/components/DarkModeToggle/DarkModeToggle';
 import classes from './Header.module.css';
 
 const mockdata = [
@@ -196,7 +197,7 @@ export default function Header() {
             </Box>
           </Group>
 
-          {/* Cart, Login, Register */}
+          {/* Login, Register */}
           <Group visibleFrom="md">
             {/* <ActionIcon
               mr="var(--mantine-spacing-xs)"
@@ -207,6 +208,7 @@ export default function Header() {
             >
               <IconShoppingCart style={{ width: '70%', height: '70%' }} stroke={1.5} />
             </ActionIcon> */}
+            <DarkModeToggle />
             <NavLink style={{ textDecoration: 'none' }} to="/login" key="Login">
               <Button variant="outline">Log In</Button>
             </NavLink>
