@@ -15,9 +15,9 @@ export default function HeroImageRight() {
             <Title lh={rem('1.2em')} className={classes.title}>
               Welcome to the{' '}
               <Text component="span" inherit c="rgb(84, 216, 255)">
-                Coyote Arcade
+                Coyote&nbsp;Arcade
               </Text>{' '}
-              Web Application!
+              Web&nbsp;Application!
             </Title>
 
             <Text className={classes.description} mt={30}>
