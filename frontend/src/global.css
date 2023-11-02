@@ -1,0 +1,5 @@
+:root {
+  --hero-desktop: url(./assets/psx-console.jpg);
+  --hero-tablet: url(./assets/xbox-controller.jpg);
+  --hero-mobile: url(./assets/retro-arcade.jpg);
+}
