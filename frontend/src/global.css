@@ -3,3 +3,12 @@
   --hero-tablet: url(./assets/xbox-controller.jpg);
   --hero-mobile: url(./assets/retro-arcade.jpg);
 }
+
+body {
+  min-width: 320px;
+  overflow-y: scroll;
+}
+
+#root {
+  min-height: 100vh;
+}

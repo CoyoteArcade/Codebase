@@ -32,7 +32,7 @@ export default function RootPage() {
     <GamesContext.Provider value={games}>
       <Box className={classes.root}>
         <Header />
-        <Box mih="80vh">
+        <Box className={classes.main}>
           <Outlet />
         </Box>
         <Footer />
