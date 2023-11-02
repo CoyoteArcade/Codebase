@@ -19,6 +19,12 @@ export default function InputWithButton(props: TextInputProps) {
     }
   };
 
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      handleSearch();
+    }
+  };
+
   return (
     <TextInput
       className={classes['search-bar']}
@@ -29,6 +35,7 @@ export default function InputWithButton(props: TextInputProps) {
       leftSection={<IconSearch className={classes['magnify-icon']} />}
       value={inputValue}
       onChange={handleChange}
+      onKeyDown={handleKeyPress}
       rightSection={
         <ActionIcon
           size={rem(30)}
