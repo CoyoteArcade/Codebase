@@ -1,3 +1,9 @@
+.root {
+  top: 0;
+  z-index: 1;
+  background-color: var(--mantine-color-body);
+}
+
 .header {
   height: rem(60px);
   margin-bottom: rem(0px);

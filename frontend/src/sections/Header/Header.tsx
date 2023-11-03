@@ -21,7 +21,7 @@ import {
   Code,
 } from '@mantine/core';
 import Logo from '@/components/Logo/Logo';
-import { useDisclosure } from '@mantine/hooks';
+import { useDisclosure, useIdle, useFocusWithin } from '@mantine/hooks';
 import {
   IconChevronDown,
   IconUpload,
@@ -72,17 +72,14 @@ const mockdata = [
 export default function Header() {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] = useDisclosure(false);
   const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
+  const idle = useIdle(2000);
+  const { ref, focused } = useFocusWithin();
   const theme = useMantineTheme();
 
   // Game Hover - Links
   const links = mockdata.map((item) => (
-    <NavLink
-      style={{ textDecoration: 'none', color: 'var(--mantine-color-dark-6)' }}
-      to={item.link}
-      end
-      key={item.title}
-    >
-      <UnstyledButton className={classes.subLink} key={item.title}>
+    <NavLink to={item.link} end key={item.title}>
+      <UnstyledButton c="var(--mantine-color-text)" className={classes.subLink} key={item.title}>
         <Group wrap="nowrap" align="flex-start">
           <ThemeIcon size={34} variant="default" radius="md">
             <item.icon
@@ -104,13 +101,17 @@ export default function Header() {
   ));
 
   return (
-    <Box>
-      <header className={classes.header}>
+    <header
+      className={classes.root}
+      style={focused || !idle ? { position: 'sticky' } : { position: 'relative' }}
+    >
+      <nav className={classes.header}>
         <Group justify="space-between" h="100%">
-          <Group className={classes.header} justify="center">
+          <Group justify="center">
             <Logo />
-            <Code mt="15">v1.0</Code>
+            <Code style={{ alignSelf: 'flex-end' }}>v1.0</Code>
           </Group>
+
           <Group h="100%" gap={0} visibleFrom="sm">
             {/* HOME */}
             <NavLink
@@ -192,13 +193,13 @@ export default function Header() {
 
             {/* Search */}
             <Space w="xl" />
-            <Box visibleFrom="md">
+            <Box ref={ref} visibleFrom="md">
               <Search />
             </Box>
           </Group>
 
           {/* Login, Register */}
-          <Group visibleFrom="md">
+          <Group visibleFrom="md" align="stretch">
             {/* <ActionIcon
               mr="var(--mantine-spacing-xs)"
               variant="default"
@@ -219,54 +220,57 @@ export default function Header() {
 
           <Burger opened={drawerOpened} onClick={toggleDrawer} hiddenFrom="sm" />
         </Group>
-      </header>
+      </nav>
 
-      <Drawer
-        opened={drawerOpened}
-        onClose={closeDrawer}
-        size="100%"
-        padding="md"
-        title="Navigation"
-        hiddenFrom="sm"
-        zIndex={1000000}
-      >
-        <ScrollArea h={`calc(100vh - ${rem(80)})`} mx="-md">
-          <Divider my="sm" />
+      <nav>
+        <Drawer
+          opened={drawerOpened}
+          onClose={closeDrawer}
+          size="100%"
+          padding="md"
+          title="Navigation"
+          hiddenFrom="sm"
+          zIndex={1000000}
+        >
+          <ScrollArea h={`calc(100vh - ${rem(80)})`} mx="-md">
+            <Divider />
 
-          <a href="#" className={classes['link-drawer']}>
-            Home
-          </a>
+            <NavLink to="/" className={classes['link-drawer']}>
+              Home
+            </NavLink>
 
-          <a href="#" className={classes['link-drawer']}>
-            About
-          </a>
-          <UnstyledButton className={classes['link-drawer']} onClick={toggleLinks}>
-            <Center inline>
-              <Box component="span" mr={5}>
-                Games
-              </Box>
-              <IconChevronDown
-                style={{ width: rem(16), height: rem(16) }}
-                color={theme.colors.blue[6]}
-              />
-            </Center>
-          </UnstyledButton>
-          <Collapse in={linksOpened}>{links}</Collapse>
-          <a href="#" className={classes['link-drawer']}>
-            Upload
-          </a>
-          <Box w="70vw" m="auto">
-            <Search />
-          </Box>
+            <a href="#" className={classes['link-drawer']}>
+              About
+            </a>
+            <UnstyledButton className={classes['link-drawer']} onClick={toggleLinks}>
+              <Center inline>
+                <Box component="span" mr={5}>
+                  Games
+                </Box>
+                <IconChevronDown
+                  style={{ width: rem(16), height: rem(16) }}
+                  color={theme.colors.blue[6]}
+                />
+              </Center>
+            </UnstyledButton>
+            <Collapse in={linksOpened}>{links}</Collapse>
+            <NavLink to="/upload" className={classes['link-drawer']}>
+              Upload
+            </NavLink>
 
-          <Divider my="sm" />
+            <Divider />
 
-          <Group justify="center" grow pb="xl" px="md">
-            <Button variant="default">Log in</Button>
-            <Button>Register</Button>
-          </Group>
-        </ScrollArea>
-      </Drawer>
-    </Box>
+            <Box ref={ref} w="80vw" mx="auto" my="lg">
+              <Search />
+            </Box>
+
+            <Group justify="center" grow pb="xl" px="md" my="lg">
+              <Button variant="default">Log in</Button>
+              <Button>Register</Button>
+            </Group>
+          </ScrollArea>
+        </Drawer>
+      </nav>
+    </header>
   );
 }
