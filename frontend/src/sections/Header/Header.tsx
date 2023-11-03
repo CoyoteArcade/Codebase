@@ -21,7 +21,7 @@ import {
   Code,
 } from '@mantine/core';
 import Logo from '@/components/Logo/Logo';
-import { useDisclosure, useIdle, useFocusWithin } from '@mantine/hooks';
+import { useDisclosure } from '@mantine/hooks';
 import {
   IconChevronDown,
   IconUpload,
@@ -29,12 +29,12 @@ import {
   IconShoppingBag,
   IconList,
   IconHeart,
-  IconShoppingCart,
 } from '@tabler/icons-react';
 
 import Search from '@/components/SearchBar/SearchBar';
 import DarkModeToggle from '@/components/DarkModeToggle/DarkModeToggle';
 import classes from './Header.module.css';
+import { useId } from 'react';
 
 const mockdata = [
   {
@@ -70,11 +70,9 @@ const mockdata = [
 ];
 
 export default function Header() {
+  const theme = useMantineTheme();
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] = useDisclosure(false);
   const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
-  const idle = useIdle(2000);
-  const { ref, focused } = useFocusWithin();
-  const theme = useMantineTheme();
 
   // Game Hover - Links
   const links = mockdata.map((item) => (
@@ -101,10 +99,7 @@ export default function Header() {
   ));
 
   return (
-    <header
-      className={classes.root}
-      style={focused || !idle ? { position: 'sticky' } : { position: 'relative' }}
-    >
+    <header className={classes.root}>
       <nav className={classes.header}>
         <Group justify="space-between" h="100%">
           <Group justify="center">
@@ -135,7 +130,8 @@ export default function Header() {
             >
               About
             </NavLink>
-            {/* GAME HOVER */}
+
+            {/* GAME Button */}
             <HoverCard width={600} position="bottom" radius="md" shadow="md" withinPortal>
               <HoverCard.Target>
                 <Box className={classes.link}>
@@ -151,7 +147,8 @@ export default function Header() {
                 </Box>
               </HoverCard.Target>
 
-              {/* Game Hover - Other*/}
+              {/* GAME Hover Card */}
+              <Box></Box>
               <HoverCard.Dropdown style={{ overflow: 'hidden' }}>
                 <Group justify="space-between" px="md">
                   <Text fw={500}>Features</Text>
@@ -193,7 +190,7 @@ export default function Header() {
 
             {/* Search */}
             <Space w="xl" />
-            <Box ref={ref} visibleFrom="md">
+            <Box visibleFrom="md">
               <Search />
             </Box>
           </Group>
@@ -260,7 +257,7 @@ export default function Header() {
 
             <Divider />
 
-            <Box ref={ref} w="80vw" mx="auto" my="lg">
+            <Box w="80vw" mx="auto" my="lg">
               <Search />
             </Box>
 
