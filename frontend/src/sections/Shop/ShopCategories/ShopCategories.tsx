@@ -7,10 +7,12 @@ import classes from './ShopCategories.module.css';
 function ShopCategories({ gameData, maxCategories }: { gameData: any; maxCategories?: number }) {
   const categories: Array<string> = [];
 
-  for (const game of gameData) {
-    for (const item of game.Category.values()) {
-      if (!categories.includes(item)) {
-        categories.push(item);
+  for (let i = 0; i < gameData.length; i++) {
+    const game = gameData[i];
+    for (let j = 0; j < game.Category.length; j++) {
+      const category = game.Category[j];
+      if (!categories.includes(category)) {
+        categories.push(category);
       }
     }
   }
