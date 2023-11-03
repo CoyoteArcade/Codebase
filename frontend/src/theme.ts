@@ -18,8 +18,8 @@ export const theme = createTheme({
   },
   primaryColor: 'coyote-blue',
   primaryShade: {
-    light: 5,
-    dark: 7,
+    light: 6,
+    dark: 8,
   },
 
   breakpoints: {

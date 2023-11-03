@@ -9,7 +9,7 @@
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "module": "ESNext",
-    "moduleResolution": "Node",
+    "moduleResolution": "Node10",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
@@ -17,7 +17,8 @@
     "paths": {
       "@/*": ["./src/*"],
       "@backend/*": ["../backend/*"]
-    }
+    },
+    "types": ["unplugin-fonts/client"]
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]

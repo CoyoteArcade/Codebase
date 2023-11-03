@@ -32,9 +32,9 @@ export default function RootPage() {
     <GamesContext.Provider value={games}>
       <Box className={classes.root}>
         <Header />
-        <Box className={classes.main}>
+        <main className={classes.main}>
           <Outlet />
-        </Box>
+        </main>
         <Footer />
       </Box>
     </GamesContext.Provider>

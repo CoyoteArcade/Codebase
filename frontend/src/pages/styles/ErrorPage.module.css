@@ -1,4 +1,5 @@
 .root {
+  padding: 40px;
   background-color: var(--mantine-color-coyote-blue-filled);
   flex: 1; /* Stretch component from header to footer */
 

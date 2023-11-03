@@ -10,8 +10,9 @@ function DarkModeToggle() {
   return (
     <ActionIcon
       onClick={() => setColorScheme(computedColorScheme === 'light' ? 'dark' : 'light')}
-      variant="default"
-      size="xl"
+      variant="outline"
+      size="lg"
+      h="auto"
       aria-label="Toggle color scheme"
     >
       <IconSun className={cx(classes.icon, classes.light)} stroke={1.5} />

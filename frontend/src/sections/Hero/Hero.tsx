@@ -1,9 +1,7 @@
-// import { Image, Container, Title, Button, Group, Text, List, ThemeIcon, rem } from '@mantine/core';
-// import { IconCheck } from '@tabler/icons-react';
-// import image from './image.svg';
-// import classes from './Hero.module.css';
+import { Link } from 'react-router-dom';
 
-import { Container, Title, Text, Button, rem } from '@mantine/core';
+import { Container, Title, Text, Button, rem, darken, lighten } from '@mantine/core';
+import { useHover } from '@mantine/hooks';
 import classes from './Hero.module.css';
 
 export default function HeroImageRight() {
@@ -19,21 +17,27 @@ export default function HeroImageRight() {
               </Text>{' '}
               Web&nbsp;Application!
             </Title>
-
             <Text className={classes.description} mt={30}>
               Try out new games made by your fellow Coyotes – Mantine includes more than 100
               customizable components and hooks to cover you in any situation
             </Text>
 
-            <Button
-              variant="gradient"
-              gradient={{ from: '#1088F9', to: '#1FA6C1' }}
-              size="xl"
-              className={classes.control}
-              mt={40}
-            >
-              View games
-            </Button>
+            <Link to="/games">
+              <Button
+                // @ts-ignore
+
+                variant="gradient"
+                gradient={{
+                  from: 'var(--mantine-color-coyote-blue-light)',
+                  to: 'var(--mantine-color-coyote-blue-dark)',
+                }}
+                size="xl"
+                className={classes.control}
+                mt={40}
+              >
+                View games
+              </Button>
+            </Link>
           </div>
         </div>
       </Container>

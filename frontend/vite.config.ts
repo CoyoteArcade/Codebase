@@ -10,7 +10,7 @@ export default defineConfig({
     tsconfigPaths(),
     Unfonts({
       google: {
-        preconnect: false,
+        preconnect: true,
         display: 'block',
         text: undefined,
         injectTo: 'head-prepend',
@@ -19,7 +19,7 @@ export default defineConfig({
         families: [
           {
             name: 'Gabarito',
-            styles: 'wght@200;400;500;600;700',
+            styles: 'wght@200;400;700',
             defer: true,
           },
           {
