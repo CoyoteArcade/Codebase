@@ -1,19 +1,19 @@
 .root {
-  /* Enables Sticky Footer */
+  /* Keeps footer at bottom of viewport */
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
 .main {
-  flex: 1; /* Needed for sticky footer */
+  flex: 1; /* Keeps footer at bottom of viewport */
 
   /***
     Turns <Outlet /> components to flex items.
 
     Set `flex: 1` in the root of <Outlet />
     components to stretch the height from
-    header to footer.
+    header to footer
   */
   display: flex;
   flex-direction: column;
