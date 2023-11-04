@@ -5,6 +5,7 @@
 
 import { Container, Title, Text, Button, rem } from '@mantine/core';
 import classes from './Hero.module.css';
+import { NavLink } from 'react-router-dom';
 
 export default function HeroImageRight() {
   return (
@@ -24,7 +25,7 @@ export default function HeroImageRight() {
               Try out new games made by your fellow Coyotes – Mantine includes more than 100
               customizable components and hooks to cover you in any situation
             </Text>
-
+            <NavLink style={{textDecoration:"none"}} to="/games" key="Games">
             <Button
               variant="gradient"
               gradient={{ from: '#1088F9', to: '#1FA6C1' }}
@@ -34,6 +35,7 @@ export default function HeroImageRight() {
             >
               View games
             </Button>
+            </NavLink>
           </div>
         </div>
       </Container>

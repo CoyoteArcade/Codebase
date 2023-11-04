@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import classes from './SearchBar.module.css';
 
-export default function InputWithButton(props: TextInputProps) {
+export default function InputWithButton(props: any) {
   const [inputValue, setInputValue] = useState('');
   const navigate = useNavigate();
 
@@ -15,6 +15,7 @@ export default function InputWithButton(props: TextInputProps) {
   const handleSearch = () => {
     if (inputValue) {
       navigate(`/search/${inputValue}`);
+      props.drawerClose();
       setInputValue('');
     }
   };
