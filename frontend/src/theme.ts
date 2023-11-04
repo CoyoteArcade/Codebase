@@ -23,6 +23,7 @@ export const theme = createTheme({
   },
 
   breakpoints: {
+    xxs: '24em',
     xxl: '100em',
   },
 
