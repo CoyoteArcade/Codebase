@@ -34,7 +34,6 @@ import {
 import Search from '@/components/SearchBar/SearchBar';
 import DarkModeToggle from '@/components/DarkModeToggle/DarkModeToggle';
 import classes from './Header.module.css';
-import { useId } from 'react';
 
 const mockdata = [
   {
@@ -71,12 +70,12 @@ const mockdata = [
 
 export default function Header() {
   const theme = useMantineTheme();
-  const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] = useDisclosure(false);
+  const [drawerOpened, drawerHandler] = useDisclosure(false);
   const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
 
   // Game Hover - Links
   const links = mockdata.map((item) => (
-    <NavLink to={item.link} end key={item.title}>
+    <NavLink to={item.link} end key={item.title} onClick={drawerHandler.close}>
       <UnstyledButton c="var(--mantine-color-text)" className={classes.subLink} key={item.title}>
         <Group wrap="nowrap" align="flex-start">
           <ThemeIcon size={34} variant="default" radius="md">
@@ -215,14 +214,14 @@ export default function Header() {
             </NavLink>
           </Group>
 
-          <Burger opened={drawerOpened} onClick={toggleDrawer} hiddenFrom="sm" />
+          <Burger opened={drawerOpened} onClick={() => drawerHandler.toggle()} hiddenFrom="sm" />
         </Group>
       </nav>
 
       <nav>
         <Drawer
           opened={drawerOpened}
-          onClose={closeDrawer}
+          onClose={() => drawerHandler.close()}
           size="100%"
           padding="md"
           title="Navigation"
@@ -232,13 +231,23 @@ export default function Header() {
           <ScrollArea h={`calc(100vh - ${rem(80)})`} mx="-md">
             <Divider />
 
-            <NavLink to="/" className={classes['link-drawer']}>
+            <NavLink
+              to="/"
+              key="Home"
+              className={classes['link-drawer']}
+              onClick={drawerHandler.close}
+            >
               Home
             </NavLink>
 
-            <a href="#" className={classes['link-drawer']}>
+            <NavLink
+              to="/about"
+              key="About"
+              className={classes['link-drawer']}
+              onClick={drawerHandler.close}
+            >
               About
-            </a>
+            </NavLink>
             <UnstyledButton className={classes['link-drawer']} onClick={toggleLinks}>
               <Center inline>
                 <Box component="span" mr={5}>
@@ -258,7 +267,7 @@ export default function Header() {
             <Divider />
 
             <Box w="80vw" mx="auto" my="lg">
-              <Search />
+              <Search drawerClose={drawerHandler.close} />
             </Box>
 
             <Group justify="center" grow pb="xl" px="md" my="lg">
