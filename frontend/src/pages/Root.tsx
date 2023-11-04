@@ -13,7 +13,7 @@ export async function getGames() {
   const gamesJson = await gamesResponse.json();
   if (gamesJson.length) {
     games = gamesJson;
-    console.log(games);
+    // console.log(games);
   }
   return games;
 }

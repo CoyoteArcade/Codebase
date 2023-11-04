@@ -69,7 +69,7 @@ const mockdata = [
 ];
 
 export default function Header() {
-  const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] = useDisclosure(false);
+  const [drawerOpened, drawerHandler] = useDisclosure(false);
   const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
   const theme = useMantineTheme();
 
@@ -80,6 +80,7 @@ export default function Header() {
       to={item.link}
       end
       key={item.title}
+      onClick={drawerHandler.close}
     >
       <UnstyledButton className={classes.subLink} key={item.title}>
         <Group wrap="nowrap" align="flex-start">
@@ -215,13 +216,13 @@ export default function Header() {
             </NavLink>
           </Group>
 
-          <Burger opened={drawerOpened} onClick={toggleDrawer} hiddenFrom="sm" />
+          <Burger opened={drawerOpened} onClick={() => drawerHandler.toggle()} hiddenFrom="sm" />
         </Group>
       </header>
 
       <Drawer
         opened={drawerOpened}
-        onClose={closeDrawer}
+        onClose={() => drawerHandler.close()}
         size="100%"
         padding="md"
         title="Navigation"
@@ -231,13 +232,13 @@ export default function Header() {
         <ScrollArea h={`calc(100vh - ${rem(80)})`} mx="-md">
           <Divider my="sm" />
 
-          <a href="#" className={classes['link-drawer']}>
+          <NavLink to="/" key="Home" className={classes['link-drawer']} onClick={drawerHandler.close}>
             Home
-          </a>
+          </NavLink>
 
-          <a href="#" className={classes['link-drawer']}>
+          <NavLink to="/about" key="About" className={classes['link-drawer']} onClick={drawerHandler.close}>
             About
-          </a>
+          </NavLink>
           <UnstyledButton className={classes['link-drawer']} onClick={toggleLinks}>
             <Center inline>
               <Box component="span" mr={5}>
@@ -254,7 +255,7 @@ export default function Header() {
             Upload
           </a>
           <Box w="70vw" m="auto">
-            <Search />
+            <Search drawerClose={drawerHandler.close} />
           </Box>
 
           <Divider my="sm" />

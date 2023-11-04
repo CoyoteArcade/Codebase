@@ -76,7 +76,7 @@ const getCategory = async (category = undefined) => {
 const addGame = async (game = undefined) => {
   if (game === undefined) return;
   const docRef = await addDoc(collection(db, 'games'), game);
-  console.log('Document written with ID: ', docRef.id);
+  // console.log('Document written with ID: ', docRef.id);
 };
 
 export { getGames, addGame, getCategory };
