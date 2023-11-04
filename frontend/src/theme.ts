@@ -19,7 +19,7 @@ export const theme = createTheme({
   primaryColor: 'coyote-blue',
   primaryShade: {
     light: 6,
-    dark: 7,
+    dark: 8,
   },
 
   breakpoints: {

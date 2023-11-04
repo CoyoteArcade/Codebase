@@ -30,7 +30,5 @@
 
 .arrow-icon:hover::before {
   width: 100%;
-  @mixin light {
-    background-color: var(--mantine-primary-color-light);
-  }
+  background-color: var(--mantine-color-gray-light-hover);
 }

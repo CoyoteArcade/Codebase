@@ -29,11 +29,11 @@ import {
   IconShoppingBag,
   IconList,
   IconHeart,
-  IconShoppingCart,
 } from '@tabler/icons-react';
 
 import Search from '@/components/SearchBar/SearchBar';
-import classes from './HeaderMegaMenu.module.css';
+import DarkModeToggle from '@/components/DarkModeToggle/DarkModeToggle';
+import classes from './Header.module.css';
 
 const mockdata = [
   {
@@ -69,20 +69,14 @@ const mockdata = [
 ];
 
 export default function Header() {
+  const theme = useMantineTheme();
   const [drawerOpened, drawerHandler] = useDisclosure(false);
   const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
-  const theme = useMantineTheme();
 
   // Game Hover - Links
   const links = mockdata.map((item) => (
-    <NavLink
-      style={{ textDecoration: 'none', color: 'var(--mantine-color-dark-6)' }}
-      to={item.link}
-      end
-      key={item.title}
-      onClick={drawerHandler.close}
-    >
-      <UnstyledButton className={classes.subLink} key={item.title}>
+    <NavLink to={item.link} end key={item.title} onClick={drawerHandler.close}>
+      <UnstyledButton c="var(--mantine-color-text)" className={classes.subLink} key={item.title}>
         <Group wrap="nowrap" align="flex-start">
           <ThemeIcon size={34} variant="default" radius="md">
             <item.icon
@@ -104,13 +98,14 @@ export default function Header() {
   ));
 
   return (
-    <Box>
-      <header className={classes.header}>
+    <header className={classes.root}>
+      <nav className={classes.header}>
         <Group justify="space-between" h="100%">
-          <Group className={classes.header} justify="center">
+          <Group justify="center">
             <Logo />
-            <Code mt="15">v1.0</Code>
+            <Code style={{ alignSelf: 'flex-end' }}>v1.0</Code>
           </Group>
+
           <Group h="100%" gap={0} visibleFrom="sm">
             {/* HOME */}
             <NavLink
@@ -134,7 +129,8 @@ export default function Header() {
             >
               About
             </NavLink>
-            {/* GAME HOVER */}
+
+            {/* GAME Button */}
             <HoverCard width={600} position="bottom" radius="md" shadow="md" withinPortal>
               <HoverCard.Target>
                 <Box className={classes.link}>
@@ -150,7 +146,8 @@ export default function Header() {
                 </Box>
               </HoverCard.Target>
 
-              {/* Game Hover - Other*/}
+              {/* GAME Hover Card */}
+              <Box></Box>
               <HoverCard.Dropdown style={{ overflow: 'hidden' }}>
                 <Group justify="space-between" px="md">
                   <Text fw={500}>Features</Text>
@@ -197,8 +194,8 @@ export default function Header() {
             </Box>
           </Group>
 
-          {/* Cart, Login, Register */}
-          <Group visibleFrom="md">
+          {/* Login, Register */}
+          <Group visibleFrom="md" align="stretch">
             {/* <ActionIcon
               mr="var(--mantine-spacing-xs)"
               variant="default"
@@ -208,6 +205,7 @@ export default function Header() {
             >
               <IconShoppingCart style={{ width: '70%', height: '70%' }} stroke={1.5} />
             </ActionIcon> */}
+            <DarkModeToggle />
             <NavLink style={{ textDecoration: 'none' }} to="/login" key="Login">
               <Button variant="outline">Log In</Button>
             </NavLink>
@@ -218,54 +216,67 @@ export default function Header() {
 
           <Burger opened={drawerOpened} onClick={() => drawerHandler.toggle()} hiddenFrom="sm" />
         </Group>
-      </header>
+      </nav>
 
-      <Drawer
-        opened={drawerOpened}
-        onClose={() => drawerHandler.close()}
-        size="100%"
-        padding="md"
-        title="Navigation"
-        hiddenFrom="sm"
-        zIndex={1000000}
-      >
-        <ScrollArea h={`calc(100vh - ${rem(80)})`} mx="-md">
-          <Divider my="sm" />
+      <nav>
+        <Drawer
+          opened={drawerOpened}
+          onClose={() => drawerHandler.close()}
+          size="100%"
+          padding="md"
+          title="Navigation"
+          hiddenFrom="sm"
+          zIndex={1000000}
+        >
+          <ScrollArea h={`calc(100vh - ${rem(80)})`} mx="-md">
+            <Divider />
 
-          <NavLink to="/" key="Home" className={classes['link-drawer']} onClick={drawerHandler.close}>
-            Home
-          </NavLink>
+            <NavLink
+              to="/"
+              key="Home"
+              className={classes['link-drawer']}
+              onClick={drawerHandler.close}
+            >
+              Home
+            </NavLink>
 
-          <NavLink to="/about" key="About" className={classes['link-drawer']} onClick={drawerHandler.close}>
-            About
-          </NavLink>
-          <UnstyledButton className={classes['link-drawer']} onClick={toggleLinks}>
-            <Center inline>
-              <Box component="span" mr={5}>
-                Games
-              </Box>
-              <IconChevronDown
-                style={{ width: rem(16), height: rem(16) }}
-                color={theme.colors.blue[6]}
-              />
-            </Center>
-          </UnstyledButton>
-          <Collapse in={linksOpened}>{links}</Collapse>
-          <a href="#" className={classes['link-drawer']}>
-            Upload
-          </a>
-          <Box w="70vw" m="auto">
-            <Search drawerClose={drawerHandler.close} />
-          </Box>
+            <NavLink
+              to="/about"
+              key="About"
+              className={classes['link-drawer']}
+              onClick={drawerHandler.close}
+            >
+              About
+            </NavLink>
+            <UnstyledButton className={classes['link-drawer']} onClick={toggleLinks}>
+              <Center inline>
+                <Box component="span" mr={5}>
+                  Games
+                </Box>
+                <IconChevronDown
+                  style={{ width: rem(16), height: rem(16) }}
+                  color={theme.colors.blue[6]}
+                />
+              </Center>
+            </UnstyledButton>
+            <Collapse in={linksOpened}>{links}</Collapse>
+            <NavLink to="/upload" className={classes['link-drawer']}>
+              Upload
+            </NavLink>
 
-          <Divider my="sm" />
+            <Divider />
 
-          <Group justify="center" grow pb="xl" px="md">
-            <Button variant="default">Log in</Button>
-            <Button>Register</Button>
-          </Group>
-        </ScrollArea>
-      </Drawer>
-    </Box>
+            <Box w="80vw" mx="auto" my="lg">
+              <Search drawerClose={drawerHandler.close} />
+            </Box>
+
+            <Group justify="center" grow pb="xl" px="md" my="lg">
+              <Button variant="default">Log in</Button>
+              <Button>Register</Button>
+            </Group>
+          </ScrollArea>
+        </Drawer>
+      </nav>
+    </header>
   );
 }

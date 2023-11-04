@@ -1,7 +1,8 @@
-import { Image, Text, Flex, Stack, Container } from '@mantine/core';
-import arcade from '../../assets/coyotearcade.png';
-import classes from './Logo.module.css';
+import { NavLink } from 'react-router-dom';
+import { Image, Text, Box, Stack, Container, rem } from '@mantine/core';
 import { theme } from '@/theme';
+import arcade from '@/assets/coyotearcade.png';
+import classes from './Logo.module.css';
 
 function StyledText({ children }: { children: string }) {
   return (
@@ -14,17 +15,15 @@ function StyledText({ children }: { children: string }) {
 
 function Logo() {
   return (
-    <>
-      <Container className={classes.wrapper}>
-        <Flex className={classes['wrapper-flex']}>
-          <Image src={arcade} className={classes.img} />
-          <Stack gap="0">
-            <StyledText>COYOTE</StyledText>
-            <StyledText>ARCADE</StyledText>
-          </Stack>
-        </Flex>
-      </Container>
-    </>
+    <NavLink to="/" style={{ textDecoration: 'none' }}>
+      <Box className={classes.root}>
+        <Image src={arcade} className={classes.img} />
+        <Stack className={classes['text-group']}>
+          <StyledText>COYOTE</StyledText>
+          <StyledText>ARCADE</StyledText>
+        </Stack>
+      </Box>
+    </NavLink>
   );
 }
 

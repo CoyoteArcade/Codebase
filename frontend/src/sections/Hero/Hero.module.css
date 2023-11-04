@@ -1,35 +1,34 @@
+/* Hero images: /src/assets/
+   Hero image variables: /src/global.css
+*/
+
 .root {
-  position: relative;
-  background-color: #11284b;
-  background-size: cover;
-  background-position: center;
-  width: 100%;
-  background-image: linear-gradient(
-      105deg,
-      rgba(235, 11, 255, 0.062) 50%,
-      rgba(5, 62, 116, 0.747) 50%
-        /*
-          Dark Mode Colors?
-          rgba(57, 5, 70, 0.349) calc(50vw),
-          rgba(10, 38, 116, 0.596) calc(50vw)
-      */
-    ),
-    url(https://images.unsplash.com/photo-1550828486-68812fa3f966?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80);
   padding-top: calc(var(--mantine-spacing-xl) * 2);
   padding-bottom: calc(var(--mantine-spacing-xl) * 2);
+  background-size: cover;
+  background-position: center;
 
+  /* For Mobile Resolution */
   @media (max-width: $mantine-breakpoint-md) {
-    background-position: 0px;
     background-image: linear-gradient(250deg, rgba(4, 20, 73, 0.664) 30%, rgba(69, 11, 92, 0.753)),
-      url(hero1.jpg);
+      var(--hero-mobile);
     padding-block: 0px;
   }
 
+  /* Between Desktop and Mobile Resolutions */
   @media (min-width: $mantine-breakpoint-md) and (max-width: $mantine-breakpoint-lg) {
-    background-size: cover;
-    background-position: bottom 100%;
     background-image: linear-gradient(100deg, rgba(5, 28, 90, 0.74) 10%, rgba(255, 255, 255, 0)),
-      url(hero2.jpg);
+      var(--hero-tablet);
+  }
+
+  /* Desktop Resolution */
+  @media (min-width: $mantine-breakpoint-lg) {
+    background-image: linear-gradient(
+        105deg,
+        rgba(235, 11, 255, 0.062) 50%,
+        rgba(5, 62, 116, 0.747) 50%
+      ),
+      var(--hero-desktop);
   }
 }
 

@@ -26,7 +26,7 @@ function Footer() {
   ));
 
   return (
-    <div className={classes.footer}>
+    <footer className={classes.footer}>
       <Container className={classes.inner}>
         <Logo />
 
@@ -38,7 +38,7 @@ function Footer() {
           </ActionIcon>
         </Group>
       </Container>
-    </div>
+    </footer>
   );
 }
 

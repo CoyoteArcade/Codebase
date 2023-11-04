@@ -1,5 +1,20 @@
 .root {
+  /* Keeps footer at bottom of viewport */
   min-height: 100vh;
+  display: flex;
   flex-direction: column;
-  justify-content: space-between;
+}
+
+.main {
+  flex: 1; /* Keeps footer at bottom of viewport */
+
+  /***
+    Turns <Outlet /> components to flex items.
+
+    Set `flex: 1` in the root of <Outlet />
+    components to stretch the height from
+    header to footer
+  */
+  display: flex;
+  flex-direction: column;
 }

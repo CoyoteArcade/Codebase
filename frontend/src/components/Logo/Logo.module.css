@@ -1,14 +1,12 @@
-.wrapper {
-  padding: 5px 0;
-  margin: 0;
-}
-
-.wrapper-flex {
+.root {
+  display: flex;
   gap: var(--mantine-spacing-xs);
+  margin: 0;
   align-items: center;
 }
 
 .img {
+  margin-top: 2px;
   width: 30px;
   height: auto;
 }
@@ -18,4 +16,8 @@
   font-family: 'Orbitron';
   font-weight: 900;
   line-height: 1;
+}
+
+.text-group {
+  gap: 2px;
 }
