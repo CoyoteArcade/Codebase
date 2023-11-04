@@ -29,12 +29,14 @@ import {
   IconShoppingBag,
   IconList,
   IconHeart,
+  IconAlertCircle,
 } from '@tabler/icons-react';
 
 import Search from '@/components/SearchBar/SearchBar';
 import DarkModeToggle from '@/components/DarkModeToggle/DarkModeToggle';
 import classes from './Header.module.css';
 
+// Game Hover - Links Content
 const mockdata = [
   {
     icon: IconUpload,
@@ -66,6 +68,12 @@ const mockdata = [
     link: '#',
     description: 'Games that you liked or loved on this account',
   },
+  {
+    icon: IconAlertCircle,
+    title: 'Test',
+    link: '/test',
+    description: 'Test page, do not click...',
+  },
 ];
 
 export default function Header() {
@@ -73,15 +81,15 @@ export default function Header() {
   const [drawerOpened, drawerHandler] = useDisclosure(false);
   const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
 
-  // Game Hover - Links
+  // Game Hover - Rendered Links
   const links = mockdata.map((item) => (
     <NavLink to={item.link} end key={item.title} onClick={drawerHandler.close}>
-      <UnstyledButton c="var(--mantine-color-text)" className={classes.subLink} key={item.title}>
+      <UnstyledButton className={classes.subLink} key={item.title}>
         <Group wrap="nowrap" align="flex-start">
           <ThemeIcon size={34} variant="default" radius="md">
             <item.icon
               style={{ width: rem(22), height: rem(22) }}
-              color={theme.colors['coyote-blue'][6]}
+              color={item.link === '/test' ? 'red' : 'var(--mantine-color-coyote-blue-outline)'}
             />
           </ThemeIcon>
           <div>

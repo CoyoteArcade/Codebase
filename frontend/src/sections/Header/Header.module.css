@@ -65,6 +65,7 @@
 
 /* Game Hover Menu */
 .subLink {
+  color: var(--mantine-color-text);
   width: 100%;
   padding: var(--mantine-spacing-xs) var(--mantine-spacing-md);
   border-radius: var(--mantine-radius-md);

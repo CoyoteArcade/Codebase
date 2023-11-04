@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Categories from './pages/Categories';
 import Games from './pages/Games';
+import Test from './pages/Test';
 
 import ErrorPage from './pages/ErrorPage';
 import { Game } from './sections/Game/Game';
@@ -36,10 +37,13 @@ const router = createBrowserRouter([
         path: '/games/:id',
         element: <Game />,
       },
-
       {
         path: '/search/:query',
         element: <Search />,
+      },
+      {
+        path: '/test',
+        element: <Test />,
       },
       {
         path: '*',
