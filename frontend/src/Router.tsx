@@ -10,6 +10,7 @@ import { Game } from './sections/Game/Game';
 import { Search } from './sections/Search/Search';
 import { Login } from './sections/Login/Login';
 import { ForgotPassword } from './sections/Login/ForgotPassword/ForgotPassword';
+import { Register } from './sections/Login/Register/Register';
 
 const router = createBrowserRouter([
   {
@@ -45,6 +46,10 @@ const router = createBrowserRouter([
       {
         path: '/forgot-password',
         element: <ForgotPassword />
+      },
+      {
+        path:'/register',
+        element: <Register />,
       },
       {
         path: '/search/:query',
