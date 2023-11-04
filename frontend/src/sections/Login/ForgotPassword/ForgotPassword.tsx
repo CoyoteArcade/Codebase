@@ -28,10 +28,10 @@ import {
         <Paper withBorder shadow="md" p={30} radius="md" mt="xl">
           <TextInput label="Your email" placeholder="me@mantine.dev" required />
           <Group justify="space-between" mt="lg" className={classes.controls}>
-            <Anchor c="dimmed" size="sm" className={classes.control}>
+            <Anchor c="dimmed" size="sm" className={classes.control} component={Link} to="/login">
               <Center inline>
                 <IconArrowLeft style={{ width: rem(12), height: rem(12) }} stroke={1.5} />
-                <Box ml={5}><Link to="/login" style={{textDecoration:"none"}}>Back to the login page</Link></Box>
+                <Box ml={5}>Back to the login page</Box>
               </Center>
             </Anchor>
             <Button className={classes.control}>Reset password</Button>

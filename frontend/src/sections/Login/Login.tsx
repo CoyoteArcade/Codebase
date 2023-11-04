@@ -21,11 +21,9 @@ import { Link } from 'react-router-dom';
         </Title>
         <Text c="dimmed" size="sm" ta="center" mt={5}>
           Do not have an account yet?{' '}
-          <Link to="/register">
-          <Anchor size="sm" component="button">
+          <Anchor size="sm" component={Link} to="/register">
             Create account
           </Anchor>
-          </Link>
         </Text>
   
         <Paper withBorder shadow="md" p={30} mt={30} radius="md">
@@ -33,10 +31,8 @@ import { Link } from 'react-router-dom';
           <PasswordInput label="Password" placeholder="Your password" required mt="md" />
           <Group justify="space-between" mt="lg">
             <Checkbox label="Remember me" />
-            <Anchor component="button" size="sm">
-                <Link to="/forgot-password" style={{textDecoration:"none"}}>
+            <Anchor component={Link} size="sm" to="/forgot-password">
               Forgot password?
-                </Link>
             </Anchor>
           </Group>
           <Button fullWidth mt="xl">
