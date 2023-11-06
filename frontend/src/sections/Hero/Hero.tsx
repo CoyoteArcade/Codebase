@@ -3,6 +3,9 @@ import classes from './Hero.module.css';
 import { NavLink } from 'react-router-dom';
 
 export default function HeroImageRight() {
+  const description =
+    'Try out new games from your fellow Coyote Students here at CSUSB Upload and share your own game creations to show off your skills and creativity!';
+
   return (
     <div className={classes.root}>
       <Container maw={rem('2500px')}>
@@ -13,11 +16,10 @@ export default function HeroImageRight() {
               <Text component="span" inherit c="rgb(84, 216, 255)">
                 Coyote&nbsp;Arcade
               </Text>{' '}
-              Web&nbsp;Application!
+              Web&nbsp;Application
             </Title>
             <Text className={classes.description} mt={30}>
-              Try out new games made by your fellow Coyotes – Mantine includes more than 100
-              customizable components and hooks to cover you in any situation
+              {description}
             </Text>
             <NavLink style={{ textDecoration: 'none' }} to="/games" key="Games">
               <Button

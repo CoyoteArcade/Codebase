@@ -18,8 +18,8 @@
   display: flex;
   align-items: center;
   height: 100%;
-  padding-left: var(--mantine-spacing-md);
-  padding-right: var(--mantine-spacing-md);
+  padding-left: var(--mantine-spacing-sm);
+  padding-right: var(--mantine-spacing-sm);
   text-decoration: none;
   color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-dark-1));
   font-weight: 500;
@@ -65,6 +65,7 @@
 
 /* Game Hover Menu */
 .subLink {
+  color: var(--mantine-color-text);
   width: 100%;
   padding: var(--mantine-spacing-xs) var(--mantine-spacing-md);
   border-radius: var(--mantine-radius-md);

@@ -1,4 +1,4 @@
-import { TextInput, TextInputProps, ActionIcon, rem } from '@mantine/core';
+import { TextInput, ActionIcon, rem } from '@mantine/core';
 import { IconSearch, IconArrowRight } from '@tabler/icons-react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -33,18 +33,12 @@ export default function InputWithButton(props: any) {
       size="md"
       placeholder="Search games"
       rightSectionWidth={42}
-      leftSection={<IconSearch className={classes['magnify-icon']} />}
+      leftSection={<IconSearch className={classes['icon-search']} />}
       value={inputValue}
       onChange={handleChange}
       onKeyDown={handleKeyPress}
       rightSection={
-        <ActionIcon
-          size={rem(30)}
-          radius="lg"
-          variant="outline"
-          className={classes['arrow-icon']}
-          onClick={handleSearch}
-        >
+        <ActionIcon size={rem(30)} radius="lg" variant="outline" onClick={handleSearch}>
           <IconArrowRight
             style={{
               width: rem(15),

@@ -1,21 +1,26 @@
-import {
-    TextInput,
-    PasswordInput,
-    Checkbox,
-    Anchor,
-    Paper,
-    Title,
-    Text,
-    Container,
-    Group,
-    Button,
-  } from '@mantine/core';
-  import classes from './Login.module.css';
 import { Link } from 'react-router-dom';
-  
-  export function Login() {
-    return (
-      <Container size={420} my={40}>
+import {
+  TextInput,
+  PasswordInput,
+  Checkbox,
+  Anchor,
+  Paper,
+  Title,
+  Text,
+  Group,
+  Button,
+  Box,
+  rem,
+  ThemeIcon,
+} from '@mantine/core';
+import { IconEye, IconEyeOff } from '@tabler/icons-react';
+
+import classes from './Login.module.css';
+
+export function Login() {
+  return (
+    <Box className={classes.root}>
+      <Box className={classes['login-container']}>
         <Title ta="center" className={classes.title}>
           Welcome back!
         </Title>
@@ -25,10 +30,27 @@ import { Link } from 'react-router-dom';
             Create account
           </Anchor>
         </Text>
-  
+
         <Paper withBorder shadow="md" p={30} mt={30} radius="md">
           <TextInput label="Email" placeholder="you@csusb.dev" required />
-          <PasswordInput label="Password" placeholder="Your password" required mt="md" />
+          <PasswordInput
+            classNames={{ visibilityToggle: classes['visibility-toggle'] }}
+            label="Password"
+            required
+            mt="md"
+            visibilityToggleButtonProps={{ 'aria-label': 'Toggle password visibility' }}
+            visibilityToggleIcon={({ reveal }) =>
+              reveal ? (
+                <ThemeIcon variant="filled">
+                  <IconEyeOff style={{ width: rem('17px'), height: rem('17px') }} />
+                </ThemeIcon>
+              ) : (
+                <ThemeIcon variant="subtle">
+                  <IconEye style={{ width: rem('17px'), height: rem('17px') }} />
+                </ThemeIcon>
+              )
+            }
+          />
           <Group justify="space-between" mt="lg">
             <Checkbox label="Remember me" />
             <Anchor component={Link} size="sm" to="/forgot-password">
@@ -36,9 +58,10 @@ import { Link } from 'react-router-dom';
             </Anchor>
           </Group>
           <Button fullWidth mt="xl">
-            Sign in
+            Log in
           </Button>
         </Paper>
-      </Container>
-    );
-  }
+      </Box>
+    </Box>
+  );
+}

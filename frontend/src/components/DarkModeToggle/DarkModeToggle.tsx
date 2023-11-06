@@ -10,7 +10,8 @@ function DarkModeToggle() {
   return (
     <ActionIcon
       onClick={() => setColorScheme(computedColorScheme === 'light' ? 'dark' : 'light')}
-      variant="outline"
+      variant={computedColorScheme === 'light' ? 'light' : 'light'}
+      color={computedColorScheme === 'light' ? 'violet' : 'coyote-blue'}
       size="lg"
       h="auto"
       aria-label="Toggle color scheme"

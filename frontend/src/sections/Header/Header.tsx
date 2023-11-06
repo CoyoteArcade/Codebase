@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import {
   HoverCard,
+  Menu,
   Group,
   Button,
   UnstyledButton,
@@ -19,6 +20,7 @@ import {
   rem,
   useMantineTheme,
   Code,
+  MenuDivider,
 } from '@mantine/core';
 import Logo from '@/components/Logo/Logo';
 import { useDisclosure } from '@mantine/hooks';
@@ -29,17 +31,19 @@ import {
   IconShoppingBag,
   IconList,
   IconHeart,
+  IconAlertCircle,
 } from '@tabler/icons-react';
 
 import Search from '@/components/SearchBar/SearchBar';
 import DarkModeToggle from '@/components/DarkModeToggle/DarkModeToggle';
 import classes from './Header.module.css';
 
+// Game Hover - Links Content
 const mockdata = [
   {
     icon: IconUpload,
     title: 'My Uploads',
-    link: '#',
+    link: '*',
     description: 'Games you have personally developed and uploaded to the web app',
   },
   {
@@ -51,7 +55,7 @@ const mockdata = [
   {
     icon: IconShoppingBag,
     title: 'My Purchases',
-    link: '#',
+    link: '*',
     description: 'Games you purchased or owned on this account',
   },
   {
@@ -63,25 +67,32 @@ const mockdata = [
   {
     icon: IconHeart,
     title: 'My Favorites',
-    link: '#',
+    link: '*',
     description: 'Games that you liked or loved on this account',
+  },
+  {
+    icon: IconAlertCircle,
+    title: 'Test',
+    link: '/test',
+    description: 'Test page, do not click...',
   },
 ];
 
 export default function Header() {
   const theme = useMantineTheme();
   const [drawerOpened, drawerHandler] = useDisclosure(false);
+  const [menuOpened, menuHandler] = useDisclosure(false);
   const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
 
-  // Game Hover - Links
+  // Game Hover - Rendered Links
   const links = mockdata.map((item) => (
     <NavLink to={item.link} end key={item.title} onClick={drawerHandler.close}>
-      <UnstyledButton c="var(--mantine-color-text)" className={classes.subLink} key={item.title}>
-        <Group wrap="nowrap" align="flex-start">
+      <UnstyledButton className={classes.subLink} key={item.title}>
+        <Group style={{ flexDirection: 'row' }} wrap="nowrap" align="flex-start">
           <ThemeIcon size={34} variant="default" radius="md">
             <item.icon
               style={{ width: rem(22), height: rem(22) }}
-              color={theme.colors['coyote-blue'][6]}
+              color={item.link === '/test' ? 'red' : 'var(--mantine-color-coyote-blue-outline)'}
             />
           </ThemeIcon>
           <div>
@@ -105,7 +116,6 @@ export default function Header() {
             <Logo />
             <Code style={{ alignSelf: 'flex-end' }}>v1.0</Code>
           </Group>
-
           <Group h="100%" gap={0} visibleFrom="sm">
             {/* HOME */}
             <NavLink
@@ -147,7 +157,6 @@ export default function Header() {
               </HoverCard.Target>
 
               {/* GAME Hover Card */}
-              <Box></Box>
               <HoverCard.Dropdown style={{ overflow: 'hidden' }}>
                 <Group justify="space-between" px="md">
                   <Text fw={500}>Features</Text>
@@ -169,7 +178,9 @@ export default function Header() {
                         Create a Coyote Arcade account now for increased functionality!
                       </Text>
                     </div>
-                    <Button variant="outline">Register</Button>
+                    <Button component={NavLink} to="/register" onClick={drawerHandler.close}>
+                      Register
+                    </Button>
                   </Group>
                 </div>
               </HoverCard.Dropdown>
@@ -195,16 +206,7 @@ export default function Header() {
           </Group>
 
           {/* Login, Register */}
-          <Group visibleFrom="md" align="stretch">
-            {/* <ActionIcon
-              mr="var(--mantine-spacing-xs)"
-              variant="default"
-              disabled
-              size="lg"
-              aria-label="Settings"
-            >
-              <IconShoppingCart style={{ width: '70%', height: '70%' }} stroke={1.5} />
-            </ActionIcon> */}
+          <Group visibleFrom="lg" align="stretch">
             <DarkModeToggle />
             <NavLink style={{ textDecoration: 'none' }} to="/login" key="Login">
               <Button variant="outline">Log In</Button>
@@ -214,7 +216,38 @@ export default function Header() {
             </NavLink>
           </Group>
 
-          <Burger opened={drawerOpened} onClick={() => drawerHandler.toggle()} hiddenFrom="sm" />
+          {/* Drawer/Burger Menu on Mobile */}
+          <Group hiddenFrom="sm">
+            <DarkModeToggle />
+            <Burger opened={drawerOpened} onClick={() => drawerHandler.toggle()} />
+          </Group>
+
+          {/* Dropdown/Burger Menu  */}
+          <Group hiddenFrom="lg" visibleFrom="sm">
+            <DarkModeToggle />
+            <Menu shadow="md">
+              <Menu.Target>
+                <Burger />
+              </Menu.Target>
+
+              <Menu.Dropdown w={250} hiddenFrom="lg" visibleFrom="sm">
+                <Menu.Item component="div">
+                  <Button variant="outline" w="100%" component={NavLink} to="/login">
+                    Log In
+                  </Button>
+                </Menu.Item>
+                <Menu.Item component="div">
+                  <Button w="100%" component={NavLink} to="/register">
+                    Register
+                  </Button>
+                </Menu.Item>
+                <MenuDivider />
+                <Menu.Item component="div" closeMenuOnClick={false}>
+                  <Search />
+                </Menu.Item>
+              </Menu.Dropdown>
+            </Menu>
+          </Group>
         </Group>
       </nav>
 
@@ -226,6 +259,7 @@ export default function Header() {
           padding="md"
           title="Navigation"
           hiddenFrom="sm"
+          position="right"
           zIndex={1000000}
         >
           <ScrollArea h={`calc(100vh - ${rem(80)})`} mx="-md">
@@ -260,7 +294,7 @@ export default function Header() {
               </Center>
             </UnstyledButton>
             <Collapse in={linksOpened}>{links}</Collapse>
-            <NavLink to="/upload" className={classes['link-drawer']}>
+            <NavLink to="/upload" className={classes['link-drawer']} onClick={drawerHandler.close}>
               Upload
             </NavLink>
 
@@ -271,8 +305,17 @@ export default function Header() {
             </Box>
 
             <Group justify="center" grow pb="xl" px="md" my="lg">
-              <Button variant="default">Log in</Button>
-              <Button>Register</Button>
+              <Button
+                component={NavLink}
+                variant="default"
+                to="/login"
+                onClick={drawerHandler.close}
+              >
+                Log In
+              </Button>
+              <Button component={NavLink} to="/register" onClick={drawerHandler.close}>
+                Register
+              </Button>
             </Group>
           </ScrollArea>
         </Drawer>
