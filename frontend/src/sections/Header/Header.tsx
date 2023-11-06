@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import {
   HoverCard,
   Menu,
@@ -18,7 +18,6 @@ import {
   Collapse,
   ScrollArea,
   rem,
-  useMantineTheme,
   Code,
   MenuDivider,
 } from '@mantine/core';
@@ -79,7 +78,8 @@ const mockdata = [
 ];
 
 export default function Header() {
-  const theme = useMantineTheme();
+  let location = useLocation();
+  console.log(location);
   const [drawerOpened, drawerHandler] = useDisclosure(false);
   const [menuOpened, menuHandler] = useDisclosure(false);
   const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
@@ -89,11 +89,13 @@ export default function Header() {
     <NavLink to={item.link} end key={item.title} onClick={drawerHandler.close}>
       <UnstyledButton className={classes.subLink} key={item.title}>
         <Group style={{ flexDirection: 'row' }} wrap="nowrap" align="flex-start">
-          <ThemeIcon size={34} variant="default" radius="md">
-            <item.icon
-              style={{ width: rem(22), height: rem(22) }}
-              color={item.link === '/test' ? 'red' : 'var(--mantine-color-coyote-blue-outline)'}
-            />
+          <ThemeIcon
+            size={34}
+            color={item.link === '/test' ? 'red' : ''}
+            variant="outline"
+            radius="md"
+          >
+            <item.icon style={{ width: rem(22), height: rem(22) }} />
           </ThemeIcon>
           <div>
             <Text size="sm" fw={500}>
@@ -143,15 +145,26 @@ export default function Header() {
             {/* GAME Button */}
             <HoverCard width={600} position="bottom" radius="md" shadow="md" withinPortal>
               <HoverCard.Target>
-                <Box className={classes.link}>
+                <Box
+                  pr="0px"
+                  className={(() => {
+                    switch (location.pathname) {
+                      case '/games':
+                      case '/games/categories':
+                        return `${classes.link} ${classes.active}`;
+                        break;
+                      default:
+                        return `${classes.link}`;
+                    }
+                  })()}
+                >
                   <Center inline>
                     <Box component="span" mr={5}>
                       Games
                     </Box>
-                    <IconChevronDown
-                      style={{ width: rem(16), height: rem(16) }}
-                      color={theme.colors['coyote-blue'][4]}
-                    />
+                    <ThemeIcon variant="transparent">
+                      <IconChevronDown style={{ width: rem(16), height: rem(16) }} />
+                    </ThemeIcon>
                   </Center>
                 </Box>
               </HoverCard.Target>
@@ -287,10 +300,9 @@ export default function Header() {
                 <Box component="span" mr={5}>
                   Games
                 </Box>
-                <IconChevronDown
-                  style={{ width: rem(16), height: rem(16) }}
-                  color={theme.colors.blue[6]}
-                />
+                <ThemeIcon variant="transparent">
+                  <IconChevronDown style={{ width: rem(16), height: rem(16) }} />
+                </ThemeIcon>
               </Center>
             </UnstyledButton>
             <Collapse in={linksOpened}>{links}</Collapse>
