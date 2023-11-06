@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import { Outlet, useLoaderData } from 'react-router-dom';
+import { Outlet, useLoaderData, useNavigation } from 'react-router-dom';
 import { Box, Container, Stack } from '@mantine/core';
 
 import Header from '../sections/Header/Header';
@@ -32,9 +32,12 @@ export default function RootPage() {
     <GamesContext.Provider value={games}>
       <Box className={classes.root}>
         <Header />
-        <main className={classes.main}>
-          <Outlet />
-        </main>
+        <Box component="main" className={classes.main}>
+          <Box className={classes.outlet}>
+            <Outlet />
+          </Box>
+        </Box>
+
         <Footer />
       </Box>
     </GamesContext.Provider>

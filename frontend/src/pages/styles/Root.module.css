@@ -8,13 +8,20 @@
 .main {
   flex: 1; /* Keeps footer at bottom of viewport */
 
-  /***
-    Turns <Outlet /> components to flex items.
+  /* 
+     If needed: set height: 100%
+     or h='100%' prop to root of
+     <Outlet> components to fill
+     remaining vertical space
 
-    Set `flex: 1` in the root of <Outlet />
-    components to stretch the height from
-    header to footer
+     e.g. About.tsx, Login.tsx
   */
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+}
+
+.outlet {
+  min-width: 320px;
+  max-width: 100vw;
 }
