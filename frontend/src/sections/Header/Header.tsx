@@ -319,7 +319,7 @@ export default function Header() {
             <Group justify="center" grow pb="xl" px="md" my="lg">
               <Button
                 component={NavLink}
-                variant="default"
+                variant="outline"
                 to="/login"
                 onClick={drawerHandler.close}
               >
