@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import { getGames, addGame, getCategory } from './index.js';
+import { getGames, addGame, getCategory, signIn, signUp } from './index.js';
 
 const app = express();
 const PORT = 3000;
@@ -36,6 +36,41 @@ app.post('/games', async (req, res) => {
         res.status(201).send('Game Added');
     } catch (error) {
         res.status(500).send('Server Error');
+    }
+});
+
+app.post('/login', async (req, res) => {
+    const { email, password } = req.body;
+    try {
+        let result = await signIn(email, password);
+        res.status(200).send( result );
+    } catch (error) {
+        res.status(500).send({ message: 'Server Error' });
+    }
+});
+
+app.get('/signout', async (req, res) => {
+    let result = {};
+    try {
+        await signOut();
+        result = { message: 'Signed out' };
+        res.status(200).send(result);
+    } catch (error) {
+        result = { message: 'Error signing out', error: error };
+        res.status(500).send(result);
+    }
+});
+
+app.post('/signup', async (req, res) => {
+    const { email, password, username } = req.body;
+    console.log(req.headers);
+    console.log(req.body);
+    try {
+        let result = await signUp(email, password, username);
+        console.log("result",result);
+        res.status(200).send(result);
+    } catch (error) {
+        res.status(500).send({ message: 'Server Error', error });
     }
 });
 

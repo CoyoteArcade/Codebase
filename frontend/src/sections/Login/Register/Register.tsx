@@ -15,10 +15,41 @@ import { useDisclosure } from '@mantine/hooks';
 import { IconEye, IconEyeOff } from '@tabler/icons-react';
 import { Link } from 'react-router-dom';
 import classes from './Register.module.css';
+import { useState } from 'react';
 
 export function Register() {
   const theme = useMantineTheme();
   const [visible, { toggle }] = useDisclosure(false);
+  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+
+  const handleChange = (event:any) => {
+    if(event.target.id === 'email') {
+      setEmail(event.target.value);
+    } else if(event.target.id === 'username') {
+      setUsername(event.target.value);
+    } else if(event.target.id === 'password') {
+      setPassword(event.target.value);
+    } else if(event.target.id === 'confirm-password') {
+      setConfirmPassword(event.target.value);
+    } else {
+      console.log('Error: handleChange()');
+    }
+  };
+
+  const handleSignup = async () => {
+    const request = await fetch('http://localhost:3000/signup', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({email: email, username: username, password: password, confirmPassword: confirmPassword}),
+    });
+    const response = await request.json();
+    console.log("response", response);
+  };
 
   return (
     <Box className={classes.root}>
@@ -42,8 +73,8 @@ export function Register() {
           mt={30}
           radius="md"
         >
-          <TextInput label="Email" placeholder="" required />
-          <TextInput mt="md" label="Username" placeholder="" required />
+          <TextInput label="Email" placeholder="" required id="email" value={email} onChange={handleChange} />
+          <TextInput mt="md" label="Username" placeholder="" required id="username" value={username} onChange={handleChange} />
           <PasswordInput
             classNames={{ visibilityToggle: classes['visibility-toggle'] }}
             label="Password"
@@ -63,6 +94,9 @@ export function Register() {
                 </ThemeIcon>
               )
             }
+            id="password"
+            value={password}
+            onChange={handleChange}
           />
           <PasswordInput
             classNames={{ visibilityToggle: classes['visibility-toggle'] }}
@@ -83,8 +117,11 @@ export function Register() {
                 </ThemeIcon>
               )
             }
+            id="confirm-password"
+            value={confirmPassword}
+            onChange={handleChange}
           />
-          <Button fullWidth mt="xl">
+          <Button fullWidth mt="xl" onClick={handleSignup}>
             Register
           </Button>
         </Paper>

@@ -1,6 +1,7 @@
 
 import { getFirestore, collection, getDocs, addDoc, query, where } from "firebase/firestore";
 import { initializeApp } from "firebase/app";
+import { getAuth, signInWithEmailAndPassword, updateProfile, createUserWithEmailAndPassword } from "firebase/auth";
 
 import  "dotenv/config";
 
@@ -14,9 +15,11 @@ const firebaseConfig = {
     measurementId: process.env.FIREBASE_MEASUREMENT_ID
 };
 
-initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
 
-const db = getFirestore();
+const db = getFirestore(app);
+
+const auth = getAuth(app);
 
 /**
  * Get all games or games that match a specific query.
@@ -82,4 +85,62 @@ const addGame = async (game=undefined) => {
     console.log("Document written with ID: ", docRef.id);
 };
 
-export { getGames, addGame, getCategory };
+const signIn = async (email, password) => {
+    let result;
+    try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+        console.log("Signed in as: ", user.email);
+        console.log("User ID: ", user.uid);
+        console.log(user);
+        result = { message: "Signed in", user: user };
+    } catch (error) {
+        console.log("Error signing in: ", error);
+        result = { message: "Error signing in", error: error };
+
+    }
+    return result;
+};
+
+const signOut = async () => {
+    let result = {};
+    try {
+        await auth.signOut();
+        console.log("Signed out");
+        result = { message: "Signed out" };
+    } catch (error) {
+        console.log("Error signing out: ", error);
+        result = { message: "Error signing out", error: error };
+    }
+    return result;
+};
+
+const signUp = async (email, password, username) => {
+    let result = {};
+    console.log("signup function called");
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+          // Signed in 
+          console.log("createUserWithEmailAndPassword called");
+          const user = userCredential.user;
+          updateProfile(user, {
+            displayName: username
+          }).then(() => {
+            console.log('user updated');
+            result = { message: "Signed up", user: user };
+          }).catch((error) => {
+            console.log(error, 'user not updated');
+            result = { message: "Error signing up", error: error };
+          });
+      })
+      .catch((error) => {
+        console.log("createUserWithEmailAndPassword error");
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        result = { message: "Error signing up", errorCode, errorMessage };
+        console.log(result);
+      });
+    return result;
+}
+
+export { getGames, addGame, getCategory, signIn, signOut, signUp };
