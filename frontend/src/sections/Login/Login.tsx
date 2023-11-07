@@ -47,6 +47,7 @@ export function Login() {
               ) : (
                 <ThemeIcon variant="subtle">
                   <IconEyeOff style={{ width: rem('17px'), height: rem('17px') }} />
+                  <IconEyeOff style={{ width: rem('17px'), height: rem('17px') }} />
                 </ThemeIcon>
               )
             }
