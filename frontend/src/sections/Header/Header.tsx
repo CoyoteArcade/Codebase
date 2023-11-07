@@ -69,12 +69,6 @@ const mockdata = [
     link: '*',
     description: 'Games that you liked or loved on this account',
   },
-  {
-    icon: IconAlertCircle,
-    title: 'Test',
-    link: '/test',
-    description: 'Test page, do not click...',
-  },
 ];
 
 export default function Header() {
@@ -89,12 +83,7 @@ export default function Header() {
     <NavLink to={item.link} end key={item.title} onClick={drawerHandler.close}>
       <UnstyledButton className={classes.subLink} key={item.title}>
         <Group style={{ flexDirection: 'row' }} wrap="nowrap" align="flex-start">
-          <ThemeIcon
-            size={34}
-            color={item.link === '/test' ? 'red' : ''}
-            variant="outline"
-            radius="md"
-          >
+          <ThemeIcon size={34} variant="outline" radius="md">
             <item.icon style={{ width: rem(22), height: rem(22) }} />
           </ThemeIcon>
           <div>
