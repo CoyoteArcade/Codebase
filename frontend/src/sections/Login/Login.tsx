@@ -41,12 +41,12 @@ export function Login() {
             visibilityToggleButtonProps={{ 'aria-label': 'Toggle password visibility' }}
             visibilityToggleIcon={({ reveal }) =>
               reveal ? (
-                <ThemeIcon variant="filled">
-                  <IconEyeOff style={{ width: rem('17px'), height: rem('17px') }} />
+                <ThemeIcon variant="light">
+                  <IconEye style={{ width: rem('17px'), height: rem('17px') }} />
                 </ThemeIcon>
               ) : (
                 <ThemeIcon variant="subtle">
-                  <IconEye style={{ width: rem('17px'), height: rem('17px') }} />
+                  <IconEyeOff style={{ width: rem('17px'), height: rem('17px') }} />
                 </ThemeIcon>
               )
             }
