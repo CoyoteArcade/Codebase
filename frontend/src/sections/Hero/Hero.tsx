@@ -1,10 +1,21 @@
-import { Container, Title, Text, Button, rem } from '@mantine/core';
+import { Container, Title, Text, Button, rem, useMantineTheme } from '@mantine/core';
 import classes from './Hero.module.css';
 import { NavLink } from 'react-router-dom';
 
 export default function HeroImageRight() {
+  const theme = useMantineTheme();
   const description =
     'Try out new games from your fellow Coyote Students here at CSUSB Upload and share your own game creations to show off your skills and creativity!';
+
+  let accentColor = '';
+  switch (theme.primaryColor) {
+    case 'coyote-blue':
+      accentColor = 'cyan';
+      break;
+    case 'violet':
+      accentColor = 'grape';
+      break;
+  }
 
   return (
     <div className={classes.root}>
@@ -13,7 +24,7 @@ export default function HeroImageRight() {
           <div className={classes.content}>
             <Title lh={rem('1.2em')} className={classes.title}>
               Welcome to the{' '}
-              <Text component="span" inherit c="rgb(84, 216, 255)">
+              <Text component="span" inherit c={`${accentColor}.4`}>
                 Coyote&nbsp;Arcade
               </Text>{' '}
               Web&nbsp;Application
@@ -22,17 +33,7 @@ export default function HeroImageRight() {
               {description}
             </Text>
             <NavLink style={{ textDecoration: 'none' }} to="/games" key="Games">
-              <Button
-                // @ts-ignore
-                variant="gradient"
-                gradient={{
-                  from: 'var(--mantine-color-coyote-blue-light)',
-                  to: 'var(--mantine-color-coyote-blue-dark)',
-                }}
-                size="xl"
-                className={classes.control}
-                mt={40}
-              >
+              <Button variant="filled" size="xl" className={classes.control} mt={40}>
                 View games
               </Button>
             </NavLink>
