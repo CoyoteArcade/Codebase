@@ -2,7 +2,7 @@ import { Box, Title, Stack, MantineProvider, rem } from '@mantine/core';
 import { useContext } from 'react';
 
 import { GamesContext } from '@/pages/Root';
-import ShopGrid from './ShopGrid/ShopGrid';
+import GameGrid from '@/components/GameGrid/GameGrid';
 import ShopCategories from './ShopCategories/ShopCategories';
 
 import classes from './Shop.module.css';
@@ -69,7 +69,7 @@ export default function Shop({
           </Title>
         )}
 
-        {showGrid && <ShopGrid gameData={games} />}
+        {showGrid && <GameGrid gameData={games} />}
       </Box>
     </MantineProvider>
   );

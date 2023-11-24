@@ -1,6 +1,6 @@
 import { GameCard } from '@/components/GameCard/GameCard';
 
-import classes from './ShopGrid.module.css';
+import classes from './GameGrid.module.css';
 
 function GameGrid({ gameData }: any) {
   const games = gameData.map((game: any) => (
