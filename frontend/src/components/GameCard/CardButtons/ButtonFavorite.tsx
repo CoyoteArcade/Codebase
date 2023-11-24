@@ -1,28 +1,28 @@
 import { ActionIcon } from '@mantine/core';
 import { useToggle } from '@mantine/hooks';
-
 import { IconHeart, IconHeartFilled } from '@tabler/icons-react';
 
-function FavButton({ size = 'lg' }) {
-  const [isFav, favToggle] = useToggle();
-  const iconSize = {
-    width: '75%',
-    height: '75%',
-  };
+import classes from './ButtonFavorite.module.css';
+
+function FavoriteButton() {
+  const [favorited, favoriteToggle] = useToggle();
 
   return (
     <ActionIcon
-      size={size}
-      variant="subtle"
-      color="var(--mantine-color-red-6)"
-      aria-label="Favorite"
-      radius="xl"
-      onClick={() => favToggle()}
+      classNames={favorited ? { root: classes.filled } : { root: classes.default }}
+      aria-label="Add to favorites"
+      onClick={() => favoriteToggle()}
     >
-      <IconHeartFilled display={isFav ? 'block' : 'none'} style={iconSize} />
-      <IconHeart display={isFav ? 'none' : 'block'} style={iconSize} />
+      <IconHeartFilled
+        display={favorited ? 'block' : 'none'}
+        className={`${classes.icon} ${favorited ? classes.visible : classes.hidden}`}
+      />
+      <IconHeart
+        display={favorited ? 'none' : 'block'}
+        className={`${classes.icon} ${favorited ? classes.hidden : classes.visible}`}
+      />
     </ActionIcon>
   );
 }
 
-export default FavButton;
+export default FavoriteButton;

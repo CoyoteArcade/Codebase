@@ -1,5 +1,7 @@
 .card {
   height: 100%;
+  padding: var(--mantine-spacing-xs);
+  box-shadow: var(--mantine-shadow-sm);
 }
 
 .card-banner {
@@ -28,11 +30,22 @@
   flex-direction: column;
 }
 
+.card-inner-top {
+  gap: var(--mantine-spacing-xs);
+  margin-block: var(--mantine-spacing-xs);
+}
+
 .card-inner-buttons {
+  flex-wrap: nowrap;
+  justify-content: space-between;
 }
 
 .card-title {
   flex: 1;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 
   @media (max-width: $mantine-breakpoint-md) {
     font-size: var(--mantine-font-size-sm);
@@ -43,6 +56,10 @@
     font-size: var(--mantine-font-size-lg);
     line-height: var(--mantine-line-height-lg);
   }
+}
+
+.card-title-simple {
+  margin-block: var(--mantine-spacing-xs);
 }
 
 .card-genres {
@@ -77,15 +94,22 @@
 }
 
 .card-description {
+  color: var(--mantine-color-dimmed);
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+
   @media (max-width: $mantine-breakpoint-md) {
     font-size: calc(var(--mantine-font-size-xs) - 1px);
     line-height: var(--mantine-line-height-xs);
     margin-bottom: var(--mantine-spacing-xs);
+    -webkit-line-clamp: 3;
   }
 
   @media (min-width: $mantine-breakpoint-md) {
     font-size: var(--mantine-font-size-sm);
     line-height: var(--mantine-line-height-sm);
     margin-bottom: var(--mantine-spacing-md);
+    -webkit-line-clamp: 4;
   }
 }

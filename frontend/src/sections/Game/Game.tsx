@@ -6,18 +6,14 @@ import {
   Container,
   Grid,
   SimpleGrid,
-  Skeleton,
   rem,
   Box,
   List,
   Image,
   Card,
-  Text,
   Title,
   Group,
 } from '@mantine/core';
-
-import Favorite from '@/components/GameCard/CardButtons/ButtonFavorite';
 
 const PRIMARY_COL_HEIGHT = rem(500);
 const images = [
@@ -42,10 +38,6 @@ export function Game() {
                 <Title mb="sm" order={3}>
                   {game.Title}
                 </Title>
-
-                <Box mb="10px">
-                  <Favorite size="xl" />
-                </Box>
               </Group>
 
               <Card.Section>

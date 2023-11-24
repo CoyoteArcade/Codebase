@@ -6,7 +6,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "host": "vite preview --host",
+    "host": "npm run build && vite preview --host",
     "typecheck": "tsc --noEmit",
     "lint": "eslint src",
     "prettier": "prettier --check \"**/*.{ts,tsx}\"",

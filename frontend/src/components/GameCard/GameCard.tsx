@@ -11,16 +11,13 @@ import {
   Group,
   em,
 } from '@mantine/core';
-import { useMediaQuery } from '@mantine/hooks';
 
 import ButtonCart from './CardButtons/ButtonCart';
-import ButtonFav from './CardButtons/ButtonFavorite';
+import ButtonFavorite from './CardButtons/ButtonFavorite';
 
 import classes from './GameCard.module.css';
 
 function GameCard({ gameObj }: any) {
-  const isMobile = useMediaQuery(`(max-width: ${em(991)}`);
-
   /** Game Properties */
   const { id } = gameObj;
   const title = gameObj.Title;
@@ -29,12 +26,7 @@ function GameCard({ gameObj }: any) {
 
   /** GENRE BADGES */
   genres = genres.map((genre = '', idx) => (
-    <Badge
-      key={idx}
-      classNames={{ root: classes['card-genres-badge'] }}
-      color="coyote-blue"
-      variant="light"
-    >
+    <Badge key={genre} classNames={{ root: classes['card-genres-badge'] }} variant="light">
       {genre}
     </Badge>
   ));
@@ -42,11 +34,8 @@ function GameCard({ gameObj }: any) {
   /** GAME BANNER */
   const aspectRatio = 16 / 9;
 
-  /** ACTION BUTTONS */
-  const buttonSize = isMobile ? 'md' : 'lg';
-
   return (
-    <Card className={classes.card} shadow="md" radius="md" padding="xs" withBorder>
+    <Card className={classes.card} withBorder>
       {/* GAME BANNER */}
       <Card.Section>
         <Link to={`/games/${id}`} className={classes['card-banner-link']}>
@@ -58,36 +47,24 @@ function GameCard({ gameObj }: any) {
 
       <Box className={classes['card-inner']}>
         <Box className={classes['card-inner-main']}>
-          <Group gap="xs" justify="space-between" my="xs">
+          <Stack className={classes['card-inner-top']}>
             {/* GAME TITLE */}
-            <Text className={classes['card-title']} lineClamp={2}>
-              {title}
-            </Text>
+            <Text className={classes['card-title']}>{title}</Text>
 
             {/* GENRE BADGES */}
-            <ScrollArea
-              classNames={classes}
-              w="100%"
-              type="hover"
-              scrollbarSize={4}
-              offsetScrollbars
-            >
-              <Group className={classes['card-genres']} gap="xs">
-                {genres}
-              </Group>
+            <ScrollArea classNames={classes} type="hover" scrollbarSize={4} offsetScrollbars>
+              <Group className={classes['card-genres']}>{genres}</Group>
             </ScrollArea>
-          </Group>
+          </Stack>
 
           {/* DESCRIPTION */}
-          <Text className={classes['card-description']} c="dimmed" lineClamp={isMobile ? 3 : 4}>
-            {description}
-          </Text>
+          <Text className={classes['card-description']}>{description}</Text>
         </Box>
 
         {/* ACTION BUTTONS */}
-        <Group className={classes['card-inner-buttons']} justify="space-between" wrap="nowrap">
-          <ButtonFav size={buttonSize} />
-          <ButtonCart size={buttonSize} />
+        <Group className={classes['card-inner-buttons']}>
+          <ButtonFavorite />
+          <ButtonCart />
         </Group>
       </Box>
     </Card>
@@ -95,8 +72,6 @@ function GameCard({ gameObj }: any) {
 }
 
 function GameCardSimple({ gameObj }: any) {
-  const isMobile = useMediaQuery(`(max-width: ${em(991)}`);
-
   /** Game Properties */
   const { id } = gameObj;
   const title = gameObj.Title;
@@ -106,7 +81,7 @@ function GameCardSimple({ gameObj }: any) {
   const aspectRatio = 16 / 9;
 
   return (
-    <Card className={classes.card} shadow="md" radius="md" padding="xs" withBorder>
+    <Card className={classes.card} withBorder>
       {/* GAME BANNER */}
       <Card.Section>
         <Link to={`/games/${id}`} className={classes['card-banner-link']}>
@@ -118,16 +93,10 @@ function GameCardSimple({ gameObj }: any) {
 
       <Box className={classes['card-inner']}>
         {/* GAME TITLE */}
-        <Box my="xs">
-          <Text className={classes['card-title']} lineClamp={2}>
-            {title}
-          </Text>
-        </Box>
+        <Text className={`${classes['card-title']} ${classes['card-title-simple']}`}>{title}</Text>
 
         {/* DESCRIPTION */}
-        <Text className={classes['card-description']} c="dimmed" lineClamp={isMobile ? 3 : 4}>
-          {description}
-        </Text>
+        <Text className={classes['card-description']}>{description}</Text>
       </Box>
     </Card>
   );

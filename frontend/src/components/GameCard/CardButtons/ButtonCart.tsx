@@ -1,29 +1,23 @@
 import { ActionIcon } from '@mantine/core';
 import { useToggle } from '@mantine/hooks';
-
 import { IconShoppingCartPlus, IconShoppingCartFilled } from '@tabler/icons-react';
 
-function CartButton({ size = 'lg', disabled = false }) {
+import classes from './ButtonCart.module.css';
+
+function CartButton({ disabled = false }) {
   const [inCart, cartToggle] = useToggle();
-  const iconSize = {
-    width: '65%',
-    height: '65%',
-  };
 
   return (
     <ActionIcon
-      size={size}
-      variant={inCart ? 'filled' : 'default'}
-      onClick={() => cartToggle()}
-      color="green"
-      aria-label="Cart"
-      radius="xl"
+      classNames={inCart ? { root: classes.filled } : { root: classes.default }}
       disabled={disabled}
+      onClick={() => cartToggle()}
+      aria-label="Add to cart"
     >
       {inCart ? (
-        <IconShoppingCartFilled style={iconSize} />
+        <IconShoppingCartFilled className={classes.icon} />
       ) : (
-        <IconShoppingCartPlus style={iconSize} />
+        <IconShoppingCartPlus className={classes.icon} />
       )}
     </ActionIcon>
   );
