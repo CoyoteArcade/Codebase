@@ -19,7 +19,8 @@ function FavButton({ size = 'lg' }) {
       radius="xl"
       onClick={() => favToggle()}
     >
-      {isFav ? <IconHeartFilled style={iconSize} /> : <IconHeart style={iconSize} />}
+      <IconHeartFilled display={isFav ? 'block' : 'none'} style={iconSize} />
+      <IconHeart display={isFav ? 'none' : 'block'} style={iconSize} />
     </ActionIcon>
   );
 }

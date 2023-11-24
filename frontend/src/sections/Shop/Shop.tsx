@@ -64,7 +64,7 @@ export default function Shop({
         )}
         {showCategories && <ShopCategories gameData={games} maxCategories={maxCategories} />}
         {showGrid && (
-          <Title mb={rem('50px')} order={2}>
+          <Title className={classes['title-grid']} order={2}>
             {titleGrid}
           </Title>
         )}

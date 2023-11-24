@@ -1,2 +1,64 @@
-.grid {
+.container {
+  width: 100%;
+  display: grid;
+  justify-content: center;
+  gap: 1em;
+
+  @media (max-width: $mantine-breakpoint-xs) {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 45%));
+  }
+
+  @media (min-width: $mantine-breakpoint-xs) and (max-width: $mantine-breakpoint-sm) {
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  }
+
+  @media (min-width: $mantine-breakpoint-sm) and (max-width: $mantine-breakpoint-md) {
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  }
+
+  @media (min-width: $mantine-breakpoint-md) and (max-width: $mantine-breakpoint-lg) {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5em;
+  }
+
+  @media (min-width: $mantine-breakpoint-lg) {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5em;
+  }
+}
+
+.card-title {
+  font-size: var(--mantine-font-size-sm);
+  line-height: var(--mantine-line-height-sm);
+}
+
+.badge {
+  --badge-fz: calc(var(--badge-fz-xs) - 1px);
+  --badge-height: calc(var(--badge-height-xs) - 1px);
+  --badge-padding-x: calc(var(--badge-padding-x-xs) - 1px);
+  text-overflow: none;
+}
+
+.badges {
+  margin-bottom: rem(5px);
+  flex-wrap: nowrap;
+  gap: rem(5px);
+}
+
+.scrollbar {
+  &,
+  &:hover {
+    background-color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-6));
+  }
+
+  &[data-orientation='horizontal'] .thumb {
+    background-color: var(--mantine-color-coyote-blue-filled);
+  }
+}
+
+.description {
+  font-size: calc(var(--mantine-font-size-xs) - 1px);
+  line-height: var(--mantine-line-height-xs);
+
+  margin-bottom: var(--mantine-spacing-xs);
 }

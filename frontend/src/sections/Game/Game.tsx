@@ -17,7 +17,7 @@ import {
   Group,
 } from '@mantine/core';
 
-import Favorite from '@/sections/Shop/ShopGrid/ShopGridCard/CardButtons/ButtonFav';
+import Favorite from '@/components/GameCard/CardButtons/ButtonFavorite';
 
 const PRIMARY_COL_HEIGHT = rem(500);
 const images = [

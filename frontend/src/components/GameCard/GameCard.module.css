@@ -1,0 +1,91 @@
+.card {
+  height: 100%;
+}
+
+.card-banner {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.card-banner-img {
+  margin: 0 auto;
+}
+
+/* Card content: everything below the banner */
+.card-inner {
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  @media (min-width: $mantine-breakpoint-md) {
+    padding-inline: 5px;
+  }
+}
+
+.card-inner-main {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-inner-buttons {
+}
+
+.card-title {
+  flex: 1;
+
+  @media (max-width: $mantine-breakpoint-md) {
+    font-size: var(--mantine-font-size-sm);
+    line-height: var(--mantine-line-height-sm);
+  }
+
+  @media (min-width: $mantine-breakpoint-md) {
+    font-size: var(--mantine-font-size-lg);
+    line-height: var(--mantine-line-height-lg);
+  }
+}
+
+.card-genres {
+  margin-bottom: rem(5px);
+  flex-wrap: nowrap;
+  gap: rem(5px);
+}
+
+.card-genres-badge {
+  @media (max-width: $mantine-breakpoint-md) {
+    --badge-fz: calc(var(--badge-fz-xs) - 1px);
+    --badge-height: calc(var(--badge-height-xs) - 1px);
+    --badge-padding-x: calc(var(--badge-padding-x-xs) - 1px);
+  }
+
+  @media (min-width: $mantine-breakpoint-md) {
+    --badge-fz: var(--badge-fz-sm);
+    --badge-height: var(--badge-height-sm);
+    --badge-padding-x: var(--badge-padding-x-sm);
+  }
+}
+
+.scrollbar {
+  &,
+  &:hover {
+    background-color: light-dark(var(--mantine-color-gray-4), var(--mantine-color-dark-6));
+  }
+
+  &[data-orientation='horizontal'] .thumb {
+    background-color: var(--mantine-color-coyote-blue-light-color);
+  }
+}
+
+.card-description {
+  @media (max-width: $mantine-breakpoint-md) {
+    font-size: calc(var(--mantine-font-size-xs) - 1px);
+    line-height: var(--mantine-line-height-xs);
+    margin-bottom: var(--mantine-spacing-xs);
+  }
+
+  @media (min-width: $mantine-breakpoint-md) {
+    font-size: var(--mantine-font-size-sm);
+    line-height: var(--mantine-line-height-sm);
+    margin-bottom: var(--mantine-spacing-md);
+  }
+}

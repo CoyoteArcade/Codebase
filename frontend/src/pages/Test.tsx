@@ -1,9 +1,9 @@
-import { Flex, Title } from '@mantine/core';
+import { Flex, Box } from '@mantine/core';
 
 export default function Test() {
   return (
     <Flex style={{ height: '100%', backgroundColor: 'var(--mantine-primary-color-light' }}>
-      <Title m="auto">This is a test page.</Title>
+      <Box style={{ flex: 1 }}>Test Page</Box>
     </Flex>
   );
 }

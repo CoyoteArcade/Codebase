@@ -1,6 +1,6 @@
-import { Stack, Title, rem } from '@mantine/core';
+import { Stack, rem } from '@mantine/core';
 
-import GameCategoryRow from './GameCategoryRow/GameCategoryRow';
+import CategoryRow from './CategoryRow/CategoryRow';
 
 import classes from './ShopCategories.module.css';
 
@@ -19,7 +19,7 @@ function ShopCategories({ gameData, maxCategories }: { gameData: any; maxCategor
 
   // Rendered categories
   const gameCategories = categories.map((category, idx) => {
-    return <GameCategoryRow key={idx} gameData={gameData} category={category} />;
+    return <CategoryRow key={idx} gameData={gameData} category={category} />;
   });
 
   return (
