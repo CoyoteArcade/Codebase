@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { useParams } from 'react-router-dom';
-import { GamesContext } from '@/pages/Root';
+import { GamesContext } from '@/pages/Root/Root';
 
 import {
   Container,
@@ -39,9 +39,10 @@ export function Game() {
           <Box h={PRIMARY_COL_HEIGHT}>
             <Card withBorder shadow="sm" radius="md">
               <Group justify="space-between" align="center">
-                <Text mb="sm" size="sm">
-                  <Title order={3}>{game.Title}</Title>
-                </Text>
+                <Title mb="sm" order={3}>
+                  {game.Title}
+                </Title>
+
                 <Box mb="10px">
                   <Favorite size="xl" />
                 </Box>
@@ -72,7 +73,7 @@ export function Game() {
             </Grid.Col>
             <Grid.Col span={6}>
               <Box h={SECONDARY_COL_HEIGHT}>
-                <h3>System Requirements</h3>
+                <Title order={3}>System Requirements</Title>
                 <List size="sm">
                   <List.Item>
                     Graphics: {game['System Requirements'].Graphics || 'Unknown'}
@@ -88,7 +89,7 @@ export function Game() {
             </Grid.Col>
             <Grid.Col span={6}>
               <Box h={SECONDARY_COL_HEIGHT}>
-                <h3>Details</h3>
+                <Title order={3}>Details</Title>
                 <List size="sm">
                   <List.Item>Description: {game.Description || 'Unknown'}</List.Item>
                   <List.Item>Release Date: {game['Release Date'] || 'Unknown'}</List.Item>

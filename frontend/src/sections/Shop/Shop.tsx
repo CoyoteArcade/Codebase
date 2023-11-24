@@ -1,7 +1,7 @@
 import { Box, Title, Stack, MantineProvider, rem } from '@mantine/core';
 import { useContext } from 'react';
 
-import { GamesContext } from '@/pages/Root';
+import { GamesContext } from '@/pages/Root/Root';
 import GameGrid from '@/components/GameGrid/GameGrid';
 import ShopCategories from './ShopCategories/ShopCategories';
 

@@ -2,10 +2,10 @@ import { createContext } from 'react';
 import { Outlet, useLoaderData, useNavigation } from 'react-router-dom';
 import { Box, Container, Stack } from '@mantine/core';
 
-import Header from '../sections/Header/Header';
-import Footer from '../sections/Footer/Footer';
+import Header from '../../sections/Header/Header';
+import Footer from '../../sections/Footer/Footer';
 
-import classes from './styles/Root.module.css';
+import classes from './Root.module.css';
 
 export async function getGames() {
   let games = [];
@@ -25,7 +25,7 @@ export async function loader() {
 
 export const GamesContext = createContext([]);
 
-export default function RootPage() {
+export function Root() {
   const games: any = useLoaderData();
 
   return (

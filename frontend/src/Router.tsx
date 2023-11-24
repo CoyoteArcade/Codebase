@@ -1,17 +1,17 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import Root, { loader as gamesLoader } from './pages/Root';
+import { Root, loader as gamesLoader } from './pages/Root/Root';
+import { ErrorPage } from './pages/ErrorPage/ErrorPage';
 import Home from './pages/Home';
 import About from './pages/About';
 import Categories from './pages/Categories';
 import Games from './pages/Games';
 import Test from './pages/Test';
 
-import ErrorPage from './pages/ErrorPage';
 import { Game } from './sections/Game/Game';
 import { Search } from './sections/Search/Search';
 import { Login } from './sections/Login/Login';
-import { ForgotPassword } from './sections/Login/ForgotPassword/ForgotPassword';
 import { Register } from './sections/Login/Register/Register';
+import { ForgotPassword } from './sections/Login/ForgotPassword/ForgotPassword';
 
 const router = createBrowserRouter([
   {

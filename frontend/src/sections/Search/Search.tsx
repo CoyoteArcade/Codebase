@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { GamesContext } from '@/pages/Root';
+import { GamesContext } from '@/pages/Root/Root';
 
 import { Container, Title, rem, Divider, Text } from '@mantine/core';
 

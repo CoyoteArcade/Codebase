@@ -1,6 +1,6 @@
 import { Grid } from '@mantine/core';
 import { useContext } from 'react';
-import { GamesContext } from './Root';
+import { GamesContext } from './Root/Root';
 
 import Navbar from '../sections/Navbar/Navbar';
 import Shop from '@/sections/Shop/Shop';
