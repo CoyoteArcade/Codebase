@@ -58,8 +58,6 @@ export function Game() {
               <Box h={SECONDARY_COL_HEIGHT}>
                 <video controls src="https://placehold.co/420x220.mp4?text=Video+Trailer"></video>
               </Box>
-
-              {/* https://placehold.co/3840x2160.mp4?text=Trailer+For+ */}
             </Grid.Col>
             <Grid.Col span={6}>
               <Box h={SECONDARY_COL_HEIGHT}>

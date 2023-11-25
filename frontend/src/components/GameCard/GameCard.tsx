@@ -40,7 +40,7 @@ function GameCard({ gameObj }: any) {
       <Card.Section>
         <Link to={`/games/${id}`} className={classes['card-banner-link']}>
           <AspectRatio ratio={aspectRatio} className={classes['card-banner']}>
-            <Image src="https://placehold.co/1600x900?text=16:9+Banner" />
+            <Image src={`https://placehold.co/1600x900/003e7a/eee?text=${title}`} />
           </AspectRatio>
         </Link>
       </Card.Section>
@@ -86,7 +86,7 @@ function GameCardSimple({ gameObj }: any) {
       <Card.Section>
         <Link to={`/games/${id}`} className={classes['card-banner-link']}>
           <AspectRatio ratio={aspectRatio} className={classes['card-banner']}>
-            <Image src="https://placehold.co/1600x900?text=16:9+Banner" />
+            <Image src={`https://placehold.co/1600x900/003e7a/eee?text=${title}`} />
           </AspectRatio>
         </Link>
       </Card.Section>
