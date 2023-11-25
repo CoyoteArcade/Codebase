@@ -9,7 +9,6 @@ import {
   Space,
   SimpleGrid,
   ThemeIcon,
-  ActionIcon,
   Divider,
   Center,
   Box,
@@ -75,7 +74,6 @@ export default function Header() {
   let location = useLocation();
   console.log(location);
   const [drawerOpened, drawerHandler] = useDisclosure(false);
-  const [menuOpened, menuHandler] = useDisclosure(false);
   const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
 
   // Game Hover - Rendered Links

@@ -1,12 +1,12 @@
+import { useRouteLoaderData } from 'react-router-dom';
 import { Grid } from '@mantine/core';
-import { useContext } from 'react';
-import { GamesContext } from './Root/Root';
 
 import Navbar from '../sections/Navbar/Navbar';
 import Shop from '@/sections/Shop/Shop';
 
 export default function Categories() {
-  const games: any = useContext(GamesContext);
+  const games: any = useRouteLoaderData("root");
+
   return (
     <Grid gutter={0}>
       <Grid.Col span={{ base: 0, lg: 2 }}>

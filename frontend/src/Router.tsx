@@ -19,6 +19,7 @@ const router = createBrowserRouter([
     element: <Root />,
     errorElement: <ErrorPage />,
     loader: gamesLoader,
+    id: 'root',
     children: [
       {
         path: '/',

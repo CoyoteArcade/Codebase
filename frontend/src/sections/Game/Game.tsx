@@ -1,6 +1,4 @@
-import { useContext } from 'react';
-import { useParams } from 'react-router-dom';
-import { GamesContext } from '@/pages/Root/Root';
+import { useParams, useRouteLoaderData } from 'react-router-dom';
 
 import {
   Container,
@@ -23,7 +21,7 @@ const images = [
 ];
 
 export function Game() {
-  const games: any = useContext(GamesContext);
+  const games: any = useRouteLoaderData("root");
   const { id } = useParams();
   const game = games.find((game: any) => game.id === id) || {};
   const SECONDARY_COL_HEIGHT = `calc(${PRIMARY_COL_HEIGHT} / 2 - var(--mantine-spacing-md) / 2)`;

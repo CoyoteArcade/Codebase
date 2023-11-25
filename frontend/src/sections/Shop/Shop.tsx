@@ -1,7 +1,6 @@
-import { Box, Title, Stack, MantineProvider, rem } from '@mantine/core';
-import { useContext } from 'react';
+import { useRouteLoaderData } from "react-router-dom";
+import { Box, Title, MantineProvider, rem } from '@mantine/core';
 
-import { GamesContext } from '@/pages/Root/Root';
 import GameGrid from '@/components/GameGrid/GameGrid';
 import ShopCategories from './ShopCategories/ShopCategories';
 
@@ -21,7 +20,7 @@ export default function Shop({
   maxCategories?: number;
   title?: string;
 }) {
-  const games: any = useContext(GamesContext);
+  const games: any = useRouteLoaderData("root");
 
   /*
   const [games, setGameData] = useState([]);
