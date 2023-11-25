@@ -4,7 +4,7 @@ import CategoryRow from './CategoryRow/CategoryRow';
 
 import classes from './ShopCategories.module.css';
 
-function ShopCategories({ gameData, maxCategories }: { gameData: any; maxCategories?: number }) {
+function ShopCategories({ gameData = [], maxCategories }: { gameData: any; maxCategories?: number }) {
   const categories: Array<string> = [];
 
   for (let i = 0; i < gameData.length; i++) {

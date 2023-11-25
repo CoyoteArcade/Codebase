@@ -1,12 +1,9 @@
-import { useContext } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import { GamesContext } from '@/pages/Root/Root';
-
+import { Link, useParams, useRouteLoaderData } from 'react-router-dom';
 import { Container, Title, rem, Divider, Text } from '@mantine/core';
 
 export function Search() {
+  const games: any = useRouteLoaderData("root");
   const { query }: any = useParams();
-  const games = useContext(GamesContext);
   const filteredGames = games.filter((game: any) =>
     game.Title.toLowerCase().includes(query.toLowerCase())
   );
