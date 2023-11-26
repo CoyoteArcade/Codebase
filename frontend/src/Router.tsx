@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Categories from './pages/Categories';
 import Games from './pages/Games';
+import Upload from './pages/Upload/Upload';
 import Test from './pages/Test';
 
 import { Game } from './sections/Game/Game';
@@ -56,6 +57,10 @@ const router = createBrowserRouter([
       {
         path: '/search/:query',
         element: <Search />,
+      },
+      {
+        path: '/upload',
+        element: <Upload />,
       },
       {
         path: '/test',
