@@ -94,7 +94,7 @@ function GameCardSimple({ gameObj }: any) {
         </Link>
       </Card.Section>
 
-      <Box className={classes['card-inner']}>
+      <Box className={classes['card-inner-main']}>
         {/* GAME TITLE */}
         <Text className={`${classes['card-title']} ${classes['card-title-simple']}`}>{title}</Text>
 
