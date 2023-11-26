@@ -35,11 +35,6 @@
   margin-block: var(--mantine-spacing-xs);
 }
 
-.card-inner-buttons {
-  flex-wrap: nowrap;
-  justify-content: space-between;
-}
-
 .card-title {
   flex: 1;
   overflow: hidden;
@@ -111,5 +106,17 @@
     line-height: var(--mantine-line-height-sm);
     margin-bottom: var(--mantine-spacing-md);
     -webkit-line-clamp: 4;
+  }
+}
+
+.card-inner-buttons {
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
+
+.card-inner-platforms {
+  gap: rem(5px);
+  @media (max-width: $mantine-breakpoint-md) {
+    gap: rem(2px);
   }
 }

@@ -9,11 +9,11 @@ import {
   Badge,
   ScrollArea,
   Group,
-  em,
 } from '@mantine/core';
 
 import ButtonCart from './CardButtons/ButtonCart';
 import ButtonFavorite from './CardButtons/ButtonFavorite';
+import PlatformIcon from './PlatformIcon/PlatformIcon';
 
 import classes from './GameCard.module.css';
 
@@ -23,13 +23,17 @@ function GameCard({ gameObj }: any) {
   const title = gameObj.Title;
   const description = gameObj.Description;
   let genres = [...gameObj.Category];
+  let platforms: any = ['Apple', 'Windows', 'Linux'];
 
   /** GENRE BADGES */
-  genres = genres.map((genre = '', idx) => (
+  genres = genres.map((genre = '') => (
     <Badge key={genre} classNames={{ root: classes['card-genres-badge'] }} variant="light">
       {genre}
     </Badge>
   ));
+
+  /** PLATFORM ICONS */
+  platforms = platforms.map((platform = '') => <PlatformIcon key={platform} platform={platform} />);
 
   /** GAME BANNER */
   const aspectRatio = 16 / 9;
@@ -44,7 +48,6 @@ function GameCard({ gameObj }: any) {
           </AspectRatio>
         </Link>
       </Card.Section>
-
       <Box className={classes['card-inner']}>
         <Box className={classes['card-inner-main']}>
           <Stack className={classes['card-inner-top']}>
@@ -64,7 +67,7 @@ function GameCard({ gameObj }: any) {
         {/* ACTION BUTTONS */}
         <Group className={classes['card-inner-buttons']}>
           <ButtonFavorite />
-          <ButtonCart />
+          <Group className={classes['card-inner-platforms']}>{platforms}</Group>
         </Group>
       </Box>
     </Card>
