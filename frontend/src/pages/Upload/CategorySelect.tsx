@@ -76,7 +76,7 @@ export default function CategorySelect() {
   return (
     <Combobox store={combobox} onOptionSubmit={handleValueSelect} withinPortal={false}>
       <Combobox.DropdownTarget>
-        <PillsInput onClick={() => combobox.openDropdown()}>
+        <PillsInput onClick={() => combobox.openDropdown()} label="Game Categories">
           <Pill.Group>
             {values}
 
@@ -85,7 +85,7 @@ export default function CategorySelect() {
                 onFocus={() => combobox.openDropdown()}
                 onBlur={() => combobox.closeDropdown()}
                 value={search}
-                placeholder="Choose up to 3 categories"
+                placeholder={`Search categories (${values.length}/3)`}
                 onChange={(event) => {
                   combobox.updateSelectedOptionIndex();
                   setSearch(event.currentTarget.value);
