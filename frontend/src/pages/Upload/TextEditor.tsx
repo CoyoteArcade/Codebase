@@ -30,7 +30,7 @@ function TextEditor({ description = initialContent }: { description?: string }) 
     <SimpleGrid cols={{ base: 1, md: 2 }}>
       <Box>
         <RichTextEditor editor={editor}>
-          <RichTextEditor.Toolbar sticky stickyOffset={60}>
+          <RichTextEditor.Toolbar>
             <RichTextEditor.ControlsGroup>
               <RichTextEditor.Bold />
               <RichTextEditor.Italic />
