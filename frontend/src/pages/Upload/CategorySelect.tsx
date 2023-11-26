@@ -74,7 +74,12 @@ export default function CategorySelect() {
     ));
 
   return (
-    <Combobox store={combobox} onOptionSubmit={handleValueSelect} withinPortal={false}>
+    <Combobox
+      store={combobox}
+      onOptionSubmit={handleValueSelect}
+      withinPortal={false}
+      transitionProps={{ duration: 200, transition: 'pop' }}
+    >
       <Combobox.DropdownTarget>
         <PillsInput onClick={() => combobox.openDropdown()} label="Game Categories">
           <Pill.Group>
