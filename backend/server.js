@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import { getGames, addGame, getCategory, signIn, signUp } from './index.js';
+import { getGames, addGame, getCategory, signIn, signUp, signOut } from './index.js';
 
 const app = express();
 const PORT = 3000;

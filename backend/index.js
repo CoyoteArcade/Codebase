@@ -118,29 +118,23 @@ const signOut = async () => {
 const signUp = async (email, password, username) => {
     let result = {};
     console.log("signup function called");
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-          // Signed in 
-          console.log("createUserWithEmailAndPassword called");
-          const user = userCredential.user;
-          updateProfile(user, {
+    try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        console.log("createUserWithEmailAndPassword called");
+        const user = userCredential.user;
+        await updateProfile(user, {
             displayName: username
-          }).then(() => {
-            console.log('user updated');
-            result = { message: "Signed up", user: user };
-          }).catch((error) => {
-            console.log(error, 'user not updated');
-            result = { message: "Error signing up", error: error };
-          });
-      })
-      .catch((error) => {
+        });
+        console.log('user updated');
+        result = { message: "Signed up", user: user };
+    } catch (error) {
         console.log("createUserWithEmailAndPassword error");
         const errorCode = error.code;
         const errorMessage = error.message;
         result = { message: "Error signing up", errorCode, errorMessage };
         console.log(result);
-      });
+    }
     return result;
-}
+};
 
 export { getGames, addGame, getCategory, signIn, signOut, signUp };
