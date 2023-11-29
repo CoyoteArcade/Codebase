@@ -13,13 +13,16 @@ import {
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { IconEye, IconEyeOff } from '@tabler/icons-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import classes from './Register.module.css';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { AuthContext } from '@/utilities/auth/AuthContext';
 
 export function Register() {
   const theme = useMantineTheme();
+  const navigate = useNavigate();
   const [visible, { toggle }] = useDisclosure(false);
+  const { user, setUser } = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -40,7 +43,11 @@ export function Register() {
   };
 
   const handleSignup = async () => {
-    const request = await fetch('http://localhost:3000/signup', {
+    if(password !== confirmPassword) {
+      console.log('Error: Passwords do not match');
+      return;
+    }
+    const request = await fetch('https://delightful-sombrero-slug.cyclic.app/signup', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -49,6 +56,14 @@ export function Register() {
     });
     const response = await request.json();
     console.log("response", response);
+    if(response.message === "Signed up") {
+      window.alert("Signup successful!");
+      setUser((response as any).user);
+      navigate('/login');
+    } else if(response.message === "Error signing up") {
+      console.log(response.error, response.errorCode);
+      window.alert(`Error: ${response.message} (${response.errorCode})`);
+    }
   };
 
   return (
@@ -102,6 +117,7 @@ export function Register() {
             classNames={{ visibilityToggle: classes['visibility-toggle'] }}
             label="Confirm Password"
             required
+            error={password !== confirmPassword && 'Passwords do not match' }
             mt="md"
             visible={visible}
             onVisibilityChange={toggle}
@@ -121,7 +137,7 @@ export function Register() {
             value={confirmPassword}
             onChange={handleChange}
           />
-          <Button fullWidth mt="xl" onClick={handleSignup}>
+          <Button fullWidth mt="xl" onClick={handleSignup} disabled={(password === confirmPassword && password.length && email.length && username.length) ? false : true}>
             Register
           </Button>
         </Paper>

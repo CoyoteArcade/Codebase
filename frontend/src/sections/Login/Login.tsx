@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import {
   TextInput,
   PasswordInput,
@@ -17,11 +17,13 @@ import {
 import { IconEye, IconEyeOff } from '@tabler/icons-react';
 // import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import classes from './Login.module.css';
+import { AuthContext } from '../../utilities/auth/AuthContext';
 
 export function Login() {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const { user, setUser } = useContext(AuthContext);
 
   const handleChange = (event:any) => {
     if(event.target.id === 'email') {
@@ -34,14 +36,22 @@ export function Login() {
   };
 
   const handleLogin = async () => {
-    const request = await fetch('http://localhost:3000/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({email: email, password: password}),
-    });
-    const response = await request.json();
+    let response = {};
+    try {
+      const request = await fetch('https://delightful-sombrero-slug.cyclic.app/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({email: email, password: password}),
+      });
+      response = await request.json();
+      setUser((response as any).user);
+    } catch(error) {
+      console.log("error", error);
+      response = {error: error};
+      setUser(null);
+    }
     console.log("response", response);
   }
 
@@ -50,7 +60,7 @@ export function Login() {
     <Box className={classes.root}>
       <Box className={classes['login-container']}>
         <Title ta="center" className={classes.title}>
-          Welcome back!
+          Welcome back! {user ? (user as any).displayName : 'Guest'}
         </Title>
         <Text c="dimmed" size="sm" ta="center" mt={5}>
           Do not have an account yet?{' '}
