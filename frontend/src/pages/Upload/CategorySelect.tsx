@@ -78,7 +78,7 @@ export default function CategorySelect() {
       <Combobox.DropdownTarget>
         <PillsInput
           size="md"
-          description={`Choose from many game genres (${values.length}/3)`}
+          description={`Choose from many genres (${values.length}/3)`}
           onClick={() => combobox.openDropdown()}
           label="Game Categories"
         >
