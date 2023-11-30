@@ -59,7 +59,7 @@ export function Register() {
     if(response.message === "Signed up") {
       window.alert("Signup successful!");
       setUser((response as any).user);
-      navigate('/login');
+      navigate('/');
     } else if(response.message === "Error signing up") {
       console.log(response.error, response.errorCode);
       window.alert(`Error: ${response.message} (${response.errorCode})`);
