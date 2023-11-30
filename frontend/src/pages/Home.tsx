@@ -1,10 +1,13 @@
+import { useContext } from 'react';
 import { Grid } from '@mantine/core';
-
 import Hero from '../sections/Hero/Hero';
 import Navbar from '../sections/Navbar/Navbar';
 import Shop from '@/sections/Shop/Shop';
+import { AuthContext } from '@/utilities/auth/AuthContext';
 
 export default function Home() {
+  const { user, setUser } = useContext(AuthContext);
+  console.log(user, setUser);
   return (
     <>
       <Hero />

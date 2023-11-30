@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { useState, useEffect, useContext } from 'react';
 import {
   TextInput,
   PasswordInput,
@@ -14,15 +15,52 @@ import {
   ThemeIcon,
 } from '@mantine/core';
 import { IconEye, IconEyeOff } from '@tabler/icons-react';
-
+// import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import classes from './Login.module.css';
+import { AuthContext } from '../../utilities/auth/AuthContext';
 
 export function Login() {
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const { user, setUser } = useContext(AuthContext);
+
+  const handleChange = (event:any) => {
+    if(event.target.id === 'email') {
+      setEmail(event.target.value);
+    } else if(event.target.id === 'password') {
+      setPassword(event.target.value);
+    } else {
+      console.log('Error: handleChange()');
+    }
+  };
+
+  const handleLogin = async () => {
+    let response = {};
+    try {
+      const request = await fetch('https://delightful-sombrero-slug.cyclic.app/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({email: email, password: password}),
+      });
+      response = await request.json();
+      setUser((response as any).user);
+    } catch(error) {
+      console.log("error", error);
+      response = {error: error};
+      setUser(null);
+    }
+    console.log("response", response);
+  }
+
+
   return (
     <Box className={classes.root}>
       <Box className={classes['login-container']}>
         <Title ta="center" className={classes.title}>
-          Welcome back!
+          Welcome back! {user ? (user as any).displayName : 'Guest'}
         </Title>
         <Text c="dimmed" size="sm" ta="center" mt={5}>
           Do not have an account yet?{' '}
@@ -32,9 +70,10 @@ export function Login() {
         </Text>
 
         <Paper withBorder shadow="md" p={30} mt={30} radius="md">
-          <TextInput label="Email" placeholder="you@csusb.dev" required />
+          <TextInput label="Email" id="email" placeholder="you@csusb.dev" required value={email} onChange={handleChange} />
           <PasswordInput
             classNames={{ visibilityToggle: classes['visibility-toggle'] }}
+            id="password"
             label="Password"
             required
             mt="md"
@@ -50,6 +89,8 @@ export function Login() {
                 </ThemeIcon>
               )
             }
+            onChange={handleChange}
+            value={password}
           />
           <Group justify="space-between" mt="lg">
             <Checkbox label="Remember me" />
@@ -57,7 +98,7 @@ export function Login() {
               Forgot password?
             </Anchor>
           </Group>
-          <Button fullWidth mt="xl">
+          <Button fullWidth mt="xl" onClick={handleLogin}>
             Log in
           </Button>
         </Paper>
