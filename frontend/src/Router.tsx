@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
 import Root, { loader as gamesLoader } from './pages/Root';
 import Home from './pages/Home';
 import About from './pages/About';
@@ -12,6 +12,17 @@ import { Search } from './sections/Search/Search';
 import { Login } from './sections/Login/Login';
 import { ForgotPassword } from './sections/Login/ForgotPassword/ForgotPassword';
 import { Register } from './sections/Login/Register/Register';
+import { useContext } from 'react';
+import { AuthContext } from './utilities/auth/AuthContext';
+
+function RequireAuth({ children, redirectTo, required }: any) {
+  const { user } = useContext(AuthContext);
+  if (user || !required) {
+    return children;
+  } else {
+    return <Navigate to={redirectTo} replace={true} />;
+  }
+}
 
 const router = createBrowserRouter([
   {
@@ -47,6 +58,14 @@ const router = createBrowserRouter([
       {
         path: '/forgot-password',
         element: <ForgotPassword />,
+      },
+      {
+        path: '/profile',
+        element:  (
+          <RequireAuth redirectTo="/login" required={true}>
+            <ErrorPage />
+          </RequireAuth>
+        ),
       },
       {
         path: '/register',
