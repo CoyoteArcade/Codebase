@@ -36,6 +36,8 @@ import {
 import Search from '@/components/SearchBar/SearchBar';
 import DarkModeToggle from '@/components/DarkModeToggle/DarkModeToggle';
 import classes from './Header.module.css';
+import { useContext } from 'react';
+import { AuthContext } from '@/utilities/auth/AuthContext';
 
 // Game Hover - Links Content
 const mockdata = [
@@ -71,7 +73,20 @@ const mockdata = [
   },
 ];
 
+const registerButton = (
+  <NavLink style={{ textDecoration: 'none' }} to="/register" key="Register">
+    <Button>Register</Button>
+  </NavLink>
+);
+
+const profileButton = (
+  <NavLink style={{ textDecoration: 'none' }} to="/profile" key="Profile">
+    <Button>Profile</Button>
+  </NavLink>
+);
+
 export default function Header() {
+  const { user, setUser } = useContext(AuthContext);
   let location = useLocation();
   console.log(location);
   const [drawerOpened, drawerHandler] = useDisclosure(false);
@@ -213,9 +228,7 @@ export default function Header() {
             <NavLink style={{ textDecoration: 'none' }} to="/login" key="Login">
               <Button variant="outline">Log In</Button>
             </NavLink>
-            <NavLink style={{ textDecoration: 'none' }} to="/register" key="Register">
-              <Button>Register</Button>
-            </NavLink>
+            {user ? profileButton : registerButton}
           </Group>
 
           {/* Drawer/Burger Menu on Mobile */}
