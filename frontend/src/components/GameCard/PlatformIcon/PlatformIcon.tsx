@@ -6,11 +6,12 @@ import {
   faLinux as Linux,
   faWindows as Windows,
 } from '@fortawesome/free-brands-svg-icons';
+import { faGlobe as Web } from '@fortawesome/free-solid-svg-icons';
 
 import classes from './PlatformIcon.module.css';
 
 function PlatformIcon({ platform }: { platform: string }) {
-  let platformElement: any = undefined;
+  let platformElement: any = '';
 
   switch (platform) {
     case 'Android':
@@ -22,15 +23,22 @@ function PlatformIcon({ platform }: { platform: string }) {
     case 'Linux':
       platformElement = Linux;
       break;
+    case 'Web':
+      platformElement = Web;
+      break;
     case 'Windows':
       platformElement = Windows;
       break;
   }
 
   return (
-    <ThemeIcon classNames={{ root: classes.root }} aria-label="platform icon">
-      <FontAwesomeIcon icon={platformElement} className={classes.icon} />
-    </ThemeIcon>
+    <>
+      {platformElement === '' || (
+        <ThemeIcon classNames={{ root: classes.root }} aria-label="platform icon">
+          <FontAwesomeIcon icon={platformElement} className={classes.icon} />
+        </ThemeIcon>
+      )}
+    </>
   );
 }
 

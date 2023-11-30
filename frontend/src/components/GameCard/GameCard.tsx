@@ -23,7 +23,7 @@ function GameCard({ gameObj }: any) {
   const title = gameObj.Title;
   const description = gameObj.Description;
   let genres = [...gameObj.Category];
-  let platforms: any = ['Apple', 'Windows', 'Linux'];
+  let platforms: any = ['Apple', 'Windows', 'DoesNotExist', 'Linux', 'Web'];
 
   /** GENRE BADGES */
   genres = genres.map((genre = '') => (

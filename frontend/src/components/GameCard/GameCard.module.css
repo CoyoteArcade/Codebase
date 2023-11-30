@@ -2,6 +2,11 @@
   height: 100%;
   padding: var(--mantine-spacing-xs);
   box-shadow: var(--mantine-shadow-sm);
+  border-radius: var(--mantine-radius-md);
+
+  @media (max-width: $mantine-breakpoint-md) {
+    padding-bottom: 5px;
+  }
 }
 
 .card-banner {
@@ -117,8 +122,5 @@
 }
 
 .card-inner-platforms {
-  gap: rem(5px);
-  @media (max-width: $mantine-breakpoint-md) {
-    gap: rem(2px);
-  }
+  gap: rem(2px);
 }
