@@ -1,36 +1,52 @@
 import { useState } from 'react';
 import { Textarea } from '@mantine/core';
 
-const CHAR_LIMIT = 90;
+const TAGLINE_LIMIT = 90;
+const TITLE_LIMIT = 50;
 
-function TextInput() {
+function TitleInput() {
   const [value, setValue] = useState('');
-  const [charAmount, setCharAmount] = useState(value.length);
-  const [errorText, setErrorText] = useState('');
 
   return (
     <Textarea
-      label={'Brief Description'}
-      description={`A simple tagline to draw in your audience (${charAmount}/${CHAR_LIMIT})`}
-      value={value}
-      error={errorText}
-      placeholder={'The cake is a lie. Find out why by clicking on this game.'}
+      size="md"
+      label="Title"
+      description="The name of your game creation"
+      autosize
+      maxLength={TITLE_LIMIT}
+      onChange={(event) => {
+        setValue(event.currentTarget.value);
+      }}
       onKeyDown={(event) => {
         if (event.key === 'Enter') {
           event.preventDefault();
-        }
-      }}
-      onChange={(event) => {
-        if (event.currentTarget.value.length > CHAR_LIMIT) {
-          setErrorText('Max Characters Reached');
-        } else {
-          setErrorText('');
-          setValue(event.currentTarget.value);
-          setCharAmount(event.currentTarget.value.length);
         }
       }}
     />
   );
 }
 
-export default TextInput;
+function TaglineInput() {
+  const [value, setValue] = useState('');
+
+  return (
+    <Textarea
+      size="md"
+      autosize
+      label={'Tagline'}
+      maxLength={TAGLINE_LIMIT}
+      description="An engaging hook to draw in your audience"
+      value={value}
+      onChange={(event) => {
+        setValue(event.currentTarget.value);
+      }}
+      onKeyDown={(event) => {
+        if (event.key === 'Enter') {
+          event.preventDefault();
+        }
+      }}
+    />
+  );
+}
+
+export { TaglineInput, TitleInput };

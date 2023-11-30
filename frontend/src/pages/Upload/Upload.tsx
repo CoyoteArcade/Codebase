@@ -1,7 +1,7 @@
 import { Box } from '@mantine/core';
 
 import CategorySelect from './CategorySelect';
-import TextInput from './TextInput';
+import { TitleInput, TaglineInput } from './TextInput';
 import DescriptionEditor from './TextEditor';
 
 import classes from './Upload.module.css';
@@ -9,8 +9,9 @@ import classes from './Upload.module.css';
 function Upload() {
   return (
     <Box className={classes.root}>
+      <TitleInput />
+      <TaglineInput />
       <CategorySelect />
-      <TextInput />
       <DescriptionEditor />
     </Box>
   );
