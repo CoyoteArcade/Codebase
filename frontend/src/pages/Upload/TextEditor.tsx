@@ -95,7 +95,7 @@ function TextEditor({ description = '' }: { description?: string }) {
 
   return (
     <Box>
-      <RichTextEditor editor={editor}>
+      <RichTextEditor editor={editor} mih={250} maw={1000}>
         <RichTextEditor.Toolbar sticky stickyOffset={60}>
           <RichTextEditor.ControlsGroup>
             <RichTextEditor.Bold icon={BoldIcon} />
@@ -177,15 +177,7 @@ function TextEditor({ description = '' }: { description?: string }) {
             </RichTextEditor.Control>
           </RichTextEditor.ControlsGroup>
         </RichTextEditor.Toolbar>
-        <SimpleGrid cols={{ base: 1, md: 2 }}>
-          <RichTextEditor.Content />
-          <Box h="auto" p="md" bg={'gray.0'} style={{ borderRadius: '5px' }}>
-            <TypographyStylesProvider p="0">
-              {/* @ts-ignore */}
-              <div dangerouslySetInnerHTML={{ __html: editor?.getHTML() }} />
-            </TypographyStylesProvider>
-          </Box>
-        </SimpleGrid>
+        <RichTextEditor.Content />
       </RichTextEditor>
     </Box>
   );
