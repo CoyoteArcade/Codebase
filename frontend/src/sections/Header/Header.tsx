@@ -36,7 +36,7 @@ import {
 import Search from '@/components/SearchBar/SearchBar';
 import DarkModeToggle from '@/components/DarkModeToggle/DarkModeToggle';
 import classes from './Header.module.css';
-import { useContext } from 'react';
+import { MouseEventHandler, useContext } from 'react';
 import { AuthContext } from '@/utilities/auth/AuthContext';
 
 // Game Hover - Links Content
@@ -85,6 +85,18 @@ const profileButton = (
   </NavLink>
 );
 
+const loginButton = (
+  <NavLink style={{ textDecoration: 'none' }} to="/login" key="Login">
+    <Button variant="outline">Log In</Button>
+  </NavLink>
+);
+
+const logoutButton = (logoutFunction:MouseEventHandler) => (
+  <NavLink style={{ textDecoration: 'none' }} to="/login" key="Logout">
+    <Button variant="outline" onClick={logoutFunction}>Log Out</Button>
+  </NavLink>
+);
+
 export default function Header() {
   const { user, setUser } = useContext(AuthContext);
   let location = useLocation();
@@ -92,6 +104,16 @@ export default function Header() {
   const [drawerOpened, drawerHandler] = useDisclosure(false);
   const [menuOpened, menuHandler] = useDisclosure(false);
   const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
+
+  const handleLogout = () => {
+    setUser(null);
+    console.log("Logged out");
+  };
+
+  const handleMobileLogout = () => {
+    handleLogout();
+    drawerHandler.close();
+  };
 
   // Game Hover - Rendered Links
   const links = mockdata.map((item) => (
@@ -189,14 +211,14 @@ export default function Header() {
                   <Group justify="space-between">
                     <div>
                       <Text fw={500} fz="sm">
-                        Create an account
+                        {user ? "View your profile" : "Create an account"}
                       </Text>
                       <Text size="xs" c="dimmed">
-                        Create a Coyote Arcade account now for increased functionality!
+                        {user ? "Check out your favorites, past purchases, and more!" : "Create a Coyote Arcade account now for increased functionality!"}
                       </Text>
                     </div>
-                    <Button component={NavLink} to="/register" onClick={drawerHandler.close}>
-                      Register
+                    <Button component={NavLink} to={user ? "/profile" : "/register"} onClick={drawerHandler.close}>
+                      {user ? "Profile" : "Register"}
                     </Button>
                   </Group>
                 </div>
@@ -225,9 +247,7 @@ export default function Header() {
           {/* Login, Register */}
           <Group visibleFrom="lg" align="stretch">
             <DarkModeToggle />
-            <NavLink style={{ textDecoration: 'none' }} to="/login" key="Login">
-              <Button variant="outline">Log In</Button>
-            </NavLink>
+            {user ? logoutButton(handleLogout) : loginButton}
             {user ? profileButton : registerButton}
           </Group>
 
@@ -247,13 +267,13 @@ export default function Header() {
 
               <Menu.Dropdown w={250} hiddenFrom="lg" visibleFrom="sm">
                 <Menu.Item component="div">
-                  <Button variant="outline" w="100%" component={NavLink} to="/login">
-                    Log In
+                  <Button variant="outline" w="100%" component={NavLink} to="/login" onClick={user ? handleLogout : ()=>console.log('clicked')}>
+                    {user ? "Log Out" : "Log In"}
                   </Button>
                 </Menu.Item>
                 <Menu.Item component="div">
                   <Button w="100%" component={NavLink} to="/register">
-                    Register
+                    {user ? "Profile" : "Register"}
                   </Button>
                 </Menu.Item>
                 <MenuDivider />
@@ -323,12 +343,12 @@ export default function Header() {
                 component={NavLink}
                 variant="outline"
                 to="/login"
-                onClick={drawerHandler.close}
+                onClick={user ? handleMobileLogout : drawerHandler.close}
               >
-                Log In
+                {user ? "Log Out" : "Log In"}
               </Button>
-              <Button component={NavLink} to="/register" onClick={drawerHandler.close}>
-                Register
+              <Button component={NavLink} to={user ? "/profile" : "/register"} onClick={drawerHandler.close}>
+                {user ? "Profile" : "Register"}
               </Button>
             </Group>
           </ScrollArea>
