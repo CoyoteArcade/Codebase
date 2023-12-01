@@ -3,7 +3,8 @@ import { Box } from '@mantine/core';
 import CategorySelect from './CategorySelect';
 import { TitleInput, TaglineInput } from './TextInput';
 import DescriptionEditor from './TextEditor';
-import PlatformsInput from './CheckboxInput';
+import PlatformsInput from './PlatformsInput';
+import ImageDropzone from './Dropzone';
 
 import classes from './Upload.module.css';
 
@@ -14,6 +15,7 @@ function Upload() {
       <TaglineInput />
       <CategorySelect />
       <PlatformsInput />
+      <ImageDropzone />
       <DescriptionEditor />
     </Box>
   );
