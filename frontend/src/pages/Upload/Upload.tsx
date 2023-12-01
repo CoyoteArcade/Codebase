@@ -5,6 +5,7 @@ import { TitleInput, TaglineInput } from './TextInput';
 import DescriptionEditor from './TextEditor';
 import PlatformsInput from './PlatformsInput';
 import ImageDropzone from './Dropzone';
+import GameUpload from './GameUpload';
 
 import classes from './Upload.module.css';
 
@@ -15,6 +16,7 @@ function Upload() {
       <TaglineInput />
       <CategorySelect />
       <PlatformsInput />
+      <GameUpload />
       <ImageDropzone />
       <DescriptionEditor />
     </Box>

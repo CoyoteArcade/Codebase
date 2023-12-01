@@ -5,19 +5,23 @@ import { Dropzone, DropzoneProps, IMAGE_MIME_TYPE, FileWithPath } from '@mantine
 
 import ImageWithMenu from './ImageWithMenu';
 
+import classes from './Dropzone.module.css';
+
 export default function ImageDropzone(props: Partial<DropzoneProps>) {
   const [files, setFiles] = useState<FileWithPath[]>([]);
 
   const previews = files.map((file, index) => {
     const imageUrl = URL.createObjectURL(file);
+    const handleDelete = () => {
+      setFiles(files.toSpliced(index, 1));
+    };
 
-    return <ImageWithMenu src={imageUrl} key={index} />;
+    return <ImageWithMenu key={index} src={imageUrl} index={index} handleDelete={handleDelete} />;
   });
 
   return (
-    <Box maw="1000px">
+    <Box w="800px">
       <Dropzone
-        p="xl"
         style={{ border: '1px solid black' }}
         onDrop={(newFiles: any) => {
           setFiles([...files, ...newFiles].slice(0, 4));
@@ -26,6 +30,8 @@ export default function ImageDropzone(props: Partial<DropzoneProps>) {
         onReject={(files: any) => console.log('rejected files', files)}
         maxSize={3 * 1024 ** 2}
         accept={IMAGE_MIME_TYPE}
+        disabled={previews.length >= 4}
+        className={previews.length >= 4 ? classes.disabled : ''}
         {...props}
       >
         <Group justify="center" gap="xl" mih={220} style={{ pointerEvents: 'none' }}>
@@ -58,7 +64,7 @@ export default function ImageDropzone(props: Partial<DropzoneProps>) {
           </div>
         </Group>
       </Dropzone>
-      <SimpleGrid cols={{ base: 2, sm: 4 }} mt={previews.length > 0 ? 'xl' : 0}>
+      <SimpleGrid cols={2} mt={previews.length > 0 ? 'xl' : 0}>
         {previews}
       </SimpleGrid>
     </Box>
