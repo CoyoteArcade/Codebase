@@ -47,8 +47,13 @@ export function Login() {
         body: JSON.stringify({email: email, password: password}),
       });
       response = await request.json();
-      setUser((response as any).user);
-      navigate('/');
+      if((response as any).message === "Signed in") {
+        setUser((response as any).user);
+        navigate('/');
+      } else {
+        window.alert("Login failed!");
+        setUser(null);
+      }
     } catch(error) {
       console.log("error", error);
       response = {error: error};

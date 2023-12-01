@@ -15,9 +15,18 @@ import { Register } from './sections/Login/Register/Register';
 import { useContext } from 'react';
 import { AuthContext } from './utilities/auth/AuthContext';
 
-function RequireAuth({ children, redirectTo, required }: any) {
+function RequireAuth({ children, redirectTo }: any) {
   const { user } = useContext(AuthContext);
-  if (user || !required) {
+  if (user) {
+    return children;
+  } else {
+    return <Navigate to={redirectTo} replace={true} />;
+  }
+}
+
+function GuestOnly({ children, redirectTo }: any) {
+  const { user } = useContext(AuthContext);
+  if (!user) {
     return children;
   } else {
     return <Navigate to={redirectTo} replace={true} />;
@@ -53,11 +62,19 @@ const router = createBrowserRouter([
       },
       {
         path: '/login',
-        element: <Login />,
+        element: (
+          <GuestOnly redirectTo="/" required={true}>
+            <Login />
+          </GuestOnly>
+        ),
       },
       {
         path: '/forgot-password',
-        element: <ForgotPassword />,
+        element: (
+          <GuestOnly redirectTo="/" required={true}>
+            <ForgotPassword />
+          </GuestOnly>
+        ),
       },
       {
         path: '/profile',
@@ -69,7 +86,19 @@ const router = createBrowserRouter([
       },
       {
         path: '/register',
-        element: <Register />,
+        element: (
+          <GuestOnly redirectTo="/" required={true}>
+            <Register />
+          </GuestOnly>
+        ),
+      },
+      {
+        path: '/upload',
+        element: (
+          <RequireAuth redirectTo="/login" required={true}>
+            <ErrorPage />
+          </RequireAuth>
+        ),
       },
       {
         path: '/search/:query',
