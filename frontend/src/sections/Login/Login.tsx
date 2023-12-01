@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect, useContext } from 'react';
 import {
   TextInput,
@@ -21,6 +21,7 @@ import { AuthContext } from '../../utilities/auth/AuthContext';
 
 export function Login() {
 
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { user, setUser } = useContext(AuthContext);
@@ -46,7 +47,13 @@ export function Login() {
         body: JSON.stringify({email: email, password: password}),
       });
       response = await request.json();
-      setUser((response as any).user);
+      if((response as any).message === "Signed in") {
+        setUser((response as any).user);
+        navigate('/');
+      } else {
+        window.alert("Login failed!");
+        setUser(null);
+      }
     } catch(error) {
       console.log("error", error);
       response = {error: error};

@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
 import { Root, loader as gamesLoader } from './pages/Root/Root';
 import { ErrorPage } from './pages/ErrorPage/ErrorPage';
 import Home from './pages/Home';
@@ -13,6 +13,26 @@ import { Search } from './sections/Search/Search';
 import { Login } from './sections/Login/Login';
 import { Register } from './sections/Login/Register/Register';
 import { ForgotPassword } from './sections/Login/ForgotPassword/ForgotPassword';
+import { useContext } from 'react';
+import { AuthContext } from './utilities/auth/AuthContext';
+
+function RequireAuth({ children, redirectTo }: any) {
+  const { user } = useContext(AuthContext);
+  if (user) {
+    return children;
+  } else {
+    return <Navigate to={redirectTo} replace={true} />;
+  }
+}
+
+function GuestOnly({ children, redirectTo }: any) {
+  const { user } = useContext(AuthContext);
+  if (!user) {
+    return children;
+  } else {
+    return <Navigate to={redirectTo} replace={true} />;
+  }
+}
 
 const router = createBrowserRouter([
   {
@@ -44,15 +64,43 @@ const router = createBrowserRouter([
       },
       {
         path: '/login',
-        element: <Login />,
+        element: (
+          <GuestOnly redirectTo="/" required={true}>
+            <Login />
+          </GuestOnly>
+        ),
       },
       {
         path: '/forgot-password',
-        element: <ForgotPassword />,
+        element: (
+          <GuestOnly redirectTo="/" required={true}>
+            <ForgotPassword />
+          </GuestOnly>
+        ),
+      },
+      {
+        path: '/profile',
+        element: (
+          <RequireAuth redirectTo="/login" required={true}>
+            <ErrorPage />
+          </RequireAuth>
+        ),
       },
       {
         path: '/register',
-        element: <Register />,
+        element: (
+          <GuestOnly redirectTo="/" required={true}>
+            <Register />
+          </GuestOnly>
+        ),
+      },
+      {
+        path: '/upload',
+        element: (
+          <RequireAuth redirectTo="/login" required={true}>
+            <ErrorPage />
+          </RequireAuth>
+        ),
       },
       {
         path: '/search/:query',
