@@ -39,6 +39,7 @@ export default function CategorySelect() {
 
   const [search, setSearch] = useState('');
   const [value, setValue] = useState<string[]>([]);
+  const [error, setError] = useState('');
 
   const handleValueSelect = (val: string) => {
     setValue((current) =>
@@ -77,10 +78,12 @@ export default function CategorySelect() {
     <Combobox size="md" store={combobox} onOptionSubmit={handleValueSelect} withinPortal={false}>
       <Combobox.DropdownTarget>
         <PillsInput
+          required
           size="md"
-          description={`Choose from many genres (${values.length}/3)`}
+          description={`Choose from various game genres (${values.length}/3)`}
           onClick={() => combobox.openDropdown()}
-          label="Game Categories"
+          label="Categories"
+          error={error}
         >
           <Pill.Group>
             {values}

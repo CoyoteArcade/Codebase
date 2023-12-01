@@ -6,12 +6,15 @@ const TITLE_LIMIT = 50;
 
 function TitleInput() {
   const [value, setValue] = useState('');
+  const [error, setError] = useState('');
 
   return (
     <Textarea
+      required
       size="md"
       label="Title"
       description="The name of your game creation"
+      error={error}
       autosize
       maxLength={TITLE_LIMIT}
       onChange={(event) => {
