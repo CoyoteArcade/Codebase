@@ -17,6 +17,8 @@ function translateCategory(category: string) {
       return 'Strategy';
     case 'fps':
       return 'FPS';
+    case 'adventure':
+      return 'Adventure';
     default:
       return 'ALL GAMES';
   }

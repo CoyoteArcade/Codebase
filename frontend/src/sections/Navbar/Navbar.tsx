@@ -19,7 +19,7 @@ import { NavLink } from 'react-router-dom';
 const data = [
   { link: '/games', label: 'Browse', icon: IconBrowser },
   { link: '/games/categories/fps', label: 'FPS', icon: IconSword },
-  { link: '/games/categories/action', label: 'Action', icon: IconTank },
+  { link: '/games/categories/adventure', label: 'Adventure', icon: IconTank },
   { link: '/games/categories/multiplayer', label: 'Multiplayer', icon: IconBomb },
   { link: '/games/categories/strategy', label: 'Strategy', icon: IconChessKnight },
 ];
