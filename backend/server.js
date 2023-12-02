@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import { getGames, addGame, getCategory, signIn, signUp, signOut } from './index.js';
+import { getGames, addGame, getCategory, signIn, signUp, signOut, passwordReset } from './index.js';
 
 const app = express();
 const PORT = 3000;
@@ -73,6 +73,22 @@ app.post('/signup', async (req, res) => {
         res.status(500).send({ message: 'Server Error', error });
     }
 });
+
+app.post('/passwordreset', async (req, res) => {
+    const { email } = req.body;
+    let result = {};
+    // console.log("passwordreset called");
+    try {
+        result = await passwordReset(email);
+        console.log(result);
+        res.status(200).send(result);
+    } catch (error) {
+        result = { message: 'Error resetting password', error: error };
+        console.log(result);
+        res.status(500).send(result);
+    }
+});
+
 
 // Start server
 app.listen(PORT, () => {
