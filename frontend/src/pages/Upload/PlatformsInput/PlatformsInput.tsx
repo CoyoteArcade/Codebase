@@ -74,6 +74,7 @@ function PlatformsInput() {
           <Checkbox value="Web" label={<LabelWeb />} />
         </Stack>
         <TextInput
+          type="url"
           label="Hosted Link"
           c={value.includes('Web') ? '' : 'dimmed'}
           required={value.includes('Web')}
