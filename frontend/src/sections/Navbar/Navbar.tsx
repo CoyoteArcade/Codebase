@@ -11,34 +11,32 @@ import {
 } from '@tabler/icons-react';
 import classes from './Navbar.module.css';
 import Logo from '@/components/Logo/Logo';
+import { NavLink } from 'react-router-dom';
 
 const data = [
-  { link: '', label: 'Specials', icon: IconReceipt2 },
-  { link: '', label: 'Browse', icon: IconBrowser },
-  { link: '', label: 'Search', icon: IconListSearch },
-  { link: '', label: 'RPG', icon: IconSword },
-  { link: '', label: 'Action', icon: IconTank },
-  { link: '', label: 'MMO', icon: IconBomb },
-  { link: '', label: 'Strategy', icon: IconChessKnight },
+  { link: '/games', label: 'Browse', icon: IconBrowser },
+  { link: '/games/categories/fps', label: 'FPS', icon: IconSword },
+  { link: '/games/categories/adventure', label: 'Adventure', icon: IconTank },
+  { link: '/games/categories/multiplayer', label: 'Multiplayer', icon: IconBomb },
+  { link: '/games/categories/strategy', label: 'Strategy', icon: IconChessKnight },
 ];
 
 export default function NavbarSimple() {
-  const [active, setActive] = useState('Specials');
+  const [active, setActive] = useState('Browse');
 
   const links = data.map((item) => (
-    <a
+    <NavLink
       className={classes.link}
       data-active={item.label === active || undefined}
-      href={item.link}
+      to={item.link}
       key={item.label}
       onClick={(event) => {
-        event.preventDefault();
         setActive(item.label);
       }}
     >
       <item.icon className={classes.linkIcon} stroke={1.5} />
       <span>{item.label}</span>
-    </a>
+    </NavLink>
   ));
 
   return (

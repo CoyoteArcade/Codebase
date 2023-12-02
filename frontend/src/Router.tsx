@@ -1,4 +1,4 @@
-import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, Navigate, RouterProvider, useParams } from 'react-router-dom';
 import { Root, loader as gamesLoader } from './pages/Root/Root';
 import { ErrorPage } from './pages/ErrorPage/ErrorPage';
 import Home from './pages/Home';
@@ -34,6 +34,12 @@ function GuestOnly({ children, redirectTo }: any) {
   }
 }
 
+function GameCategoryWrapper() {
+  const { category } = useParams();
+  console.log(category);
+  return <Games gameCategory={category} />;
+}
+
 const router = createBrowserRouter([
   {
     path: '/',
@@ -57,6 +63,10 @@ const router = createBrowserRouter([
       {
         path: '/games/categories',
         element: <Categories />,
+      },
+      {
+        path: '/games/categories/:category',
+        element: <GameCategoryWrapper />,
       },
       {
         path: '/games/:id',

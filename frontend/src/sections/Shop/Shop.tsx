@@ -1,4 +1,4 @@
-import { useRouteLoaderData } from "react-router-dom";
+import { useRouteLoaderData } from 'react-router-dom';
 import { Box, Title, MantineProvider, rem } from '@mantine/core';
 
 import GameGrid from '@/components/GameGrid/GameGrid';
@@ -12,6 +12,7 @@ export default function Shop({
   showGrid = true,
   showCategories = true,
   maxCategories,
+  gameCategory = '',
 }: {
   titleCategories?: string;
   titleGrid?: string;
@@ -19,29 +20,13 @@ export default function Shop({
   showCategories?: boolean;
   maxCategories?: number;
   title?: string;
+  gameCategory?: string;
 }) {
-  const games: any = useRouteLoaderData("root");
-
-  /*
-  const [games, setGameData] = useState([]);
-
-  useEffect(() => {
-      fetch('https://delightful-sombrero-slug.cyclic.app/games')
-      .then(response => response.json())
-      .then(data => setGameData(data))
-      .catch(error => console.log(error));
-  }, []);
-
-  const main = async () => {
-    const games = await getGames();
-    let arrayThing = games;
-    console.log(arrayThing);
-    const actionGames = await getCategory('Multiplayer');
-    console.log(actionGames[0]);
-  };
-
-  main();
-  */
+  const games: any = useRouteLoaderData('root');
+  let categoryGames = [];
+  if (gameCategory) {
+    categoryGames = games.filter((game: any) => game.Category.includes(gameCategory));
+  }
 
   return (
     <MantineProvider
@@ -68,7 +53,7 @@ export default function Shop({
           </Title>
         )}
 
-        {showGrid && <GameGrid gameData={games} />}
+        {showGrid && <GameGrid gameData={gameCategory ? categoryGames : games} />}
       </Box>
     </MantineProvider>
   );
