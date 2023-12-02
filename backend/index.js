@@ -1,7 +1,7 @@
 
 import { getFirestore, collection, getDocs, addDoc, query, where } from "firebase/firestore";
 import { initializeApp } from "firebase/app";
-import { getAuth, signInWithEmailAndPassword, updateProfile, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, updateProfile, createUserWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
 
 import  "dotenv/config";
 
@@ -137,4 +137,21 @@ const signUp = async (email, password, username) => {
     return result;
 };
 
-export { getGames, addGame, getCategory, signIn, signOut, signUp };
+const passwordReset = async (email) => {
+    let result = {};
+    return sendPasswordResetEmail(auth, email)
+  .then(() => {
+    result = { message: "Password reset email sent to " + email };
+    // console.log(result);
+    return result;
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    result = { message: "Error resetting password", errorCode, errorMessage };
+    // console.log(result);
+    return result;
+  });
+};
+
+export { getGames, addGame, getCategory, signIn, signOut, signUp, passwordReset };

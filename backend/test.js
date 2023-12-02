@@ -1,26 +1,10 @@
-const { getGames, getCategory } = require("./index.js");
+import { passwordReset } from "./index.js";
 
-// getGames().then(games => {
-//     console.log(games);
-// });
-
-// let q = {
-//     prop: "Title",
-//     val: "Cyberpunk 2077"
-// };
-
-// getGames(q).then(games => {
-//     console.log("Query:", q.prop, "==", q.val);
-//     console.log(games);
-// });
+const EMAIL = "tommy1012012938@gmail.com";
 
 const main = async () => {
-    const games = await getGames();
-    let arrayThing = games;
-    // console.log(arrayThing[1]);
-    const actionGames = await getCategory("Multiplayer");
-    console.log(actionGames[0]);
-    process.exit(0);
+    // await passwordReset(EMAIL);
+    // process.exit(0);
 }
 
 main();
