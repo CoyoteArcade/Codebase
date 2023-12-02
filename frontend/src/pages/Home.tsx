@@ -18,7 +18,7 @@ import { AuthContext } from '@/utilities/auth/AuthContext';
 export default function Home() {
   const { user, setUser } = useContext(AuthContext);
   const games: any = useContext(GamesContext);
-  console.log(user, setUser);
+  // console.log(user, setUser);
   return (
     <>
       <Hero />

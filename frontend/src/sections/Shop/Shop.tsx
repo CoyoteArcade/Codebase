@@ -13,6 +13,7 @@ export default function Shop({
   showGrid = true,
   showCategories = true,
   maxCategories,
+  gameCategory = '',
 }: {
   titleCategories?: string;
   titleGrid?: string;
@@ -20,8 +21,14 @@ export default function Shop({
   showCategories?: boolean;
   maxCategories?: number;
   title?: string;
+  gameCategory?: string;
 }) {
   const games: any = useContext(GamesContext);
+  let categoryGames = [];
+  if (gameCategory) {
+    categoryGames = games.filter((game: any) => game.Category.includes(gameCategory));
+    console.log(categoryGames);
+  }
 
   /*
   const [games, setGameData] = useState([]);
@@ -69,7 +76,7 @@ export default function Shop({
           </Title>
         )}
 
-        {showGrid && <ShopGrid gameData={games} />}
+        {showGrid && <ShopGrid gameData={gameCategory ? categoryGames : games} />}
       </Box>
     </MantineProvider>
   );

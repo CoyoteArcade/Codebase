@@ -100,7 +100,7 @@ const logoutButton = (logoutFunction:MouseEventHandler) => (
 export default function Header() {
   const { user, setUser } = useContext(AuthContext);
   let location = useLocation();
-  console.log(location);
+  // console.log(location);
   const [drawerOpened, drawerHandler] = useDisclosure(false);
   const [menuOpened, menuHandler] = useDisclosure(false);
   const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
