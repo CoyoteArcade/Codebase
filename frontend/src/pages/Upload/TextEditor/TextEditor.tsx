@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Box, SimpleGrid, TypographyStylesProvider } from '@mantine/core';
-import { RichTextEditor, useRichTextEditorContext, Link } from '@mantine/tiptap';
+import { Box, ThemeIcon } from '@mantine/core';
+import { RichTextEditor, Link } from '@mantine/tiptap';
 import { useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Underline from '@tiptap/extension-underline';
@@ -14,6 +14,7 @@ import {
   IconItalic,
   IconUnderline,
   IconStrikethrough,
+  IconCode,
   IconClearFormatting,
   IconBlockquote,
   IconLineDashed,
@@ -40,6 +41,7 @@ const BoldIcon = () => <IconBold size="1.1rem" stroke={1.5} />;
 const ItalicIcon = () => <IconItalic size="1.1rem" stroke={1.5} />;
 const UnderlineIcon = () => <IconUnderline size="1.1rem" stroke={1.5} />;
 const StrikethroughIcon = () => <IconStrikethrough size="1.1rem" stroke={1.5} />;
+const CodeBlockIcon = () => <IconCode size="1.1rem" stroke={1.5} />;
 const ClearFormattingIcon = () => <IconClearFormatting size="1.1rem" stroke={1.5} />;
 const H1Icon = () => <IconH1 size="1.1rem" stroke={1.5} />;
 const H2Icon = () => <IconH2 size="1.1rem" stroke={1.5} />;
@@ -62,10 +64,22 @@ const UndoIcon = () => <IconArrowBackUp size="1.1rem" stroke={1.5} />;
 const RedoIcon = () => <IconArrowForwardUp size="1.1rem" stroke={1.5} />;
 
 import classes from './TextEditor.module.css';
-import { template1, template2 } from '@/utilities/descriptionTemplates';
+import { template1, template2 } from '@/utilities/textEditor/descriptions.js';
 
-function TextEditor({ description = '' }: { description?: string }) {
-  const [content, setContent] = useState(description);
+function TextEditor({ useFor = '' }: { useFor?: string }) {
+  const [content, setContent] = useState('');
+
+  let placeholder = '';
+  switch (useFor) {
+    case 'description':
+      placeholder =
+        'Talk about features, gameplay mechanics, and story details here! Try clicking the pencil icons in the toolbar for some examples!';
+      break;
+    case 'instructions':
+      placeholder =
+        'For uploaded games, use this section to explain the process on how to download, install, and run your program!';
+      break;
+  }
 
   const editor = useEditor({
     extensions: [
@@ -82,7 +96,7 @@ function TextEditor({ description = '' }: { description?: string }) {
         },
       }),
       Placeholder.configure({
-        placeholder: `Talk about features, gameplay mechanics, and story details here! Try clicking the pencil icons in the toolbar for some examples!`,
+        placeholder: placeholder,
       }),
       Underline,
       Link,
@@ -93,6 +107,59 @@ function TextEditor({ description = '' }: { description?: string }) {
     content,
   });
 
+  const RedoControl = () => {
+    return (
+      <RichTextEditor.Control
+        onClick={() => {
+          editor?.commands.redo();
+        }}
+        aria-label="redo"
+        title="Redo"
+      >
+        <RedoIcon />
+      </RichTextEditor.Control>
+    );
+  };
+
+  const UndoControl = () => {
+    return (
+      <RichTextEditor.Control
+        onClick={() => {
+          editor?.commands.undo();
+        }}
+        aria-label="undo"
+        title="Undo"
+      >
+        <UndoIcon />
+      </RichTextEditor.Control>
+    );
+  };
+
+  const TemplateControl = ({
+    template,
+    num,
+    color = 'coyote-blue',
+  }: {
+    template: string;
+    num: number;
+    color?: string;
+  }) => {
+    return (
+      <RichTextEditor.Control
+        onClick={() => {
+          editor?.commands.clearContent();
+          editor?.commands.insertContentAt(0, template);
+        }}
+        aria-label={`Insert template: example ${num}`}
+        title={`Insert template: example ${num}`}
+      >
+        <ThemeIcon variant="transparent" color={color}>
+          <TemplateIcon />
+        </ThemeIcon>
+      </RichTextEditor.Control>
+    );
+  };
+
   return (
     <Box>
       <RichTextEditor editor={editor} mih={250} maw={1000}>
@@ -102,28 +169,13 @@ function TextEditor({ description = '' }: { description?: string }) {
             <RichTextEditor.Italic icon={ItalicIcon} />
             <RichTextEditor.Underline icon={UnderlineIcon} />
             <RichTextEditor.Strikethrough icon={StrikethroughIcon} />
+            <RichTextEditor.CodeBlock icon={CodeBlockIcon} />
             <RichTextEditor.ClearFormatting icon={ClearFormattingIcon} />
           </RichTextEditor.ControlsGroup>
 
           <RichTextEditor.ControlsGroup>
-            <RichTextEditor.Control
-              onClick={() => {
-                editor?.commands.undo();
-              }}
-              aria-label="Undo"
-              title="Undo"
-            >
-              <UndoIcon />
-            </RichTextEditor.Control>
-            <RichTextEditor.Control
-              onClick={() => {
-                editor?.commands.redo();
-              }}
-              aria-label="Redo"
-              title="Redo"
-            >
-              <RedoIcon />
-            </RichTextEditor.Control>
+            <UndoControl />
+            <RedoControl />
           </RichTextEditor.ControlsGroup>
 
           <RichTextEditor.ControlsGroup>
@@ -153,29 +205,15 @@ function TextEditor({ description = '' }: { description?: string }) {
             <RichTextEditor.AlignJustify icon={AlignJustifyIcon} />
             <RichTextEditor.AlignRight icon={AlignRightIcon} />
           </RichTextEditor.ControlsGroup>
-
-          <RichTextEditor.ControlsGroup>
-            <RichTextEditor.Control
-              onClick={() => {
-                editor?.commands.clearContent();
-                editor?.commands.insertContentAt(0, template1);
-              }}
-              aria-label="Insert template: example 1"
-              title="Insert template: example 1"
-            >
-              <TemplateIcon />
-            </RichTextEditor.Control>
-            <RichTextEditor.Control
-              onClick={() => {
-                editor?.commands.clearContent();
-                editor?.commands.insertContentAt(0, template2);
-              }}
-              aria-label="Insert template: example 2"
-              title="Insert template: example 2"
-            >
-              <TemplateIcon />
-            </RichTextEditor.Control>
-          </RichTextEditor.ControlsGroup>
+          {useFor === 'description' && (
+            <RichTextEditor.ControlsGroup>
+              <TemplateControl template={template1} num={1} color={'grape'} />
+              <TemplateControl template={template2} num={2} color={'red'} />
+            </RichTextEditor.ControlsGroup>
+          )}
+          {useFor === 'instructions' && (
+            <RichTextEditor.ControlsGroup></RichTextEditor.ControlsGroup>
+          )}
         </RichTextEditor.Toolbar>
         <RichTextEditor.Content />
       </RichTextEditor>

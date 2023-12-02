@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { Box, Menu, Group, Text, SimpleGrid, rem } from '@mantine/core';
+import { Box, Group, Text, SimpleGrid, rem } from '@mantine/core';
 import { IconUpload, IconPhoto, IconX } from '@tabler/icons-react';
 import { Dropzone, DropzoneProps, IMAGE_MIME_TYPE, FileWithPath } from '@mantine/dropzone';
 
 import ImageWithMenu from './ImageWithMenu';
 
-import classes from './Dropzone.module.css';
+import classes from './ImageDropzone.module.css';
 
 export default function ImageDropzone(props: Partial<DropzoneProps>) {
   const [files, setFiles] = useState<FileWithPath[]>([]);
@@ -22,7 +22,7 @@ export default function ImageDropzone(props: Partial<DropzoneProps>) {
   return (
     <Box w="800px">
       <Dropzone
-        style={{ border: '1px solid black' }}
+        style={{ border: '1px solid var(--mantine-color-default-border)' }}
         onDrop={(newFiles: any) => {
           setFiles([...files, ...newFiles].slice(0, 4));
           console.log('accepted files', files);

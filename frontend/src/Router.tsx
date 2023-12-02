@@ -98,7 +98,7 @@ const router = createBrowserRouter([
         path: '/upload',
         element: (
           <RequireAuth redirectTo="/login" required={true}>
-            <ErrorPage />
+            <Upload />
           </RequireAuth>
         ),
       },
