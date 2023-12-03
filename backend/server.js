@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import { getGames, addGame, getCategory, signIn, signUp, signOut, passwordReset } from './index.js';
+import { getGames, addGame, getCategory, signIn, signUp, signOut, passwordReset, displayUserProfile } from './index.js';
 
 const app = express();
 const PORT = 3000;
@@ -88,6 +88,18 @@ app.post('/passwordreset', async (req, res) => {
         res.status(500).send(result);
     }
 });
+
+app.get('/profile/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const user = await displayUserProfile(id);
+        res.status(200).json(user);
+    } catch (error) {
+        console.log(error);
+        res.status(500).send('Server Error');
+    }
+});
+
 
 
 // Start server
