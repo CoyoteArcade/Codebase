@@ -245,5 +245,28 @@ const getRating = async (gameId) => {
     }
 };
 
+const displayUserProfile = async (userId) => {
+    if (!userId) {
+        console.error('Error: User ID is required');
+        return;
+    }
+    const userRef = doc(db, 'users', userId);
 
-export { getGames, addGame, getCategory, signIn, signOut, signUp, passwordReset, listFiles , getFileUrl, uploadFile, deleteFile, updateRating, getRating};
+    try {
+        const userDoc = await getDoc(userRef);
+        if (!userDoc.exists()) {
+            throw new Error("User document does not exist!");
+        }
+
+        const userData = userDoc.data();
+        console.log('User Profile:', userData);
+        return userData;
+
+    } catch (error) {
+        console.error('Error displaying user profile:', error);
+        throw error;
+    }
+};
+
+
+export { getGames, addGame, getCategory, signIn, signOut, signUp, passwordReset, listFiles , getFileUrl, uploadFile, deleteFile, updateRating, getRating, displayUserProfile};
