@@ -10,7 +10,7 @@ export default function ImageWithMenu({
   src,
   index,
   handleDelete,
-  ...props
+  props,
 }: {
   src: any;
   index: any;
@@ -25,7 +25,9 @@ export default function ImageWithMenu({
   const handleCropped = () => setCropped();
 
   useEffect(() => {
-    console.log(props);
+    setTimeout(() => {
+      props.setFieldValue(`images.${index}.cropped`, cropped);
+    }, 250);
   }, [cropped]);
 
   return (
@@ -34,7 +36,6 @@ export default function ImageWithMenu({
         shadow="md"
         onClose={() => setUserMenuOpened(false)}
         onOpen={() => setUserMenuOpened(true)}
-        {...props}
       >
         <Box ref={ref} className={classes['image-root']}>
           <Menu.Target ref={ref}>
@@ -62,7 +63,7 @@ export default function ImageWithMenu({
           </AspectRatio>
         </Box>
 
-        <Menu.Dropdown w={175}>
+        <Menu.Dropdown w={135}>
           <Menu.Item
             onClick={handleCropped}
             leftSection={<IconCrop style={{ width: rem(14), height: rem(14) }} />}
