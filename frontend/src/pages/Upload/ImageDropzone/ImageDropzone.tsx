@@ -17,11 +17,22 @@ export default function ImageDropzone(props: any) {
       setFiles(files.toSpliced(index, 1));
     };
 
-    return <ImageWithMenu key={index} src={imageUrl} index={index} handleDelete={handleDelete} />;
+    return (
+      <ImageWithMenu
+        key={index}
+        src={imageUrl}
+        index={index}
+        handleDelete={handleDelete}
+        props={props}
+      />
+    );
   });
 
   useEffect(() => {
-    props.setFieldValue('images', files);
+    let result = files.map((file) => {
+      return { file: file, cropped: true };
+    });
+    props.setFieldValue('images', result);
     props.clearFieldError('images');
   }, [files]);
 

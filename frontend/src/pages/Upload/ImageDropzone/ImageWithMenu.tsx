@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { AspectRatio, Box, ActionIcon, Modal, Menu, Image, rem } from '@mantine/core';
 import { useToggle, useDisclosure, useHover } from '@mantine/hooks';
 import { Dropzone, DropzoneProps, IMAGE_MIME_TYPE, FileWithPath } from '@mantine/dropzone';
@@ -15,6 +15,7 @@ export default function ImageWithMenu({
   src: any;
   index: any;
   handleDelete: any;
+  props: any;
 }) {
   const [userMenuOpened, setUserMenuOpened] = useState(false);
   const [cropped, setCropped] = useToggle([true, false]);
@@ -22,6 +23,10 @@ export default function ImageWithMenu({
   // const [fullscreen, { open, close }] = useDisclosure(false);
 
   const handleCropped = () => setCropped();
+
+  useEffect(() => {
+    console.log(props);
+  }, [cropped]);
 
   return (
     <>
