@@ -31,7 +31,7 @@ const categories = [
   'Visual Novel',
 ];
 
-export default function CategorySelect() {
+export default function CategorySelect(form: any) {
   const combobox = useCombobox({
     onDropdownClose: () => combobox.resetSelectedOption(),
     onDropdownOpen: () => combobox.updateSelectedOptionIndex('active'),

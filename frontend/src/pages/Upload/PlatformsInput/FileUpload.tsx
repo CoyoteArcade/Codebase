@@ -1,10 +1,10 @@
-import { useState, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Box, FileButton, Button, Group, Text } from '@mantine/core';
 
 const ARCHIVE_TYPES =
   'application/gzip,application/zip,application/vnd.rar,application/x-7z-compressed';
 
-export default function GameUpload() {
+export default function FileUpload() {
   const [file, setFile] = useState<File | null>(null);
   const resetRef = useRef<() => void>(null);
 
@@ -13,8 +13,10 @@ export default function GameUpload() {
     resetRef.current?.();
   };
 
+  useEffect(() => {}, [file]);
+
   return (
-    <Box>
+    <Box mb={30}>
       <Group justify="center">
         <FileButton resetRef={resetRef} onChange={setFile} accept={ARCHIVE_TYPES}>
           {(props) => <Button {...props}>Upload Archive</Button>}

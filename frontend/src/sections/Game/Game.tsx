@@ -21,7 +21,7 @@ const images = [
 ];
 
 export function Game() {
-  const games: any = useRouteLoaderData("root");
+  const games: any = useRouteLoaderData('root');
   const { id } = useParams();
   const game = games.find((game: any) => game.id === id) || {};
   const SECONDARY_COL_HEIGHT = `calc(${PRIMARY_COL_HEIGHT} / 2 - var(--mantine-spacing-md) / 2)`;
@@ -34,7 +34,7 @@ export function Game() {
             <Card withBorder shadow="sm" radius="md">
               <Group justify="space-between" align="center">
                 <Title mb="sm" order={3}>
-                  {game.Title}
+                  {game.title}
                 </Title>
               </Group>
 
@@ -63,15 +63,7 @@ export function Game() {
               <Box h={SECONDARY_COL_HEIGHT}>
                 <Title order={3}>System Requirements</Title>
                 <List size="sm">
-                  <List.Item>
-                    Graphics: {game['System Requirements'].Graphics || 'Unknown'}
-                  </List.Item>
-                  <List.Item>OS: {game['System Requirements'].OS || 'Unknown'}</List.Item>
-                  <List.Item>Storage: {game['System Requirements'].Storage || 'Unknown'}</List.Item>
-                  <List.Item>Memory: {game['System Requirements'].Memory || 'Unknown'}</List.Item>
-                  <List.Item>
-                    Processor: {game['System Requirements'].Processor || 'Unknown'}
-                  </List.Item>
+                  <List.Item>Platforms: {game.platforms || 'Unknown'}</List.Item>
                 </List>
               </Box>
             </Grid.Col>
@@ -79,10 +71,10 @@ export function Game() {
               <Box h={SECONDARY_COL_HEIGHT}>
                 <Title order={3}>Details</Title>
                 <List size="sm">
-                  <List.Item>Description: {game.Description || 'Unknown'}</List.Item>
-                  <List.Item>Release Date: {game['Release Date'] || 'Unknown'}</List.Item>
+                  <List.Item>Description: {game.description || 'Unknown'}</List.Item>
+                  <List.Item>Release Date: {game.releaseDate || 'Unknown'}</List.Item>
                   <List.Item>Developer: {game['Publisher/Developer'] || 'Unknown'}</List.Item>
-                  <List.Item>Rating: {game.Rating || 'Unknown'}</List.Item>
+                  <List.Item>Rating: {game.rating || 'Unknown'}</List.Item>
                 </List>
               </Box>
             </Grid.Col>

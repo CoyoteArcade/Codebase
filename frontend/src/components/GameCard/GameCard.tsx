@@ -19,10 +19,9 @@ import classes from './GameCard.module.css';
 
 function GameCard({ gameObj }: any) {
   /** Game Properties */
-  const { id } = gameObj;
-  const title = gameObj.Title;
-  const description = gameObj.Description;
-  let genres = [...gameObj.Category];
+  const { id, title } = gameObj;
+  const description = gameObj.tagline;
+  let genres = [...gameObj.categories];
   let platforms: any = ['Apple', 'Windows', 'DoesNotExist', 'Linux', 'Web'];
 
   /** GENRE BADGES */
@@ -76,9 +75,8 @@ function GameCard({ gameObj }: any) {
 
 function GameCardSimple({ gameObj }: any) {
   /** Game Properties */
-  const { id } = gameObj;
-  const title = gameObj.Title;
-  const description = gameObj.Description;
+  const { id, title } = gameObj;
+  const description = gameObj.tagline;
 
   /** GAME BANNER */
   const aspectRatio = 16 / 9;

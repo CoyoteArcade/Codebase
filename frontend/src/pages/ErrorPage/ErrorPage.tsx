@@ -3,7 +3,7 @@ import { Box, Title, Text, Button, Container, Group, useMantineTheme } from '@ma
 
 import classes from './ErrorPage.module.css';
 
-export function ErrorPage() {
+export default function ErrorPage() {
   const theme = useMantineTheme();
   const error: any = useRouteError();
 

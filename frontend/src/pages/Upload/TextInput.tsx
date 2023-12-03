@@ -1,37 +1,29 @@
 import { useState } from 'react';
-import { Textarea } from '@mantine/core';
+import { TextInput, Textarea } from '@mantine/core';
 
 const TAGLINE_LIMIT = 90;
 const TITLE_LIMIT = 50;
 
-function TitleInput() {
-  const [value, setValue] = useState('');
-  const [error, setError] = useState('');
-
+function TitleInput(props: any) {
   return (
     <Textarea
       required
       size="md"
       label="Title"
       description="The name of your game creation"
-      error={error}
       autosize
       maxLength={TITLE_LIMIT}
-      onChange={(event) => {
-        setValue(event.currentTarget.value);
-      }}
       onKeyDown={(event) => {
         if (event.key === 'Enter') {
           event.preventDefault();
         }
       }}
+      {...props}
     />
   );
 }
 
-function TaglineInput() {
-  const [value, setValue] = useState('');
-
+function TaglineInput(props: any) {
   return (
     <Textarea
       size="md"
@@ -39,17 +31,32 @@ function TaglineInput() {
       label={'Tagline'}
       maxLength={TAGLINE_LIMIT}
       description="An engaging hook to draw in your audience"
-      value={value}
-      onChange={(event) => {
-        setValue(event.currentTarget.value);
-      }}
       onKeyDown={(event) => {
         if (event.key === 'Enter') {
           event.preventDefault();
         }
       }}
+      {...props}
     />
   );
 }
 
-export { TaglineInput, TitleInput };
+function VideoInput(props: any) {
+  return (
+    <TextInput
+      type="url"
+      size="md"
+      label={'Video (YouTube)'}
+      description="Showcase gameplay with a quick video"
+      placeholder="https://www.youtube.com/watch?id"
+      onKeyDown={(event) => {
+        if (event.key === 'Enter') {
+          event.preventDefault();
+        }
+      }}
+      {...props}
+    />
+  );
+}
+
+export { TaglineInput, TitleInput, VideoInput };

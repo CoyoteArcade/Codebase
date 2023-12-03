@@ -13,6 +13,7 @@ export default function ImageDropzone(props: Partial<DropzoneProps>) {
   const previews = files.map((file, index) => {
     const imageUrl = URL.createObjectURL(file);
     const handleDelete = () => {
+      // @ts-ignore
       setFiles(files.toSpliced(index, 1));
     };
 

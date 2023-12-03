@@ -1,6 +1,6 @@
 import { createBrowserRouter, Navigate, RouterProvider, useParams } from 'react-router-dom';
 import { Root, loader as gamesLoader } from './pages/Root/Root';
-import { ErrorPage } from './pages/ErrorPage/ErrorPage';
+import ErrorPage from './pages/ErrorPage/ErrorPage';
 import Home from './pages/Home';
 import About from './pages/About';
 import Categories from './pages/Categories';
