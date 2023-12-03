@@ -1,7 +1,55 @@
 import { getStorage, ref, uploadBytes, getDownloadURL, listAll, deleteObject } from "firebase/storage";
-import { listFiles, getFileUrl, uploadFile, deleteFile } from "/Users/Yair-/Documents/CSE4550/Coyote-Arcade/Codebase/backend/index.js";
-import { readFile } from "node:fs/promises";
+import { updateRating } from "/Users/Yair-/Documents/CSE4550/Coyote-Arcade/Codebase/backend/index.js";
+
 const storage = getStorage();
+
+// const submitRating = async (gameId, vote) => {
+//     const gameRef = firebase.firestore().collection('games').doc(gameId);
+
+//     try {
+//         await firebase.firestore().runTransaction(async (transaction) => {
+//             const gameDoc = await transaction.get(gameRef);
+//             if (!gameDoc.exists) {
+//                 throw new Error("Document does not exist!");
+//             }
+
+//             const newRating = gameDoc.data().rating || { upvotes: 0, downvotes: 0 };
+//             if (vote === 'upvote') {
+//                 newRating.upvotes += 1;
+//             } else if (vote === 'downvote') {
+//                 newRating.downvotes += 1;
+//             }
+
+//             transaction.update(gameRef, { rating: newRating });
+//         });
+//     } catch (error) {
+//         console.error('Error submitting rating:', error);
+//         throw error;
+//     }
+// };
+
+
+// const getRatings = async (gameId) => {
+//     try {
+//         const gameDoc = await firebase.firestore().collection('games').doc(gameId).get();
+//         if (!gameDoc.exists) {
+//             throw new Error("Document does not exist!");
+//         }
+
+//         return gameDoc.data().rating || { upvotes: 0, downvotes: 0 };
+//     } catch (error) {
+//         console.error('Error retrieving ratings:', error);
+//         throw error;
+//     }
+// };
+
+
+const main = async () => {
+    updateRating('2JeMZBuTsjtQhbDEvtKe');
+}
+
+main();
+
 
 // const uploadFile = async (file, path) => {
 //     if (!file) return;
@@ -54,10 +102,3 @@ const storage = getStorage();
 //     const uploadedFile = await deleteFile(path);
 //     return uploadedFile;
 // };
-const main = async () => {
-    const path = "test.txt";
-    const deletedFile = await deleteFile(path);
-    return deletedFile;
-}
-
-main();
