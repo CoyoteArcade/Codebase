@@ -70,7 +70,8 @@ function Upload() {
 
   return (
     <Box component="form" onSubmit={form.onSubmit(handleSubmit, handleError)}>
-      <Container className={classes.root}>
+      <Stack align="center" className={classes.root}>
+        <Title order={1}>Game Upload</Title>
         <Stack m="0 auto" w={500} gap={40}>
           <TitleInput {...form.getInputProps('title')} />
           <Box ref={categoriesScroll.targetRef}>
@@ -110,8 +111,10 @@ function Upload() {
           </Title>
           <TextEditor useFor="instructions" props={form} />
         </Box>
-        <Button type="submit">Submit</Button>
-      </Container>
+        <Button size="lg" m="0 auto" type="submit">
+          UPLOAD
+        </Button>
+      </Stack>
     </Box>
   );
 }

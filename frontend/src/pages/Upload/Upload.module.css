@@ -1,11 +1,9 @@
 .root {
   height: 100%;
-  padding: 20px;
 
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
+  padding: 20px;
+  padding-block: 30px;
+  background-color: var(--mantine-color-body);
 
   gap: 50px;
 }
