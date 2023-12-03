@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import { AspectRatio, Modal, Menu, Image, rem } from '@mantine/core';
-import { useToggle, useDisclosure } from '@mantine/hooks';
+import { useState, useEffect } from 'react';
+import { AspectRatio, Box, ActionIcon, Modal, Menu, Image, rem } from '@mantine/core';
+import { useToggle, useDisclosure, useHover } from '@mantine/hooks';
 import { Dropzone, DropzoneProps, IMAGE_MIME_TYPE, FileWithPath } from '@mantine/dropzone';
-import { IconArrowsMaximize, IconCrop, IconPhotoX } from '@tabler/icons-react';
+import { IconArrowsMaximize, IconCrop, IconPhotoX, IconDots } from '@tabler/icons-react';
 
 import classes from './ImageWithMenu.module.css';
 
@@ -10,20 +10,25 @@ export default function ImageWithMenu({
   src,
   index,
   handleDelete,
-  ...props
+  props,
 }: {
   src: any;
   index: any;
   handleDelete: any;
+  props: any;
 }) {
   const [userMenuOpened, setUserMenuOpened] = useState(false);
-  const [cropped, setCropped] = useToggle();
-  const [fullscreen, { open, close }] = useDisclosure(false);
+  const [cropped, setCropped] = useToggle([true, false]);
+  const { hovered, ref } = useHover();
+  // const [fullscreen, { open, close }] = useDisclosure(false);
 
   const handleCropped = () => setCropped();
-  const Screenshot = () => {
-    return;
-  };
+
+  useEffect(() => {
+    setTimeout(() => {
+      props.setFieldValue(`images.${index}.cropped`, cropped);
+    }, 250);
+  }, [cropped]);
 
   return (
     <>
@@ -31,9 +36,20 @@ export default function ImageWithMenu({
         shadow="md"
         onClose={() => setUserMenuOpened(false)}
         onOpen={() => setUserMenuOpened(true)}
-        {...props}
       >
-        <Menu.Target>
+        <Box ref={ref} className={classes['image-root']}>
+          <Menu.Target ref={ref}>
+            <ActionIcon
+              size="lg"
+              className={classes.button}
+              style={
+                hovered || userMenuOpened ? { visibility: 'visible' } : { visibility: 'hidden' }
+              }
+            >
+              <IconDots style={{ width: rem(20), height: rem(20) }} />
+            </ActionIcon>
+          </Menu.Target>
+
           <AspectRatio
             bg="dark"
             className={userMenuOpened ? classes['image-active'] : classes.image}
@@ -45,14 +61,9 @@ export default function ImageWithMenu({
               onLoad={() => URL.revokeObjectURL(src)}
             />
           </AspectRatio>
-        </Menu.Target>
-        <Menu.Dropdown w={175}>
-          <Menu.Item
-            onClick={open}
-            leftSection={<IconArrowsMaximize style={{ width: rem(14), height: rem(14) }} />}
-          >
-            View Fullscreen
-          </Menu.Item>
+        </Box>
+
+        <Menu.Dropdown w={135}>
           <Menu.Item
             onClick={handleCropped}
             leftSection={<IconCrop style={{ width: rem(14), height: rem(14) }} />}
@@ -68,15 +79,6 @@ export default function ImageWithMenu({
           </Menu.Item>
         </Menu.Dropdown>
       </Menu>
-      <Modal opened={fullscreen} onClose={close} size="55%">
-        <AspectRatio bg="dark" ratio={1920 / 1080}>
-          <Image
-            className={cropped ? classes['image-cropped'] : classes['image-uncropped']}
-            src={src}
-            onLoad={() => URL.revokeObjectURL(src)}
-          />
-        </AspectRatio>
-      </Modal>
     </>
   );
 }

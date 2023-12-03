@@ -1,11 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
-import { Box, FileButton, Button, Group, Text } from '@mantine/core';
+import { Box, FileButton, Button, Group, Text, ThemeIcon } from '@mantine/core';
+import { IconCheck } from '@tabler/icons-react';
 
 const ARCHIVE_TYPES =
   'application/gzip,application/zip,application/vnd.rar,application/x-7z-compressed';
 
-export default function FileUpload() {
-  const [file, setFile] = useState<File | null>(null);
+export default function FileUpload({ file, setFile }: { file: any; setFile: any }) {
   const resetRef = useRef<() => void>(null);
 
   const clearFile = () => {
@@ -16,7 +16,7 @@ export default function FileUpload() {
   useEffect(() => {}, [file]);
 
   return (
-    <Box mb={30}>
+    <Box>
       <Group justify="center">
         <FileButton resetRef={resetRef} onChange={setFile} accept={ARCHIVE_TYPES}>
           {(props) => <Button {...props}>Upload Archive</Button>}
@@ -27,9 +27,14 @@ export default function FileUpload() {
       </Group>
 
       {file && (
-        <Text size="sm" ta="center" mt="sm">
-          Game Archive: {file.name}
-        </Text>
+        <Group justify="center" gap={10}>
+          <ThemeIcon mt="sm" size="xs" radius="xl" color="green">
+            <IconCheck style={{ width: '60%', height: '60%' }} />
+          </ThemeIcon>
+          <Text size="md" ta="center" mt="sm">
+            Game Archive: {file.name}
+          </Text>
+        </Group>
       )}
     </Box>
   );
