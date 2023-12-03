@@ -2,6 +2,7 @@
 import { getFirestore, collection, getDocs, addDoc, query, where } from "firebase/firestore";
 import { initializeApp } from "firebase/app";
 import { getAuth, signInWithEmailAndPassword, updateProfile, createUserWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
+import { getStorage, ref, uploadBytes, getDownloadURL, listAll, deleteObject } from "firebase/storage";
 
 import  "dotenv/config";
 
@@ -20,6 +21,8 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 const auth = getAuth(app);
+
+const storage = getStorage(app);
 
 /**
  * Get all games or games that match a specific query.
@@ -154,4 +157,56 @@ const passwordReset = async (email) => {
   });
 };
 
-export { getGames, addGame, getCategory, signIn, signOut, signUp, passwordReset };
+
+const listFiles = async (path) => {
+    const listRef = ref(storage, path);
+    try {
+        const res = await listAll(listRef);
+        // res.items.forEach(async (itemRef) => {
+        //     const url = await getDownloadURL(itemRef);
+        //     console.log(url);
+        // });
+        return res.items; // Array of file references
+
+    } catch (error) {
+        console.error('Error listing files', error);
+        throw error;
+    }
+};
+
+const getFileUrl = async (path) => {
+    const storageRef = ref(storage, path);
+    try {
+        const url = await getDownloadURL(storageRef);
+        return url;
+    } catch (error) {
+        console.error('Error getting file URL', error);
+        throw error;
+    }
+};
+
+const uploadFile = async (file, path) => {
+    if (!file) return;
+    const storageRef = ref(storage, path);
+    try {
+        const snapshot = await uploadBytes(storageRef, file);
+        console.log("Uploaded a blob or file!", snapshot);
+        return snapshot;
+    } catch (error) {
+        console.error("Error uploading file", error);
+        throw error;
+    }
+};
+
+const deleteFile = async (path) => {
+    const storageRef = ref(storage, path);
+    try {
+        await deleteObject(storageRef);
+        console.log('File deleted successfully');
+    } catch (error) {
+        console.error('Error deleting file', error);
+        throw error;
+    }
+};
+
+export { getGames, addGame, getCategory, signIn, signOut, signUp, passwordReset, listFiles , getFileUrl, uploadFile, deleteFile};
