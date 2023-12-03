@@ -1,5 +1,5 @@
 
-import { getFirestore, collection, getDocs, addDoc, query, where } from "firebase/firestore";
+import { getFirestore, collection, getDocs, addDoc, query, where, getDoc, updateDoc, doc } from "firebase/firestore";
 import { initializeApp } from "firebase/app";
 import { getAuth, signInWithEmailAndPassword, updateProfile, createUserWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
 import { getStorage, ref, uploadBytes, getDownloadURL, listAll, deleteObject } from "firebase/storage";
@@ -209,4 +209,41 @@ const deleteFile = async (path) => {
     }
 };
 
-export { getGames, addGame, getCategory, signIn, signOut, signUp, passwordReset, listFiles , getFileUrl, uploadFile, deleteFile};
+
+const updateRating = async (gameId) => {
+    const gameRef = doc(db, "games", gameId);
+    try {
+        const gameDoc = await getDoc(gameRef);
+        if (!gameDoc.exists()) {
+            console.log('No such document!');
+        } else {
+            const game = gameDoc.data();
+            const newRating = game.rating + 1;
+            await updateDoc(gameRef, { rating: newRating });
+            console.log('Document updated');
+        } 
+    } catch (error) {
+        console.error('Error updating document', error);
+        throw error;
+    }  
+};
+
+const getRating = async (gameId) => {
+    const gameRef = doc(db, 'games', gameId);
+
+    try {
+        const gameDoc = await getDoc(gameRef);
+        if (!gameDoc.exists()) {
+            throw new Error("Game document does not exist!");
+        }
+
+        // Return the rating of the game
+        return gameDoc.data().rating || 0;
+    } catch (error) {
+        console.error('Error retrieving game rating:', error);
+        throw error;
+    }
+};
+
+
+export { getGames, addGame, getCategory, signIn, signOut, signUp, passwordReset, listFiles , getFileUrl, uploadFile, deleteFile, updateRating, getRating};
