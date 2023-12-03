@@ -1,5 +1,5 @@
 import { getStorage, ref, uploadBytes, getDownloadURL, listAll, deleteObject } from "firebase/storage";
-import { updateRating } from "/Users/Yair-/Documents/CSE4550/Coyote-Arcade/Codebase/backend/index.js";
+import { updateRating, getRating } from "/Users/Yair-/Documents/CSE4550/Coyote-Arcade/Codebase/backend/index.js";
 
 const storage = getStorage();
 
@@ -45,12 +45,13 @@ const storage = getStorage();
 
 
 const main = async () => {
-    updateRating('2JeMZBuTsjtQhbDEvtKe');
-}
+    getRating('2JeMZBuTsjtQhbDEvtKe').then((rating) => {
+            console.log(rating);
+        }
+    );
+};
 
-main();
-
-
+ main()
 // const uploadFile = async (file, path) => {
 //     if (!file) return;
 //     const storageRef = ref(storage, path);

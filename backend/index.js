@@ -228,4 +228,22 @@ const updateRating = async (gameId) => {
     }  
 };
 
-export { getGames, addGame, getCategory, signIn, signOut, signUp, passwordReset, listFiles , getFileUrl, uploadFile, deleteFile, updateRating};
+const getRating = async (gameId) => {
+    const gameRef = doc(db, 'games', gameId);
+
+    try {
+        const gameDoc = await getDoc(gameRef);
+        if (!gameDoc.exists()) {
+            throw new Error("Game document does not exist!");
+        }
+
+        // Return the rating of the game
+        return gameDoc.data().rating || 0;
+    } catch (error) {
+        console.error('Error retrieving game rating:', error);
+        throw error;
+    }
+};
+
+
+export { getGames, addGame, getCategory, signIn, signOut, signUp, passwordReset, listFiles , getFileUrl, uploadFile, deleteFile, updateRating, getRating};
