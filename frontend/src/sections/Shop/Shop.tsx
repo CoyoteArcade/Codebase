@@ -25,7 +25,7 @@ export default function Shop({
   const games: any = useRouteLoaderData('root');
   let categoryGames = [];
   if (gameCategory) {
-    categoryGames = games.filter((game: any) => game.Category.includes(gameCategory));
+    categoryGames = games.filter((game: any) => game.categories.includes(gameCategory));
   }
 
   return (
