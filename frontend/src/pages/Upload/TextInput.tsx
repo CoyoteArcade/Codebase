@@ -46,9 +46,9 @@ function VideoInput(props: any) {
     <TextInput
       type="url"
       size="md"
-      label={'Video (YouTube)'}
-      description="Showcase gameplay with a quick video"
-      placeholder="https://www.youtube.com/watch?id"
+      label={'Video'}
+      description="Showcase gameplay with a quick (YouTube) video"
+      placeholder="https://www.youtube.com/watch?v=YWp6qjevHH0"
       onKeyDown={(event) => {
         if (event.key === 'Enter') {
           event.preventDefault();

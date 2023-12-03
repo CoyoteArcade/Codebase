@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Box, ThemeIcon } from '@mantine/core';
 import { RichTextEditor, Link } from '@mantine/tiptap';
 import { useEditor } from '@tiptap/react';
@@ -66,7 +66,7 @@ const RedoIcon = () => <IconArrowForwardUp size="1.1rem" stroke={1.5} />;
 import classes from './TextEditor.module.css';
 import { template1, template2 } from '@/utilities/textEditor/descriptions.js';
 
-function TextEditor({ useFor = '' }: { useFor?: string }) {
+function TextEditor({ useFor = '', props }: { useFor?: string; props: any }) {
   const [content, setContent] = useState('');
 
   let placeholder = '';
@@ -159,6 +159,22 @@ function TextEditor({ useFor = '' }: { useFor?: string }) {
       </RichTextEditor.Control>
     );
   };
+
+  useEffect(() => {
+    if (useFor === 'description') {
+      if (editor?.getText().trim() === '') {
+        props.setFieldValue('description', '');
+      } else {
+        props.setFieldValue('description', editor?.getHTML());
+      }
+    } else if (useFor === 'instructions') {
+      if (editor?.getText().trim() === '') {
+        props.setFieldValue('instructions', '');
+      } else {
+        props.setFieldValue('instructions', editor?.getHTML());
+      }
+    }
+  }, [editor?.getHTML()]);
 
   return (
     <Box>
