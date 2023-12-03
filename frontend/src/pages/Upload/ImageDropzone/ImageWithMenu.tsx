@@ -18,8 +18,8 @@ export default function ImageWithMenu({
 }) {
   const [userMenuOpened, setUserMenuOpened] = useState(false);
   const [cropped, setCropped] = useToggle([true, false]);
-  const [fullscreen, { open, close }] = useDisclosure(false);
   const { hovered, ref } = useHover();
+  // const [fullscreen, { open, close }] = useDisclosure(false);
 
   const handleCropped = () => setCropped();
 
@@ -59,12 +59,6 @@ export default function ImageWithMenu({
 
         <Menu.Dropdown w={175}>
           <Menu.Item
-            onClick={open}
-            leftSection={<IconArrowsMaximize style={{ width: rem(14), height: rem(14) }} />}
-          >
-            View Fullscreen
-          </Menu.Item>
-          <Menu.Item
             onClick={handleCropped}
             leftSection={<IconCrop style={{ width: rem(14), height: rem(14) }} />}
           >
@@ -79,16 +73,6 @@ export default function ImageWithMenu({
           </Menu.Item>
         </Menu.Dropdown>
       </Menu>
-
-      <Modal opened={fullscreen} onClose={close} size="55%">
-        <AspectRatio bg="dark" ratio={1920 / 1080}>
-          <Image
-            className={!cropped ? classes['image-cropped'] : classes['image-uncropped']}
-            src={src}
-            onLoad={() => URL.revokeObjectURL(src)}
-          />
-        </AspectRatio>
-      </Modal>
     </>
   );
 }
