@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { PillsInput, Pill, Combobox, CheckIcon, Group, useCombobox } from '@mantine/core';
 
 const CATEGORIES_LIMIT = 3;
@@ -31,7 +31,7 @@ const categories = [
   'Visual Novel',
 ];
 
-export default function CategorySelect(form: any) {
+export default function CategorySelect(props: any) {
   const combobox = useCombobox({
     onDropdownClose: () => combobox.resetSelectedOption(),
     onDropdownOpen: () => combobox.updateSelectedOptionIndex('active'),
@@ -39,7 +39,6 @@ export default function CategorySelect(form: any) {
 
   const [search, setSearch] = useState('');
   const [value, setValue] = useState<string[]>([]);
-  const [error, setError] = useState('');
 
   const handleValueSelect = (val: string) => {
     setValue((current) =>
@@ -74,6 +73,11 @@ export default function CategorySelect(form: any) {
       </Combobox.Option>
     ));
 
+  useEffect(() => {
+    props.setFieldValue('categories', value);
+    props.clearFieldError('categories');
+  }, [value]);
+
   return (
     <Combobox size="md" store={combobox} onOptionSubmit={handleValueSelect} withinPortal={false}>
       <Combobox.DropdownTarget>
@@ -83,7 +87,7 @@ export default function CategorySelect(form: any) {
           description={`Choose from various game genres (${values.length}/3)`}
           onClick={() => combobox.openDropdown()}
           label="Categories"
-          error={error}
+          error={props.getInputProps('categories').error}
         >
           <Pill.Group>
             {values}
@@ -93,7 +97,6 @@ export default function CategorySelect(form: any) {
                 onFocus={() => combobox.openDropdown()}
                 onBlur={() => combobox.closeDropdown()}
                 value={search}
-                placeholder="Search categories"
                 onChange={(event) => {
                   combobox.updateSelectedOptionIndex();
                   setSearch(event.currentTarget.value);

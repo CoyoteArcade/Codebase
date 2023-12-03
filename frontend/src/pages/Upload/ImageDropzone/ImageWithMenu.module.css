@@ -1,5 +1,5 @@
 .image {
-  border: 2px solid black;
+  border: 2px solid var(--mantine-color-default-border);
 }
 
 .image-active {
@@ -12,4 +12,10 @@
 
 .image-cropped {
   object-fit: cover !important;
+}
+
+.button {
+  position: absolute;
+  z-index: 1;
+  margin: rem(10px);
 }

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Box, Group, Text, SimpleGrid, rem } from '@mantine/core';
 import { IconUpload, IconPhoto, IconX } from '@tabler/icons-react';
 import { Dropzone, DropzoneProps, IMAGE_MIME_TYPE, FileWithPath } from '@mantine/dropzone';
@@ -7,7 +7,7 @@ import ImageWithMenu from './ImageWithMenu';
 
 import classes from './ImageDropzone.module.css';
 
-export default function ImageDropzone(props: Partial<DropzoneProps>) {
+export default function ImageDropzone(props: any) {
   const [files, setFiles] = useState<FileWithPath[]>([]);
 
   const previews = files.map((file, index) => {
@@ -17,23 +17,39 @@ export default function ImageDropzone(props: Partial<DropzoneProps>) {
       setFiles(files.toSpliced(index, 1));
     };
 
-    return <ImageWithMenu key={index} src={imageUrl} index={index} handleDelete={handleDelete} />;
+    return (
+      <ImageWithMenu
+        key={index}
+        src={imageUrl}
+        index={index}
+        handleDelete={handleDelete}
+        props={props}
+      />
+    );
   });
+
+  useEffect(() => {
+    let result = files.map((file) => {
+      return { file: file, cropped: true };
+    });
+    props.setFieldValue('images', result);
+    props.clearFieldError('images');
+  }, [files]);
 
   return (
     <Box w="800px">
+      {props.errors.images && <Text c="red">{props.errors.images}</Text>}
       <Dropzone
         style={{ border: '1px solid var(--mantine-color-default-border)' }}
         onDrop={(newFiles: any) => {
           setFiles([...files, ...newFiles].slice(0, 4));
-          console.log('accepted files', files);
         }}
         onReject={(files: any) => console.log('rejected files', files)}
         maxSize={3 * 1024 ** 2}
+        maxFiles={4}
         accept={IMAGE_MIME_TYPE}
         disabled={previews.length >= 4}
         className={previews.length >= 4 ? classes.disabled : ''}
-        {...props}
       >
         <Group justify="center" gap="xl" mih={220} style={{ pointerEvents: 'none' }}>
           <Dropzone.Accept>
@@ -60,7 +76,7 @@ export default function ImageDropzone(props: Partial<DropzoneProps>) {
               Drag images here or click to select files
             </Text>
             <Text size="sm" c="dimmed" inline mt={7}>
-              Attach as many files as you like, each file should not exceed 5mb
+              Add up to 4 images, each image should not exceed 5 mb
             </Text>
           </div>
         </Group>

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Box, Checkbox, Stack, TextInput } from '@mantine/core';
+import { Box, Checkbox, Stack, TextInput, Divider } from '@mantine/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faApple as Apple,
@@ -9,7 +9,6 @@ import {
 import { faGlobe as Web } from '@fortawesome/free-solid-svg-icons';
 
 import FileUpload from './FileUpload';
-import { uploadFormActions } from '../UploadFormActions';
 
 import classes from './PlatformsInput.module.css';
 
@@ -55,47 +54,46 @@ const LabelLinux = () => {
 
 function PlatformsInput(props: any) {
   const [platformNames, setPlatformNames] = useState<string[]>([]);
-  const [platforms, setPlatforms] = useState<any[]>([]);
 
-  const [windowsArchive, setWindowsArchive] = useState({});
-  const [macArchive, setMacArchive] = useState({});
-  const [linuxArchive, setLinuxArchive] = useState({});
+  const [windowsArchive, setWindowsArchive] = useState<File | null>(null);
+  const [macArchive, setMacArchive] = useState<File | null>(null);
+  const [linuxArchive, setLinuxArchive] = useState<File | null>(null);
 
   const [windowsLink, setWindowsLink] = useState('');
   const [macLink, setMacLink] = useState('');
   const [linuxLink, setLinuxLink] = useState('');
   const [hostedLink, setHostedLink] = useState('');
 
-  const [error, setError] = useState('');
-
   useEffect(() => {
-    let result: any = [];
-
+    let result: object[] = [];
     platformNames.map((name) => {
-      let platform;
       switch (name) {
+        case 'web':
+          result.push({ name: name, archive: null, link: hostedLink });
+          break;
         case 'windows':
-          platform = { name: name, archive: windowsArchive, link: windowsLink };
+          if (windowsArchive !== null) {
+            result.push({ name: name, archive: windowsArchive, link: '' });
+          }
           break;
         case 'mac':
-          platform = { name: name, archive: macArchive, link: macLink };
+          if (macArchive !== null) {
+            result.push({ name: name, archive: macArchive, link: '' });
+          }
           break;
         case 'linux':
-          platform = { name: name, archive: linuxArchive, link: linuxLink };
+          if (linuxArchive !== null) {
+            result.push({ name: name, archive: linuxArchive, link: '' });
+          }
           break;
-        case 'web':
-          platform = { name: name, archive: {}, link: hostedLink };
-          break;
-        default:
-          platform = undefined;
-      }
-
-      if (platform !== undefined) {
-        result.push(platform);
       }
     });
 
-    setPlatforms(result);
+    props.setFieldValue('platforms', result);
+  }, [windowsArchive, macArchive, linuxArchive, hostedLink]);
+
+  useEffect(() => {
+    props.clearFieldError('platforms');
   }, [platformNames]);
 
   return (
@@ -106,16 +104,37 @@ function PlatformsInput(props: any) {
       label="Platforms"
       description="Check which platforms your game supports"
       required
-      error={error}
       classNames={classes}
+      error={props.getInputProps('platforms').error}
     >
       <Stack mt="xs" gap="sm">
         <Checkbox value="windows" label={<LabelWindows />} />
-        {platformNames.includes('windows') && <FileUpload />}
+        {platformNames.includes('windows') && (
+          <>
+            <Box mb={10}>
+              <FileUpload file={windowsArchive} setFile={setWindowsArchive} />
+            </Box>
+            <Divider />
+          </>
+        )}
         <Checkbox value="mac" label={<LabelMac />} />
-        {platformNames.includes('mac') && <FileUpload />}
+        {platformNames.includes('mac') && (
+          <>
+            <Box mb={10}>
+              <FileUpload file={macArchive} setFile={setMacArchive} />
+            </Box>
+            <Divider />
+          </>
+        )}
         <Checkbox value="linux" label={<LabelLinux />} />
-        {platformNames.includes('linux') && <FileUpload />}
+        {platformNames.includes('linux') && (
+          <>
+            <Box mb={10}>
+              <FileUpload file={linuxArchive} setFile={setLinuxArchive} />
+            </Box>
+            <Divider />
+          </>
+        )}
         <Checkbox value="web" label={<LabelWeb />} onClick={() => setHostedLink('')} />
         {platformNames.includes('web') && (
           <TextInput
