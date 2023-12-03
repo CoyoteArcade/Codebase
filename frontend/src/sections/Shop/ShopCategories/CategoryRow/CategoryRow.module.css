@@ -6,6 +6,10 @@
   }
 }
 
+.container {
+  padding-block: rem(10px);
+}
+
 .controls {
   top: calc(40% - var(--carousel-control-size) / 2);
   transition: opacity 150ms ease;

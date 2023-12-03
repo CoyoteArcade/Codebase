@@ -1,0 +1,15 @@
+.image {
+  border: 2px solid black;
+}
+
+.image-active {
+  border: 2px solid var(--mantine-color-coyote-blue-filled);
+}
+
+.image-uncropped {
+  object-fit: contain !important;
+}
+
+.image-cropped {
+  object-fit: cover !important;
+}

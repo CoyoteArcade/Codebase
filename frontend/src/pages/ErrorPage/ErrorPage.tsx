@@ -1,9 +1,9 @@
 import { Link, useRouteError } from 'react-router-dom';
 import { Box, Title, Text, Button, Container, Group, useMantineTheme } from '@mantine/core';
 
-import classes from './styles/ErrorPage.module.css';
+import classes from './ErrorPage.module.css';
 
-export default function ServerError() {
+export default function ErrorPage() {
   const theme = useMantineTheme();
   const error: any = useRouteError();
 

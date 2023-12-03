@@ -1,6 +1,5 @@
+import { useRouteLoaderData } from 'react-router-dom';
 import { Grid } from '@mantine/core';
-import { useContext } from 'react';
-import { GamesContext } from './Root';
 
 import Navbar from '../sections/Navbar/Navbar';
 import Shop from '@/sections/Shop/Shop';
@@ -24,17 +23,20 @@ function translateCategory(category: string) {
   }
 }
 
-export default function Categories({gameCategory=''}: any) {
-  const games: any = useContext(GamesContext);
-  console.log(games);
-  console.log(gameCategory);
+export default function Categories({ gameCategory = '' }: any) {
+  const games: any = useRouteLoaderData('root');
+
   return (
     <Grid gutter={0}>
-      <Grid.Col span={{ base: 0, xl: 2 }}>
+      <Grid.Col span={{ base: 0, lg: 2 }}>
         <Navbar />
       </Grid.Col>
       <Grid.Col span={{ base: 12, xl: 10 }}>
-        <Shop titleGrid={gameCategory ? translateCategory(gameCategory) :'ALL GAMES'} showCategories={false} gameCategory={gameCategory ? translateCategory(gameCategory) : ''} />
+        <Shop
+          titleGrid={gameCategory ? translateCategory(gameCategory) : 'All Games'}
+          showCategories={false}
+          gameCategory={gameCategory ? translateCategory(gameCategory) : ''}
+        />
       </Grid.Col>
     </Grid>
   );

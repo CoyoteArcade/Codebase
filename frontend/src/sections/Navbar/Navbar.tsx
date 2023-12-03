@@ -1,15 +1,12 @@
 import { useState } from 'react';
 import { Group, Box, Title } from '@mantine/core';
 import {
-  IconBellRinging,
   IconBrowser,
   IconListSearch,
   IconBomb,
   IconSword,
   IconTank,
   IconReceipt2,
-  IconSwitchHorizontal,
-  IconLogout,
   IconChessKnight,
 } from '@tabler/icons-react';
 import classes from './Navbar.module.css';
@@ -43,7 +40,7 @@ export default function NavbarSimple() {
   ));
 
   return (
-    <Box component="nav" visibleFrom="xl" className={classes.navbar}>
+    <Box component="nav" visibleFrom="lg" className={classes.navbar}>
       <div className={classes.navbarMain}>
         <Group className={classes.header} justify="center">
           <Title order={3}>Navigation Bar</Title>

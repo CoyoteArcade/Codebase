@@ -1,0 +1,14 @@
+.root {
+  --ti-size: var(--ti-size-sm);
+  @media (max-width: $mantine-breakpoint-md) {
+    --ti-size: var(--ti-size-xs);
+  }
+  --ti-bg: transparent;
+  --ti-color: var(--mantine-color-dark-light-color);
+  --ti-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent;
+}
+
+.icon {
+  width: 100%;
+  height: 100%;
+}

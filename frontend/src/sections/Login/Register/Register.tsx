@@ -104,7 +104,7 @@ export function Register() {
                   <IconEye style={{ width: rem('17px'), height: rem('17px') }} />
                 </ThemeIcon>
               ) : (
-                <ThemeIcon variant="subtle">
+                <ThemeIcon color="default" variant="subtle">
                   <IconEyeOff style={{ width: rem('17px'), height: rem('17px') }} />
                 </ThemeIcon>
               )
@@ -128,7 +128,7 @@ export function Register() {
                   <IconEye style={{ width: rem('17px'), height: rem('17px') }} />
                 </ThemeIcon>
               ) : (
-                <ThemeIcon variant="subtle">
+                <ThemeIcon color="default" variant="subtle">
                   <IconEyeOff style={{ width: rem('17px'), height: rem('17px') }} />
                 </ThemeIcon>
               )

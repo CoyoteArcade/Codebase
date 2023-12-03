@@ -9,7 +9,6 @@ import {
   Space,
   SimpleGrid,
   ThemeIcon,
-  ActionIcon,
   Divider,
   Center,
   Box,
@@ -102,7 +101,6 @@ export default function Header() {
   let location = useLocation();
   // console.log(location);
   const [drawerOpened, drawerHandler] = useDisclosure(false);
-  const [menuOpened, menuHandler] = useDisclosure(false);
   const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
 
   const handleLogout = () => {
@@ -139,7 +137,7 @@ export default function Header() {
   return (
     <header className={classes.root}>
       <nav className={classes.header}>
-        <Group justify="space-between" h="100%">
+        <Group justify="space-between" h="100%" gap="xs">
           <Group justify="center">
             <Logo />
             <Code style={{ alignSelf: 'flex-end' }}>v1.0</Code>

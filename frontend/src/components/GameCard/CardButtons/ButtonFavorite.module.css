@@ -1,0 +1,38 @@
+.default,
+.filled {
+  --ai-radius: var(--mantine-radius-xl);
+  --ai-bg: transparent;
+
+  @media (max-width: $mantine-breakpoint-md) {
+    --ai-size: var(--ai-size-md);
+  }
+
+  @media (min-width: $mantine-breakpoint-md) {
+    --ai-size: var(--ai-size-lg);
+  }
+}
+
+.default {
+  --ai-hover: rgba(0, 0, 0, 0.12);
+  --ai-color: var(--mantine-color-red-6);
+  --ai-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent;
+}
+
+.filled {
+  --ai-hover: rgba(0, 0, 0, 0.12);
+  --ai-color: var(--mantine-color-red-6);
+  --ai-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent;
+}
+
+.icon {
+  width: rem(75%);
+  height: rem(75%);
+}
+
+.visible {
+  display: block;
+}
+
+.hidden {
+  display: hidden;
+}

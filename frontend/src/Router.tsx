@@ -1,17 +1,18 @@
 import { createBrowserRouter, Navigate, RouterProvider, useParams } from 'react-router-dom';
-import Root, { loader as gamesLoader } from './pages/Root';
+import { Root, loader as gamesLoader } from './pages/Root/Root';
+import ErrorPage from './pages/ErrorPage/ErrorPage';
 import Home from './pages/Home';
 import About from './pages/About';
 import Categories from './pages/Categories';
 import Games from './pages/Games';
+import Upload from './pages/Upload/Upload';
 import Test from './pages/Test';
 
-import ErrorPage from './pages/ErrorPage';
 import { Game } from './sections/Game/Game';
 import { Search } from './sections/Search/Search';
 import { Login } from './sections/Login/Login';
-import { ForgotPassword } from './sections/Login/ForgotPassword/ForgotPassword';
 import { Register } from './sections/Login/Register/Register';
+import { ForgotPassword } from './sections/Login/ForgotPassword/ForgotPassword';
 import { useContext } from 'react';
 import { AuthContext } from './utilities/auth/AuthContext';
 
@@ -34,11 +35,10 @@ function GuestOnly({ children, redirectTo }: any) {
 }
 
 function GameCategoryWrapper() {
-  const {category} = useParams();
+  const { category } = useParams();
   console.log(category);
   return <Games gameCategory={category} />;
 }
-  
 
 const router = createBrowserRouter([
   {
@@ -46,6 +46,7 @@ const router = createBrowserRouter([
     element: <Root />,
     errorElement: <ErrorPage />,
     loader: gamesLoader,
+    id: 'root',
     children: [
       {
         path: '/',
@@ -89,7 +90,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/profile',
-        element:  (
+        element: (
           <RequireAuth redirectTo="/login" required={true}>
             <ErrorPage />
           </RequireAuth>
@@ -107,13 +108,17 @@ const router = createBrowserRouter([
         path: '/upload',
         element: (
           <RequireAuth redirectTo="/login" required={true}>
-            <ErrorPage />
+            <Upload />
           </RequireAuth>
         ),
       },
       {
         path: '/search/:query',
         element: <Search />,
+      },
+      {
+        path: '/upload',
+        element: <Upload />,
       },
       {
         path: '/test',

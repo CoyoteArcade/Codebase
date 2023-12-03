@@ -1,0 +1,31 @@
+.default,
+.filled {
+  --ai-radius: var(--mantine-radius-xl);
+  --ai-bg: var(--mantine-color-default);
+
+  @media (max-width: $mantine-breakpoint-md) {
+    --ai-size: var(--ai-size-md);
+  }
+
+  @media (min-width: $mantine-breakpoint-md) {
+    --ai-size: var(--ai-size-lg);
+  }
+}
+
+.default {
+  --ai-hover: var(--mantine-color-default-hover);
+  --ai-color: var(--mantine-color-default-color);
+  --ai-bd: calc(0.0625rem * var(--mantine-scale)) solid var(--mantine-color-default-border);
+}
+
+.filled {
+  --ai-bg: var(--mantine-color-green-filled);
+  --ai-hover: var(--mantine-color-green-filled-hover);
+  --ai-color: var(--mantine-color-white);
+  --ai-bd: calc(0.0625rem * var(--mantine-scale)) solid transparent;
+}
+
+.icon {
+  width: rem(65%);
+  height: rem(65%);
+}

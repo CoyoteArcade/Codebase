@@ -1,23 +1,17 @@
-import { useContext } from 'react';
-import { useParams } from 'react-router-dom';
-import { GamesContext } from '@/pages/Root';
+import { useParams, useRouteLoaderData } from 'react-router-dom';
 
 import {
   Container,
   Grid,
   SimpleGrid,
-  Skeleton,
   rem,
   Box,
   List,
   Image,
   Card,
-  Text,
   Title,
   Group,
 } from '@mantine/core';
-
-import Favorite from '@/sections/Shop/ShopGrid/ShopGridCard/CardButtons/ButtonFav';
 
 const PRIMARY_COL_HEIGHT = rem(500);
 const images = [
@@ -27,7 +21,7 @@ const images = [
 ];
 
 export function Game() {
-  const games: any = useContext(GamesContext);
+  const games: any = useRouteLoaderData('root');
   const { id } = useParams();
   const game = games.find((game: any) => game.id === id) || {};
   const SECONDARY_COL_HEIGHT = `calc(${PRIMARY_COL_HEIGHT} / 2 - var(--mantine-spacing-md) / 2)`;
@@ -39,12 +33,9 @@ export function Game() {
           <Box h={PRIMARY_COL_HEIGHT}>
             <Card withBorder shadow="sm" radius="md">
               <Group justify="space-between" align="center">
-                <Text mb="sm" size="sm">
-                  <Title order={3}>{game.Title}</Title>
-                </Text>
-                <Box mb="10px">
-                  <Favorite size="xl" />
-                </Box>
+                <Title mb="sm" order={3}>
+                  {game.title}
+                </Title>
               </Group>
 
               <Card.Section>
@@ -67,33 +58,23 @@ export function Game() {
               <Box h={SECONDARY_COL_HEIGHT}>
                 <video controls src="https://placehold.co/420x220.mp4?text=Video+Trailer"></video>
               </Box>
-
-              {/* https://placehold.co/3840x2160.mp4?text=Trailer+For+ */}
             </Grid.Col>
             <Grid.Col span={6}>
               <Box h={SECONDARY_COL_HEIGHT}>
-                <h3>System Requirements</h3>
+                <Title order={3}>System Requirements</Title>
                 <List size="sm">
-                  <List.Item>
-                    Graphics: {game['System Requirements'].Graphics || 'Unknown'}
-                  </List.Item>
-                  <List.Item>OS: {game['System Requirements'].OS || 'Unknown'}</List.Item>
-                  <List.Item>Storage: {game['System Requirements'].Storage || 'Unknown'}</List.Item>
-                  <List.Item>Memory: {game['System Requirements'].Memory || 'Unknown'}</List.Item>
-                  <List.Item>
-                    Processor: {game['System Requirements'].Processor || 'Unknown'}
-                  </List.Item>
+                  <List.Item>Platforms: {game.platforms || 'Unknown'}</List.Item>
                 </List>
               </Box>
             </Grid.Col>
             <Grid.Col span={6}>
               <Box h={SECONDARY_COL_HEIGHT}>
-                <h3>Details</h3>
+                <Title order={3}>Details</Title>
                 <List size="sm">
-                  <List.Item>Description: {game.Description || 'Unknown'}</List.Item>
-                  <List.Item>Release Date: {game['Release Date'] || 'Unknown'}</List.Item>
+                  <List.Item>Description: {game.description || 'Unknown'}</List.Item>
+                  <List.Item>Release Date: {game.releaseDate || 'Unknown'}</List.Item>
                   <List.Item>Developer: {game['Publisher/Developer'] || 'Unknown'}</List.Item>
-                  <List.Item>Rating: {game.Rating || 'Unknown'}</List.Item>
+                  <List.Item>Rating: {game.rating || 'Unknown'}</List.Item>
                 </List>
               </Box>
             </Grid.Col>
