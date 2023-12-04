@@ -27,6 +27,8 @@ export interface FormValues {
   video: string;
 }
 
+const baseURL = 'https://delightful-sombrero-slug.cyclic.app';
+
 function Upload() {
 
   const { user } = useContext(AuthContext);
@@ -120,7 +122,7 @@ function Upload() {
       files: values.platforms.map((platform: any) => ({ file:platform.archive, platform: platform.name })),
     };
 
-    fetch('http://localhost:3000/games', {
+    fetch(`${baseURL}/games`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
