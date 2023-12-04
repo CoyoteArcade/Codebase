@@ -1,5 +1,5 @@
 import { getStorage, ref, uploadBytes, getDownloadURL, listAll, deleteObject } from "firebase/storage";
-import { listFiles, addVote, removeVote, addToFavorites, removeFromFavorites, addToPurchases, removeFromPurchases, addToUploads, removeFromUploads } from "/Users/Yair-/Documents/CSE4550/Coyote-Arcade/Codebase/backend/index.js";
+import { listFiles, addVote, removeVote, addToFavorites, removeFromFavorites, addToPurchases, removeFromPurchases, addToUploads, removeFromUploads } from "./index.js";
 
 
 
