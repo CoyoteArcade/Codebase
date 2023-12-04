@@ -11,8 +11,9 @@ import ImageDropzone from './ImageDropzone/ImageDropzone';
 import classes from './Upload.module.css';
 
 import { uploadFile } from '@/api';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { AuthContext } from '@/utilities/auth/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 export interface FormValues {
   id: string;
@@ -32,6 +33,9 @@ const baseURL = 'https://delightful-sombrero-slug.cyclic.app';
 function Upload() {
 
   const { user } = useContext(AuthContext);
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const navigate = useNavigate();
 
   const form = useForm<FormValues>({
     initialValues: {
@@ -64,6 +68,7 @@ function Upload() {
   });
 
   const handleSubmit = (values: any) => {
+    setIsSubmitting(true);
     console.log(values);
     /*
     firestore collection: games
@@ -154,8 +159,16 @@ function Upload() {
           .then((res) => console.log(res))
           .catch((err) => console.log(err));
 
+        window.alert("Game uploaded successfully!");
+        navigate('/');
       })
-      .catch((err) => console.log(err)); 
+      .catch((err) => {
+        console.log(err);
+        window.alert("An error occurred while uploading your game. Please try again.");
+        setIsSubmitting(false);
+      }); 
+
+
   };
 
   const handleError = (errors: typeof form.errors) => {
@@ -211,8 +224,8 @@ function Upload() {
           </Title>
           <TextEditor useFor="instructions" props={form} />
         </Box>
-        <Button size="lg" m="0 auto" type="submit">
-          UPLOAD
+        <Button size="lg" m="0 auto" type="submit" disabled={isSubmitting}>
+          {isSubmitting ? 'Uploading...' : 'UPLOAD'}
         </Button>
       </Stack>
     </Box>
