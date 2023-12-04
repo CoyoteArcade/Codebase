@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import { getGames, addGame, getCategory, signIn, signUp, signOut, passwordReset, displayUserProfile } from './index.js';
+import { getGames, addGame, getCategory, signIn, signUp, signOut, passwordReset, displayUserProfile, getFileUrl } from './index.js';
 
 const app = express();
 const PORT = 3000;
@@ -100,7 +100,20 @@ app.get('/profile/:id', async (req, res) => {
     }
 });
 
-
+app.get('/games/:id/url', async (req, res) => { 
+    // const { id } = req.params;
+    // try {
+    //     for {
+    //         const game = await getFileUrl({ id });
+    //         if (game[0].url) {
+    //             res.status(200).json(game[0].url);
+    //             break;
+    //         }
+    //     }
+    // } catch (error) {
+    //     res.status(500).send('Server Error');
+    // }
+});
 
 // Start server
 app.listen(PORT, () => {
