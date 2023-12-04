@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Group, Avatar, Text } from '@mantine/core';
 import {
@@ -8,6 +8,8 @@ import {
   IconAt,
   IconShoppingBag,
 } from '@tabler/icons-react';
+
+import { AuthContext } from '@/utilities/auth/AuthContext';
 import classes from './Profile.module.css';
 import coyoteavatar from '@/assets/coyoteavatar.png';
 
@@ -17,8 +19,17 @@ const data = [
   { link: '', label: 'My Purchases', icon: IconShoppingBag },
 ];
 
-export default function NavbarSimple() {
+function getUser() {
+  const { user } = useContext(AuthContext);
+  if (user) {
+    console.log(user);
+  }
+}
+
+function Profile() {
   const [active, setActive] = useState('User info');
+  const user = getUser();
+  console.log(user);
 
   const links = data.map((item) => (
     <NavLink
@@ -71,3 +82,5 @@ export default function NavbarSimple() {
     </div>
   );
 }
+
+export { Profile };
