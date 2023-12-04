@@ -6,7 +6,7 @@ import About from './pages/About';
 import Categories from './pages/Categories';
 import Games from './pages/Games';
 import Upload from './pages/Upload/Upload';
-import { Profile, loader as profileLoader } from './pages/Profile/Profile';
+import { Profile } from './pages/Profile/Profile';
 import Test from './pages/Test';
 
 import { Game } from './sections/Game/Game';
@@ -99,8 +99,6 @@ const router = createBrowserRouter([
       },
       {
         path: '/profile',
-        id: 'profile',
-        loader: profileLoader,
         element: (
           <RequireAuth redirectTo="/login" required={true}>
             <Profile />

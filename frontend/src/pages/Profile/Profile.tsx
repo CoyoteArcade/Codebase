@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { NavLink, useRouteLoaderData } from 'react-router-dom';
 import { Group, Avatar, Text } from '@mantine/core';
 import {
@@ -19,22 +19,33 @@ const data = [
   { link: '', label: 'My Purchases', icon: IconShoppingBag },
 ];
 
-async function loader() {
-  let profile;
-  const profileResponse = await fetch(
-    'https://delightful-sombrero-slug.cyclic.app/profile/txS1Y7PhuDWVeYc5AX8t096QRq43'
-  );
-  const profileJson = await profileResponse.json();
-  if (profileJson.length) {
-    profile = profileJson;
-  }
-  return profileJson;
-}
-
 function Profile() {
   const [active, setActive] = useState('User info');
-  const profile = useRouteLoaderData('profile');
-  console.log(profile);
+  const [profile, setProfile] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  const { user }: any = useContext(AuthContext);
+
+  async function getProfile() {
+    if (user) {
+      const profileResponse = await fetch(
+        `https://delightful-sombrero-slug.cyclic.app/profile/${user.uid}`
+      );
+      const profileJson = await profileResponse.json();
+      setProfile(profileJson);
+    }
+  }
+
+  useEffect(() => {
+    getProfile();
+  }, []);
+
+  useEffect(() => {
+    if (profile != null) {
+      setLoading(false);
+      console.log(profile);
+    }
+  }, [profile]);
 
   const links = data.map((item) => (
     <NavLink
@@ -84,8 +95,9 @@ function Profile() {
           {links}
         </div>
       </nav>
+      <div></div>
     </div>
   );
 }
 
-export { Profile, loader };
+export { Profile };
