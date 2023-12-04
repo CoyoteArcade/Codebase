@@ -8,14 +8,13 @@ import {
   IconAt,
   IconShoppingBag,
 } from '@tabler/icons-react';
-import classes from './UserProfile.module.css';
-import Userinfo from './UserInfo.module.css';
-import Coyote from '@/assets/coyote.png';
+import classes from './Profile.module.css';
+import coyoteavatar from '@/assets/coyoteavatar.png';
 
 const data = [
-  { link: '/profile/favorites', label: 'My Favorites', icon: IconHeart },
-  { link: '/uploads', label: 'My Uploads', icon: IconDeviceGamepad },
-  { link: '/profile/purchases', label: 'My Purchases', icon: IconShoppingBag },
+  { link: '', label: 'My Favorites', icon: IconHeart },
+  { link: '', label: 'My Uploads', icon: IconDeviceGamepad },
+  { link: '', label: 'My Purchases', icon: IconShoppingBag },
 ];
 
 export default function NavbarSimple() {
@@ -41,7 +40,7 @@ export default function NavbarSimple() {
       <nav className={classes.navbar}>
         <div className={classes.navbarMain}>
           <Group className={classes.header} justify="space-between">
-            <Avatar src={Coyote} size={94} radius="md" />
+            <Avatar src={coyoteavatar} size={120} radius="md" />
             <div>
               <Text fz="xs" tt="uppercase" fw={700} c="dimmed">
                 Software engineer
