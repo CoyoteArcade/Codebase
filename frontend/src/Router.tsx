@@ -11,9 +11,9 @@ import Test from './pages/Test';
 
 import { Game } from './sections/Game/Game';
 import { Search } from './sections/Search/Search';
-import { Login } from './sections/Login/Login';
-import { Register } from './sections/Login/Register/Register';
-import { ForgotPassword } from './sections/Login/ForgotPassword/ForgotPassword';
+import { Login } from './pages/Authentication/Login/Login';
+import { Register } from './pages/Authentication/Register/Register';
+import { ForgotPassword } from './pages/Authentication/ForgotPassword/ForgotPassword';
 import { useContext } from 'react';
 import { AuthContext } from './utilities/auth/AuthContext';
 
