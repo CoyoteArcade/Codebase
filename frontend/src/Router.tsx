@@ -7,7 +7,7 @@ import Categories from './pages/Categories';
 import Games from './pages/Games';
 import Upload from './pages/Upload/Upload';
 import Test from './pages/Test';
-import User from './pages/UserProfile/UserProfile'
+import User from './pages/UserProfile/UserProfile';
 
 import { Game } from './sections/Game/Game';
 import { Search } from './sections/Search/Search';
@@ -17,6 +17,7 @@ import { ForgotPassword } from './sections/Login/ForgotPassword/ForgotPassword';
 import { useContext } from 'react';
 import { AuthContext } from './utilities/auth/AuthContext';
 import UserProfile from './pages/UserProfile/UserProfile';
+import Uploads from './pages/UserProfile/Uploads/Uploads';
 
 function RequireAuth({ children, redirectTo }: any) {
   const { user } = useContext(AuthContext);
@@ -99,6 +100,30 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: '/uploads',
+        element: (
+          <RequireAuth redirectTo="/login" required={true}>
+            <Uploads />
+          </RequireAuth>
+        ),
+      },
+      {
+        path: '/profile/favorites',
+        element: (
+          <RequireAuth redirectTo="/login" required={true}>
+            <UserProfile />
+          </RequireAuth>
+        ),
+      },
+      {
+        path: '/profile/purchases',
+        element: (
+          <RequireAuth redirectTo="/login" required={true}>
+            <UserProfile />
+          </RequireAuth>
+        ),
+      },
+      {
         path: '/register',
         element: (
           <GuestOnly redirectTo="/" required={true}>
@@ -133,11 +158,11 @@ const router = createBrowserRouter([
       {
         path: '/profile/:uid',
         element: (
-            <RequireAuth redirectTo="/login" required={true}>
-                <UserProfile />
-            </RequireAuth>
+          <RequireAuth redirectTo="/login" required={true}>
+            <UserProfile />
+          </RequireAuth>
         ),
-    },
+      },
     ],
   },
 ]);
