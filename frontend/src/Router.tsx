@@ -7,6 +7,7 @@ import Categories from './pages/Categories';
 import Games from './pages/Games';
 import Upload from './pages/Upload/Upload';
 import Test from './pages/Test';
+import User from './pages/UserProfile/UserProfile'
 
 import { Game } from './sections/Game/Game';
 import { Search } from './sections/Search/Search';
@@ -15,6 +16,7 @@ import { Register } from './sections/Login/Register/Register';
 import { ForgotPassword } from './sections/Login/ForgotPassword/ForgotPassword';
 import { useContext } from 'react';
 import { AuthContext } from './utilities/auth/AuthContext';
+import UserProfile from './pages/UserProfile/UserProfile';
 
 function RequireAuth({ children, redirectTo }: any) {
   const { user } = useContext(AuthContext);
@@ -92,7 +94,7 @@ const router = createBrowserRouter([
         path: '/profile',
         element: (
           <RequireAuth redirectTo="/login" required={true}>
-            <ErrorPage />
+            <UserProfile />
           </RequireAuth>
         ),
       },
@@ -128,6 +130,14 @@ const router = createBrowserRouter([
         path: '*',
         element: <ErrorPage />,
       },
+      {
+        path: '/profile/:uid',
+        element: (
+            <RequireAuth redirectTo="/login" required={true}>
+                <UserProfile />
+            </RequireAuth>
+        ),
+    },
     ],
   },
 ]);
