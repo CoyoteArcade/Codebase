@@ -17,7 +17,7 @@ import {
 import { IconEye, IconEyeOff } from '@tabler/icons-react';
 // import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import classes from './Login.module.css';
-import { AuthContext } from '../../../utilities/auth/AuthContext';
+import { AuthContext } from '@/utilities/auth/AuthContext';
 
 export function Login() {
   const navigate = useNavigate();
