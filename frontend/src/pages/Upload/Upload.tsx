@@ -119,7 +119,7 @@ function Upload() {
       files: values.platforms.map((platform: any) => ({ file:platform.archive, platform: platform.name })),
     };
 
-    fetch('http://localhost:3000/games', {
+    fetch('https://delightful-sombrero-slug.cyclic.app/games', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
