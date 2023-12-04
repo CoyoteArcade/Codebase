@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import { getGames, addGame, getCategory, signIn, signUp, signOut, passwordReset, displayUserProfile } from './index.js';
+import { getGames, addGame, getCategory, signIn, signUp, signOut, passwordReset, displayUserProfile, getFileUrl, listFiles } from './index.js';
 
 const app = express();
 const PORT = 3000;
@@ -100,7 +100,43 @@ app.get('/profile/:id', async (req, res) => {
     }
 });
 
-
+app.get('/games/:id/url', async (req, res) => { 
+    const { id } = req.params;
+    const imagePath = `images/${id}/`;
+    const gamePath = `gameFiles/${id}/`;
+    const windowsPath = `${gamePath}windows/`;
+    const macPath = `${gamePath}mac/`;
+    const linuxPath = `${gamePath}linux/`;
+    let imageUrls = [];
+    let windows = '';
+    let mac = '';
+    let linux = '';
+    try {
+        const windowsFiles = await listFiles(windowsPath);
+        if (windowsFiles.length > 0) {
+            windows = await getFileUrl(`${windowsPath}${windowsFiles[0].name}`);
+        };
+        const macFiles = await listFiles(macPath);
+        if (macFiles.length > 0) {
+            mac = await getFileUrl(`${macPath}${macFiles[0].name}`);
+        };
+        const linuxFiles = await listFiles(linuxPath);
+        if (linuxFiles.length > 0) {
+            linux = await getFileUrl(`${linuxPath}${linuxFiles[0].name}`);
+        };
+        const imageFiles = await listFiles(imagePath);
+        for (const file of imageFiles) {
+            console.log(file.name);
+            const filePath = `${imagePath}${file.name}`;
+            const url = await getFileUrl(filePath);
+            imageUrls.push(url);
+        }
+        res.status(200).json({message: "Success",images:imageUrls, windows, mac, linux});
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({message:'Server Error', error});
+    }
+});
 
 // Start server
 app.listen(PORT, () => {
