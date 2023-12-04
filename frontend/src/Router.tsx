@@ -6,7 +6,7 @@ import About from './pages/About';
 import Categories from './pages/Categories';
 import Games from './pages/Games';
 import Upload from './pages/Upload/Upload';
-import { Profile } from './pages/Profile/Profile';
+import { Profile, loader as profileLoader } from './pages/Profile/Profile';
 import Test from './pages/Test';
 
 import { Game } from './sections/Game/Game';
@@ -82,6 +82,14 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: '/register',
+        element: (
+          <GuestOnly redirectTo="/" required={true}>
+            <Register />
+          </GuestOnly>
+        ),
+      },
+      {
         path: '/forgot-password',
         element: (
           <GuestOnly redirectTo="/" required={true}>
@@ -91,18 +99,12 @@ const router = createBrowserRouter([
       },
       {
         path: '/profile',
+        id: 'profile',
+        loader: profileLoader,
         element: (
           <RequireAuth redirectTo="/login" required={true}>
             <Profile />
           </RequireAuth>
-        ),
-      },
-      {
-        path: '/register',
-        element: (
-          <GuestOnly redirectTo="/" required={true}>
-            <Register />
-          </GuestOnly>
         ),
       },
       {
@@ -116,10 +118,6 @@ const router = createBrowserRouter([
       {
         path: '/search/:query',
         element: <Search />,
-      },
-      {
-        path: '/upload',
-        element: <Upload />,
       },
       {
         path: '/test',

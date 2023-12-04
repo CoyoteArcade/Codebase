@@ -1,5 +1,5 @@
 import { useState, useContext } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useRouteLoaderData } from 'react-router-dom';
 import { Group, Avatar, Text } from '@mantine/core';
 import {
   IconHeart,
@@ -19,17 +19,22 @@ const data = [
   { link: '', label: 'My Purchases', icon: IconShoppingBag },
 ];
 
-function getUser() {
-  const { user } = useContext(AuthContext);
-  if (user) {
-    console.log(user);
+async function loader() {
+  let profile;
+  const profileResponse = await fetch(
+    'https://delightful-sombrero-slug.cyclic.app/profile/txS1Y7PhuDWVeYc5AX8t096QRq43'
+  );
+  const profileJson = await profileResponse.json();
+  if (profileJson.length) {
+    profile = profileJson;
   }
+  return profileJson;
 }
 
 function Profile() {
   const [active, setActive] = useState('User info');
-  const user = getUser();
-  console.log(user);
+  const profile = useRouteLoaderData('profile');
+  console.log(profile);
 
   const links = data.map((item) => (
     <NavLink
@@ -83,4 +88,4 @@ function Profile() {
   );
 }
 
-export { Profile };
+export { Profile, loader };
