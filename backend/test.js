@@ -1,13 +1,16 @@
 import { getStorage, ref, uploadBytes, getDownloadURL, listAll, deleteObject } from "firebase/storage";
-import { addVote, removeVote, addToFavorites, removeFromFavorites, addToPurchases, removeFromPurchases, addToUploads, removeFromUploads } from "/Users/Yair-/Documents/CSE4550/Coyote-Arcade/Codebase/backend/index.js";
+import { listFiles, addVote, removeVote, addToFavorites, removeFromFavorites, addToPurchases, removeFromPurchases, addToUploads, removeFromUploads } from "/Users/Yair-/Documents/CSE4550/Coyote-Arcade/Codebase/backend/index.js";
+
 
 
 const main = async () => {
-    await removeFromPurchases('KblE0fcGUZPJhEMODJpYVGIIrdM2', 'FZHHhbmw3CUj6of446a5')
-    process.exit(0);
+    const path = "images/FH35cKnCfDdJemAgT1hH/";
+    const files = await listFiles(path);
+    console.log(files);
 };
 
- main()
+main();
+
 
 // const uploadFile = async (file, path) => {
 //     if (!file) return;
