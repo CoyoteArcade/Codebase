@@ -269,5 +269,182 @@ const displayUserProfile = async (userId) => {
     }
 };
 
+const addToFavorites = async (userId, itemId) => {
+    if (!userId) {
+        console.error('Error: User ID is required');
+        return;
+    }
+    const userRef = doc(db, 'users', userId);
+    try {
+        const userDoc = await getDoc(userRef);
+        if (!userDoc.exists()) {
+            throw new Error("User document does not exist!");
+        }
+        const userData = userDoc.data();
+        const favorites = new Set(userData.favorites || []);
+        favorites.add(itemId);
+        await updateDoc(userRef, { favorites: Array.from(favorites) });
+        console.log('Favorites updated');
+    } catch (error) {
+        console.error('Error updating favorites:', error);
+        throw error;
+    }
+};
 
-export { getGames, addGame, getCategory, signIn, signOut, signUp, passwordReset, listFiles , getFileUrl, uploadFile, deleteFile, updateRating, getRating, displayUserProfile};
+const removeFromFavorites = async (userId, itemId) => {
+    if (!userId) {
+        console.error('Error: User ID is required');
+        return;
+    }
+    const userRef = doc(db, 'users', userId);
+    try {
+        const userDoc = await getDoc(userRef);
+        if (!userDoc.exists()) {
+            throw new Error("User document does not exist!");
+        }
+        const userData = userDoc.data();
+        const favorites = new Set(userData.favorites || []);
+        favorites.delete(itemId);
+        await updateDoc(userRef, { favorites: Array.from(favorites) });
+        console.log('Favorite removed');
+    } catch (error) {
+        console.error('Error removing favorite:', error);
+        throw error;
+    }
+};
+
+const addToPurchases = async (userId, itemId) => {
+    if (!userId) {
+        console.error('Error: User ID is required');
+        return;
+    }
+    const userRef = doc(db, 'users', userId);
+    try {
+        const userDoc = await getDoc(userRef);
+        if (!userDoc.exists()) {
+            throw new Error("User document does not exist!");
+        }
+        const userData = userDoc.data();
+        const purchases = new Set(userData.purchases || []);
+        purchases.add(itemId);
+        await updateDoc(userRef, { purchases: Array.from(purchases) });
+        console.log('Purchases updated');
+    } catch (error) {
+        console.error('Error updating purchases:', error);
+        throw error;
+    }
+};
+
+const removeFromPurchases = async (userId, itemId) => {
+    if (!userId) {
+        console.error('Error: User ID is required');
+        return;
+    }
+    const userRef = doc(db, 'users', userId);
+    try {
+        const userDoc = await getDoc(userRef);
+        if (!userDoc.exists()) {
+            throw new Error("User document does not exist!");
+        }
+        const userData = userDoc.data();
+        const purchases = new Set(userData.purchases || []);
+        purchases.delete(itemId);
+        await updateDoc(userRef, { purchases: Array.from(purchases) });
+        console.log('Purchase removed');
+    } catch (error) {
+        console.error('Error removing purchase:', error);
+        throw error;
+    }
+};
+
+const addToUploads = async (userId, itemId) => {
+    if (!userId) {
+        console.error('Error: User ID is required');
+        return;
+    }
+    const userRef = doc(db, 'users', userId);
+    try {
+        const userDoc = await getDoc(userRef);
+        if (!userDoc.exists()) {
+            throw new Error("User document does not exist!");
+        }
+        const userData = userDoc.data();
+        const uploads = new Set(userData.uploads || []);
+        uploads.add(itemId);
+        await updateDoc(userRef, { uploads: Array.from(uploads) });
+        console.log('Uploads updated');
+    } catch (error) {
+        console.error('Error updating uploads:', error);
+        throw error;
+    }
+};
+
+const removeFromUploads = async (userId, itemId) => {
+    if (!userId) {
+        console.error('Error: User ID is required');
+        return;
+    }
+    const userRef = doc(db, 'users', userId);
+    try {
+        const userDoc = await getDoc(userRef);
+        if (!userDoc.exists()) {
+            throw new Error("User document does not exist!");
+        }
+        const userData = userDoc.data();
+        const uploads = new Set(userData.uploads || []);
+        uploads.delete(itemId);
+        await updateDoc(userRef, { uploads: Array.from(uploads) });
+        console.log('Upload removed');
+    } catch (error) {
+        console.error('Error removing upload:', error);
+        throw error;
+    }
+};
+
+const addVote = async (userId, itemId) => {
+    if (!userId) {
+        console.error('Error: User ID is required');
+        return;
+    }
+    const userRef = doc(db, 'users', userId);
+    try {
+        const userDoc = await getDoc(userRef);
+        if (!userDoc.exists()) {
+            throw new Error("User document does not exist!");
+        }
+        const userData = userDoc.data();
+        const voted = new Set(userData.voted || []); // Make sure 'voted' is defined
+        voted.add(itemId);
+        await updateDoc(userRef, { voted: Array.from(voted) }); // Use 'voted' here
+        console.log('Vote updated');
+    } catch (error) {
+        console.error('Error updating votes:', error);
+        throw error;
+    }
+};
+
+const removeVote = async (userId, itemId) => {
+    if (!userId) {
+        console.error('Error: User ID is required');
+        return;
+    }
+    const userRef = doc(db, 'users', userId);
+    try {
+        const userDoc = await getDoc(userRef);
+        if (!userDoc.exists()) {
+            throw new Error("User document does not exist!");
+        }
+        const userData = userDoc.data();
+        const votes = new Set(userData.voted || []);
+        votes.delete(itemId);
+        await updateDoc(userRef, { voted: Array.from(votes) });
+        console.log('Vote removed');
+    } catch (error) {
+        console.error('Error removing vote:', error);
+        throw error;
+    }
+};
+
+export { getGames, addGame, getCategory, signIn, signOut, signUp, passwordReset, listFiles , getFileUrl, uploadFile, deleteFile, updateRating,
+     getRating, displayUserProfile, addToFavorites, removeFromFavorites, addToPurchases, removeFromPurchases, addToUploads, removeFromUploads, 
+     addVote, removeVote};
