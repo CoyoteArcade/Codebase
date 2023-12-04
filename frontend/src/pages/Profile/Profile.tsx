@@ -1,13 +1,7 @@
 import { useState, useContext, useEffect } from 'react';
-import { NavLink, useRouteLoaderData } from 'react-router-dom';
-import { Group, Avatar, Text } from '@mantine/core';
-import {
-  IconHeart,
-  IconDeviceGamepad,
-  IconPhoneCall,
-  IconAt,
-  IconShoppingBag,
-} from '@tabler/icons-react';
+import { NavLink } from 'react-router-dom';
+import { Box, Divider, Group, Avatar, Text } from '@mantine/core';
+import { IconHeart, IconDeviceGamepad, IconAt, IconShoppingBag } from '@tabler/icons-react';
 
 import { AuthContext } from '@/utilities/auth/AuthContext';
 import classes from './Profile.module.css';
@@ -21,7 +15,7 @@ const data = [
 
 function Profile() {
   const [active, setActive] = useState('User info');
-  const [profile, setProfile] = useState(null);
+  const [profile, setProfile]: [profile: any, setProfile: any] = useState({});
   const [loading, setLoading] = useState(true);
 
   const { user }: any = useContext(AuthContext);
@@ -41,7 +35,7 @@ function Profile() {
   }, []);
 
   useEffect(() => {
-    if (profile != null) {
+    if (Object.keys(profile).length !== 0) {
       setLoading(false);
       console.log(profile);
     }
@@ -68,29 +62,23 @@ function Profile() {
         <div className={classes.navbarMain}>
           <Group className={classes.header} justify="space-between">
             <Avatar src={coyoteavatar} size={120} radius="md" />
-            <div>
+            <Box p="10">
               <Text fz="xs" tt="uppercase" fw={700} c="dimmed">
-                Software engineer
+                {profile.uploads ? 'Developer' : 'Registered User'}
               </Text>
 
-              <Text fz="lg" fw={500} className={classes.name}>
-                Jordi Servin
+              <Text fz="lg" fw={500} mb={5} className={classes.name}>
+                {profile.username}
               </Text>
 
-              <Group wrap="nowrap" gap={10} mt={3}>
-                <IconAt stroke={1.5} size="1rem" className={classes.icon} />
-                <Text fz="xs" c="dimmed">
-                  test@csusb.dev
-                </Text>
-              </Group>
+              <Divider />
 
-              <Group wrap="nowrap" gap={10} mt={5}>
-                <IconPhoneCall stroke={1.5} size="1rem" className={classes.icon} />
+              <Group wrap="nowrap" gap={5} mt={5}>
                 <Text fz="xs" c="dimmed">
-                  +1 (800)-LIL-BROO
+                  {profile.email}
                 </Text>
               </Group>
-            </div>
+            </Box>
           </Group>
           {links}
         </div>
