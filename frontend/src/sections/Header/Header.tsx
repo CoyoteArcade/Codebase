@@ -105,6 +105,7 @@ export default function Header() {
 
   const handleLogout = () => {
     setUser(null);
+    localStorage.removeItem('coyoteArcadeUser');
     console.log("Logged out");
   };
 

@@ -1,12 +1,11 @@
 import { getStorage, ref, uploadBytes, getDownloadURL, listAll, deleteObject } from "firebase/storage";
-import { displayUserProfile } from "/Users/Yair-/Documents/CSE4550/Coyote-Arcade/Codebase/backend/index.js";
+import { addVote, removeVote, addToFavorites, removeFromFavorites, addToPurchases, removeFromPurchases, addToUploads, removeFromUploads } from "/Users/Yair-/Documents/CSE4550/Coyote-Arcade/Codebase/backend/index.js";
 
 
 const main = async () => {
-    await displayUserProfile('txS1Y7PhuDWVeYc5AX8t096QRq43')
+    await removeFromPurchases('KblE0fcGUZPJhEMODJpYVGIIrdM2', 'FZHHhbmw3CUj6of446a5')
     process.exit(0);
 };
-
 
  main()
 

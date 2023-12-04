@@ -24,3 +24,6 @@ dist-ssr
 
 # Local MacOS meta data
 .DS_Store
+
+# environment
+.env

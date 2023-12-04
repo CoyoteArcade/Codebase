@@ -10,6 +10,11 @@ import ImageDropzone from './ImageDropzone/ImageDropzone';
 
 import classes from './Upload.module.css';
 
+import { uploadFile } from '@/api';
+import { useContext, useState } from 'react';
+import { AuthContext } from '@/utilities/auth/AuthContext';
+import { useNavigate } from 'react-router-dom';
+
 export interface FormValues {
   id: string;
   developer: string;
@@ -23,7 +28,15 @@ export interface FormValues {
   video: string;
 }
 
+const baseURL = 'https://delightful-sombrero-slug.cyclic.app';
+
 function Upload() {
+
+  const { user } = useContext(AuthContext);
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const navigate = useNavigate();
+
   const form = useForm<FormValues>({
     initialValues: {
       id: '', // todo
@@ -55,7 +68,107 @@ function Upload() {
   });
 
   const handleSubmit = (values: any) => {
+    setIsSubmitting(true);
     console.log(values);
+    /*
+    firestore collection: games
+    fields:
+      id: string
+      developer: string
+      categories: string[]
+      platforms: string[]
+      rating: number
+      releaseDate: string
+      tagline: string
+      title: string
+      video: string (url)
+    cloud storage bucket: games
+    fields:
+      id: string
+      images: file[]
+      files: file[]
+    folder structure:
+      images: images/<gameID>/<filename>
+      gameFiles:
+        windows: gameFiles/<gameID>/windows/<filename>
+        mac: gameFiles/<gameID>/mac/<filename>
+        linux: gameFiles/<gameID>/linux/<filename>
+    */
+
+    const getDateFormatted = () => {
+      const date = new Date();
+      const year = date.getFullYear();
+      let month:any = date.getMonth() + 1;
+      let day:any = date.getDate();
+      if (month < 10) {
+        month = `0${month}`;
+      }
+      if (day < 10) {
+        day = `0${day}`;
+      }
+
+      return `${month}-${day}-${year}`;
+    };
+
+    const firestoreGameData = {
+      developer: (user as any).displayName,
+      categories: values.categories,
+      platforms: values.platforms.map((platform: any) => platform.name),
+      rating: 0,
+      releaseDate: getDateFormatted(),
+      tagline: values.tagline,
+      description: values.description,
+      title: values.title,
+      video: values.video,
+    };
+
+    const firestoreGameFiles = {
+      images: values.images.map((image: any) => image.file),
+      files: values.platforms.map((platform: any) => ({ file:platform.archive, platform: platform.name })),
+    };
+
+    fetch(`${baseURL}/games`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(firestoreGameData),
+    })
+      .then((res) => {
+        // console.log("res from gameAdd function",res);
+        return res.json();
+      })
+      .then((data) => {
+        console.log('data from gameAdd function', data);
+        const imageFiles = firestoreGameFiles.images;
+        const gameFiles = firestoreGameFiles.files;
+
+        const imageUploadPromises = imageFiles.map((image: any) => {
+          return uploadFile(image, `images/${data.gameID}/${image.name}`);
+        });
+
+        const gameUploadPromises = gameFiles.map((file: any) => {
+          return uploadFile(file.file, `gameFiles/${data.gameID}/${file.platform}/${file.file.name}`);
+        });
+
+        Promise.all(imageUploadPromises)
+          .then((res) => console.log(res))
+          .catch((err) => console.log(err));
+
+        Promise.all(gameUploadPromises)
+          .then((res) => console.log(res))
+          .catch((err) => console.log(err));
+
+        window.alert("Game uploaded successfully!");
+        navigate('/');
+      })
+      .catch((err) => {
+        console.log(err);
+        window.alert("An error occurred while uploading your game. Please try again.");
+        setIsSubmitting(false);
+      }); 
+
+
   };
 
   const handleError = (errors: typeof form.errors) => {
@@ -111,8 +224,8 @@ function Upload() {
           </Title>
           <TextEditor useFor="instructions" props={form} />
         </Box>
-        <Button size="lg" m="0 auto" type="submit">
-          UPLOAD
+        <Button size="lg" m="0 auto" type="submit" disabled={isSubmitting}>
+          {isSubmitting ? 'Uploading...' : 'UPLOAD'}
         </Button>
       </Stack>
     </Box>

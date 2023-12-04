@@ -26,6 +26,13 @@ export function Login() {
   const [password, setPassword] = useState('');
   const { user, setUser } = useContext(AuthContext);
 
+  useEffect(() => {
+    const storedUser = localStorage.getItem('coyoteArcadeUser');
+    if(storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, [setUser]);
+  
   const handleChange = (event:any) => {
     if(event.target.id === 'email') {
       setEmail(event.target.value);
@@ -49,6 +56,9 @@ export function Login() {
       response = await request.json();
       if((response as any).message === "Signed in") {
         setUser((response as any).user);
+        const {email, displayName, uid} = (response as any).user;
+        const stringifiedUser = JSON.stringify({email, displayName, uid});
+        localStorage.setItem('coyoteArcadeUser', stringifiedUser);
         navigate('/');
       } else {
         window.alert("Login failed!");
