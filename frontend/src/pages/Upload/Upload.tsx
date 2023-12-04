@@ -10,6 +10,9 @@ import ImageDropzone from './ImageDropzone/ImageDropzone';
 
 import classes from './Upload.module.css';
 
+import { listFiles, uploadFile } from '@/api';
+import { useContext } from 'react';
+import { AuthContext } from '@/utilities/auth/AuthContext';
 export interface FormValues {
   id: string;
   developer: string;
@@ -24,6 +27,9 @@ export interface FormValues {
 }
 
 function Upload() {
+
+  const { user, setUser } = useContext(AuthContext);
+
   const form = useForm<FormValues>({
     initialValues: {
       id: '', // todo
@@ -55,7 +61,98 @@ function Upload() {
   });
 
   const handleSubmit = (values: any) => {
-    console.log(values);
+    /*
+    firestore collection: games
+    fields:
+      id: string
+      developer: string
+      categories: string[]
+      platforms: string[]
+      rating: number
+      releaseDate: string
+      tagline: string
+      title: string
+      video: string (url)
+
+    cloud storage bucket: games
+    fields:
+      id: string
+      images: file[]
+      files: file[]
+    folder structure:
+      images: images/<gameID>/<filename>
+      gameFiles:
+        windows: gameFiles/<gameID>/windows/<filename>
+        mac: gameFiles/<gameID>/mac/<filename>
+        linux: gameFiles/<gameID>/linux/<filename>
+    */
+
+    const getDateFormatted = () => {
+      const date = new Date();
+      const year = date.getFullYear();
+      let month:any = date.getMonth() + 1;
+      let day:any = date.getDate();
+      if (month < 10) {
+        month = `0${month}`;
+      }
+      if (day < 10) {
+        day = `0${day}`;
+      }
+
+      return `${month}-${day}-${year}`;
+    };
+
+    const firestoreGameData = {
+      developer: (user as any).displayName,
+      categories: values.categories,
+      platforms: values.platforms.map((platform: any) => platform.name),
+      rating: 0,
+      releaseDate: getDateFormatted(),
+      tagline: values.tagline,
+      description: values.description,
+      title: values.title,
+      video: values.video,
+    };
+
+    const firestoreGameFiles = {
+      images: values.images.map((image: any) => image.file),
+      files: values.platforms.map((platform: any) => ({ file:platform.archive, platform: platform.name })),
+    };
+
+    fetch('http://localhost:3000/games', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(firestoreGameData),
+    })
+      .then((res) => {
+        // console.log("res from gameAdd function",res);
+        return res.json();
+      })
+      .then((data) => {
+        console.log('data from gameAdd function', data);
+        const imageFiles = firestoreGameFiles.images;
+        const gameFiles = firestoreGameFiles.files;
+
+        const imageUploadPromises = imageFiles.map((image: any) => {
+          return uploadFile(image, `images/${data.gameID}/${image.name}`);
+        });
+
+        const gameUploadPromises = gameFiles.map((file: any) => {
+          return uploadFile(file.file, `gameFiles/${data.gameID}/${file.platform}/${file.file.name}`);
+        });
+
+        Promise.all(imageUploadPromises)
+          .then((res) => console.log(res))
+          .catch((err) => console.log(err));
+
+        Promise.all(gameUploadPromises)
+          .then((res) => console.log(res))
+          .catch((err) => console.log(err));
+
+      })
+      .catch((err) => console.log(err)); 
   };
 
   const handleError = (errors: typeof form.errors) => {
