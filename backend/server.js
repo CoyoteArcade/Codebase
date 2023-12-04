@@ -32,10 +32,10 @@ app.get('/games/category/:category', async (req, res) => {
 
 app.post('/games', async (req, res) => {
     try {
-        const gameID = await addGame(req.body);
-        res.status(201).send({message:'Game Added', gameID});
+        await addGame(req.body);
+        res.status(201).send('Game Added');
     } catch (error) {
-        res.status(500).send({message:'Server Error', error});
+        res.status(500).send('Server Error');
     }
 });
 

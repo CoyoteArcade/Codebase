@@ -86,7 +86,6 @@ const addGame = async (game=undefined) => {
     if(game === undefined) return;
     const docRef = await addDoc(collection(db, "games"), game);
     console.log("Document written with ID: ", docRef.id);
-    return docRef.id;
 };
 
 const signIn = async (email, password) => {
