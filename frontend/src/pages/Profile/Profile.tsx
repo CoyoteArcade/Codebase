@@ -1,13 +1,12 @@
 import { useState, useContext, useEffect } from 'react';
 import { NavLink, useRouteLoaderData } from 'react-router-dom';
-import { Box, UnstyledButton, Title, Divider, Group, Avatar, Text, Anchor } from '@mantine/core';
+import { Box, UnstyledButton, Title, Divider, Group, Avatar, Text, Grid } from '@mantine/core';
 import { useScrollIntoView } from '@mantine/hooks';
 import { IconHeart, IconDeviceGamepad, IconShoppingBag } from '@tabler/icons-react';
 
 import { AuthContext } from '@/utilities/auth/AuthContext';
 import GameGrid from '@/components/GameGrid/GameGrid';
 
-import CategoryRow from '@/sections/Shop/ShopCategories/CategoryRow/CategoryRow';
 import classes from './Profile.module.css';
 import coyoteavatar from '@/assets/coyoteavatar.png';
 
@@ -128,9 +127,9 @@ function Profile() {
   ));
 
   return (
-    <Group align="start" wrap="nowrap" miw={320}>
-      <Box visibleFrom="md">
-        <nav className={classes.navbar}>
+    <Grid gutter={0}>
+      <Grid.Col span={{ base: 0, xl: 2 }}>
+        <Box component="nav" className={classes.navbar} visibleFrom="xl">
           <div className={classes.navbarMain}>
             <Group className={classes.header} justify="space-between">
               <Avatar src={coyoteavatar} size={120} radius="md" />
@@ -154,58 +153,47 @@ function Profile() {
             </Group>
             {links}
           </div>
-        </nav>
-      </Box>
-      <Box mx={30} style={{ flex: 1 }}>
-        <Box my={30} w="100%">
-          <Title id="uploads" ref={uploadsScroll.targetRef} my={10} order={2}>
-            Uploads
-          </Title>
-          {uploadedGames.length !== 0 ? (
-            uploadedGames.length <= 4 ? (
-              <CategoryRow gameData={uploadedGames} profile={true} />
-            ) : (
+        </Box>
+      </Grid.Col>
+      <Grid.Col span={{ base: 12, xl: 10 }}>
+        <Box mx={30}>
+          <Box my={30} w="100%">
+            <Title id="uploads" ref={uploadsScroll.targetRef} my={10} order={2}>
+              Uploads
+            </Title>
+            {uploadedGames.length !== 0 ? (
               <GameGrid gameData={uploadedGames} />
-            )
-          ) : (
-            <Text c="dimmed">'No Uploaded Games Found...'</Text>
-          )}
-        </Box>
-        <Box my={30}>
-          <Title id="purchases" ref={purchasesScroll.targetRef} my={10} order={2}>
-            Purchases
-          </Title>
-          {purchasedGames.length !== 0 ? (
-
-            purchasedGames.length <= 4 ? (
-              <CategoryRow gameData={purchasedGames} profile={true} />
             ) : (
+              <Text c="dimmed">'No Uploaded Games Found...'</Text>
+            )}
+          </Box>
+          <Box my={30}>
+            <Title id="purchases" ref={purchasesScroll.targetRef} my={10} order={2}>
+              Purchases
+            </Title>
+            {purchasedGames.length !== 0 ? (
               <GameGrid gameData={purchasedGames} />
-            )
-          ) : (
-            <Text my={10} c="dimmed">
-              'No Purchased Games Found...'
-            </Text>
-          )}
-        </Box>
-        <Box my={30}>
-          <Title id="favorites" ref={favoritesScroll.targetRef} my={10} order={2}>
-            Favorites
-          </Title>
-          {favoritedGames.length !== 0 ? (
-            favoritedGames.length <= 4 ? (
-              <CategoryRow gameData={favoritedGames} profile={true} />
             ) : (
+              <Text my={10} c="dimmed">
+                'No Purchased Games Found...'
+              </Text>
+            )}
+          </Box>
+          <Box my={30}>
+            <Title id="favorites" ref={favoritesScroll.targetRef} my={10} order={2}>
+              Favorites
+            </Title>
+            {favoritedGames.length !== 0 ? (
               <GameGrid gameData={favoritedGames} />
-            )
-          ) : (
-            <Text my={10} c="dimmed">
-              'No Favorited Games Found...'
-            </Text>
-          )}
+            ) : (
+              <Text my={10} c="dimmed">
+                'No Favorited Games Found...'
+              </Text>
+            )}
+          </Box>
         </Box>
-      </Box>
-    </Group>
+      </Grid.Col>
+    </Grid>
   );
 }
 

@@ -43,7 +43,7 @@ const mockdata = [
   {
     icon: IconUpload,
     title: 'My Uploads',
-    link: '*',
+    link: '/profile',
     description: 'Games you have personally developed and uploaded to the web app',
   },
   {
@@ -55,7 +55,7 @@ const mockdata = [
   {
     icon: IconShoppingBag,
     title: 'My Purchases',
-    link: '*',
+    link: '/profile',
     description: 'Games you purchased or owned on this account',
   },
   {
@@ -67,7 +67,7 @@ const mockdata = [
   {
     icon: IconHeart,
     title: 'My Favorites',
-    link: '*',
+    link: '/profile',
     description: 'Games that you liked or loved on this account',
   },
 ];
@@ -90,9 +90,11 @@ const loginButton = (
   </NavLink>
 );
 
-const logoutButton = (logoutFunction:MouseEventHandler) => (
+const logoutButton = (logoutFunction: MouseEventHandler) => (
   <NavLink style={{ textDecoration: 'none' }} to="/login" key="Logout">
-    <Button variant="outline" onClick={logoutFunction}>Log Out</Button>
+    <Button variant="outline" onClick={logoutFunction}>
+      Log Out
+    </Button>
   </NavLink>
 );
 
@@ -106,7 +108,7 @@ export default function Header() {
   const handleLogout = () => {
     setUser(null);
     localStorage.removeItem('coyoteArcadeUser');
-    console.log("Logged out");
+    console.log('Logged out');
   };
 
   const handleMobileLogout = () => {
@@ -210,14 +212,20 @@ export default function Header() {
                   <Group justify="space-between">
                     <div>
                       <Text fw={500} fz="sm">
-                        {user ? "View your profile" : "Create an account"}
+                        {user ? 'View your profile' : 'Create an account'}
                       </Text>
                       <Text size="xs" c="dimmed">
-                        {user ? "Check out your favorites, past purchases, and more!" : "Create a Coyote Arcade account now for increased functionality!"}
+                        {user
+                          ? 'Check out your favorites, past purchases, and more!'
+                          : 'Create a Coyote Arcade account now for increased functionality!'}
                       </Text>
                     </div>
-                    <Button component={NavLink} to={user ? "/profile" : "/register"} onClick={drawerHandler.close}>
-                      {user ? "Profile" : "Register"}
+                    <Button
+                      component={NavLink}
+                      to={user ? '/profile' : '/register'}
+                      onClick={drawerHandler.close}
+                    >
+                      {user ? 'Profile' : 'Register'}
                     </Button>
                   </Group>
                 </div>
@@ -266,13 +274,19 @@ export default function Header() {
 
               <Menu.Dropdown w={250} hiddenFrom="lg" visibleFrom="sm">
                 <Menu.Item component="div">
-                  <Button variant="outline" w="100%" component={NavLink} to="/login" onClick={user ? handleLogout : ()=>console.log('clicked')}>
-                    {user ? "Log Out" : "Log In"}
+                  <Button
+                    variant="outline"
+                    w="100%"
+                    component={NavLink}
+                    to="/login"
+                    onClick={user ? handleLogout : () => console.log('clicked')}
+                  >
+                    {user ? 'Log Out' : 'Log In'}
                   </Button>
                 </Menu.Item>
                 <Menu.Item component="div">
-                  <Button w="100%" component={NavLink} to={user ? "/profile" : "/register"}>
-                    {user ? "Profile" : "Register"}
+                  <Button w="100%" component={NavLink} to={user ? '/profile' : '/register'}>
+                    {user ? 'Profile' : 'Register'}
                   </Button>
                 </Menu.Item>
                 <MenuDivider />
@@ -344,10 +358,14 @@ export default function Header() {
                 to="/login"
                 onClick={user ? handleMobileLogout : drawerHandler.close}
               >
-                {user ? "Log Out" : "Log In"}
+                {user ? 'Log Out' : 'Log In'}
               </Button>
-              <Button component={NavLink} to={user ? "/profile" : "/register"} onClick={drawerHandler.close}>
-                {user ? "Profile" : "Register"}
+              <Button
+                component={NavLink}
+                to={user ? '/profile' : '/register'}
+                onClick={drawerHandler.close}
+              >
+                {user ? 'Profile' : 'Register'}
               </Button>
             </Group>
           </ScrollArea>
