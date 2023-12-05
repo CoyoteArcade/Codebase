@@ -6,13 +6,14 @@ import About from './pages/About';
 import Categories from './pages/Categories';
 import Games from './pages/Games';
 import Upload from './pages/Upload/Upload';
+import { Profile } from './pages/Profile/Profile';
 import Test from './pages/Test';
 
 import { Game } from './sections/Game/Game';
 import { Search } from './sections/Search/Search';
-import { Login } from './sections/Login/Login';
-import { Register } from './sections/Login/Register/Register';
-import { ForgotPassword } from './sections/Login/ForgotPassword/ForgotPassword';
+import { Login } from './pages/Authentication/Login/Login';
+import { Register } from './pages/Authentication/Register/Register';
+import { ForgotPassword } from './pages/Authentication/ForgotPassword/ForgotPassword';
 import { useContext } from 'react';
 import { AuthContext } from './utilities/auth/AuthContext';
 
@@ -81,6 +82,14 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: '/register',
+        element: (
+          <GuestOnly redirectTo="/" required={true}>
+            <Register />
+          </GuestOnly>
+        ),
+      },
+      {
         path: '/forgot-password',
         element: (
           <GuestOnly redirectTo="/" required={true}>
@@ -92,16 +101,8 @@ const router = createBrowserRouter([
         path: '/profile',
         element: (
           <RequireAuth redirectTo="/login" required={true}>
-            <ErrorPage />
+            <Profile />
           </RequireAuth>
-        ),
-      },
-      {
-        path: '/register',
-        element: (
-          <GuestOnly redirectTo="/" required={true}>
-            <Register />
-          </GuestOnly>
         ),
       },
       {
@@ -115,10 +116,6 @@ const router = createBrowserRouter([
       {
         path: '/search/:query',
         element: <Search />,
-      },
-      {
-        path: '/upload',
-        element: <Upload />,
       },
       {
         path: '/test',
