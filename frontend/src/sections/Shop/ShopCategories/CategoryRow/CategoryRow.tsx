@@ -4,10 +4,18 @@ import { useMediaQuery } from '@mantine/hooks';
 import { IconArrowRight, IconArrowLeft } from '@tabler/icons-react';
 import '@mantine/carousel/styles.css';
 
-import { GameCardSimple } from '@/components/GameCard/GameCard';
+import { GameCardSimple, GameCard } from '@/components/GameCard/GameCard';
 import classes from './CategoryRow.module.css';
 
-function CategoryRow({ gameData, category }: any) {
+function CategoryRow({
+  gameData,
+  category,
+  profile = false,
+}: {
+  gameData: any;
+  category: any;
+  profile?: boolean;
+}) {
   const isMobile = useMediaQuery(`(max-width: ${em(768)}`);
   const controlSize = isMobile ? 25 : 30;
   const iconSize = isMobile ? 12 : 16;
@@ -16,7 +24,7 @@ function CategoryRow({ gameData, category }: any) {
 
   const categoryGames = games.map((game: any) => (
     <Carousel.Slide key={game.id}>
-      <GameCardSimple gameObj={game} />
+      {profile ? <GameCard gameObj={game} /> : <GameCardSimple gameObj={game} />}
     </Carousel.Slide>
   ));
 

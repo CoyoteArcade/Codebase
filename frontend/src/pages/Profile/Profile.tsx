@@ -126,34 +126,36 @@ function Profile() {
   ));
 
   return (
-    <div>
-      <nav className={classes.navbar}>
-        <div className={classes.navbarMain}>
-          <Group className={classes.header} justify="space-between">
-            <Avatar src={coyoteavatar} size={120} radius="md" />
-            <Box p="10">
-              <Text fz="xs" tt="uppercase" fw={700} c="dimmed">
-                {profile.uploads ? 'Developer' : 'Registered User'}
-              </Text>
-
-              <Text fz="lg" fw={500} mb={5} className={classes.name}>
-                {profile.username}
-              </Text>
-
-              <Divider />
-
-              <Group wrap="nowrap" gap={5} mt={5}>
-                <Text fz="xs" c="dimmed">
-                  {profile.email}
+    <Group align="start" wrap="nowrap" miw={320}>
+      <Box>
+        <nav className={classes.navbar}>
+          <div className={classes.navbarMain}>
+            <Group className={classes.header} justify="space-between">
+              <Avatar src={coyoteavatar} size={120} radius="md" />
+              <Box p="10">
+                <Text fz="xs" tt="uppercase" fw={700} c="dimmed">
+                  {profile.uploads ? 'Developer' : 'Registered User'}
                 </Text>
-              </Group>
-            </Box>
-          </Group>
-          {links}
-        </div>
-      </nav>
-      <Box mx={30}>
-        <Box my={30}>
+
+                <Text fz="lg" fw={500} mb={5} className={classes.name}>
+                  {profile.username}
+                </Text>
+
+                <Divider />
+
+                <Group wrap="nowrap" gap={5} mt={5}>
+                  <Text fz="xs" c="dimmed">
+                    {profile.email}
+                  </Text>
+                </Group>
+              </Box>
+            </Group>
+            {links}
+          </div>
+        </nav>
+      </Box>
+      <Box mx={30} style={{ flex: 1 }}>
+        <Box my={30} w="100%">
           <Title id="uploads" ref={uploadsScroll.targetRef} my={10} order={2}>
             Uploads
           </Title>
@@ -188,7 +190,7 @@ function Profile() {
           )}
         </Box>
       </Box>
-    </div>
+    </Group>
   );
 }
 
