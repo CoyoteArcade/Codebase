@@ -2,10 +2,10 @@ import { Link, useParams, useRouteLoaderData } from 'react-router-dom';
 import { Container, Title, rem, Divider, Text } from '@mantine/core';
 
 export function Search() {
-  const games: any = useRouteLoaderData("root");
+  const games: any = useRouteLoaderData('root');
   const { query }: any = useParams();
   const filteredGames = games.filter((game: any) =>
-    game.Title.toLowerCase().includes(query.toLowerCase())
+    game.title.toLowerCase().includes(query.toLowerCase())
   );
   if (!filteredGames.length) {
     return (
@@ -32,9 +32,9 @@ export function Search() {
       {filteredGames.map((game: any) => (
         <div key={game.id}>
           <Link to={`/games/${game.id}`}>
-            <h2>{game.Title}</h2>
+            <h2>{game.title}</h2>
           </Link>
-          <p>{game.Description}</p>
+          <p>{game.tagline}</p>
         </div>
       ))}
     </Container>
