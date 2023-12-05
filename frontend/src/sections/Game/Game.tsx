@@ -118,9 +118,9 @@ export function Game() {
               <Box h={SECONDARY_COL_HEIGHT}>
                 <Title order={3}>Purchase</Title>
                 <List size="sm">
-                  <List.Item>Release Date: {game.releaseDate || 'No Release Date Found'}</List.Item>
-                  <List.Item>Developer: {game['developer'] || 'No developer found'}</List.Item>
-                  <List.Item>Rating: {game.rating || '0'}</List.Item>
+                  {gameAssetLinks.windows && <List.Item>Windows: <a href={gameAssetLinks.windows}>Download</a></List.Item>}
+                  {gameAssetLinks.mac && <List.Item>Mac: <a href={gameAssetLinks.mac}>Download</a></List.Item>}
+                  {gameAssetLinks.linux && <List.Item>Linux: <a href={gameAssetLinks.linux}>Download</a></List.Item>}
                 </List>
               </Box>
             </Grid.Col>
