@@ -10,11 +10,13 @@ import {
   Image,
   ThemeIcon,
   Title,
+  Skeleton,
   Text,
   Group,
   Stack,
   AspectRatio,
   Accordion,
+  LoadingOverlay,
   TypographyStylesProvider,
 } from '@mantine/core';
 import { useContext, useEffect, useState } from 'react';
@@ -44,6 +46,7 @@ export function Game() {
   const games: any = useRouteLoaderData('root');
   const { id } = useParams();
   const { user } = useContext(AuthContext);
+  const [loading, setLoading] = useState(true);
   const game = games.find((game: any) => game.id === id) || {};
 
   useEffect(() => {
@@ -52,6 +55,7 @@ export function Game() {
       const json = await response.json();
       console.log(json);
       setGameAssetLinks(json);
+      setLoading(false);
     };
     fetchGameAssets();
   }, [id]);
@@ -125,89 +129,108 @@ export function Game() {
                     <Image src={image} key={index} radius="sm" />
                   </AspectRatio>
                 ))
-              : images.map((image, index: any) => <Image src={image} key={index} radius="sm" />)}
+              : images.map((image, index: any) => (
+                  <AspectRatio ratio={16 / 9} key={index}>
+                    <Image src={image} key={index} radius="sm" />
+                    <LoadingOverlay
+                      visible={loading}
+                      zIndex={1000}
+                      overlayProps={{ radius: 'sm', blur: 1 }}
+                    />
+                  </AspectRatio>
+                ))}
           </SimpleGrid>
         </Box>
       </SimpleGrid>
 
-      {/* Downloads */}
-      <Accordion>
-        <Accordion.Item value="downloads">
-          <Accordion.Control>
-            <Title order={2}>Downloads</Title>
-          </Accordion.Control>
-          <Accordion.Panel>
-            <Box>
-              <Stack>
-                <List listStyleType="none">
-                  {gameAssetLinks.windows && (
-                    <List.Item>
-                      <Group>
-                        {gameAssetLinks.windows && (
-                          <PlatformIcon key={'Windows'} platform={'Windows'} />
-                        )}{' '}
-                        <Text size="lg">
-                          {' '}
-                          Windows:{' '}
-                          <a href={gameAssetLinks.windows} onClick={handlePurchase}>
-                            Download
-                          </a>
-                        </Text>
-                      </Group>
-                    </List.Item>
-                  )}
+      <Box my="xl">
+        {/* Downloads */}
+        <Accordion defaultValue="downloads">
+          <Accordion.Item value="downloads">
+            <Accordion.Control>
+              <Title order={2}>Downloads</Title>
+            </Accordion.Control>
+            <Accordion.Panel>
+              <Box>
+                <Skeleton visible={loading} height={loading ? 100 : '100%'}>
+                  <Stack>
+                    <List listStyleType="none">
+                      {gameAssetLinks.windows && (
+                        <List.Item>
+                          <Group>
+                            {gameAssetLinks.windows && (
+                              <PlatformIcon key={'Windows'} platform={'Windows'} />
+                            )}{' '}
+                            <Text size="lg">
+                              {' '}
+                              Windows:{' '}
+                              <a href={gameAssetLinks.windows} onClick={handlePurchase}>
+                                Download
+                              </a>
+                            </Text>
+                          </Group>
+                        </List.Item>
+                      )}
 
-                  {gameAssetLinks.mac && (
-                    <List.Item>
-                      <Group>
-                        {gameAssetLinks.mac && <PlatformIcon key={'Apple'} platform={'Apple'} />}{' '}
-                        <Text size="lg">
-                          {' '}
-                          macOS:{' '}
-                          <a href={gameAssetLinks.mac} onClick={handlePurchase}>
-                            Download
-                          </a>
-                        </Text>
-                      </Group>
-                    </List.Item>
-                  )}
-                  {gameAssetLinks.linux && (
-                    <List.Item>
-                      <Group>
-                        {gameAssetLinks.linux && <PlatformIcon key={'Linux'} platform={'Linux'} />}{' '}
-                        <Text size="lg">
-                          {' '}
-                          Linux:{' '}
-                          <a href={gameAssetLinks.linux} onClick={handlePurchase}>
-                            Download
-                          </a>
-                        </Text>
-                      </Group>
-                    </List.Item>
-                  )}
-                </List>
-              </Stack>
-            </Box>
-          </Accordion.Panel>
-        </Accordion.Item>
-      </Accordion>
+                      {gameAssetLinks.mac && (
+                        <List.Item>
+                          <Group>
+                            {gameAssetLinks.mac && (
+                              <PlatformIcon key={'Apple'} platform={'Apple'} />
+                            )}{' '}
+                            <Text size="lg">
+                              {' '}
+                              macOS:{' '}
+                              <a href={gameAssetLinks.mac} onClick={handlePurchase}>
+                                Download
+                              </a>
+                            </Text>
+                          </Group>
+                        </List.Item>
+                      )}
+                      {gameAssetLinks.linux && (
+                        <List.Item>
+                          <Group>
+                            {gameAssetLinks.linux && (
+                              <PlatformIcon key={'Linux'} platform={'Linux'} />
+                            )}{' '}
+                            <Text size="lg">
+                              {' '}
+                              Linux:{' '}
+                              <a href={gameAssetLinks.linux} onClick={handlePurchase}>
+                                Download
+                              </a>
+                            </Text>
+                          </Group>
+                        </List.Item>
+                      )}
+                    </List>
+                  </Stack>
+                </Skeleton>
+              </Box>
+            </Accordion.Panel>
+          </Accordion.Item>
+        </Accordion>
 
-      {/* Description */}
-      <Accordion defaultValue="description">
-        <Accordion.Item value="description">
-          <Accordion.Control>
-            <Title order={2}>Description</Title>
-          </Accordion.Control>
-          <Accordion.Panel>
-            <Box className={classes.description} px="md" style={{ borderRadius: '5px' }}>
-              <TypographyStylesProvider p="0">
-                {/* @ts-ignore */}
-                <div dangerouslySetInnerHTML={{ __html: game.description }} />
-              </TypographyStylesProvider>
-            </Box>
-          </Accordion.Panel>
-        </Accordion.Item>
-      </Accordion>
+        {/* Description */}
+        {game.description && (
+          <Accordion>
+            <Accordion.Item value="description">
+              <Accordion.Control>
+                <Title order={2}>Description</Title>
+              </Accordion.Control>
+              <Accordion.Panel>
+                <Box className={classes.description} px="md" style={{ borderRadius: '5px' }}>
+                  <TypographyStylesProvider p="0">
+                    {/* @ts-ignore */}
+                    <div dangerouslySetInnerHTML={{ __html: game.description }} />
+                  </TypographyStylesProvider>
+                </Box>
+              </Accordion.Panel>
+            </Accordion.Item>
+          </Accordion>
+        )}
+      </Box>
     </Container>
   );
 }
