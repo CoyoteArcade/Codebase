@@ -6,23 +6,30 @@ import classes from './ButtonFavorite.module.css';
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '@/utilities/auth/AuthContext';
 
-function FavoriteButton({gameID}:any) {
+function FavoriteButton({gameID, isFavorite}:any) {
 
   const { user }: any = useContext(AuthContext);
   const [favorited, favoriteToggle] = useToggle();
 
+
   useEffect(() => {
-    if (user) {
-      fetch(`https://delightful-sombrero-slug.cyclic.app/profile/${user.uid}`)
-        .then((res) => res.json())
-        .then((json) => {
-          if(json.favorites.includes(gameID)) {
-            favoriteToggle();
-          }
-        })
-        .catch((err) => console.log(err));
+    if(isFavorite) {
+      favoriteToggle();
     }
-  }, []);
+  }, [isFavorite]);
+  // useEffect(() => {
+  //   if (user) {
+  //     fetch(`https://delightful-sombrero-slug.cyclic.app/profile/${user.uid}`)
+  //       .then((res) => res.json())
+  //       .then((json) => {
+  //         if(json.favorites.includes(gameID)) {
+  //           favoriteToggle();
+  //         }
+  //       })
+  //       .catch((err) => console.log(err));
+  //   }
+  // }, []);
+
 
   const handleClick = () => {
     if(user && !favorited) {

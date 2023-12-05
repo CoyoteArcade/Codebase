@@ -18,7 +18,7 @@ import PlatformIcon from './PlatformIcon/PlatformIcon';
 import classes from './GameCard.module.css';
 import { useEffect, useState } from 'react';
 
-function GameCard({ gameObj }: any) {
+function GameCard({ gameObj, isFavorite }: any) {
   /** Game Properties */
   const { id, title } = gameObj;
   const [gameAssetLinks, setGameAssetLinks] = useState({message:"", images:[], windows:"", mac:"", linux:"" } as any);
@@ -33,7 +33,9 @@ function GameCard({ gameObj }: any) {
       console.log(json);
       setGameAssetLinks(json);
     }
-    fetchGameAssets();
+    setTimeout(() => {  
+      fetchGameAssets();
+    }, 2000);
   }, [id]);
 
   /** GENRE BADGES */
@@ -77,7 +79,7 @@ function GameCard({ gameObj }: any) {
 
         {/* ACTION BUTTONS */}
         <Group className={classes['card-inner-buttons']}>
-          <ButtonFavorite gameID={id}/>
+          <ButtonFavorite gameID={id} isFavorite={isFavorite}/>
           <Group className={classes['card-inner-platforms']}>
             {gameAssetLinks.windows && <PlatformIcon key={"Windows"} platform={"Windows"} />}
             {gameAssetLinks.mac && <PlatformIcon key={"Apple"} platform={"Apple"} />}
