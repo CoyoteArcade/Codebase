@@ -77,8 +77,12 @@ function GameCard({ gameObj }: any) {
 
         {/* ACTION BUTTONS */}
         <Group className={classes['card-inner-buttons']}>
-          <ButtonFavorite />
-          <Group className={classes['card-inner-platforms']}>{platforms}</Group>
+          <ButtonFavorite gameID={id}/>
+          <Group className={classes['card-inner-platforms']}>
+            {gameAssetLinks.windows && <PlatformIcon key={"Windows"} platform={"Windows"} />}
+            {gameAssetLinks.mac && <PlatformIcon key={"Apple"} platform={"Apple"} />}
+            {gameAssetLinks.linux && <PlatformIcon key={"Linux"} platform={"Linux"} />}
+          </Group>
         </Group>
       </Box>
     </Card>

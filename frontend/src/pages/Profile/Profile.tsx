@@ -180,7 +180,7 @@ function Profile() {
             Favorites
           </Title>
           {favoritedGames.length !== 0 ? (
-            <GameGrid gameData={uploadedGames} />
+            <GameGrid gameData={favoritedGames} />
           ) : (
             <Text my={10} c="dimmed">
               'No Favorited Games Found...'
