@@ -9,7 +9,7 @@ import classes from './Root.module.css';
 export async function loader() {
   let games = [];
   const gamesResponse = await fetch(
-    'https://delightful-sombrero-slug.cyclic.app/profile/txS1Y7PhuDWVeYc5AX8t096QRq43'
+    'https://delightful-sombrero-slug.cyclic.app/games'
   );
   const gamesJson = await gamesResponse.json();
   if (gamesJson.length) {
