@@ -271,7 +271,7 @@ export default function Header() {
                   </Button>
                 </Menu.Item>
                 <Menu.Item component="div">
-                  <Button w="100%" component={NavLink} to="/register">
+                  <Button w="100%" component={NavLink} to={user ? "/profile" : "/register"}>
                     {user ? "Profile" : "Register"}
                   </Button>
                 </Menu.Item>

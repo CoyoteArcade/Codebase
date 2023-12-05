@@ -25,7 +25,7 @@ function ShopCategories({
 
   // Rendered categories
   const gameCategories = categories.map((category, idx) => {
-    return <CategoryRow key={idx} gameData={gameData} category={category} />;
+    return <CategoryRow key={idx} gameData={gameData} category={category} profile={false} />;
   });
 
   return (

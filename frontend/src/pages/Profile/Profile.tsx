@@ -6,6 +6,8 @@ import { IconHeart, IconDeviceGamepad, IconShoppingBag } from '@tabler/icons-rea
 
 import { AuthContext } from '@/utilities/auth/AuthContext';
 import GameGrid from '@/components/GameGrid/GameGrid';
+
+import CategoryRow from '@/sections/Shop/ShopCategories/CategoryRow/CategoryRow';
 import classes from './Profile.module.css';
 import coyoteavatar from '@/assets/coyoteavatar.png';
 
@@ -126,39 +128,45 @@ function Profile() {
   ));
 
   return (
-    <div style={{ display: 'flex' }}>
-      <nav className={classes.navbar}>
-        <div className={classes.navbarMain}>
-          <Group className={classes.header} justify="space-between">
-            <Avatar src={coyoteavatar} size={120} radius="md" />
-            <Box p="10">
-              <Text fz="xs" tt="uppercase" fw={700} c="dimmed">
-                {profile.uploads ? 'Developer' : 'Registered User'}
-              </Text>
-
-              <Text fz="lg" fw={500} mb={5} className={classes.name}>
-                {profile.username}
-              </Text>
-
-              <Divider />
-
-              <Group wrap="nowrap" gap={5} mt={5}>
-                <Text fz="xs" c="dimmed">
-                  {profile.email}
+    <Group align="start" wrap="nowrap" miw={320}>
+      <Box visibleFrom="md">
+        <nav className={classes.navbar}>
+          <div className={classes.navbarMain}>
+            <Group className={classes.header} justify="space-between">
+              <Avatar src={coyoteavatar} size={120} radius="md" />
+              <Box p="10">
+                <Text fz="xs" tt="uppercase" fw={700} c="dimmed">
+                  {profile.uploads ? 'Developer' : 'Registered User'}
                 </Text>
-              </Group>
-            </Box>
-          </Group>
-          {links}
-        </div>
-      </nav>
-      <Box mx={30}>
-        <Box my={30}>
+
+                <Text fz="lg" fw={500} mb={5} className={classes.name}>
+                  {profile.username}
+                </Text>
+
+                <Divider />
+
+                <Group wrap="nowrap" gap={5} mt={5}>
+                  <Text fz="xs" c="dimmed">
+                    {profile.email}
+                  </Text>
+                </Group>
+              </Box>
+            </Group>
+            {links}
+          </div>
+        </nav>
+      </Box>
+      <Box mx={30} style={{ flex: 1 }}>
+        <Box my={30} w="100%">
           <Title id="uploads" ref={uploadsScroll.targetRef} my={10} order={2}>
             Uploads
           </Title>
           {uploadedGames.length !== 0 ? (
-            <GameGrid gameData={uploadedGames} />
+            uploadedGames.length <= 4 ? (
+              <CategoryRow gameData={uploadedGames} profile={true} />
+            ) : (
+              <GameGrid gameData={uploadedGames} />
+            )
           ) : (
             <Text c="dimmed">'No Uploaded Games Found...'</Text>
           )}
@@ -168,7 +176,12 @@ function Profile() {
             Purchases
           </Title>
           {purchasedGames.length !== 0 ? (
-            <GameGrid gameData={purchasedGames} />
+
+            purchasedGames.length <= 4 ? (
+              <CategoryRow gameData={purchasedGames} profile={true} />
+            ) : (
+              <GameGrid gameData={purchasedGames} />
+            )
           ) : (
             <Text my={10} c="dimmed">
               'No Purchased Games Found...'
@@ -176,11 +189,15 @@ function Profile() {
           )}
         </Box>
         <Box my={30}>
-          <Title id="favorites" ref={purchasesScroll.targetRef} my={10} order={2}>
+          <Title id="favorites" ref={favoritesScroll.targetRef} my={10} order={2}>
             Favorites
           </Title>
           {favoritedGames.length !== 0 ? (
-            <GameGrid gameData={uploadedGames} />
+            favoritedGames.length <= 4 ? (
+              <CategoryRow gameData={favoritedGames} profile={true} />
+            ) : (
+              <GameGrid gameData={favoritedGames} />
+            )
           ) : (
             <Text my={10} c="dimmed">
               'No Favorited Games Found...'
@@ -188,7 +205,7 @@ function Profile() {
           )}
         </Box>
       </Box>
-    </div>
+    </Group>
   );
 }
 

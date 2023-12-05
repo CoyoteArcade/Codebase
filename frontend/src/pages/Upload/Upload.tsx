@@ -141,7 +141,7 @@ function Upload() {
       .then((data) => {
         console.log('data from gameAdd function', data);
         const imageFiles = firestoreGameFiles.images;
-        const gameFiles = firestoreGameFiles.files;
+        const gameFiles = firestoreGameFiles.files.filter((file: any) => file.platform !== 'web');
 
         const imageUploadPromises = imageFiles.map((image: any) => {
           return uploadFile(image, `images/${data.gameID}/${image.name}`);
@@ -160,6 +160,18 @@ function Upload() {
           .catch((err) => console.log(err));
 
         window.alert("Game uploaded successfully!");
+        fetch(`${baseURL}/profile/${(user as any).uid}/uploads/update`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ itemId: data.gameID, action: 'add' }),
+        })
+          .then((res) => res)
+          .then((json) => {
+            console.log(json);
+          })
+          .catch((err) => console.log(err));
         navigate('/');
       })
       .catch((err) => {

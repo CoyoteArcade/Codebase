@@ -8,6 +8,7 @@
 
 .container {
   padding-block: rem(10px);
+  justify-content: center;
 }
 
 .controls {

@@ -16,13 +16,25 @@ import ButtonFavorite from './CardButtons/ButtonFavorite';
 import PlatformIcon from './PlatformIcon/PlatformIcon';
 
 import classes from './GameCard.module.css';
+import { useEffect, useState } from 'react';
 
 function GameCard({ gameObj }: any) {
   /** Game Properties */
   const { id, title } = gameObj;
+  const [gameAssetLinks, setGameAssetLinks] = useState({message:"", images:[], windows:"", mac:"", linux:"" } as any);
   const description = gameObj.tagline;
   let genres = [...gameObj.categories];
   let platforms: any = ['Apple', 'Windows', 'DoesNotExist', 'Linux', 'Web'];
+
+  useEffect(() => {
+    const fetchGameAssets = async () => {
+      const response = await fetch(`https://delightful-sombrero-slug.cyclic.app/games/${id}/url`);
+      const json = await response.json();
+      console.log(json);
+      setGameAssetLinks(json);
+    }
+    fetchGameAssets();
+  }, [id]);
 
   /** GENRE BADGES */
   genres = genres.map((genre = '') => (
@@ -43,7 +55,7 @@ function GameCard({ gameObj }: any) {
       <Card.Section>
         <Link to={`/games/${id}`} className={classes['card-banner-link']}>
           <AspectRatio ratio={aspectRatio} className={classes['card-banner']}>
-            <Image src={`https://placehold.co/1600x900/003e7a/eee?text=${title}`} />
+            <Image src={gameAssetLinks.images.length > 0 ? gameAssetLinks.images[0] :`https://placehold.co/1600x900/003e7a/eee?text=${title}`} />
           </AspectRatio>
         </Link>
       </Card.Section>
@@ -65,8 +77,12 @@ function GameCard({ gameObj }: any) {
 
         {/* ACTION BUTTONS */}
         <Group className={classes['card-inner-buttons']}>
-          <ButtonFavorite />
-          <Group className={classes['card-inner-platforms']}>{platforms}</Group>
+          <ButtonFavorite gameID={id}/>
+          <Group className={classes['card-inner-platforms']}>
+            {gameAssetLinks.windows && <PlatformIcon key={"Windows"} platform={"Windows"} />}
+            {gameAssetLinks.mac && <PlatformIcon key={"Apple"} platform={"Apple"} />}
+            {gameAssetLinks.linux && <PlatformIcon key={"Linux"} platform={"Linux"} />}
+          </Group>
         </Group>
       </Box>
     </Card>

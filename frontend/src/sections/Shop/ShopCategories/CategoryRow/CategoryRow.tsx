@@ -4,10 +4,18 @@ import { useMediaQuery } from '@mantine/hooks';
 import { IconArrowRight, IconArrowLeft } from '@tabler/icons-react';
 import '@mantine/carousel/styles.css';
 
-import { GameCardSimple } from '@/components/GameCard/GameCard';
+import { GameCardSimple, GameCard } from '@/components/GameCard/GameCard';
 import classes from './CategoryRow.module.css';
 
-function CategoryRow({ gameData, category }: any) {
+function CategoryRow({
+  gameData,
+  category = '',
+  profile = false,
+}: {
+  gameData: any;
+  category?: any;
+  profile?: boolean;
+}) {
   const isMobile = useMediaQuery(`(max-width: ${em(768)}`);
   const controlSize = isMobile ? 25 : 30;
   const iconSize = isMobile ? 12 : 16;
@@ -20,13 +28,23 @@ function CategoryRow({ gameData, category }: any) {
     </Carousel.Slide>
   ));
 
+  const profileGames = gameData.map((game: any) => (
+    <Carousel.Slide key={game.id}>
+      <GameCard gameObj={game} />
+    </Carousel.Slide>
+  ));
+
   return (
     <Box>
-      <Title tt="capitalize" order={3} mb={rem('20px')}>
-        {category} Games
-      </Title>
+      {category !== '' && (
+        <Title tt="capitalize" order={3} mb={rem('20px')}>
+          {category} Games
+        </Title>
+      )}
+
       <Carousel
         classNames={classes}
+        style={{ justifyContent: 'center' }}
         height="100%"
         w="100%"
         controlSize={controlSize}
@@ -36,12 +54,12 @@ function CategoryRow({ gameData, category }: any) {
         previousControlIcon={
           <IconArrowLeft style={{ width: rem(iconSize), height: rem(iconSize) }} />
         }
-        slideSize={{ base: '50%', xs: '33.333333%', sm: '33.333333%', md: '25%', lg: '20%' }}
-        slideGap={{ base: '5', sm: 'md', lg: 'lg' }}
+        slideSize={{ base: '140px', xs: '170px', sm: '200px', md: '25%', lg: '20%' }}
+        slideGap={{ base: 'md', sm: 'md', lg: 'lg' }}
         align="start"
         slidesToScroll="auto"
       >
-        {categoryGames}
+        {profile ? profileGames : categoryGames}
       </Carousel>
     </Box>
   );
