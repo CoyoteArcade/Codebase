@@ -16,10 +16,11 @@ import {
   Accordion,
   TypographyStylesProvider,
 } from '@mantine/core';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { IconThumbUpFilled } from '@tabler/icons-react';
 
 import classes from './Game.module.css';
+import { AuthContext } from '@/utilities/auth/AuthContext';
 
 const PRIMARY_COL_HEIGHT = rem(500);
 const images = [
@@ -39,6 +40,7 @@ export function Game() {
 
   const games: any = useRouteLoaderData('root');
   const { id } = useParams();
+  const {user} = useContext(AuthContext);
   const game = games.find((game: any) => game.id === id) || {};
   const SECONDARY_COL_HEIGHT = `calc(${PRIMARY_COL_HEIGHT} / 2 - var(--mantine-spacing-md) / 2)`;
 
@@ -51,6 +53,23 @@ export function Game() {
     };
     fetchGameAssets();
   }, [id]);
+
+  const handlePurchase = (event: any) => {
+    if(user) {
+      fetch(`https://delightful-sombrero-slug.cyclic.app/profile/${(user as any).uid}/purchases/update`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ itemId: id, action: 'add' }),
+      })
+        .then((res) => res)
+        .then((json) => {
+          console.log(json);
+        })
+        .catch((err) => console.log(err));
+    }
+  };
 
   return (
     <Container my="md">
@@ -126,17 +145,17 @@ export function Game() {
               <List size="sm">
                 {gameAssetLinks.windows && (
                   <List.Item>
-                    Windows: <a href={gameAssetLinks.windows}>Download</a>
+                    Windows: <a href={gameAssetLinks.windows} onClick={handlePurchase}>Download</a>
                   </List.Item>
                 )}
                 {gameAssetLinks.mac && (
                   <List.Item>
-                    Mac: <a href={gameAssetLinks.mac}>Download</a>
+                    Mac: <a href={gameAssetLinks.mac} onClick={handlePurchase}>Download</a>
                   </List.Item>
                 )}
                 {gameAssetLinks.linux && (
                   <List.Item>
-                    Linux: <a href={gameAssetLinks.linux}>Download</a>
+                    Linux: <a href={gameAssetLinks.linux} onClick={handlePurchase}>Download</a>
                   </List.Item>
                 )}
               </List>
