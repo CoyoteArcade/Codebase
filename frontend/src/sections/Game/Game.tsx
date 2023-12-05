@@ -11,7 +11,9 @@ import {
   Card,
   Title,
   Group,
+  AspectRatio,
 } from '@mantine/core';
+import { useEffect, useState } from 'react';
 
 const PRIMARY_COL_HEIGHT = rem(500);
 const images = [
@@ -21,10 +23,23 @@ const images = [
 ];
 
 export function Game() {
+
+  const [gameAssetLinks, setGameAssetLinks] = useState({message:"", images:[], windows:"", mac:"", linux:"" } as any);
+
   const games: any = useRouteLoaderData('root');
   const { id } = useParams();
   const game = games.find((game: any) => game.id === id) || {};
   const SECONDARY_COL_HEIGHT = `calc(${PRIMARY_COL_HEIGHT} / 2 - var(--mantine-spacing-md) / 2)`;
+
+  useEffect(() => {
+    const fetchGameAssets = async () => {
+      const response = await fetch(`https://delightful-sombrero-slug.cyclic.app/games/${id}/url`);
+      const json = await response.json();
+      console.log(json);
+      setGameAssetLinks(json);
+    }
+    fetchGameAssets();
+  }, [id]);
 
   return (
     <>
@@ -39,14 +54,20 @@ export function Game() {
               </Group>
 
               <Card.Section>
-                <Image
-                  src={`https://placehold.co/1600x900/0d94f0/FFF?text=Banner for ${game.Title}`}
-                />
+                <AspectRatio ratio={16 / 9}>
+                  <Image style={{ width: '100%' }}
+                    src={gameAssetLinks.images.length > 0 ? gameAssetLinks.images[0] : `https://placehold.co/1600x900/0d94f0/FFF?text=Banner for ${game.Title}`}
+                  />
+                </AspectRatio>
               </Card.Section>
 
               <Card.Section inheritPadding mt="sm" pb="md">
                 <SimpleGrid cols={3}>
-                  {images.map((image) => (
+                  {gameAssetLinks.images.length > 0 ? gameAssetLinks.images.map((image: any) => (
+                    <AspectRatio ratio={16 / 9}>
+                      <Image src={image} key={image} radius="sm" />
+                    </AspectRatio>
+                  )) : images.map((image) => (
                     <Image src={image} key={image} radius="sm" />
                   ))}
                 </SimpleGrid>
