@@ -1,5 +1,5 @@
 
-import { getFirestore, collection, getDocs, addDoc, query, where, getDoc, updateDoc, doc } from "firebase/firestore";
+import { getFirestore, collection, getDocs, addDoc, query, where, getDoc, updateDoc, doc, setDoc } from "firebase/firestore";
 import { initializeApp } from "firebase/app";
 import { getAuth, signInWithEmailAndPassword, updateProfile, createUserWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
 import { getStorage, ref, uploadBytes, getDownloadURL, listAll, deleteObject } from "firebase/storage";
@@ -128,6 +128,14 @@ const signUp = async (email, password, username) => {
         const user = userCredential.user;
         await updateProfile(user, {
             displayName: username
+        });
+        await setDoc(doc(db, "users", user.uid), {
+            username: username,
+            email: email,
+            favorites: [],
+            purchases: [],
+            uploads: [],
+            voted: []
         });
         console.log('user updated');
         result = { message: "Signed up", user: user };
