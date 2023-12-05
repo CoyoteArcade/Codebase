@@ -26,9 +26,10 @@ import classes from './Game.module.css';
 
 const PRIMARY_COL_HEIGHT = rem(500);
 const images = [
-  'https://placekitten.com/250/167',
-  'https://placekitten.com/250/168',
-  'https://placekitten.com/249/167',
+  'https://placekitten.com/1920/1084',
+  'https://placekitten.com/1920/1083',
+  'https://placekitten.com/1920/1082',
+  'https://placekitten.com/1920/1085',
 ];
 
 export function Game() {
@@ -76,7 +77,7 @@ export function Game() {
   };
 
   return (
-    <Container my="md">
+    <Container my="md" size="lg">
       <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="md">
         <Box>
           <Group justify="space-between" align="center">
@@ -109,32 +110,25 @@ export function Game() {
               {`Release Date: ${game.releaseDate}`}
             </Text>
           )}
-          <Group gap="xs">
+          <Group gap="xs" my="xs">
             <ThemeIcon variant="light" color="green">
               <IconThumbUpFilled style={{ width: '70%', height: '70%' }} />
             </ThemeIcon>
             <Text>{game.rating}</Text>
           </Group>
         </Box>
-        <Box>Hi</Box>
+        <Box>
+          <SimpleGrid cols={2}>
+            {gameAssetLinks.images.length > 0
+              ? gameAssetLinks.images.map((image: any, index: any) => (
+                  <AspectRatio ratio={16 / 9} key={index}>
+                    <Image src={image} key={index} radius="sm" />
+                  </AspectRatio>
+                ))
+              : images.map((image, index: any) => <Image src={image} key={index} radius="sm" />)}
+          </SimpleGrid>
+        </Box>
       </SimpleGrid>
-
-      {/* Description */}
-      <Accordion defaultValue="description">
-        <Accordion.Item value="description">
-          <Accordion.Control>
-            <Title order={2}>Description</Title>
-          </Accordion.Control>
-          <Accordion.Panel>
-            <Box className={classes.description} px="md" style={{ borderRadius: '5px' }}>
-              <TypographyStylesProvider p="0">
-                {/* @ts-ignore */}
-                <div dangerouslySetInnerHTML={{ __html: game.description }} />
-              </TypographyStylesProvider>
-            </Box>
-          </Accordion.Panel>
-        </Accordion.Item>
-      </Accordion>
 
       {/* Downloads */}
       <Accordion>
@@ -193,6 +187,23 @@ export function Game() {
                   )}
                 </List>
               </Stack>
+            </Box>
+          </Accordion.Panel>
+        </Accordion.Item>
+      </Accordion>
+
+      {/* Description */}
+      <Accordion defaultValue="description">
+        <Accordion.Item value="description">
+          <Accordion.Control>
+            <Title order={2}>Description</Title>
+          </Accordion.Control>
+          <Accordion.Panel>
+            <Box className={classes.description} px="md" style={{ borderRadius: '5px' }}>
+              <TypographyStylesProvider p="0">
+                {/* @ts-ignore */}
+                <div dangerouslySetInnerHTML={{ __html: game.description }} />
+              </TypographyStylesProvider>
             </Box>
           </Accordion.Panel>
         </Accordion.Item>
