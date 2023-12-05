@@ -1,5 +1,5 @@
 import { useState, useContext, useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useRouteLoaderData } from 'react-router-dom';
 import { Box, Divider, Group, Avatar, Text } from '@mantine/core';
 import { IconHeart, IconDeviceGamepad, IconAt, IconShoppingBag } from '@tabler/icons-react';
 
@@ -8,17 +8,21 @@ import classes from './Profile.module.css';
 import coyoteavatar from '@/assets/coyoteavatar.png';
 
 const data = [
-  { link: '', label: 'My Favorites', icon: IconHeart },
   { link: '', label: 'My Uploads', icon: IconDeviceGamepad },
   { link: '', label: 'My Purchases', icon: IconShoppingBag },
+  { link: '', label: 'My Favorites', icon: IconHeart },
 ];
 
 function Profile() {
   const [active, setActive] = useState('User info');
   const [profile, setProfile]: [profile: any, setProfile: any] = useState({});
+  const [uploads, setUploads] = useState([]);
+  const [purchases, setPurchases] = useState([]);
+  const [favorites, setFavorites] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const { user }: any = useContext(AuthContext);
+  const games = useRouteLoaderData('root');
 
   async function getProfile() {
     if (user) {
@@ -83,7 +87,10 @@ function Profile() {
           {links}
         </div>
       </nav>
-      <div></div>
+      <Box>
+        Uploads
+        <Box>{}</Box>
+      </Box>
     </div>
   );
 }
