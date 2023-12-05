@@ -22,7 +22,7 @@ function Profile() {
   const [loading, setLoading] = useState(true);
 
   const { user }: any = useContext(AuthContext);
-  const games = useRouteLoaderData('root');
+  const gamesData: any = useRouteLoaderData('root');
 
   async function getProfile() {
     if (user) {
@@ -30,7 +30,11 @@ function Profile() {
         `https://delightful-sombrero-slug.cyclic.app/profile/${user.uid}`
       );
       const profileJson = await profileResponse.json();
+      const { uploads, favorites, purchases } = profileJson;
       setProfile(profileJson);
+      setUploads(uploads);
+      setFavorites(favorites);
+      setPurchases(purchases);
     }
   }
 
@@ -44,6 +48,16 @@ function Profile() {
       console.log(profile);
     }
   }, [profile]);
+
+  function getUploads() {
+    const uploads: any = gamesData.filter((game: any) => {
+      const id: any = game.id;
+      // @ts-ignore
+      return uploads.includes(id);
+    });
+
+    console.log(uploads);
+  }
 
   const links = data.map((item) => (
     <NavLink
@@ -89,7 +103,7 @@ function Profile() {
       </nav>
       <Box>
         Uploads
-        <Box>{}</Box>
+        <Box></Box>
       </Box>
     </div>
   );
