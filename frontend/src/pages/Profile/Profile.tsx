@@ -126,7 +126,7 @@ function Profile() {
   ));
 
   return (
-    <div style={{ display: 'flex' }}>
+    <div>
       <nav className={classes.navbar}>
         <div className={classes.navbarMain}>
           <Group className={classes.header} justify="space-between">
@@ -176,7 +176,7 @@ function Profile() {
           )}
         </Box>
         <Box my={30}>
-          <Title id="favorites" ref={purchasesScroll.targetRef} my={10} order={2}>
+          <Title id="favorites" ref={favoritesScroll.targetRef} my={10} order={2}>
             Favorites
           </Title>
           {favoritedGames.length !== 0 ? (
