@@ -135,7 +135,7 @@ function PlatformsInput(props: any) {
             <Divider />
           </>
         )}
-        <Checkbox value="web" label={<LabelWeb />} onClick={() => setHostedLink('')} />
+        <Checkbox value="web" label={<LabelWeb />} onClick={() => setHostedLink('')} disabled/>
         {platformNames.includes('web') && (
           <TextInput
             type="url"
@@ -145,6 +145,7 @@ function PlatformsInput(props: any) {
             value={hostedLink}
             placeholder="https://coyotegame.io/"
             onChange={(event) => setHostedLink(event.currentTarget.value)}
+            disabled
           />
         )}
       </Stack>

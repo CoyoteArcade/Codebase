@@ -141,7 +141,7 @@ function Upload() {
       .then((data) => {
         console.log('data from gameAdd function', data);
         const imageFiles = firestoreGameFiles.images;
-        const gameFiles = firestoreGameFiles.files;
+        const gameFiles = firestoreGameFiles.files.filter((file: any) => file.platform !== 'web');
 
         const imageUploadPromises = imageFiles.map((image: any) => {
           return uploadFile(image, `images/${data.gameID}/${image.name}`);

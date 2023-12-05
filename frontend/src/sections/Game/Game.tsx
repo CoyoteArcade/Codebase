@@ -10,8 +10,10 @@ import {
   Image,
   Card,
   Title,
+  Text,
   Group,
   AspectRatio,
+  Badge,
 } from '@mantine/core';
 import { useEffect, useState } from 'react';
 
@@ -51,6 +53,13 @@ export function Game() {
                 <Title mb="sm" order={3}>
                   {game.title}
                 </Title>
+                <Box>
+                  {
+                  game.categories.map((category: any, index: any) => (
+                    <Badge variant="light" key={index}>{category}</Badge>
+                    ))
+                  }
+                </Box>
               </Group>
 
               <Card.Section>
@@ -59,16 +68,19 @@ export function Game() {
                     src={gameAssetLinks.images.length > 0 ? gameAssetLinks.images[0] : `https://placehold.co/1600x900/0d94f0/FFF?text=Banner for ${game.Title}`}
                   />
                 </AspectRatio>
+                <Box py="xs" px="md">
+                  <Text>{game.tagline}</Text>
+                </Box>
               </Card.Section>
 
               <Card.Section inheritPadding mt="sm" pb="md">
                 <SimpleGrid cols={3}>
-                  {gameAssetLinks.images.length > 0 ? gameAssetLinks.images.map((image: any) => (
-                    <AspectRatio ratio={16 / 9}>
-                      <Image src={image} key={image} radius="sm" />
+                  {gameAssetLinks.images.length > 0 ? gameAssetLinks.images.map((image: any, index:any) => (
+                    <AspectRatio ratio={16 / 9} key={index}>
+                      <Image src={image} key={index} radius="sm" />
                     </AspectRatio>
-                  )) : images.map((image) => (
-                    <Image src={image} key={image} radius="sm" />
+                  )) : images.map((image, index:any) => (
+                    <Image src={image} key={index} radius="sm" />
                   ))}
                 </SimpleGrid>
               </Card.Section>
@@ -77,14 +89,18 @@ export function Game() {
           <Grid gutter="md">
             <Grid.Col>
               <Box h={SECONDARY_COL_HEIGHT}>
-                <video controls src="https://placehold.co/420x220.mp4?text=Video+Trailer"></video>
+                <Title order={3}>Description</Title>
+                <Text>{game.description || 'No Description Found'}</Text>
               </Box>
             </Grid.Col>
             <Grid.Col span={6}>
               <Box h={SECONDARY_COL_HEIGHT}>
-                <Title order={3}>System Requirements</Title>
+                <Title order={3}>Platforms</Title>
                 <List size="sm">
-                  <List.Item>Platforms: {game.platforms || 'Unknown'}</List.Item>
+                  {game.platforms.map((platform: any, index:any) => (
+                    <List.Item key={index}>{platform}</List.Item>
+                  ))}
+                  {/* <List.Item>Platforms: {game.platforms || 'Unknown'}</List.Item> */}
                 </List>
               </Box>
             </Grid.Col>
@@ -92,10 +108,19 @@ export function Game() {
               <Box h={SECONDARY_COL_HEIGHT}>
                 <Title order={3}>Details</Title>
                 <List size="sm">
-                  <List.Item>Description: {game.description || 'Unknown'}</List.Item>
-                  <List.Item>Release Date: {game.releaseDate || 'Unknown'}</List.Item>
-                  <List.Item>Developer: {game['Publisher/Developer'] || 'Unknown'}</List.Item>
-                  <List.Item>Rating: {game.rating || 'Unknown'}</List.Item>
+                  <List.Item>Release Date: {game.releaseDate || 'No Release Date Found'}</List.Item>
+                  <List.Item>Developer: {game['developer'] || 'No developer found'}</List.Item>
+                  <List.Item>Rating: {game.rating || '0'}</List.Item>
+                </List>
+              </Box>
+            </Grid.Col>
+            <Grid.Col span={6}>
+              <Box h={SECONDARY_COL_HEIGHT}>
+                <Title order={3}>Purchase</Title>
+                <List size="sm">
+                  <List.Item>Release Date: {game.releaseDate || 'No Release Date Found'}</List.Item>
+                  <List.Item>Developer: {game['developer'] || 'No developer found'}</List.Item>
+                  <List.Item>Rating: {game.rating || '0'}</List.Item>
                 </List>
               </Box>
             </Grid.Col>
