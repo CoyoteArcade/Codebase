@@ -6,6 +6,7 @@ import { IconHeart, IconDeviceGamepad, IconShoppingBag } from '@tabler/icons-rea
 
 import { AuthContext } from '@/utilities/auth/AuthContext';
 import GameGrid from '@/components/GameGrid/GameGrid';
+import CategoryRow from '@/sections/Shop/ShopCategories/CategoryRow/CategoryRow';
 import classes from './Profile.module.css';
 import coyoteavatar from '@/assets/coyoteavatar.png';
 
@@ -127,7 +128,7 @@ function Profile() {
 
   return (
     <Group align="start" wrap="nowrap" miw={320}>
-      <Box>
+      <Box visibleFrom="md">
         <nav className={classes.navbar}>
           <div className={classes.navbarMain}>
             <Group className={classes.header} justify="space-between">
@@ -160,7 +161,11 @@ function Profile() {
             Uploads
           </Title>
           {uploadedGames.length !== 0 ? (
-            <GameGrid gameData={uploadedGames} />
+            uploadedGames.length <= 4 ? (
+              <CategoryRow gameData={uploadedGames} profile={true} />
+            ) : (
+              <GameGrid gameData={uploadedGames} />
+            )
           ) : (
             <Text c="dimmed">'No Uploaded Games Found...'</Text>
           )}
@@ -170,7 +175,11 @@ function Profile() {
             Purchases
           </Title>
           {purchasedGames.length !== 0 ? (
-            <GameGrid gameData={purchasedGames} />
+            purchasedGames.length <= 4 ? (
+              <CategoryRow gameData={purchasedGames} profile={true} />
+            ) : (
+              <GameGrid gameData={purchasedGames} />
+            )
           ) : (
             <Text my={10} c="dimmed">
               'No Purchased Games Found...'
@@ -182,7 +191,11 @@ function Profile() {
             Favorites
           </Title>
           {favoritedGames.length !== 0 ? (
-            <GameGrid gameData={favoritedGames} />
+            favoritedGames.length <= 4 ? (
+              <CategoryRow gameData={favoritedGames} profile={true} />
+            ) : (
+              <GameGrid gameData={favoritedGames} />
+            )
           ) : (
             <Text my={10} c="dimmed">
               'No Favorited Games Found...'
