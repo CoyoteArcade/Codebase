@@ -6,6 +6,7 @@ import { IconHeart, IconDeviceGamepad, IconShoppingBag } from '@tabler/icons-rea
 
 import { AuthContext } from '@/utilities/auth/AuthContext';
 import GameGrid from '@/components/GameGrid/GameGrid';
+
 import CategoryRow from '@/sections/Shop/ShopCategories/CategoryRow/CategoryRow';
 import classes from './Profile.module.css';
 import coyoteavatar from '@/assets/coyoteavatar.png';
@@ -175,6 +176,7 @@ function Profile() {
             Purchases
           </Title>
           {purchasedGames.length !== 0 ? (
+
             purchasedGames.length <= 4 ? (
               <CategoryRow gameData={purchasedGames} profile={true} />
             ) : (
