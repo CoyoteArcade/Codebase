@@ -1,6 +1,6 @@
-import { Stack, rem } from '@mantine/core';
+import { Stack, Title, Box } from '@mantine/core';
 
-import CategoryRow from './CategoryRow/CategoryRow';
+import GameGrid from '@/components/GameGrid/GameGrid';
 
 import classes from './ShopCategories.module.css';
 
@@ -25,14 +25,17 @@ function ShopCategories({
 
   // Rendered categories
   const gameCategories = categories.map((category, idx) => {
-    return <CategoryRow key={idx} gameData={gameData} category={category} profile={false} />;
+    return (
+      <Box my="sm" key={idx}>
+        <Title key={idx} order={2}>
+          {category} Games
+        </Title>
+        <GameGrid key={idx} gameData={gameData} category={category} />
+      </Box>
+    );
   });
 
-  return (
-    <Stack className={classes.categories} my={rem('50px')}>
-      {gameCategories.slice(0, maxCategories)}
-    </Stack>
-  );
+  return <Stack className={classes.categories}>{gameCategories.slice(0, maxCategories)}</Stack>;
 }
 
 export default ShopCategories;
