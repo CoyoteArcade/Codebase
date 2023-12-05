@@ -212,7 +212,7 @@ const deleteFile = async (path) => {
 };
 
 
-const updateRating = async (gameId) => {
+const updateRating = async (gameId, ratingChange) => {
     const gameRef = doc(db, "games", gameId);
     try {
         const gameDoc = await getDoc(gameRef);
@@ -220,7 +220,12 @@ const updateRating = async (gameId) => {
             console.log('No such document!');
         } else {
             const game = gameDoc.data();
-            const newRating = game.rating + 1;
+            let newRating = game.rating;
+            if (ratingChange === 'add') {
+                newRating  = game.rating + 1;
+            } else if (ratingChange === 'remove') {
+                newRating  = game.rating - 1;
+            }
             await updateDoc(gameRef, { rating: newRating });
             console.log('Document updated');
         } 
@@ -415,6 +420,11 @@ const addVote = async (userId, itemId) => {
         }
         const userData = userDoc.data();
         const voted = new Set(userData.voted || []); // Make sure 'voted' is defined
+        if (voted.has(itemId)) {
+            console.log('User has already voted for this item');
+            return;
+        }
+        updateRating(itemId, 'add');
         voted.add(itemId);
         await updateDoc(userRef, { voted: Array.from(voted) }); // Use 'voted' here
         console.log('Vote updated');
@@ -436,9 +446,14 @@ const removeVote = async (userId, itemId) => {
             throw new Error("User document does not exist!");
         }
         const userData = userDoc.data();
-        const votes = new Set(userData.voted || []);
-        votes.delete(itemId);
-        await updateDoc(userRef, { voted: Array.from(votes) });
+        const voted = new Set(userData.voted || []);
+        if (!voted.has(itemId)) {
+            console.log('User has not voted for this item');
+            return;
+        }
+        updateRating(itemId, 'remove');
+        voted.delete(itemId);
+        await updateDoc(userRef, { voted: Array.from(voted) });
         console.log('Vote removed');
     } catch (error) {
         console.error('Error removing vote:', error);

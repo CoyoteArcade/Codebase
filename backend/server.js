@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import { getGames, addGame, getCategory, signIn, signUp, signOut, passwordReset, displayUserProfile, getFileUrl, listFiles } from './index.js';
+import { getGames, addGame, getCategory, signIn, signUp, signOut, passwordReset, displayUserProfile, getFileUrl, listFiles, addToFavorites, removeFromFavorites, addToPurchases, removeFromPurchases, addToUploads,removeFromUploads, addVote, removeVote, updateRating } from './index.js';
 
 const app = express();
 const PORT = 3000;
@@ -138,7 +138,83 @@ app.get('/games/:id/url', async (req, res) => {
     }
 });
 
-// Start server
+
+app.post('/profile/:id/favorites/update', async (req, res) => {
+    // console.log("req.body",req.body);
+    // console.log("req.params",req.params);
+    const { id } = req.params;
+    const {itemId, action} = req.body;
+    try {
+        let result;
+        if (action === 'add') {
+            result = await addToFavorites(id, itemId);
+        } else if (action === 'remove') {
+            result = await removeFromFavorites(id, itemId);
+        } else {
+            return res.status(400).send({ message: 'Invalid action' });
+        }
+        res.status(200).send(result);
+    } catch (error) {
+        // console.log(error);
+        res.status(500).send({message:'Server Error', error});
+    }
+});
+
+app.post('/profile/:id/purchases/update', async (req, res) => {
+    const { id } = req.params;
+    const {itemId, action} = req.body;
+    try {
+        let result;
+        if (action === 'add') {
+            result = await addToPurchases(id, itemId);
+        } else if (action === 'remove') {
+            result = await removeFromPurchases(id, itemId);
+        } else {
+            return res.status(400).send({ message: 'Invalid action' });
+        }
+        res.status(200).send(result);
+    } catch (error) {
+        res.status(500).send({message:'Server Error', error});
+    }
+});
+
+app.post('/profile/:id/uploads/update', async (req, res) => {
+    const { id } = req.params;
+    const {itemId, action} = req.body;
+    try {
+        let result;
+        if (action === 'add') {
+            result = await addToUploads(id, itemId);
+        } else if (action === 'remove') {
+            result = await removeFromUploads(id, itemId);
+        } else {
+            return res.status(400).send({ message: 'Invalid action' });
+        }
+        res.status(200).send(result);
+    } catch (error) {
+        res.status(500).send({message:'Server Error', error});
+    }
+});
+
+app.post('/profile/:id/votes/update', async (req, res) => {    
+    const { id } = req.params;
+    const {itemId, action} = req.body;
+    try {
+        let result;
+        if (action === 'add') {
+            result = await addVote(id, itemId);
+        } else if (action === 'remove') {
+            result = await removeVote(id, itemId);
+        } else {
+            return res.status(400).send({ message: 'Invalid action' });
+        }
+        res.status(200).send(result);
+    } catch (error) {
+        res.status(500).send({message:'Server Error', error});
+    }
+});
+
+// start server
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
