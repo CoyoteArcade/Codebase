@@ -21,7 +21,13 @@ import { useEffect, useState } from 'react';
 function GameCard({ gameObj, isFavorite }: any) {
   /** Game Properties */
   const { id, title } = gameObj;
-  const [gameAssetLinks, setGameAssetLinks] = useState({message:"", images:[], windows:"", mac:"", linux:"" } as any);
+  const [gameAssetLinks, setGameAssetLinks] = useState({
+    message: '',
+    images: [],
+    windows: '',
+    mac: '',
+    linux: '',
+  } as any);
   const description = gameObj.tagline;
   let genres = [...gameObj.categories];
   let platforms: any = ['Apple', 'Windows', 'DoesNotExist', 'Linux', 'Web'];
@@ -32,8 +38,8 @@ function GameCard({ gameObj, isFavorite }: any) {
       const json = await response.json();
       console.log(json);
       setGameAssetLinks(json);
-    }
-    setTimeout(() => {  
+    };
+    setTimeout(() => {
       fetchGameAssets();
     }, 2000);
   }, [id]);
@@ -57,7 +63,13 @@ function GameCard({ gameObj, isFavorite }: any) {
       <Card.Section>
         <Link to={`/games/${id}`} className={classes['card-banner-link']}>
           <AspectRatio ratio={aspectRatio} className={classes['card-banner']}>
-            <Image src={gameAssetLinks.images.length > 0 ? gameAssetLinks.images[0] :`https://placehold.co/1600x900/003e7a/eee?text=${title}`} />
+            <Image
+              src={
+                gameAssetLinks.images.length > 0
+                  ? gameAssetLinks.images[0]
+                  : `https://placehold.co/1600x900/003e7a/eee`
+              }
+            />
           </AspectRatio>
         </Link>
       </Card.Section>
@@ -79,11 +91,11 @@ function GameCard({ gameObj, isFavorite }: any) {
 
         {/* ACTION BUTTONS */}
         <Group className={classes['card-inner-buttons']}>
-          <ButtonFavorite gameID={id} isFavorite={isFavorite}/>
+          <ButtonFavorite gameID={id} isFavorite={isFavorite} />
           <Group className={classes['card-inner-platforms']}>
-            {gameAssetLinks.windows && <PlatformIcon key={"Windows"} platform={"Windows"} />}
-            {gameAssetLinks.mac && <PlatformIcon key={"Apple"} platform={"Apple"} />}
-            {gameAssetLinks.linux && <PlatformIcon key={"Linux"} platform={"Linux"} />}
+            {gameAssetLinks.windows && <PlatformIcon key={'Windows'} platform={'Windows'} />}
+            {gameAssetLinks.mac && <PlatformIcon key={'Apple'} platform={'Apple'} />}
+            {gameAssetLinks.linux && <PlatformIcon key={'Linux'} platform={'Linux'} />}
           </Group>
         </Group>
       </Box>
