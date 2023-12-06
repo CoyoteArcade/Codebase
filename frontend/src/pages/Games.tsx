@@ -4,25 +4,6 @@ import { Grid } from '@mantine/core';
 import Navbar from '../sections/Navbar/Navbar';
 import Shop from '@/sections/Shop/Shop';
 
-function translateCategory(category: string) {
-  switch (category) {
-    case 'rpg':
-      return 'RPG';
-    case 'action':
-      return 'Action';
-    case 'multiplayer':
-      return 'Multiplayer';
-    case 'strategy':
-      return 'Strategy';
-    case 'fps':
-      return 'FPS';
-    case 'adventure':
-      return 'Adventure';
-    default:
-      return 'ALL GAMES';
-  }
-}
-
 export default function Categories({ gameCategory = '' }: any) {
   const games: any = useRouteLoaderData('root');
 
@@ -33,9 +14,10 @@ export default function Categories({ gameCategory = '' }: any) {
       </Grid.Col>
       <Grid.Col span={{ base: 12, xl: 10 }}>
         <Shop
-          titleGrid={gameCategory ? translateCategory(gameCategory) : 'All Games'}
+          titleGrid={gameCategory ? gameCategory : 'All Games'}
           showCategories={false}
-          gameCategory={gameCategory ? translateCategory(gameCategory) : ''}
+          gameCategory={gameCategory ? gameCategory : ''}
+          sortBy="releaseDate"
         />
       </Grid.Col>
     </Grid>
