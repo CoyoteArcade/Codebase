@@ -80,13 +80,7 @@ export default function Shop({
           </Title>
         )}
 
-        {showGrid && (
-          <GameGrid
-            gameData={
-              gameCategory ? categoryGames : sortBy === 'releaseDate' ? sortByRelease(games) : games
-            }
-          />
-        )}
+        {showGrid && <GameGrid gameData={gameCategory ? categoryGames : games} />}
       </Box>
     </MantineProvider>
   );
