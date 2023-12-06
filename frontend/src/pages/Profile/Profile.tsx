@@ -114,10 +114,10 @@ function Profile() {
       onClick={() => {
         if (item.link === 'uploads') {
           uploadsScroll.scrollIntoView();
-        } else if (item.link === 'uploads') {
-          favoritesScroll.scrollIntoView();
         } else if (item.link === 'purchases') {
           purchasesScroll.scrollIntoView();
+        } else if (item.link === 'favorites') {
+          favoritesScroll.scrollIntoView();
         }
       }}
     >
