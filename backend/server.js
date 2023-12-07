@@ -168,7 +168,8 @@ app.get('/games/url/gamefiles', async (req, res) => {
 
   try {
     const gameIdFolders = await listPrefixes('/gameFiles');
-    for (const gameIdFolder of gameIdFolders) {
+    for (let i = 0; i < gameIdFolders.length; i++) {
+      const gameIdFolder = gameIdFolders[i];
       const gameIdPath = gameIdFolder
         .toString()
         .substring(gameIdFolder.root.toString().length);
@@ -213,15 +214,17 @@ app.get('/games/url/images', async (req, res) => {
 
   try {
     const imageSubFolders = await listPrefixes('/images');
-    for (const subFolder of imageSubFolders) {
+    for (let i = 0; i < imageSubFolders.length; i++) {
       const imageUrls = [];
+      const subFolder = imageSubFolders[i];
       const gameId = subFolder
         .toString()
         .substring(subFolder.root.toString().length)
         .replace('images/', '');
 
       const imageFiles = await listFiles(subFolder);
-      for (const file of imageFiles) {
+      for (let j = 0; j < imageFiles.length; j++) {
+        const file = imageFiles[j];
         const imagePath = file
           .toString()
           .substring(file.root.toString().length);
