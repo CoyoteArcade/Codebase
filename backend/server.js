@@ -164,43 +164,47 @@ app.get('/games/:id/url', async (req, res) => {
 
 // Grabs all game file urls in one request for GameGrid
 app.get('/games/url/gamefiles', async (req, res) => {
-  const gameFiles = [];
+  let gameFiles = [];
 
   try {
     const gameIdFolders = await listPrefixes('/gameFiles');
-    for (let i = 0; i < gameIdFolders.length; i++) {
-      const gameIdFolder = gameIdFolders[i];
-      const gameIdPath = gameIdFolder
-        .toString()
-        .substring(gameIdFolder.root.toString().length);
-      const gameId = gameIdPath.replace('gameFiles/', '');
-      const windowsPath = `${gameIdPath}/windows/`;
-      const macPath = `${gameIdPath}/mac/`;
-      const linuxPath = `${gameIdPath}/linux/`;
+    gameFiles = await Promise.all(
+      gameIdFolders.map(async (gameIdFolder) => {
+        const gameIdPath = gameIdFolder
+          .toString()
+          .substring(gameIdFolder.root.toString().length);
+        const gameId = gameIdPath.replace('gameFiles/', '');
+        const windowsPath = `${gameIdPath}/windows/`;
+        const macPath = `${gameIdPath}/mac/`;
+        const linuxPath = `${gameIdPath}/linux/`;
 
-      let windowsUrl = '';
-      let macUrl = '';
-      let linuxUrl = '';
+        let windowsUrl = '';
+        let macUrl = '';
+        let linuxUrl = '';
 
-      const windowsFiles = await listFiles(windowsPath);
-      if (windowsFiles.length > 0) {
-        windowsUrl = await getFileUrl(`${windowsPath}${windowsFiles[0].name}`);
-      }
-      const macFiles = await listFiles(macPath);
-      if (macFiles.length > 0) {
-        macUrl = await getFileUrl(`${macPath}${macFiles[0].name}`);
-      }
-      const linuxFiles = await listFiles(linuxPath);
-      if (linuxFiles.length > 0) {
-        linuxUrl = await getFileUrl(`${linuxPath}${linuxFiles[0].name}`);
-      }
-      gameFiles.push({
-        id: gameId,
-        windows: windowsUrl,
-        mac: macUrl,
-        linux: linuxUrl,
-      });
-    }
+        const windowsFiles = await listFiles(windowsPath);
+        if (windowsFiles.length > 0) {
+          windowsUrl = await getFileUrl(
+            `${windowsPath}${windowsFiles[0].name}`
+          );
+        }
+        const macFiles = await listFiles(macPath);
+        if (macFiles.length > 0) {
+          macUrl = await getFileUrl(`${macPath}${macFiles[0].name}`);
+        }
+        const linuxFiles = await listFiles(linuxPath);
+        if (linuxFiles.length > 0) {
+          linuxUrl = await getFileUrl(`${linuxPath}${linuxFiles[0].name}`);
+        }
+        return {
+          id: gameId,
+          windows: windowsUrl,
+          mac: macUrl,
+          linux: linuxUrl,
+        };
+      })
+    );
+
     res.status(200).json({ message: 'Success', gameFiles: gameFiles });
   } catch (error) {
     console.log(error);
