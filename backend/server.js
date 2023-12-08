@@ -162,7 +162,7 @@ app.get('/games/:id/url', async (req, res) => {
   }
 });
 
-// Grabs all game file urls in one request for GameGrid
+// Fetches all game file URLs asynchronously in one request
 app.get('/games/url/gamefiles', async (req, res) => {
   let gameFiles = [];
 
@@ -212,32 +212,35 @@ app.get('/games/url/gamefiles', async (req, res) => {
   }
 });
 
-// Grabs all image urls in one request for use in GameGrid
+// Fetches all image URLs asynchronously in one request
 app.get('/games/url/images', async (req, res) => {
-  const images = [];
+  let images = [];
 
   try {
     const imageSubFolders = await listPrefixes('/images');
-    for (let i = 0; i < imageSubFolders.length; i++) {
-      const imageUrls = [];
-      const subFolder = imageSubFolders[i];
-      const gameId = subFolder
-        .toString()
-        .substring(subFolder.root.toString().length)
-        .replace('images/', '');
-
-      const imageFiles = await listFiles(subFolder);
-      for (let j = 0; j < imageFiles.length; j++) {
-        const file = imageFiles[j];
-        const imagePath = file
+    images = await Promise.all(
+      imageSubFolders.map(async (subFolder) => {
+        let imageUrls = [];
+        const gameId = subFolder
           .toString()
-          .substring(file.root.toString().length);
-        const url = await getFileUrl(imagePath);
-        imageUrls.push(url);
-      }
+          .substring(subFolder.root.toString().length)
+          .replace('images/', '');
 
-      images.push({ id: gameId, urls: imageUrls });
-    }
+        const imageFiles = await listFiles(subFolder);
+        imageUrls = await Promise.all(
+          imageFiles.map(async (file) => {
+            const imagePath = file
+              .toString()
+              .substring(file.root.toString().length);
+            const url = await getFileUrl(imagePath);
+            return url;
+          })
+        );
+
+        return { id: gameId, urls: imageUrls };
+      })
+    );
+
     res.status(200).json({ message: 'Success', images: images });
   } catch (error) {
     console.log(error);
