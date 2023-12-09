@@ -24,32 +24,29 @@ function GameCard({
   isFavorite,
   loading = false,
 }: any) {
-  /** Game Properties */
-  const { id, title, tagline, releaseDate } = gameObj;
+  const { id, title, tagline, developer, releaseDate } = gameObj;
   let { platforms, categories } = gameObj;
+  const aspectRatio = 16 / 9;
 
   useEffect(() => {}, []);
 
-  /** CATEGORIES BADGES */
+  /** Category Badges **/
   categories = categories.map((category = '') => (
     <Badge key={category} classNames={{ root: classes['card-genres-badge'] }} variant="light">
       {category}
     </Badge>
   ));
 
-  /** PLATFORM ICONS */
+  /** Platform Icons **/
   platforms = platforms.map((platform = '') => <PlatformIcon key={platform} platform={platform} />);
-
-  /** GAME BANNER */
-  const aspectRatio = 16 / 9;
 
   return (
     <Skeleton visible={loading} height="100%" radius="md">
       <Card className={classes.card} withBorder>
-        {/* GAME BANNER */}
+        {/* Cover Image */}
         <Card.Section>
-          <Link to={`/games/${id}`} className={classes['card-banner-link']}>
-            <AspectRatio ratio={aspectRatio} className={classes['card-banner']}>
+          <Link to={`/games/${id}`} className={classes['card-cover-link']}>
+            <AspectRatio ratio={aspectRatio} className={classes['card-cover']}>
               <Image
                 src={
                   gameImages.urls.length > 0
@@ -63,24 +60,30 @@ function GameCard({
         <Box className={classes['card-inner']}>
           <Box className={classes['card-inner-main']}>
             <Stack className={classes['card-inner-top']}>
-              {/* GAME TITLE */}
-              <Text className={classes['card-title']}>{title}</Text>
+              <Box>
+                {/* Title */}
+                <Text className={classes['card-title']}>{title}</Text>
+                {/* Developer */}
+                <Text size="xs" c="dimmed" className={classes['card-release-developer']}>
+                  {developer}
+                </Text>
+              </Box>
 
-              {/* GENRE BADGES */}
+              {/* Categories */}
               <ScrollArea classNames={classes} type="hover" scrollbarSize={4} offsetScrollbars>
                 <Group className={classes['card-genres']}>{categories}</Group>
               </ScrollArea>
             </Stack>
 
-            {/* TAGLINE */}
-            <Text className={classes['card-description']}>{tagline}</Text>
+            {/* Tagline */}
+            <Text className={classes['card-tagline']}>{tagline}</Text>
           </Box>
 
-          {/* Bottom Section */}
+          {/* BOTTOM SECTION */}
           <Group className={classes['card-inner-buttons']}>
-            {/* FAVORITES BUTTON */}
+            {/* Favorites Button */}
             <ButtonFavorite gameID={id} isFavorite={isFavorite} />
-            {/* PLATFORM ICONS */}
+            {/* Platforms */}
             <Group className={classes['card-inner-platforms']}>{platforms}</Group>
           </Group>
         </Box>
