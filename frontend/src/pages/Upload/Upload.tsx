@@ -240,7 +240,7 @@ function Upload() {
           <Box mb="xs">
             <Title order={3}>
               Images{' '}
-              <Box component="span" c="red">
+              <Box component="span" c="var(--mantine-color-error)">
                 *
               </Box>
             </Title>

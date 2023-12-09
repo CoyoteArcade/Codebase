@@ -37,10 +37,18 @@ export default function ImageDropzone(props: any) {
   }, [files]);
 
   return (
-    <Box w="800px">
-      {props.errors.images && <Text c="red">{props.errors.images}</Text>}
+    <Box w="800px" style={{ cursor: 'pointer' }}>
+      {props.errors.images && (
+        <Text mb="xs" c="var(--mantine-color-error)">
+          {props.errors.images}
+        </Text>
+      )}
       <Dropzone
-        style={{ border: '1px solid var(--mantine-color-default-border)' }}
+        style={
+          props.errors.images
+            ? { border: '1px solid var(--mantine-color-error)' }
+            : { border: '1px solid var(--mantine-color-default-border)' }
+        }
         onDrop={(newFiles: any) => {
           setFiles([...files, ...newFiles].slice(0, 4));
         }}
