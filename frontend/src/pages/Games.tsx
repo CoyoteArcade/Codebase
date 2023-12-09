@@ -33,6 +33,7 @@ export default function Categories({ gameCategory = '' }: any) {
           titleGrid={gameCategory ? translateCategory(gameCategory) : 'All Games'}
           showCategories={false}
           gameCategory={gameCategory ? translateCategory(gameCategory) : ''}
+          sortBy="releaseDate"
         />
       </Grid.Col>
     </Grid>

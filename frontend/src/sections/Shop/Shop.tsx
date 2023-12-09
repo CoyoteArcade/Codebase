@@ -25,7 +25,7 @@ export default function Shop({
   gameCategory?: string;
   sortBy?: string;
 }) {
-  const [games, setGames]: any = useState(useRouteLoaderData('root'));
+  let games: any = useRouteLoaderData('root');
 
   const sortByRelease = (games: any) => {
     return games
@@ -46,9 +46,9 @@ export default function Shop({
       .reverse();
   };
 
-  useEffect(() => {
-    setGames(games);
-  }, [games]);
+  if (sortBy === 'releaseDate') {
+    games = sortByRelease(games);
+  }
 
   let categoryGames = [];
   if (gameCategory) {
