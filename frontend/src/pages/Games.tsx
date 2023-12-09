@@ -4,22 +4,22 @@ import Navbar from '../sections/Navbar/Navbar';
 import Shop from '@/sections/Shop/Shop';
 
 function translateCategory(category: string) {
-  switch (category) {
-    case 'rpg':
-      return 'RPG';
-    case 'action':
-      return 'Action';
-    case 'multiplayer':
-      return 'Multiplayer';
-    case 'strategy':
-      return 'Strategy';
-    case 'fps':
-      return 'FPS';
-    case 'adventure':
-      return 'Adventure';
-    default:
-      return 'ALL GAMES';
+  let translated = category;
+
+  if (category) {
+    switch (category) {
+      case 'visualnovel':
+        translated = 'Visual Novel';
+        break;
+      case 'rpg':
+        translated = 'Role-playing';
+        break;
+      default:
+        translated = category.charAt(0).toUpperCase() + category.slice(1);
+    }
   }
+
+  return translated;
 }
 
 export default function Categories({ gameCategory = '' }: any) {

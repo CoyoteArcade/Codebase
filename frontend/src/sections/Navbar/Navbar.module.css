@@ -44,7 +44,7 @@
     }
   }
 
-  &[data-active] {
+  &.active {
     &,
     &:hover {
       background-color: var(--mantine-primary-color-light);

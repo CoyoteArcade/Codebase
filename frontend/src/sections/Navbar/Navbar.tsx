@@ -1,38 +1,35 @@
-import { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import { Group, Box, Title } from '@mantine/core';
 import {
   IconBrowser,
-  IconListSearch,
-  IconBomb,
+  IconBalloon,
   IconSword,
-  IconTank,
-  IconReceipt2,
+  IconMoodXd,
   IconChessKnight,
+  IconGhost,
+  IconPuzzle,
 } from '@tabler/icons-react';
 import classes from './Navbar.module.css';
-import Logo from '@/components/Logo/Logo';
-import { NavLink } from 'react-router-dom';
 
 const data = [
   { link: '/games', label: 'Browse', icon: IconBrowser },
-  { link: '/games/categories/fps', label: 'FPS', icon: IconSword },
-  { link: '/games/categories/adventure', label: 'Adventure', icon: IconTank },
-  { link: '/games/categories/multiplayer', label: 'Multiplayer', icon: IconBomb },
+  { link: '/games/categories/adventure', label: 'Adventure', icon: IconSword },
+  { link: '/games/categories/casual', label: 'Casual', icon: IconBalloon },
+  { link: '/games/categories/funny', label: 'Funny', icon: IconMoodXd },
+  { link: '/games/categories/horror', label: 'Horror', icon: IconGhost },
+  { link: '/games/categories/puzzle', label: 'Puzzle', icon: IconPuzzle },
   { link: '/games/categories/strategy', label: 'Strategy', icon: IconChessKnight },
 ];
 
 export default function NavbarSimple() {
-  const [active, setActive] = useState('Browse');
-
   const links = data.map((item) => (
     <NavLink
-      className={classes.link}
-      data-active={item.label === active || undefined}
-      to={item.link}
-      key={item.label}
-      onClick={(event) => {
-        setActive(item.label);
+      className={({ isActive }: { isActive: boolean }) => {
+        return isActive ? `${classes.link} ${classes.active}` : `${classes.link}`;
       }}
+      to={item.link}
+      end
+      key={item.label}
     >
       <item.icon className={classes.linkIcon} stroke={1.5} />
       <span>{item.label}</span>
