@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Box,
@@ -9,45 +10,30 @@ import {
   Badge,
   ScrollArea,
   Group,
+  Skeleton,
 } from '@mantine/core';
 
-import ButtonCart from './CardButtons/ButtonCart';
 import ButtonFavorite from './CardButtons/ButtonFavorite';
 import PlatformIcon from './PlatformIcon/PlatformIcon';
 
 import classes from './GameCard.module.css';
-import { useEffect, useState } from 'react';
 
-function GameCard({ gameObj, isFavorite }: any) {
+function GameCard({
+  gameObj,
+  gameImages = { id: '', urls: [] },
+  isFavorite,
+  loading = false,
+}: any) {
   /** Game Properties */
-  const { id, title } = gameObj;
-  const [gameAssetLinks, setGameAssetLinks] = useState({
-    message: '',
-    images: [],
-    windows: '',
-    mac: '',
-    linux: '',
-  } as any);
-  const description = gameObj.tagline;
-  let genres = [...gameObj.categories];
-  let platforms: any = ['Apple', 'Windows', 'DoesNotExist', 'Linux', 'Web'];
+  const { id, title, tagline } = gameObj;
+  let { platforms, categories } = gameObj;
 
-  useEffect(() => {
-    const fetchGameAssets = async () => {
-      const response = await fetch(`https://delightful-sombrero-slug.cyclic.app/games/${id}/url`);
-      const json = await response.json();
-      console.log(json);
-      setGameAssetLinks(json);
-    };
-    setTimeout(() => {
-      fetchGameAssets();
-    }, 2000);
-  }, [id]);
+  useEffect(() => {}, []);
 
-  /** GENRE BADGES */
-  genres = genres.map((genre = '') => (
-    <Badge key={genre} classNames={{ root: classes['card-genres-badge'] }} variant="light">
-      {genre}
+  /** CATEGORIES BADGES */
+  categories = categories.map((category = '') => (
+    <Badge key={category} classNames={{ root: classes['card-genres-badge'] }} variant="light">
+      {category}
     </Badge>
   ));
 
@@ -58,55 +44,54 @@ function GameCard({ gameObj, isFavorite }: any) {
   const aspectRatio = 16 / 9;
 
   return (
-    <Card className={classes.card} withBorder>
-      {/* GAME BANNER */}
-      <Card.Section>
-        <Link to={`/games/${id}`} className={classes['card-banner-link']}>
-          <AspectRatio ratio={aspectRatio} className={classes['card-banner']}>
-            <Image
-              src={
-                gameAssetLinks.images.length > 0
-                  ? gameAssetLinks.images[0]
-                  : `https://placehold.co/1600x900/003e7a/eee`
-              }
-            />
-          </AspectRatio>
-        </Link>
-      </Card.Section>
-      <Box className={classes['card-inner']}>
-        <Box className={classes['card-inner-main']}>
-          <Stack className={classes['card-inner-top']}>
-            {/* GAME TITLE */}
-            <Text className={classes['card-title']}>{title}</Text>
+    <Skeleton visible={loading} height="100%" radius="md">
+      <Card className={classes.card} withBorder>
+        {/* GAME BANNER */}
+        <Card.Section>
+          <Link to={`/games/${id}`} className={classes['card-banner-link']}>
+            <AspectRatio ratio={aspectRatio} className={classes['card-banner']}>
+              <Image
+                src={
+                  gameImages.urls.length > 0
+                    ? gameImages.urls[0]
+                    : `https://placehold.co/1600x900/003e7a/eee`
+                }
+              />
+            </AspectRatio>
+          </Link>
+        </Card.Section>
+        <Box className={classes['card-inner']}>
+          <Box className={classes['card-inner-main']}>
+            <Stack className={classes['card-inner-top']}>
+              {/* GAME TITLE */}
+              <Text className={classes['card-title']}>{title}</Text>
 
-            {/* GENRE BADGES */}
-            <ScrollArea classNames={classes} type="hover" scrollbarSize={4} offsetScrollbars>
-              <Group className={classes['card-genres']}>{genres}</Group>
-            </ScrollArea>
-          </Stack>
+              {/* GENRE BADGES */}
+              <ScrollArea classNames={classes} type="hover" scrollbarSize={4} offsetScrollbars>
+                <Group className={classes['card-genres']}>{categories}</Group>
+              </ScrollArea>
+            </Stack>
 
-          {/* DESCRIPTION */}
-          <Text className={classes['card-description']}>{description}</Text>
-        </Box>
+            {/* TAGLINE */}
+            <Text className={classes['card-description']}>{tagline}</Text>
+          </Box>
 
-        {/* ACTION BUTTONS */}
-        <Group className={classes['card-inner-buttons']}>
-          <ButtonFavorite gameID={id} isFavorite={isFavorite} />
-          <Group className={classes['card-inner-platforms']}>
-            {gameAssetLinks.windows && <PlatformIcon key={'Windows'} platform={'Windows'} />}
-            {gameAssetLinks.mac && <PlatformIcon key={'Apple'} platform={'Apple'} />}
-            {gameAssetLinks.linux && <PlatformIcon key={'Linux'} platform={'Linux'} />}
+          {/* Bottom Section */}
+          <Group className={classes['card-inner-buttons']}>
+            {/* FAVORITES BUTTON */}
+            <ButtonFavorite gameID={id} isFavorite={isFavorite} />
+            {/* PLATFORM ICONS */}
+            <Group className={classes['card-inner-platforms']}>{platforms}</Group>
           </Group>
-        </Group>
-      </Box>
-    </Card>
+        </Box>
+      </Card>
+    </Skeleton>
   );
 }
 
 function GameCardSimple({ gameObj }: any) {
   /** Game Properties */
-  const { id, title } = gameObj;
-  const description = gameObj.tagline;
+  const { id, title, tagline } = gameObj;
 
   /** GAME BANNER */
   const aspectRatio = 16 / 9;
@@ -126,8 +111,8 @@ function GameCardSimple({ gameObj }: any) {
         {/* GAME TITLE */}
         <Text className={`${classes['card-title']} ${classes['card-title-simple']}`}>{title}</Text>
 
-        {/* DESCRIPTION */}
-        <Text className={classes['card-description']}>{description}</Text>
+        {/* TAGLINE */}
+        <Text className={classes['card-description']}>{tagline}</Text>
       </Box>
     </Card>
   );

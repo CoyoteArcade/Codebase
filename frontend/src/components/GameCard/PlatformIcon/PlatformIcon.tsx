@@ -14,19 +14,19 @@ function PlatformIcon({ platform }: { platform: string }) {
   let platformElement: any = '';
 
   switch (platform) {
-    case 'Android':
+    case 'android':
       platformElement = Android;
       break;
-    case 'Apple':
+    case 'mac':
       platformElement = Apple;
       break;
-    case 'Linux':
+    case 'linux':
       platformElement = Linux;
       break;
-    case 'Web':
+    case 'web':
       platformElement = Web;
       break;
-    case 'Windows':
+    case 'windows':
       platformElement = Windows;
       break;
   }
