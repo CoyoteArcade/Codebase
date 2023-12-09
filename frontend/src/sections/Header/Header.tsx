@@ -1,3 +1,4 @@
+import { MouseEventHandler, useContext } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import {
   HoverCard,
@@ -20,7 +21,7 @@ import {
   Code,
   MenuDivider,
 } from '@mantine/core';
-import Logo from '@/components/Logo/Logo';
+import { notifications } from '@mantine/notifications';
 import { useDisclosure } from '@mantine/hooks';
 import {
   IconChevronDown,
@@ -29,14 +30,13 @@ import {
   IconShoppingBag,
   IconList,
   IconHeart,
-  IconAlertCircle,
 } from '@tabler/icons-react';
 
+import { AuthContext } from '@/utilities/auth/AuthContext';
+import Logo from '@/components/Logo/Logo';
 import Search from '@/components/SearchBar/SearchBar';
 import DarkModeToggle from '@/components/DarkModeToggle/DarkModeToggle';
 import classes from './Header.module.css';
-import { MouseEventHandler, useContext } from 'react';
-import { AuthContext } from '@/utilities/auth/AuthContext';
 
 // Game Hover - Links Content
 const mockdata = [
@@ -108,7 +108,13 @@ export default function Header() {
   const handleLogout = () => {
     setUser(null);
     localStorage.removeItem('coyoteArcadeUser');
-    console.log('Logged out');
+    console.log('User logged out');
+    notifications.show({
+      message: 'You have successfully logged out. Come back soon!',
+      autoClose: 3000,
+      withCloseButton: true,
+      withBorder: true,
+    });
   };
 
   const handleMobileLogout = () => {
@@ -143,7 +149,7 @@ export default function Header() {
         <Group justify="space-between" h="100%" gap="xs">
           <Group justify="center">
             <Logo />
-            <Code style={{ alignSelf: 'flex-end' }}>v1.0</Code>
+            <Code style={{ alignSelf: 'flex-end' }}>v2.0</Code>
           </Group>
           <Group h="100%" gap={0} visibleFrom="sm">
             {/* HOME */}

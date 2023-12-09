@@ -14,7 +14,8 @@ import {
   rem,
   ThemeIcon,
 } from '@mantine/core';
-import { IconEye, IconEyeOff } from '@tabler/icons-react';
+import { notifications } from '@mantine/notifications';
+import { IconEye, IconEyeOff, IconCheck, IconX } from '@tabler/icons-react';
 // import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import classes from './Login.module.css';
 import { AuthContext } from '@/utilities/auth/AuthContext';
@@ -44,6 +45,13 @@ export function Login() {
 
   const handleLogin = async () => {
     let response = {};
+    const notificationId = notifications.show({
+      message: 'Attempting to login...',
+      loading: true,
+      autoClose: false,
+      withCloseButton: false,
+      withBorder: true,
+    });
     try {
       const request = await fetch('https://delightful-sombrero-slug.cyclic.app/login', {
         method: 'POST',
@@ -54,18 +62,47 @@ export function Login() {
       });
       response = await request.json();
       if ((response as any).message === 'Signed in') {
+        notifications.update({
+          id: notificationId,
+          message: 'Login Successful!',
+          color: 'green',
+          icon: <IconCheck />,
+          loading: false,
+          autoClose: 3000,
+          withCloseButton: true,
+          withBorder: true,
+        });
         setUser((response as any).user);
         const { email, displayName, uid } = (response as any).user;
         const stringifiedUser = JSON.stringify({ email, displayName, uid });
         localStorage.setItem('coyoteArcadeUser', stringifiedUser);
         navigate('/');
       } else {
-        window.alert('Login failed!');
+        notifications.update({
+          id: notificationId,
+          message: 'Login Failed! Please try again.',
+          color: 'red',
+          icon: <IconX />,
+          loading: false,
+          autoClose: 3000,
+          withCloseButton: true,
+          withBorder: true,
+        });
         setUser(null);
       }
     } catch (error) {
       console.log('error', error);
       response = { error: error };
+      notifications.update({
+        id: notificationId,
+        message: 'Login Failed! Please try again.',
+        color: 'red',
+        icon: <IconX />,
+        loading: false,
+        autoClose: 3000,
+        withCloseButton: true,
+        withBorder: true,
+      });
       setUser(null);
     }
     console.log('response', response);

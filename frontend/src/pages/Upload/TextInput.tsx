@@ -7,7 +7,7 @@ const TITLE_LIMIT = 50;
 function TitleInput(props: any) {
   return (
     <Textarea
-      required
+      withAsterisk
       size="md"
       label="Title"
       description="The name of your game creation"
