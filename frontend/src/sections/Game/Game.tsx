@@ -23,11 +23,12 @@ import { useContext, useEffect, useState } from 'react';
 import { IconThumbUpFilled } from '@tabler/icons-react';
 
 import { AuthContext } from '@/utilities/auth/AuthContext';
+import { getVideoId } from '@/utilities/video/embedYoutube';
 import PlatformIcon from '@/components/GameCard/PlatformIcon/PlatformIcon';
 import classes from './Game.module.css';
 
 const PRIMARY_COL_HEIGHT = rem(500);
-const images = [
+const catPics = [
   'https://placekitten.com/1920/1084',
   'https://placekitten.com/1920/1083',
   'https://placekitten.com/1920/1082',
@@ -48,6 +49,19 @@ export function Game() {
   const { user } = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
   const game = games.find((game: any) => game.id === id) || {};
+
+  const createImageSkeletons = (num: number) => {
+    const imageSkeletons = [];
+    for (let i = 0; i < num; i++) {
+      const skeleton = (
+        <AspectRatio ratio={16 / 9} key={i}>
+          <Skeleton animate={false} key={i} radius="sm" />
+        </AspectRatio>
+      );
+      imageSkeletons.push(skeleton);
+    }
+    return imageSkeletons;
+  };
 
   useEffect(() => {
     const fetchGameAssets = async () => {
@@ -122,23 +136,39 @@ export function Game() {
           </Group>
         </Box>
         <Box>
-          <SimpleGrid cols={2}>
-            {gameAssetLinks.images.length > 0
-              ? gameAssetLinks.images.map((image: any, index: any) => (
-                  <AspectRatio ratio={16 / 9} key={index}>
-                    <Image src={image} key={index} radius="sm" />
-                  </AspectRatio>
-                ))
-              : images.map((image, index: any) => (
-                  <AspectRatio ratio={16 / 9} key={index}>
-                    <Image src={image} key={index} radius="sm" />
-                    <LoadingOverlay
-                      visible={loading}
-                      zIndex={1000}
-                      overlayProps={{ radius: 'sm', blur: 1 }}
-                    />
-                  </AspectRatio>
-                ))}
+          <SimpleGrid cols={1}>
+            <SimpleGrid cols={2}>
+              {gameAssetLinks.images.length > 0
+                ? gameAssetLinks.images.map((image: any, index: any) => (
+                    <AspectRatio ratio={16 / 9} key={index}>
+                      <Image src={image} key={index} radius="sm" />
+                    </AspectRatio>
+                  ))
+                : loading &&
+                  catPics.map((image, index: any) => (
+                    <AspectRatio ratio={16 / 9} key={index}>
+                      <Image src={image} key={index} radius="sm" />
+                      <LoadingOverlay
+                        visible={loading}
+                        zIndex={1000}
+                        overlayProps={{ radius: 'sm', blur: 1 }}
+                      />
+                    </AspectRatio>
+                  ))}
+              {!loading && createImageSkeletons(4 - gameAssetLinks.images.length)}
+            </SimpleGrid>
+            {game.video && (
+              <AspectRatio ratio={16 / 9}>
+                <Box
+                  component="iframe"
+                  id="ytplayer"
+                  src={`https://www.youtube.com/embed/${getVideoId(game.video)}`}
+                  style={{ border: 0 }}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
+              </AspectRatio>
+            )}
           </SimpleGrid>
         </Box>
       </SimpleGrid>

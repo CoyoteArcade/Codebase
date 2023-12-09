@@ -25,7 +25,7 @@ function GameCard({
   loading = false,
 }: any) {
   /** Game Properties */
-  const { id, title, tagline } = gameObj;
+  const { id, title, tagline, releaseDate } = gameObj;
   let { platforms, categories } = gameObj;
 
   useEffect(() => {}, []);

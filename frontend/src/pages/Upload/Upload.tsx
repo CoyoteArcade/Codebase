@@ -73,6 +73,13 @@ function Upload() {
 
   const handleSubmit = (values: any) => {
     setIsSubmitting(true);
+    const notificationId = notifications.show({
+      message: 'Attempting to upload game...',
+      loading: true,
+      autoClose: false,
+      withCloseButton: false,
+      withBorder: true,
+    });
     console.log(values);
     /*
     firestore collection: games
@@ -169,7 +176,8 @@ function Upload() {
           .then((res) => console.log(res))
           .catch((err) => console.log(err));
 
-        notifications.show({
+        notifications.update({
+          id: notificationId,
           message: 'Game uploaded successfully!',
           color: 'green',
           icon: <IconCheck />,
@@ -193,7 +201,8 @@ function Upload() {
       })
       .catch((err) => {
         console.log(err);
-        notifications.show({
+        notifications.update({
+          id: notificationId,
           message: 'An error occurred while uploading your game! Please try again.',
           color: 'red',
           icon: <IconX />,
