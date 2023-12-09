@@ -56,32 +56,20 @@ export default function Shop({
   }
 
   return (
-    <MantineProvider
-      theme={{
-        components: {
-          Title: Title.extend({
-            classNames: {
-              root: classes.heading,
-            },
-          }),
-        },
-      }}
-    >
-      <Box className={classes.shop}>
-        {showCategories && (
-          <Title mb={rem('30px')} order={2}>
-            {titleCategories}
-          </Title>
-        )}
-        {showCategories && <ShopCategories gameData={games} maxCategories={maxCategories} />}
-        {showGrid && (
-          <Title className={classes['title-grid']} order={2}>
-            {titleGrid}
-          </Title>
-        )}
+    <Box className={classes.shop}>
+      {showCategories && (
+        <Title className={classes.title} mb={rem('30px')} order={2}>
+          {titleCategories}
+        </Title>
+      )}
+      {showCategories && <ShopCategories gameData={games} maxCategories={maxCategories} />}
+      {showGrid && (
+        <Title mb="lg" className={classes.title} order={2}>
+          {titleGrid}
+        </Title>
+      )}
 
-        {showGrid && <GameGrid gameData={gameCategory ? categoryGames : games} />}
-      </Box>
-    </MantineProvider>
+      {showGrid && <GameGrid gameData={gameCategory ? categoryGames : games} />}
+    </Box>
   );
 }

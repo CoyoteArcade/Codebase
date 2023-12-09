@@ -27,7 +27,9 @@ function ShopCategories({
   const gameCategories = categories.map((category, idx) => {
     return (
       <Box my="sm" key={`${category}${idx}`}>
-        <Title order={2}>{category} Games</Title>
+        <Title className={classes.title} mb="md" order={2}>
+          {category} Games
+        </Title>
         <GameGrid gameData={gameData} category={category} />
       </Box>
     );

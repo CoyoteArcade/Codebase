@@ -1,3 +1,11 @@
 .categories {
   max-width: rem(1500px);
 }
+
+.title {
+  text-align: left;
+
+  @media (max-width: $mantine-breakpoint-xs) {
+    text-align: center;
+  }
+}

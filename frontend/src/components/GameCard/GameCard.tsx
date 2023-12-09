@@ -81,10 +81,10 @@ function GameCard({
 
           {/* BOTTOM SECTION */}
           <Group className={classes['card-inner-buttons']}>
-            {/* Favorites Button */}
-            <ButtonFavorite gameID={id} isFavorite={isFavorite} />
             {/* Platforms */}
             <Group className={classes['card-inner-platforms']}>{platforms}</Group>
+            {/* Favorites Button */}
+            <ButtonFavorite gameID={id} isFavorite={isFavorite} />
           </Group>
         </Box>
       </Card>

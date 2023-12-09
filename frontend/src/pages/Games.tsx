@@ -1,4 +1,4 @@
-import { Grid } from '@mantine/core';
+import { Flex } from '@mantine/core';
 
 import Navbar from '../sections/Navbar/Navbar';
 import Shop from '@/sections/Shop/Shop';
@@ -24,18 +24,14 @@ function translateCategory(category: string) {
 
 export default function Categories({ gameCategory = '' }: any) {
   return (
-    <Grid gutter={0}>
-      <Grid.Col span={{ base: 0, lg: 2 }}>
-        <Navbar />
-      </Grid.Col>
-      <Grid.Col span={{ base: 12, xl: 10 }}>
-        <Shop
-          titleGrid={gameCategory ? translateCategory(gameCategory) : 'All Games'}
-          showCategories={false}
-          gameCategory={gameCategory ? translateCategory(gameCategory) : ''}
-          sortBy="releaseDate"
-        />
-      </Grid.Col>
-    </Grid>
+    <Flex style={{ flexWrap: 'nowrap' }} w="100vw">
+      <Navbar />
+      <Shop
+        titleGrid={gameCategory ? translateCategory(gameCategory) : 'All Games'}
+        showCategories={false}
+        gameCategory={gameCategory ? translateCategory(gameCategory) : ''}
+        sortBy="releaseDate"
+      />
+    </Flex>
   );
 }
