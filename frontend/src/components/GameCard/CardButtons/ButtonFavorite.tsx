@@ -1,7 +1,13 @@
 import { ActionIcon } from '@mantine/core';
 import { useToggle } from '@mantine/hooks';
 import { notifications } from '@mantine/notifications';
-import { IconHeart, IconHeartFilled, IconHeartPlus, IconLogin2 } from '@tabler/icons-react';
+import {
+  IconHeart,
+  IconHeartFilled,
+  IconHeartPlus,
+  IconHeartX,
+  IconLogin2,
+} from '@tabler/icons-react';
 
 import classes from './ButtonFavorite.module.css';
 import { useContext, useEffect, useState } from 'react';
@@ -80,7 +86,7 @@ function FavoriteButton({ gameID, isFavorite }: any) {
           notifications.show({
             message: 'Removed from favorites',
             color: 'red',
-            icon: <IconHeartPlus style={{ width: '20px', height: '20px' }} />,
+            icon: <IconHeartX style={{ width: '20px', height: '20px' }} />,
             loading: false,
             autoClose: 1500,
             withCloseButton: true,
