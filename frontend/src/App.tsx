@@ -23,7 +23,7 @@ export default function App() {
   return (
     <AuthContext.Provider value={{ user, setUser } as any}>
       <MantineProvider defaultColorScheme="light" theme={theme}>
-        <Notifications zIndex={1000} containerWidth={300} limit={4} position="bottom-right" />
+        <Notifications zIndex={1000} containerWidth={300} limit={3} position="bottom-right" />
         <Router />
       </MantineProvider>
     </AuthContext.Provider>
