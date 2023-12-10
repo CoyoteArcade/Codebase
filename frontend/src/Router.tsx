@@ -130,5 +130,9 @@ const router = createBrowserRouter([
 ]);
 
 export function Router() {
-  return <RouterProvider router={router} fallbackElement={<Home />} />;
+  return (
+    <>
+      <RouterProvider router={router} fallbackElement={<Home />} />
+    </>
+  );
 }
