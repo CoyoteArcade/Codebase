@@ -13,7 +13,6 @@ export default function Home() {
       <Hero />
       <Flex style={{ flexWrap: 'nowrap' }} align="flex-start" w="100vw">
         <Navbar />
-        <Box style={{ flex: 0 }}></Box>
         <Shop title="POPULAR GAME CATEGORIES" showGrid={false} maxCategories={5} />
       </Flex>
     </Box>
