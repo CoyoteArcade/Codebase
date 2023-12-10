@@ -49,7 +49,7 @@ export default function NavbarSimple({ ...props }) {
             </NavLink>
 
             <Title className={classes['header-title']} visibleFrom="xs" order={4}>
-              View Games
+              Games
             </Title>
           </Group>
         </Group>

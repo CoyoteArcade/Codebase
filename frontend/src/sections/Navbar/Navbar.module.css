@@ -3,8 +3,6 @@
   max-width: rem(300px);
   padding: var(--mantine-spacing-md);
   border-right: rem(1px) solid light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
-  top: 0px;
-
   position: sticky;
   top: rem(60px);
   left: 0;
@@ -13,7 +11,7 @@
   display: flex;
   flex-direction: column;
 
-  @media (max-width: $mantine-breakpoint-md) {
+  @media (max-width: $mantine-breakpoint-xs) {
     padding-inline: rem(5);
   }
 }
@@ -28,8 +26,11 @@
   border-bottom: rem(1px) solid light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
 
   @media (min-width: $mantine-breakpoint-xs) {
-    padding-inline: 20px;
+    padding-inline: 30px;
   }
+
+  justify-content: center;
+  gap: 0px;
 }
 
 .header-title {

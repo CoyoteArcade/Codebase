@@ -1,10 +1,29 @@
+.profile {
+  width: 100%;
+  margin: 0 auto;
+  padding: 1em 2em;
+
+  @media (max-width: $mantine-breakpoint-xs) {
+    padding: 1em 0;
+  }
+}
+
 .navbar {
-  height: rem(700px);
-  max-width: rem(300px);
+  height: 100vh;
+  max-width: rem(200px);
   padding: var(--mantine-spacing-md);
-  display: flex;
-  flex-direction: column;
   border-right: rem(1px) solid light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
+  position: sticky;
+  top: rem(60px);
+  left: 0;
+  z-index: 1;
+
+  display: flex;
+  justify-content: column;
+
+  @media (max-width: $mantine-breakpoint-xs) {
+    padding-inline: rem(5);
+  }
 }
 
 .navbarMain {
@@ -12,10 +31,16 @@
 }
 
 .header {
-  justify-content: space-around;
-  padding-bottom: var(--mantine-spacing-md);
-  margin-bottom: calc(var(--mantine-spacing-md) * 1.5);
+  padding-bottom: var(--mantine-spacing-sm);
+  margin-bottom: var(--mantine-spacing-md);
   border-bottom: rem(1px) solid light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
+
+  @media (min-width: $mantine-breakpoint-xs) {
+    padding-inline: 20px;
+  }
+
+  justify-content: center;
+  gap: 0px;
 }
 
 .footer {
@@ -30,9 +55,14 @@
   text-decoration: none;
   font-size: var(--mantine-font-size-sm);
   color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-dark-1));
-  padding: var(--mantine-spacing-xs) var(--mantine-spacing-sm);
+  padding: var(--mantine-spacing-xs) var(--mantine-spacing-xs);
   border-radius: var(--mantine-radius-sm);
   font-weight: 500;
+
+  @media (max-width: $mantine-breakpoint-xs) {
+    padding: rem(5) rem(7);
+    margin-bottom: rem(10);
+  }
 
   @mixin hover {
     background-color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-6));
@@ -58,15 +88,32 @@
 
 .linkIcon {
   color: light-dark(var(--mantine-color-gray-6), var(--mantine-color-dark-2));
-  margin-right: var(--mantine-spacing-sm);
   width: rem(25px);
   height: rem(25px);
+
+  @media (max-width: $mantine-breakpoint-sm) {
+    width: rem(20px);
+    height: rem(20px);
+  }
+}
+
+.avatar {
+  @media (max-width: $mantine-breakpoint-md) {
+    width: rem(20px);
+    height: rem(20px);
+  }
 }
 
 .icon {
   color: light-dark(var(--mantine-color-gray-5), var(--mantine-color-dark-3));
 }
 
-.name {
-  font-family: Greycliff CF, var(--mantine-font-family);
+.title,
+.notfound {
+  text-align: left;
+  margin-block: 1em;
+
+  @media (max-width: $mantine-breakpoint-sm) {
+    text-align: center;
+  }
 }

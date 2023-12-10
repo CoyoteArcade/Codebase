@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { TextInput, Textarea } from '@mantine/core';
 
 const TAGLINE_LIMIT = 90;
