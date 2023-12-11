@@ -23,7 +23,10 @@ import { AuthContext } from '@/utilities/auth/AuthContext';
 export function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
+  const [emailError, setEmailError] = useState('');
   const [password, setPassword] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+
   const { user, setUser } = useContext(AuthContext);
 
   useEffect(() => {
@@ -33,10 +36,18 @@ export function Login() {
     }
   }, [setUser]);
 
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      handleLogin();
+    }
+  };
+
   const handleChange = (event: any) => {
     if (event.target.id === 'email') {
+      setEmailError('');
       setEmail(event.target.value);
     } else if (event.target.id === 'password') {
+      setPasswordError('');
       setPassword(event.target.value);
     } else {
       console.log('Error: handleChange()');
@@ -44,6 +55,21 @@ export function Login() {
   };
 
   const handleLogin = async () => {
+    if (email === '') {
+      setEmailError('Please enter an email');
+      return;
+    }
+
+    if (!email.includes('@')) {
+      setEmailError('Please enter a valid email address');
+      return;
+    }
+
+    if (password === '') {
+      setPasswordError('Please enter a password');
+      return;
+    }
+
     let response = {};
     const notificationId = notifications.show({
       message: 'Attempting to login...',
@@ -129,6 +155,8 @@ export function Login() {
             required
             value={email}
             onChange={handleChange}
+            onKeyDown={handleKeyPress}
+            error={emailError}
           />
           <PasswordInput
             classNames={{ visibilityToggle: classes['visibility-toggle'] }}
@@ -136,6 +164,7 @@ export function Login() {
             label="Password"
             required
             mt="md"
+            error={passwordError}
             visibilityToggleButtonProps={{ 'aria-label': 'Toggle password visibility' }}
             visibilityToggleIcon={({ reveal }) =>
               reveal ? (
@@ -149,6 +178,7 @@ export function Login() {
               )
             }
             onChange={handleChange}
+            onKeyDown={handleKeyPress}
             value={password}
           />
           <Group justify="space-between" mt="lg">

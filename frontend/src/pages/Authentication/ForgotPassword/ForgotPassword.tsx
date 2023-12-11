@@ -19,13 +19,30 @@ import { useState } from 'react';
 
 export function ForgotPassword() {
   const [email, setEmail] = useState('');
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const handleChange = (event: any) => {
+    setError('');
     setEmail(event.target.value);
   };
 
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      handleSubmit(event);
+    }
+  };
+
   const handleSubmit = (event: any) => {
+    if (email === '') {
+      setError('Please enter an email');
+      return;
+    }
+    if (!email.includes('@')) {
+      setError('Please enter a valid email address');
+      return;
+    }
+
     event.preventDefault();
     const notificationId = notifications.show({
       message: 'Attempting to send link to reset password...',
@@ -85,12 +102,15 @@ export function ForgotPassword() {
 
         <Paper withBorder shadow="md" p={30} radius="md" mt="xl">
           <TextInput
+            error={error}
             label="Your email"
             placeholder="me@csusb.dev"
             id="reset-email"
+            type="email"
             required
             value={email}
             onChange={handleChange}
+            onKeyDown={handleKeyPress}
           />
           <Group justify="space-between" mt="lg" className={classes.controls}>
             <Anchor c="dimmed" size="sm" className={classes.control} component={Link} to="/login">
