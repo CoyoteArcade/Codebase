@@ -17,7 +17,7 @@ function GameGrid({ gameData, category = '' }: { gameData: any; category?: strin
   useEffect(() => {
     const fetchProfile = async () => {
       if (user) {
-        fetch(`http://localhost:3000/profile/${user.uid}`)
+        fetch(`https://delightful-sombrero-slug.cyclic.app/profile/${user.uid}`)
           .then((res) => res.json())
           .then((json) => {
             // console.log('fetch profile response', json);
@@ -29,7 +29,7 @@ function GameGrid({ gameData, category = '' }: { gameData: any; category?: strin
 
     const fetchGameImages = async () => {
       setLoading(true);
-      fetch(`http://localhost:3000/games/url/images`)
+      fetch(`https://delightful-sombrero-slug.cyclic.app/games/url/images`)
         .then((res) => res.json())
         .then((json) => {
           // console.log('fetch game images response', json);
