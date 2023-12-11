@@ -40,7 +40,7 @@ export default function ImageWithMenu({
         <Box ref={ref} className={classes['image-root']}>
           <Menu.Target ref={ref}>
             <ActionIcon
-              size="lg"
+              size="md"
               className={classes.button}
               style={
                 hovered || userMenuOpened ? { visibility: 'visible' } : { visibility: 'hidden' }

@@ -181,6 +181,7 @@ function Upload() {
           message: 'Game uploaded successfully!',
           color: 'green',
           icon: <IconCheck />,
+          loading: false,
           autoClose: 3000,
           withCloseButton: true,
           withBorder: true,
@@ -230,22 +231,32 @@ function Upload() {
     <Box component="form" onSubmit={form.onSubmit(handleSubmit, handleError)}>
       <Stack align="center" className={classes.root}>
         <Title order={1}>Game Upload</Title>
-        <Stack m="0 auto" w={500} gap={40}>
+
+        <Stack m="0 auto" w="100%" maw={500} gap={40}>
+          {/* Title */}
           <Box ref={titleScroll.targetRef}>
             <TitleInput {...form.getInputProps('title')} />
           </Box>
 
+          {/* Categories */}
           <Box ref={categoriesScroll.targetRef}>
             <CategorySelect {...form} />
           </Box>
+
+          {/* Tagline */}
           <TaglineInput {...form.getInputProps('tagline')} />
+
+          {/* Video */}
           <VideoInput {...form.getInputProps('video')} />
+
+          {/* Platforms */}
           <Box ref={platformsScroll.targetRef}>
             <PlatformsInput {...form} />
           </Box>
         </Stack>
 
-        <Box ref={imagesScroll.targetRef} m="0 auto">
+        {/* Images */}
+        <Box w="100%" maw={700} ref={imagesScroll.targetRef} m="0 auto">
           <Box mb="xs">
             <Title order={3}>
               Images{' '}
@@ -255,23 +266,26 @@ function Upload() {
             </Title>
             <Text c="dimmed">The first (top left-most) image will be used as the game's cover</Text>
           </Box>
-
           <ImageDropzone {...form} />
         </Box>
 
-        <Box>
+        {/* Description */}
+        <Box w="100%" maw={1000}>
           <Title order={3} mb="xs">
             Game Page Description
           </Title>
           <TextEditor useFor="description" props={form} />
         </Box>
 
-        <Box>
+        {/* Download & Install Instructions */}
+        <Box w="100%" maw={1000}>
           <Title order={3} mb="xs">
             Download & Install Instructions
           </Title>
           <TextEditor useFor="instructions" props={form} />
         </Box>
+
+        {/* Upload Button */}
         <Button size="lg" m="0 auto" type="submit" disabled={isSubmitting}>
           {isSubmitting ? 'Uploading...' : 'UPLOAD'}
         </Button>

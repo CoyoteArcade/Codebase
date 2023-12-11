@@ -20,7 +20,7 @@ function GameGrid({ gameData, category = '' }: { gameData: any; category?: strin
         fetch(`http://localhost:3000/profile/${user.uid}`)
           .then((res) => res.json())
           .then((json) => {
-            console.log('fetch profile response', json);
+            // console.log('fetch profile response', json);
             setUserLists(json.favorites);
           })
           .catch((err) => console.log(err));
@@ -32,7 +32,7 @@ function GameGrid({ gameData, category = '' }: { gameData: any; category?: strin
       fetch(`http://localhost:3000/games/url/images`)
         .then((res) => res.json())
         .then((json) => {
-          console.log('fetch game images response', json);
+          // console.log('fetch game images response', json);
           setAllImageLinks(json.images);
           setLoading(false);
         })
