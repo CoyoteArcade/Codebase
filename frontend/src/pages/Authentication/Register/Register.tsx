@@ -12,7 +12,8 @@ import {
   rem,
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { IconEye, IconEyeOff } from '@tabler/icons-react';
+import { notifications } from '@mantine/notifications';
+import { IconEye, IconEyeOff, IconCheck, IconX } from '@tabler/icons-react';
 import { Link, useNavigate } from 'react-router-dom';
 import classes from './Register.module.css';
 import { useContext, useState } from 'react';
@@ -28,14 +29,14 @@ export function Register() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  const handleChange = (event:any) => {
-    if(event.target.id === 'email') {
+  const handleChange = (event: any) => {
+    if (event.target.id === 'email') {
       setEmail(event.target.value);
-    } else if(event.target.id === 'username') {
+    } else if (event.target.id === 'username') {
       setUsername(event.target.value);
-    } else if(event.target.id === 'password') {
+    } else if (event.target.id === 'password') {
       setPassword(event.target.value);
-    } else if(event.target.id === 'confirm-password') {
+    } else if (event.target.id === 'confirm-password') {
       setConfirmPassword(event.target.value);
     } else {
       console.log('Error: handleChange()');
@@ -43,7 +44,7 @@ export function Register() {
   };
 
   const handleSignup = async () => {
-    if(password !== confirmPassword) {
+    if (password !== confirmPassword) {
       console.log('Error: Passwords do not match');
       return;
     }
@@ -52,17 +53,36 @@ export function Register() {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({email: email, username: username, password: password, confirmPassword: confirmPassword}),
+      body: JSON.stringify({
+        email: email,
+        username: username,
+        password: password,
+        confirmPassword: confirmPassword,
+      }),
     });
     const response = await request.json();
-    console.log("response", response);
-    if(response.message === "Signed up") {
-      window.alert("Signup successful!");
+    console.log('response', response);
+    if (response.message === 'Signed up') {
+      notifications.show({
+        message: 'Signup Successful!',
+        color: 'green',
+        icon: <IconCheck />,
+        autoClose: 3000,
+        withCloseButton: true,
+        withBorder: true,
+      });
       setUser((response as any).user);
       navigate('/');
-    } else if(response.message === "Error signing up") {
+    } else if (response.message === 'Error signing up') {
       console.log(response.error, response.errorCode);
-      window.alert(`Error: ${response.message} (${response.errorCode})`);
+      notifications.show({
+        message: `Error: ${response.message} (${response.errorCode})`,
+        color: 'red',
+        icon: <IconX />,
+        autoClose: 3000,
+        withCloseButton: true,
+        withBorder: true,
+      });
     }
   };
 
@@ -88,8 +108,23 @@ export function Register() {
           mt={30}
           radius="md"
         >
-          <TextInput label="Email" placeholder="" required id="email" value={email} onChange={handleChange} />
-          <TextInput mt="md" label="Username" placeholder="" required id="username" value={username} onChange={handleChange} />
+          <TextInput
+            label="Email"
+            placeholder=""
+            required
+            id="email"
+            value={email}
+            onChange={handleChange}
+          />
+          <TextInput
+            mt="md"
+            label="Username"
+            placeholder=""
+            required
+            id="username"
+            value={username}
+            onChange={handleChange}
+          />
           <PasswordInput
             classNames={{ visibilityToggle: classes['visibility-toggle'] }}
             label="Password"
@@ -117,7 +152,7 @@ export function Register() {
             classNames={{ visibilityToggle: classes['visibility-toggle'] }}
             label="Confirm Password"
             required
-            error={password !== confirmPassword && 'Passwords do not match' }
+            error={password !== confirmPassword && 'Passwords do not match'}
             mt="md"
             visible={visible}
             onVisibilityChange={toggle}
@@ -137,7 +172,16 @@ export function Register() {
             value={confirmPassword}
             onChange={handleChange}
           />
-          <Button fullWidth mt="xl" onClick={handleSignup} disabled={(password === confirmPassword && password.length && email.length && username.length) ? false : true}>
+          <Button
+            fullWidth
+            mt="xl"
+            onClick={handleSignup}
+            disabled={
+              password === confirmPassword && password.length && email.length && username.length
+                ? false
+                : true
+            }
+          >
             Register
           </Button>
         </Paper>

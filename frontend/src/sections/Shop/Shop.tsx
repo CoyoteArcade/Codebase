@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { useRouteLoaderData } from 'react-router-dom';
 import { Box, Title, MantineProvider, rem } from '@mantine/core';
 
@@ -13,6 +14,7 @@ export default function Shop({
   showCategories = true,
   maxCategories,
   gameCategory = '',
+  sortBy = '',
 }: {
   titleCategories?: string;
   titleGrid?: string;
@@ -21,40 +23,53 @@ export default function Shop({
   maxCategories?: number;
   title?: string;
   gameCategory?: string;
+  sortBy?: string;
 }) {
-  const games: any = useRouteLoaderData('root');
+  let games: any = useRouteLoaderData('root');
+
+  const sortByRelease = (games: any) => {
+    return games
+      .toSorted((a: any, b: any) => {
+        const dateA: number = Date.parse(a.releaseDate);
+        const dateB: number = Date.parse(b.releaseDate);
+
+        if (isNaN(dateA) && isNaN(dateB)) {
+          return 0;
+        } else if (isNaN(dateA)) {
+          return -1;
+        } else if (isNaN(dateB)) {
+          return 1;
+        } else {
+          return dateA - dateB;
+        }
+      })
+      .reverse();
+  };
+
+  if (sortBy === 'releaseDate') {
+    games = sortByRelease(games);
+  }
+
   let categoryGames = [];
   if (gameCategory) {
     categoryGames = games.filter((game: any) => game.categories.includes(gameCategory));
   }
 
   return (
-    <MantineProvider
-      theme={{
-        components: {
-          Title: Title.extend({
-            classNames: {
-              root: classes.heading,
-            },
-          }),
-        },
-      }}
-    >
-      <Box className={classes.shop}>
-        {showCategories && (
-          <Title mb={rem('30px')} order={2}>
-            {titleCategories}
-          </Title>
-        )}
-        {showCategories && <ShopCategories gameData={games} maxCategories={maxCategories} />}
-        {showGrid && (
-          <Title className={classes['title-grid']} order={2}>
-            {titleGrid}
-          </Title>
-        )}
+    <Box className={classes.shop}>
+      {showCategories && (
+        <Title className={classes.title} mb={rem('30px')} order={2}>
+          {titleCategories}
+        </Title>
+      )}
+      {showCategories && <ShopCategories gameData={games} maxCategories={maxCategories} />}
+      {showGrid && (
+        <Title mb="lg" className={classes.title} order={2}>
+          {titleGrid}
+        </Title>
+      )}
 
-        {showGrid && <GameGrid gameData={gameCategory ? categoryGames : games} />}
-      </Box>
-    </MantineProvider>
+      {showGrid && <GameGrid gameData={gameCategory ? categoryGames : games} />}
+    </Box>
   );
 }

@@ -177,63 +177,59 @@ function TextEditor({ useFor = '', props }: { useFor?: string; props: any }) {
   }, [editor?.getHTML()]);
 
   return (
-    <Box>
-      <RichTextEditor editor={editor} mih={250} maw={1000}>
-        <RichTextEditor.Toolbar sticky stickyOffset={60}>
-          <RichTextEditor.ControlsGroup>
-            <RichTextEditor.Bold icon={BoldIcon} />
-            <RichTextEditor.Italic icon={ItalicIcon} />
-            <RichTextEditor.Underline icon={UnderlineIcon} />
-            <RichTextEditor.Strikethrough icon={StrikethroughIcon} />
-            <RichTextEditor.CodeBlock icon={CodeBlockIcon} />
-            <RichTextEditor.ClearFormatting icon={ClearFormattingIcon} />
-          </RichTextEditor.ControlsGroup>
+    <RichTextEditor editor={editor} mih={250} w="100%">
+      <RichTextEditor.Toolbar sticky stickyOffset={60}>
+        <RichTextEditor.ControlsGroup>
+          <RichTextEditor.Bold icon={BoldIcon} />
+          <RichTextEditor.Italic icon={ItalicIcon} />
+          <RichTextEditor.Underline icon={UnderlineIcon} />
+          <RichTextEditor.Strikethrough icon={StrikethroughIcon} />
+          <RichTextEditor.CodeBlock icon={CodeBlockIcon} />
+          <RichTextEditor.ClearFormatting icon={ClearFormattingIcon} />
+        </RichTextEditor.ControlsGroup>
 
-          <RichTextEditor.ControlsGroup>
-            <UndoControl />
-            <RedoControl />
-          </RichTextEditor.ControlsGroup>
+        <RichTextEditor.ControlsGroup>
+          <UndoControl />
+          <RedoControl />
+        </RichTextEditor.ControlsGroup>
 
-          <RichTextEditor.ControlsGroup>
-            <RichTextEditor.H1 icon={H1Icon} />
-            <RichTextEditor.H2 icon={H2Icon} />
-            <RichTextEditor.H3 icon={H3Icon} />
-            <RichTextEditor.H4 icon={H4Icon} />
-          </RichTextEditor.ControlsGroup>
+        <RichTextEditor.ControlsGroup>
+          <RichTextEditor.H1 icon={H1Icon} />
+          <RichTextEditor.H2 icon={H2Icon} />
+          <RichTextEditor.H3 icon={H3Icon} />
+          <RichTextEditor.H4 icon={H4Icon} />
+        </RichTextEditor.ControlsGroup>
 
-          <RichTextEditor.ControlsGroup>
-            <RichTextEditor.Blockquote icon={BlockquoteIcon} />
-            <RichTextEditor.Hr icon={HrIcon} />
-            <RichTextEditor.BulletList icon={BulletListIcon} />
-            <RichTextEditor.OrderedList icon={OrderedListIcon} />
-            <RichTextEditor.Subscript icon={SubscriptIcon} />
-            <RichTextEditor.Superscript icon={SuperscriptIcon} />
-          </RichTextEditor.ControlsGroup>
+        <RichTextEditor.ControlsGroup>
+          <RichTextEditor.Blockquote icon={BlockquoteIcon} />
+          <RichTextEditor.Hr icon={HrIcon} />
+          <RichTextEditor.BulletList icon={BulletListIcon} />
+          <RichTextEditor.OrderedList icon={OrderedListIcon} />
+          <RichTextEditor.Subscript icon={SubscriptIcon} />
+          <RichTextEditor.Superscript icon={SuperscriptIcon} />
+        </RichTextEditor.ControlsGroup>
 
-          <RichTextEditor.ControlsGroup>
-            <RichTextEditor.Link icon={LinkIcon} />
-            <RichTextEditor.Unlink icon={UnlinkIcon} />
-          </RichTextEditor.ControlsGroup>
+        <RichTextEditor.ControlsGroup>
+          <RichTextEditor.Link icon={LinkIcon} />
+          <RichTextEditor.Unlink icon={UnlinkIcon} />
+        </RichTextEditor.ControlsGroup>
 
+        <RichTextEditor.ControlsGroup>
+          <RichTextEditor.AlignLeft icon={AlignLeftIcon} />
+          <RichTextEditor.AlignCenter icon={AlignCenterIcon} />
+          <RichTextEditor.AlignJustify icon={AlignJustifyIcon} />
+          <RichTextEditor.AlignRight icon={AlignRightIcon} />
+        </RichTextEditor.ControlsGroup>
+        {useFor === 'description' && (
           <RichTextEditor.ControlsGroup>
-            <RichTextEditor.AlignLeft icon={AlignLeftIcon} />
-            <RichTextEditor.AlignCenter icon={AlignCenterIcon} />
-            <RichTextEditor.AlignJustify icon={AlignJustifyIcon} />
-            <RichTextEditor.AlignRight icon={AlignRightIcon} />
+            <TemplateControl template={template1} num={1} color={'grape'} />
+            <TemplateControl template={template2} num={2} color={'red'} />
           </RichTextEditor.ControlsGroup>
-          {useFor === 'description' && (
-            <RichTextEditor.ControlsGroup>
-              <TemplateControl template={template1} num={1} color={'grape'} />
-              <TemplateControl template={template2} num={2} color={'red'} />
-            </RichTextEditor.ControlsGroup>
-          )}
-          {useFor === 'instructions' && (
-            <RichTextEditor.ControlsGroup></RichTextEditor.ControlsGroup>
-          )}
-        </RichTextEditor.Toolbar>
-        <RichTextEditor.Content />
-      </RichTextEditor>
-    </Box>
+        )}
+        {useFor === 'instructions' && <RichTextEditor.ControlsGroup></RichTextEditor.ControlsGroup>}
+      </RichTextEditor.Toolbar>
+      <RichTextEditor.Content />
+    </RichTextEditor>
   );
 }
 

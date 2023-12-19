@@ -1,13 +1,12 @@
-import { useState } from 'react';
 import { TextInput, Textarea } from '@mantine/core';
 
-const TAGLINE_LIMIT = 90;
-const TITLE_LIMIT = 50;
+const TAGLINE_LIMIT = 100;
+const TITLE_LIMIT = 60;
 
 function TitleInput(props: any) {
   return (
     <Textarea
-      required
+      withAsterisk
       size="md"
       label="Title"
       description="The name of your game creation"

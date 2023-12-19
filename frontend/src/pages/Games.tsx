@@ -1,43 +1,37 @@
-import { useRouteLoaderData } from 'react-router-dom';
-import { Grid } from '@mantine/core';
+import { Flex } from '@mantine/core';
 
 import Navbar from '../sections/Navbar/Navbar';
 import Shop from '@/sections/Shop/Shop';
 
 function translateCategory(category: string) {
-  switch (category) {
-    case 'rpg':
-      return 'RPG';
-    case 'action':
-      return 'Action';
-    case 'multiplayer':
-      return 'Multiplayer';
-    case 'strategy':
-      return 'Strategy';
-    case 'fps':
-      return 'FPS';
-    case 'adventure':
-      return 'Adventure';
-    default:
-      return 'ALL GAMES';
+  let translated = category;
+
+  if (category) {
+    switch (category) {
+      case 'visualnovel':
+        translated = 'Visual Novel';
+        break;
+      case 'rpg':
+        translated = 'Role-playing';
+        break;
+      default:
+        translated = category.charAt(0).toUpperCase() + category.slice(1);
+    }
   }
+
+  return translated;
 }
 
 export default function Categories({ gameCategory = '' }: any) {
-  const games: any = useRouteLoaderData('root');
-
   return (
-    <Grid gutter={0}>
-      <Grid.Col span={{ base: 0, lg: 2 }}>
-        <Navbar />
-      </Grid.Col>
-      <Grid.Col span={{ base: 12, xl: 10 }}>
-        <Shop
-          titleGrid={gameCategory ? translateCategory(gameCategory) : 'All Games'}
-          showCategories={false}
-          gameCategory={gameCategory ? translateCategory(gameCategory) : ''}
-        />
-      </Grid.Col>
-    </Grid>
+    <Flex style={{ flexWrap: 'nowrap' }} w="100vw">
+      <Navbar />
+      <Shop
+        titleGrid={gameCategory ? translateCategory(gameCategory) : 'All Games'}
+        showCategories={false}
+        gameCategory={gameCategory ? translateCategory(gameCategory) : ''}
+        sortBy="releaseDate"
+      />
+    </Flex>
   );
 }

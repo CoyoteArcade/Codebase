@@ -1,32 +1,14 @@
 .shop {
+  width: 100%;
   margin: 0 auto;
   padding: 2em;
 
-  @media (max-width: $mantine-breakpoint-sm) {
-    padding: 1em;
+  @media (max-width: $mantine-breakpoint-xs) {
+    padding: 1em 0;
   }
 }
 
-.heading {
-  margin-bottom: rem(15px);
-
-  &:is(h2) {
-    margin-bottom: rem(25px);
-    @media (max-width: $mantine-breakpoint-xs) {
-      font-size: var(--mantine-font-size-xl);
-      line-height: var(--mantine-line-height-xl);
-    }
-  }
-
-  &:is(h3) {
-    @media (max-width: $mantine-breakpoint-sm) {
-      font-size: var(--mantine-font-size-lg);
-      line-height: var(--mantine-line-height-md);
-    }
-  }
-}
-
-.title-grid {
+.title {
   text-align: left;
 
   @media (max-width: $mantine-breakpoint-sm) {

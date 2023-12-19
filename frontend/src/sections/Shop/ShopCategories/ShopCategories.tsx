@@ -26,11 +26,11 @@ function ShopCategories({
   // Rendered categories
   const gameCategories = categories.map((category, idx) => {
     return (
-      <Box my="sm" key={idx}>
-        <Title key={idx} order={2}>
+      <Box my="sm" key={`${category}${idx}`}>
+        <Title className={classes.title} mb="md" order={2}>
           {category} Games
         </Title>
-        <GameGrid key={idx} gameData={gameData} category={category} />
+        <GameGrid gameData={gameData} category={category} />
       </Box>
     );
   });

@@ -31,15 +31,34 @@ function Footer() {
   return (
     <footer className={classes.footer}>
       <Container className={classes.inner}>
-        <Logo />
-
-        <Group className={classes.links}>{items}</Group>
-
-        <Group gap="xs" justify="flex-end" wrap="nowrap">
-          <ActionIcon size="lg" variant="default" radius="xl" href={GITHUB_URL} component='a' target='_blank'>
+        <Group>
+          <Logo />
+          <ActionIcon
+            hiddenFrom="xs"
+            size="lg"
+            variant="default"
+            radius="xl"
+            href={GITHUB_URL}
+            component="a"
+            target="_blank"
+          >
             <IconBrandGithub style={{ width: rem(18), height: rem(18) }} stroke={1.5} />
           </ActionIcon>
         </Group>
+
+        <Group className={classes.links}>{items}</Group>
+
+        <ActionIcon
+          visibleFrom="xs"
+          size="lg"
+          variant="default"
+          radius="xl"
+          href={GITHUB_URL}
+          component="a"
+          target="_blank"
+        >
+          <IconBrandGithub style={{ width: rem(18), height: rem(18) }} stroke={1.5} />
+        </ActionIcon>
       </Container>
     </footer>
   );

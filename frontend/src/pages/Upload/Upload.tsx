@@ -1,19 +1,20 @@
-import { Box, Container, Stack, Title, Button, Text } from '@mantine/core';
-import { useForm, isNotEmpty } from '@mantine/form';
+import { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Box, Stack, Title, Button, Text } from '@mantine/core';
 import { useScrollIntoView } from '@mantine/hooks';
+import { notifications } from '@mantine/notifications';
+import { useForm, isNotEmpty } from '@mantine/form';
+import { IconCheck, IconX } from '@tabler/icons-react';
 
-import CategorySelect from './CategorySelect';
+import { AuthContext } from '@/utilities/auth/AuthContext';
+import { uploadFile } from '@/api';
 import { TitleInput, TaglineInput, VideoInput } from './TextInput';
-import TextEditor from './TextEditor/TextEditor';
+import CategorySelect from './CategorySelect';
 import PlatformsInput from './PlatformsInput/PlatformsInput';
 import ImageDropzone from './ImageDropzone/ImageDropzone';
+import TextEditor from './TextEditor/TextEditor';
 
 import classes from './Upload.module.css';
-
-import { uploadFile } from '@/api';
-import { useContext, useState } from 'react';
-import { AuthContext } from '@/utilities/auth/AuthContext';
-import { useNavigate } from 'react-router-dom';
 
 export interface FormValues {
   id: string;
@@ -31,7 +32,6 @@ export interface FormValues {
 const baseURL = 'https://delightful-sombrero-slug.cyclic.app';
 
 function Upload() {
-
   const { user } = useContext(AuthContext);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -51,12 +51,16 @@ function Upload() {
       video: '',
     },
     validate: {
+      title: isNotEmpty('Please enter a title'),
       categories: isNotEmpty('Select at least 1 category'),
       platforms: isNotEmpty('Select at least 1 platform and include a valid file or link'),
       images: isNotEmpty('Add at least 1 image'),
     },
   });
 
+  const titleScroll = useScrollIntoView<HTMLDivElement>({
+    offset: 60,
+  });
   const categoriesScroll = useScrollIntoView<HTMLDivElement>({
     offset: 60,
   });
@@ -69,6 +73,13 @@ function Upload() {
 
   const handleSubmit = (values: any) => {
     setIsSubmitting(true);
+    const notificationId = notifications.show({
+      message: 'Attempting to upload game...',
+      loading: true,
+      autoClose: false,
+      withCloseButton: false,
+      withBorder: true,
+    });
     console.log(values);
     /*
     firestore collection: games
@@ -98,8 +109,8 @@ function Upload() {
     const getDateFormatted = () => {
       const date = new Date();
       const year = date.getFullYear();
-      let month:any = date.getMonth() + 1;
-      let day:any = date.getDate();
+      let month: any = date.getMonth() + 1;
+      let day: any = date.getDate();
       if (month < 10) {
         month = `0${month}`;
       }
@@ -124,7 +135,10 @@ function Upload() {
 
     const firestoreGameFiles = {
       images: values.images.map((image: any) => image.file),
-      files: values.platforms.map((platform: any) => ({ file:platform.archive, platform: platform.name })),
+      files: values.platforms.map((platform: any) => ({
+        file: platform.archive,
+        platform: platform.name,
+      })),
     };
 
     fetch(`${baseURL}/games`, {
@@ -148,7 +162,10 @@ function Upload() {
         });
 
         const gameUploadPromises = gameFiles.map((file: any) => {
-          return uploadFile(file.file, `gameFiles/${data.gameID}/${file.platform}/${file.file.name}`);
+          return uploadFile(
+            file.file,
+            `gameFiles/${data.gameID}/${file.platform}/${file.file.name}`
+          );
         });
 
         Promise.all(imageUploadPromises)
@@ -159,7 +176,16 @@ function Upload() {
           .then((res) => console.log(res))
           .catch((err) => console.log(err));
 
-        window.alert("Game uploaded successfully!");
+        notifications.update({
+          id: notificationId,
+          message: 'Game uploaded successfully!',
+          color: 'green',
+          icon: <IconCheck />,
+          loading: false,
+          autoClose: 3000,
+          withCloseButton: true,
+          withBorder: true,
+        });
         fetch(`${baseURL}/profile/${(user as any).uid}/uploads/update`, {
           method: 'POST',
           headers: {
@@ -176,15 +202,23 @@ function Upload() {
       })
       .catch((err) => {
         console.log(err);
-        window.alert("An error occurred while uploading your game. Please try again.");
+        notifications.update({
+          id: notificationId,
+          message: 'An error occurred while uploading your game! Please try again.',
+          color: 'red',
+          icon: <IconX />,
+          autoClose: 3000,
+          withCloseButton: true,
+          withBorder: true,
+        });
         setIsSubmitting(false);
-      }); 
-
-
+      });
   };
 
   const handleError = (errors: typeof form.errors) => {
-    if (errors.categories) {
+    if (errors.title) {
+      titleScroll.scrollIntoView();
+    } else if (errors.categories) {
       categoriesScroll.scrollIntoView();
     } else if (errors.platforms) {
       platformsScroll.scrollIntoView();
@@ -197,45 +231,61 @@ function Upload() {
     <Box component="form" onSubmit={form.onSubmit(handleSubmit, handleError)}>
       <Stack align="center" className={classes.root}>
         <Title order={1}>Game Upload</Title>
-        <Stack m="0 auto" w={500} gap={40}>
-          <TitleInput {...form.getInputProps('title')} />
+
+        <Stack m="0 auto" w="100%" maw={500} gap={40}>
+          {/* Title */}
+          <Box ref={titleScroll.targetRef}>
+            <TitleInput {...form.getInputProps('title')} />
+          </Box>
+
+          {/* Categories */}
           <Box ref={categoriesScroll.targetRef}>
             <CategorySelect {...form} />
           </Box>
+
+          {/* Tagline */}
           <TaglineInput {...form.getInputProps('tagline')} />
+
+          {/* Video */}
           <VideoInput {...form.getInputProps('video')} />
+
+          {/* Platforms */}
           <Box ref={platformsScroll.targetRef}>
             <PlatformsInput {...form} />
           </Box>
         </Stack>
 
-        <Box ref={imagesScroll.targetRef} m="0 auto">
+        {/* Images */}
+        <Box w="100%" maw={700} ref={imagesScroll.targetRef} m="0 auto">
           <Box mb="xs">
             <Title order={3}>
               Images{' '}
-              <Box component="span" c="red">
+              <Box component="span" c="var(--mantine-color-error)">
                 *
               </Box>
             </Title>
             <Text c="dimmed">The first (top left-most) image will be used as the game's cover</Text>
           </Box>
-
           <ImageDropzone {...form} />
         </Box>
 
-        <Box>
+        {/* Description */}
+        <Box w="100%" maw={1000}>
           <Title order={3} mb="xs">
             Game Page Description
           </Title>
           <TextEditor useFor="description" props={form} />
         </Box>
 
-        <Box>
+        {/* Download & Install Instructions */}
+        <Box w="100%" maw={1000}>
           <Title order={3} mb="xs">
             Download & Install Instructions
           </Title>
           <TextEditor useFor="instructions" props={form} />
         </Box>
+
+        {/* Upload Button */}
         <Button size="lg" m="0 auto" type="submit" disabled={isSubmitting}>
           {isSubmitting ? 'Uploading...' : 'UPLOAD'}
         </Button>

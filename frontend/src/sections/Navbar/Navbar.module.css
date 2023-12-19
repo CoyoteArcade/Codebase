@@ -1,12 +1,20 @@
 .navbar {
-  height: rem(700px);
+  height: 100vh;
   max-width: rem(300px);
   padding: var(--mantine-spacing-md);
-  padding-top: rem(30px);
+  padding-top: 0;
+  border-right: rem(1px) solid light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
+  position: sticky;
+  top: rem(60px);
+  left: 0;
+  z-index: 1;
+
   display: flex;
   flex-direction: column;
-  border-right: rem(1px) solid light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
-  top: 0px;
+
+  @media (max-width: $mantine-breakpoint-xs) {
+    padding-inline: rem(5);
+  }
 }
 
 .navbarMain {
@@ -14,9 +22,21 @@
 }
 
 .header {
-  padding-bottom: var(--mantine-spacing-md);
-  margin-bottom: calc(var(--mantine-spacing-md) * 1.5);
+  padding-block: var(--mantine-spacing-sm);
+  margin-bottom: var(--mantine-spacing-md);
   border-bottom: rem(1px) solid light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
+
+  @media (min-width: $mantine-breakpoint-xs) {
+    padding-inline: 30px;
+    padding-block: var(--mantine-spacing-lg);
+  }
+
+  justify-content: center;
+  gap: 0px;
+}
+
+.header-title {
+  white-space: nowrap;
 }
 
 .footer {
@@ -31,9 +51,14 @@
   text-decoration: none;
   font-size: var(--mantine-font-size-sm);
   color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-dark-1));
-  padding: var(--mantine-spacing-xs) var(--mantine-spacing-sm);
+  padding: var(--mantine-spacing-xs) var(--mantine-spacing-xs);
   border-radius: var(--mantine-radius-sm);
   font-weight: 500;
+
+  @media (max-width: $mantine-breakpoint-md) {
+    padding: rem(5) rem(7);
+    margin-bottom: rem(10);
+  }
 
   @mixin hover {
     background-color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-6));
@@ -44,7 +69,7 @@
     }
   }
 
-  &[data-active] {
+  &.active {
     &,
     &:hover {
       background-color: var(--mantine-primary-color-light);
@@ -59,7 +84,16 @@
 
 .linkIcon {
   color: light-dark(var(--mantine-color-gray-6), var(--mantine-color-dark-2));
-  margin-right: var(--mantine-spacing-sm);
   width: rem(25px);
   height: rem(25px);
+
+  @media (max-width: $mantine-breakpoint-md) {
+    width: rem(20px);
+    height: rem(20px);
+  }
+}
+
+.view-icon {
+  width: rem(20px);
+  height: rem(20px);
 }

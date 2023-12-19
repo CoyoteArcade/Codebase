@@ -9,11 +9,11 @@
   }
 }
 
-.card-banner {
+.card-cover {
   background-color: rgba(0, 0, 0, 0.1);
 }
 
-.card-banner-img {
+.card-cover-img {
   margin: 0 auto;
 }
 
@@ -60,6 +60,22 @@
   }
 }
 
+.card-release {
+}
+
+.card-release-developer,
+.card-release-date {
+  @media (max-width: $mantine-breakpoint-md) {
+    font-size: calc(var(--mantine-font-size-xs) - 2px);
+    line-height: var(--mantine-line-height-xs);
+  }
+
+  @media (min-width: $mantine-breakpoint-md) {
+    font-size: var(--mantine-font-size-xs);
+    line-height: var(--mantine-line-height-sm);
+  }
+}
+
 .card-title-simple {
   margin-block: var(--mantine-spacing-xs);
 }
@@ -95,24 +111,22 @@
   }
 }
 
-.card-description {
-  color: var(--mantine-color-dimmed);
+.card-tagline {
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
 
   @media (max-width: $mantine-breakpoint-md) {
     font-size: calc(var(--mantine-font-size-xs) - 1px);
     line-height: var(--mantine-line-height-xs);
     margin-bottom: var(--mantine-spacing-md);
-    -webkit-line-clamp: 3;
   }
 
   @media (min-width: $mantine-breakpoint-md) {
     font-size: var(--mantine-font-size-sm);
     line-height: var(--mantine-line-height-sm);
     margin-bottom: var(--mantine-spacing-lg);
-    -webkit-line-clamp: 4;
   }
 }
 

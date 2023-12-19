@@ -14,7 +14,8 @@ import {
   rem,
   ThemeIcon,
 } from '@mantine/core';
-import { IconEye, IconEyeOff } from '@tabler/icons-react';
+import { notifications } from '@mantine/notifications';
+import { IconEye, IconEyeOff, IconCheck, IconX } from '@tabler/icons-react';
 // import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import classes from './Login.module.css';
 import { AuthContext } from '@/utilities/auth/AuthContext';
@@ -22,7 +23,10 @@ import { AuthContext } from '@/utilities/auth/AuthContext';
 export function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
+  const [emailError, setEmailError] = useState('');
   const [password, setPassword] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+
   const { user, setUser } = useContext(AuthContext);
 
   useEffect(() => {
@@ -32,10 +36,18 @@ export function Login() {
     }
   }, [setUser]);
 
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      handleLogin();
+    }
+  };
+
   const handleChange = (event: any) => {
     if (event.target.id === 'email') {
+      setEmailError('');
       setEmail(event.target.value);
     } else if (event.target.id === 'password') {
+      setPasswordError('');
       setPassword(event.target.value);
     } else {
       console.log('Error: handleChange()');
@@ -43,7 +55,29 @@ export function Login() {
   };
 
   const handleLogin = async () => {
+    if (email === '') {
+      setEmailError('Please enter an email');
+      return;
+    }
+
+    if (!email.includes('@')) {
+      setEmailError('Please enter a valid email address');
+      return;
+    }
+
+    if (password === '') {
+      setPasswordError('Please enter a password');
+      return;
+    }
+
     let response = {};
+    const notificationId = notifications.show({
+      message: 'Attempting to login...',
+      loading: true,
+      autoClose: false,
+      withCloseButton: false,
+      withBorder: true,
+    });
     try {
       const request = await fetch('https://delightful-sombrero-slug.cyclic.app/login', {
         method: 'POST',
@@ -54,18 +88,47 @@ export function Login() {
       });
       response = await request.json();
       if ((response as any).message === 'Signed in') {
+        notifications.update({
+          id: notificationId,
+          message: 'Login Successful!',
+          color: 'green',
+          icon: <IconCheck />,
+          loading: false,
+          autoClose: 3000,
+          withCloseButton: true,
+          withBorder: true,
+        });
         setUser((response as any).user);
         const { email, displayName, uid } = (response as any).user;
         const stringifiedUser = JSON.stringify({ email, displayName, uid });
         localStorage.setItem('coyoteArcadeUser', stringifiedUser);
         navigate('/');
       } else {
-        window.alert('Login failed!');
+        notifications.update({
+          id: notificationId,
+          message: 'Login Failed! Please try again.',
+          color: 'red',
+          icon: <IconX />,
+          loading: false,
+          autoClose: 3000,
+          withCloseButton: true,
+          withBorder: true,
+        });
         setUser(null);
       }
     } catch (error) {
       console.log('error', error);
       response = { error: error };
+      notifications.update({
+        id: notificationId,
+        message: 'Login Failed! Please try again.',
+        color: 'red',
+        icon: <IconX />,
+        loading: false,
+        autoClose: 3000,
+        withCloseButton: true,
+        withBorder: true,
+      });
       setUser(null);
     }
     console.log('response', response);
@@ -92,6 +155,8 @@ export function Login() {
             required
             value={email}
             onChange={handleChange}
+            onKeyDown={handleKeyPress}
+            error={emailError}
           />
           <PasswordInput
             classNames={{ visibilityToggle: classes['visibility-toggle'] }}
@@ -99,6 +164,7 @@ export function Login() {
             label="Password"
             required
             mt="md"
+            error={passwordError}
             visibilityToggleButtonProps={{ 'aria-label': 'Toggle password visibility' }}
             visibilityToggleIcon={({ reveal }) =>
               reveal ? (
@@ -112,6 +178,7 @@ export function Login() {
               )
             }
             onChange={handleChange}
+            onKeyDown={handleKeyPress}
             value={password}
           />
           <Group justify="space-between" mt="lg">

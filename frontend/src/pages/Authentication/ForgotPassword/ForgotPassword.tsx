@@ -11,41 +11,83 @@ import {
   Box,
   rem,
 } from '@mantine/core';
-import { IconArrowLeft } from '@tabler/icons-react';
+import { notifications } from '@mantine/notifications';
+import { IconArrowLeft, IconCheck, IconX } from '@tabler/icons-react';
 
 import classes from './ForgotPassword.module.css';
 import { useState } from 'react';
 
 export function ForgotPassword() {
-
   const [email, setEmail] = useState('');
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const handleChange = (event: any) => {
+    setError('');
     setEmail(event.target.value);
   };
 
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      handleSubmit(event);
+    }
+  };
+
   const handleSubmit = (event: any) => {
+    if (email === '') {
+      setError('Please enter an email');
+      return;
+    }
+    if (!email.includes('@')) {
+      setError('Please enter a valid email address');
+      return;
+    }
+
     event.preventDefault();
+    const notificationId = notifications.show({
+      message: 'Attempting to send link to reset password...',
+      loading: true,
+      autoClose: false,
+      withCloseButton: false,
+      withBorder: true,
+    });
     fetch('https://delightful-sombrero-slug.cyclic.app/passwordreset', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: email,
-          }),
+      },
+      body: JSON.stringify({
+        email: email,
+      }),
     })
-    .then(response => response.json())
-    .then(data => {
-      // console.log(data);
-      window.alert('A password reset link has been sent to ' + email);
-      navigate('/login');
-    })
-    .catch(error => {
-      // console.log(error);
-      window.alert('Something went wrong. Please try again.');
-    });
+      .then((response) => response.json())
+      .then((data) => {
+        // console.log(data);
+        notifications.update({
+          id: notificationId,
+          message: `A password reset link has been sent to email: ${email}`,
+          color: 'green',
+          icon: <IconCheck />,
+          loading: false,
+          autoClose: 3000,
+          withCloseButton: true,
+          withBorder: true,
+        });
+        navigate('/login');
+      })
+      .catch((error) => {
+        // console.log(error);
+        notifications.update({
+          id: notificationId,
+          message: 'Failed to send link to reset password! Please try again.',
+          color: 'red',
+          icon: <IconX />,
+          loading: false,
+          autoClose: 3000,
+          withCloseButton: true,
+          withBorder: true,
+        });
+      });
   };
 
   return (
@@ -59,7 +101,17 @@ export function ForgotPassword() {
         </Text>
 
         <Paper withBorder shadow="md" p={30} radius="md" mt="xl">
-          <TextInput label="Your email" placeholder="me@csusb.dev" id="reset-email" required value={email} onChange={handleChange}/>
+          <TextInput
+            error={error}
+            label="Your email"
+            placeholder="me@csusb.dev"
+            id="reset-email"
+            type="email"
+            required
+            value={email}
+            onChange={handleChange}
+            onKeyDown={handleKeyPress}
+          />
           <Group justify="space-between" mt="lg" className={classes.controls}>
             <Anchor c="dimmed" size="sm" className={classes.control} component={Link} to="/login">
               <Center inline>
@@ -67,7 +119,9 @@ export function ForgotPassword() {
                 <Box ml={5}>Back to the login page</Box>
               </Center>
             </Anchor>
-            <Button className={classes.control} onClick={handleSubmit}>Reset password</Button>
+            <Button className={classes.control} onClick={handleSubmit}>
+              Reset password
+            </Button>
           </Group>
         </Paper>
       </Box>

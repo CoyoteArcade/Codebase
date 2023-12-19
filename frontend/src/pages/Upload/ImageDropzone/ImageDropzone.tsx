@@ -37,10 +37,20 @@ export default function ImageDropzone(props: any) {
   }, [files]);
 
   return (
-    <Box w="800px">
-      {props.errors.images && <Text c="red">{props.errors.images}</Text>}
+    <Box w="100%" className={classes.root}>
+      {props.errors.images && (
+        <Text mb="xs" c="var(--mantine-color-error)">
+          {props.errors.images}
+        </Text>
+      )}
       <Dropzone
-        style={{ border: '1px solid var(--mantine-color-default-border)' }}
+        style={
+          props.errors.images
+            ? { border: '1px solid var(--mantine-color-error)' }
+            : { border: '1px solid var(--mantine-color-default-border)' }
+        }
+        px={20}
+        py={10}
         onDrop={(newFiles: any) => {
           setFiles([...files, ...newFiles].slice(0, 4));
         }}
@@ -71,14 +81,14 @@ export default function ImageDropzone(props: any) {
             />
           </Dropzone.Idle>
 
-          <div>
+          <Box>
             <Text size="xl" inline>
               Drag images here or click to select files
             </Text>
             <Text size="sm" c="dimmed" inline mt={7}>
               Add up to 4 images, each image should not exceed 5 mb
             </Text>
-          </div>
+          </Box>
         </Group>
       </Dropzone>
       <SimpleGrid cols={2} mt={previews.length > 0 ? 'xl' : 0}>
