@@ -51,7 +51,7 @@ export function ForgotPassword() {
       withCloseButton: false,
       withBorder: true,
     });
-    fetch('https://delightful-sombrero-slug.cyclic.app/passwordreset', {
+    fetch('https://codebase-ty4d.onrender.com/passwordreset', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
