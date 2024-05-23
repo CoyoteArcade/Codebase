@@ -9,7 +9,7 @@ import classes from './Root.module.css';
 
 export async function loader() {
   let games = [];
-  const gamesResponse = await fetch('https://delightful-sombrero-slug.cyclic.app/games');
+  const gamesResponse = await fetch('https://codebase-ty4d.onrender.com/games');
   const gamesJson = await gamesResponse.json();
   if (gamesJson.length) {
     games = gamesJson;

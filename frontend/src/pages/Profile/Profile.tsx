@@ -44,7 +44,7 @@ function Profile() {
   async function getProfile() {
     if (user) {
       const profileResponse = await fetch(
-        `https://delightful-sombrero-slug.cyclic.app/profile/${user.uid}`
+        `https://codebase-ty4d.onrender.com/profile/${user.uid}`
       );
       const profileJson = await profileResponse.json();
       setProfile(profileJson);

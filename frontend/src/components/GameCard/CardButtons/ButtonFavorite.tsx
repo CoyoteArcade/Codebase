@@ -26,7 +26,7 @@ function FavoriteButton({ gameID, isFavorite }: any) {
   }, [isFavorite]);
   // useEffect(() => {
   //   if (user) {
-  //     fetch(`https://delightful-sombrero-slug.cyclic.app/profile/${user.uid}`)
+  //     fetch(`https://codebase-ty4d.onrender.com/profile/${user.uid}`)
   //       .then((res) => res.json())
   //       .then((json) => {
   //         if(json.favorites.includes(gameID)) {
@@ -44,7 +44,7 @@ function FavoriteButton({ gameID, isFavorite }: any) {
         action: 'add',
       };
       console.log('body', JSON.stringify(body), body);
-      fetch(`https://delightful-sombrero-slug.cyclic.app/profile/${user.uid}/favorites/update`, {
+      fetch(`https://codebase-ty4d.onrender.com/profile/${user.uid}/favorites/update`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -73,7 +73,7 @@ function FavoriteButton({ gameID, isFavorite }: any) {
         action: 'remove',
       };
       console.log('body', removeBodyObj);
-      fetch(`https://delightful-sombrero-slug.cyclic.app/profile/${user.uid}/favorites/update`, {
+      fetch(`https://codebase-ty4d.onrender.com/profile/${user.uid}/favorites/update`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

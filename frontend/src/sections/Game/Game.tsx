@@ -120,7 +120,7 @@ export function Game() {
 
   useEffect(() => {
     const fetchGameAssets = async () => {
-      const response = await fetch(`https://delightful-sombrero-slug.cyclic.app/games/${id}/url`);
+      const response = await fetch(`https://codebase-ty4d.onrender.com/games/${id}/url`);
       const json = await response.json();
       console.log(json);
       setGameAssetLinks(json);
@@ -132,7 +132,7 @@ export function Game() {
   const handlePurchase = (event: any) => {
     if (user) {
       fetch(
-        `https://delightful-sombrero-slug.cyclic.app/profile/${(user as any).uid}/purchases/update`,
+        `https://codebase-ty4d.onrender.com/profile/${(user as any).uid}/purchases/update`,
         {
           method: 'POST',
           headers: {

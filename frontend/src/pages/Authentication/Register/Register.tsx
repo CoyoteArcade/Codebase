@@ -48,7 +48,7 @@ export function Register() {
       console.log('Error: Passwords do not match');
       return;
     }
-    const request = await fetch('https://delightful-sombrero-slug.cyclic.app/signup', {
+    const request = await fetch('https://codebase-ty4d.onrender.com/signup', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
