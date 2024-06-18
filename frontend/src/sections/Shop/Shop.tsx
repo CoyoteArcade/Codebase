@@ -5,7 +5,20 @@ import { Box, Title, MantineProvider, rem } from '@mantine/core';
 import GameGrid from '@/components/GameGrid/GameGrid';
 import ShopCategories from './ShopCategories/ShopCategories';
 
+import { sortByRelease } from '@/utilities/sortUtils';
+
 import classes from './Shop.module.css';
+
+interface ShopProps {
+  titleCategories?: string;
+  titleGrid?: string;
+  showGrid?: boolean;
+  showCategories?: boolean;
+  maxCategories?: number;
+  title?: string;
+  gameCategory?: string;
+  sortBy?: string;
+}
 
 export default function Shop({
   titleCategories = '',
@@ -15,36 +28,8 @@ export default function Shop({
   maxCategories,
   gameCategory = '',
   sortBy = '',
-}: {
-  titleCategories?: string;
-  titleGrid?: string;
-  showGrid?: boolean;
-  showCategories?: boolean;
-  maxCategories?: number;
-  title?: string;
-  gameCategory?: string;
-  sortBy?: string;
-}) {
+}: ShopProps) {
   let games: any = useRouteLoaderData('root');
-
-  const sortByRelease = (games: any) => {
-    return games
-      .toSorted((a: any, b: any) => {
-        const dateA: number = Date.parse(a.releaseDate);
-        const dateB: number = Date.parse(b.releaseDate);
-
-        if (isNaN(dateA) && isNaN(dateB)) {
-          return 0;
-        } else if (isNaN(dateA)) {
-          return -1;
-        } else if (isNaN(dateB)) {
-          return 1;
-        } else {
-          return dateA - dateB;
-        }
-      })
-      .reverse();
-  };
 
   if (sortBy === 'releaseDate') {
     games = sortByRelease(games);
