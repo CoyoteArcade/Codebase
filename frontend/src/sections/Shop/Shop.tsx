@@ -1,6 +1,5 @@
-import { useState, useEffect } from 'react';
 import { useRouteLoaderData } from 'react-router-dom';
-import { Box, Title, MantineProvider, rem } from '@mantine/core';
+import { Box, Title, rem } from '@mantine/core';
 
 import GameGrid from '@/components/GameGrid/GameGrid';
 import ShopCategories from './ShopCategories/ShopCategories';
