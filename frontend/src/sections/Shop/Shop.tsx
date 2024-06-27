@@ -5,19 +5,9 @@ import GameGrid from '@/components/GameGrid/GameGrid';
 import ShopCategories from './ShopCategories/ShopCategories';
 
 import { sortByRelease } from '@/utilities/sortUtils';
+import { Game, ShopProps } from '@/types';
 
 import classes from './Shop.module.css';
-
-interface ShopProps {
-  titleCategories?: string;
-  titleGrid?: string;
-  showGrid?: boolean;
-  showCategories?: boolean;
-  maxCategories?: number;
-  title?: string;
-  gameCategory?: string;
-  sortBy?: string;
-}
 
 export default function Shop({
   titleCategories = '',
@@ -28,16 +18,19 @@ export default function Shop({
   gameCategory = '',
   sortBy = '',
 }: ShopProps) {
-  let games: any = useRouteLoaderData('root');
+  let games: Game[] = useRouteLoaderData('root') as Game[];
 
-  if (sortBy === 'releaseDate') {
-    games = sortByRelease(games);
-  }
+  const handleFilters = (games: Game[]) => {
+    let filteredGames = games;
 
-  let categoryGames = [];
-  if (gameCategory) {
-    categoryGames = games.filter((game: any) => game.categories.includes(gameCategory));
-  }
+    if (gameCategory) {
+      filteredGames = games.filter((game) => game.categories?.includes(gameCategory));
+    }
+    if (sortBy === 'releaseDate') {
+      filteredGames = sortByRelease(filteredGames);
+    }
+    return filteredGames;
+  };
 
   return (
     <Box className={classes.shop}>
@@ -53,7 +46,7 @@ export default function Shop({
         </Title>
       )}
 
-      {showGrid && <GameGrid gameData={gameCategory ? categoryGames : games} />}
+      {showGrid && <GameGrid gameData={handleFilters(games)} />}
     </Box>
   );
 }
