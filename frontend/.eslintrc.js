@@ -1,8 +1,6 @@
 module.exports = {
   extends: ['mantine', 'airbnb', 'airbnb-typescript'],
-  parserOptions: {
-    project: './tsconfig.json',
-  },
+  parserOptions: {},
   rules: {
     'react/react-in-jsx-scope': 'off',
     'import/extensions': [

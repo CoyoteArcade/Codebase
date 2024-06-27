@@ -1,9 +1,11 @@
-import { useState, useEffect } from 'react';
 import { useRouteLoaderData } from 'react-router-dom';
-import { Box, Title, MantineProvider, rem } from '@mantine/core';
+import { Box, Title, rem } from '@mantine/core';
 
 import GameGrid from '@/components/GameGrid/GameGrid';
 import ShopCategories from './ShopCategories/ShopCategories';
+
+import { sortByRelease } from '@/utilities/sortUtils';
+import { Game, ShopProps } from '@/types';
 
 import classes from './Shop.module.css';
 
@@ -15,45 +17,20 @@ export default function Shop({
   maxCategories,
   gameCategory = '',
   sortBy = '',
-}: {
-  titleCategories?: string;
-  titleGrid?: string;
-  showGrid?: boolean;
-  showCategories?: boolean;
-  maxCategories?: number;
-  title?: string;
-  gameCategory?: string;
-  sortBy?: string;
-}) {
-  let games: any = useRouteLoaderData('root');
+}: ShopProps) {
+  let games: Game[] = useRouteLoaderData('root') as Game[];
 
-  const sortByRelease = (games: any) => {
-    return games
-      .toSorted((a: any, b: any) => {
-        const dateA: number = Date.parse(a.releaseDate);
-        const dateB: number = Date.parse(b.releaseDate);
+  const handleFilters = (games: Game[]) => {
+    let filteredGames = games;
 
-        if (isNaN(dateA) && isNaN(dateB)) {
-          return 0;
-        } else if (isNaN(dateA)) {
-          return -1;
-        } else if (isNaN(dateB)) {
-          return 1;
-        } else {
-          return dateA - dateB;
-        }
-      })
-      .reverse();
+    if (gameCategory) {
+      filteredGames = games.filter((game) => game.categories?.includes(gameCategory));
+    }
+    if (sortBy === 'releaseDate') {
+      filteredGames = sortByRelease(filteredGames);
+    }
+    return filteredGames;
   };
-
-  if (sortBy === 'releaseDate') {
-    games = sortByRelease(games);
-  }
-
-  let categoryGames = [];
-  if (gameCategory) {
-    categoryGames = games.filter((game: any) => game.categories.includes(gameCategory));
-  }
 
   return (
     <Box className={classes.shop}>
@@ -69,7 +46,7 @@ export default function Shop({
         </Title>
       )}
 
-      {showGrid && <GameGrid gameData={gameCategory ? categoryGames : games} />}
+      {showGrid && <GameGrid gameData={handleFilters(games)} />}
     </Box>
   );
 }
