@@ -1,5 +1,7 @@
 import { NavLink } from 'react-router-dom';
-import { Group, Box, Title, Text, rem, ActionIcon } from '@mantine/core';
+import {
+  Group, Box, Title, ActionIcon,
+} from '@mantine/core';
 import {
   IconBrowser,
   IconBalloon,
@@ -20,12 +22,10 @@ const data = [
   { link: '/games/categories/strategy', label: 'Strategy', icon: IconChessKnight },
 ];
 
-export default function NavbarSimple({ ...props }) {
+export default function NavbarSimple() {
   const links = data.map((item) => (
     <NavLink
-      className={({ isActive }: { isActive: boolean }) => {
-        return isActive ? `${classes.link} ${classes.active}` : `${classes.link}`;
-      }}
+      className={({ isActive }: { isActive: boolean }) => (isActive ? `${classes.link} ${classes.active}` : `${classes.link}`)}
       to={item.link}
       end
       key={item.label}
@@ -38,7 +38,7 @@ export default function NavbarSimple({ ...props }) {
   ));
 
   return (
-    <Box component="nav" visibleFrom="xxs" className={classes.navbar} {...props}>
+    <Box component="nav" visibleFrom="xxs" className={classes.navbar}>
       <div className={classes.navbarMain}>
         <Group className={classes.header} justify="center">
           <Group wrap="nowrap" align="center" gap="xs">

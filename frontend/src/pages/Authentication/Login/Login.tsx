@@ -15,7 +15,9 @@ import {
   ThemeIcon,
 } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
-import { IconEye, IconEyeOff, IconCheck, IconX } from '@tabler/icons-react';
+import {
+  IconEye, IconEyeOff, IconCheck, IconX,
+} from '@tabler/icons-react';
 // import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import classes from './Login.module.css';
 import { AuthContext } from '@/utilities/auth/AuthContext';
@@ -84,7 +86,7 @@ export function Login() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email: email, password: password }),
+        body: JSON.stringify({ email, password }),
       });
       response = await request.json();
       if ((response as any).message === 'Signed in') {
@@ -118,7 +120,7 @@ export function Login() {
       }
     } catch (error) {
       console.log('error', error);
-      response = { error: error };
+      response = { error };
       notifications.update({
         id: notificationId,
         message: 'Login Failed! Please try again.',
@@ -138,10 +140,13 @@ export function Login() {
     <Box className={classes.root}>
       <Box className={classes['login-container']}>
         <Title ta="center" className={classes.title}>
-          Welcome back! {user ? (user as any).displayName : 'Guest'}
+          Welcome back!
+          {' '}
+          {user ? (user as any).displayName : 'Guest'}
         </Title>
         <Text c="dimmed" size="sm" ta="center" mt={5}>
-          Do not have an account yet?{' '}
+          Do not have an account yet?
+          {' '}
           <Anchor size="sm" component={Link} to="/register">
             Create account
           </Anchor>
@@ -166,17 +171,15 @@ export function Login() {
             mt="md"
             error={passwordError}
             visibilityToggleButtonProps={{ 'aria-label': 'Toggle password visibility' }}
-            visibilityToggleIcon={({ reveal }) =>
-              reveal ? (
-                <ThemeIcon variant="light">
-                  <IconEye style={{ width: rem('17px'), height: rem('17px') }} />
-                </ThemeIcon>
-              ) : (
-                <ThemeIcon color="default" variant="subtle">
-                  <IconEyeOff style={{ width: rem('17px'), height: rem('17px') }} />
-                </ThemeIcon>
-              )
-            }
+            visibilityToggleIcon={({ reveal }) => (reveal ? (
+              <ThemeIcon variant="light">
+                <IconEye style={{ width: rem('17px'), height: rem('17px') }} />
+              </ThemeIcon>
+            ) : (
+              <ThemeIcon color="default" variant="subtle">
+                <IconEyeOff style={{ width: rem('17px'), height: rem('17px') }} />
+              </ThemeIcon>
+            ))}
             onChange={handleChange}
             onKeyDown={handleKeyPress}
             value={password}

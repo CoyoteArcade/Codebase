@@ -1,11 +1,12 @@
-import { Container, Title, Text, Button, rem, useMantineTheme } from '@mantine/core';
-import classes from './Hero.module.css';
+import {
+  Container, Title, Text, Button, rem, useMantineTheme,
+} from '@mantine/core';
 import { NavLink } from 'react-router-dom';
+import classes from './Hero.module.css';
 
 export default function HeroImageRight() {
   const theme = useMantineTheme();
-  const description =
-    'Try out new games from your fellow Coyote Students here at CSUSB Upload and share your own game creations to show off your skills and creativity!';
+  const description = 'Try out new games from your fellow Coyote Students here at CSUSB Upload and share your own game creations to show off your skills and creativity!';
 
   let accentColor = '';
   switch (theme.primaryColor) {
@@ -15,6 +16,9 @@ export default function HeroImageRight() {
     case 'violet':
       accentColor = 'grape';
       break;
+    default:
+      accentColor = 'blue';
+      break;
   }
 
   return (
@@ -23,10 +27,12 @@ export default function HeroImageRight() {
         <div className={classes.inner}>
           <div className={classes.content}>
             <Title lh={rem('1.2em')} className={classes.title}>
-              Welcome to the{' '}
+              Welcome to the
+              {' '}
               <Text component="span" inherit c={`${accentColor}.4`}>
                 Coyote&nbsp;Arcade
-              </Text>{' '}
+              </Text>
+              {' '}
               Web&nbsp;Application
             </Title>
             <Text className={classes.description} mt={30}>

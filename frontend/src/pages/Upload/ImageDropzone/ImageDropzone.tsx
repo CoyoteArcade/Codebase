@@ -1,7 +1,11 @@
 import { useState, useEffect } from 'react';
-import { Box, Group, Text, SimpleGrid, rem } from '@mantine/core';
+import {
+  Box, Group, Text, SimpleGrid, rem,
+} from '@mantine/core';
 import { IconUpload, IconPhoto, IconX } from '@tabler/icons-react';
-import { Dropzone, DropzoneProps, IMAGE_MIME_TYPE, FileWithPath } from '@mantine/dropzone';
+import {
+  Dropzone, DropzoneProps, IMAGE_MIME_TYPE, FileWithPath,
+} from '@mantine/dropzone';
 
 import ImageWithMenu from './ImageWithMenu';
 
@@ -29,9 +33,7 @@ export default function ImageDropzone(props: any) {
   });
 
   useEffect(() => {
-    let result = files.map((file) => {
-      return { file: file, cropped: true };
-    });
+    const result = files.map((file) => ({ file, cropped: true }));
     props.setFieldValue('images', result);
     props.clearFieldError('images');
   }, [files]);

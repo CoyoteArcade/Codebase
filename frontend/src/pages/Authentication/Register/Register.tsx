@@ -13,10 +13,12 @@ import {
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { notifications } from '@mantine/notifications';
-import { IconEye, IconEyeOff, IconCheck, IconX } from '@tabler/icons-react';
+import {
+  IconEye, IconEyeOff, IconCheck, IconX,
+} from '@tabler/icons-react';
 import { Link, useNavigate } from 'react-router-dom';
-import classes from './Register.module.css';
 import { useContext, useState } from 'react';
+import classes from './Register.module.css';
 import { AuthContext } from '@/utilities/auth/AuthContext';
 
 export function Register() {
@@ -54,10 +56,10 @@ export function Register() {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        email: email,
-        username: username,
-        password: password,
-        confirmPassword: confirmPassword,
+        email,
+        username,
+        password,
+        confirmPassword,
       }),
     });
     const response = await request.json();
@@ -94,7 +96,8 @@ export function Register() {
         </Title>
 
         <Text c="dimmed" size="sm" ta="center" mt={5}>
-          Already have an account?{' '}
+          Already have an account?
+          {' '}
           <Anchor size="sm" component={Link} to="/login">
             Log in
           </Anchor>
@@ -133,17 +136,15 @@ export function Register() {
             visible={visible}
             onVisibilityChange={toggle}
             visibilityToggleButtonProps={{ 'aria-label': 'Toggle password visibility' }}
-            visibilityToggleIcon={({ reveal }) =>
-              reveal ? (
-                <ThemeIcon variant="light">
-                  <IconEye style={{ width: rem('17px'), height: rem('17px') }} />
-                </ThemeIcon>
-              ) : (
-                <ThemeIcon color="default" variant="subtle">
-                  <IconEyeOff style={{ width: rem('17px'), height: rem('17px') }} />
-                </ThemeIcon>
-              )
-            }
+            visibilityToggleIcon={({ reveal }) => (reveal ? (
+              <ThemeIcon variant="light">
+                <IconEye style={{ width: rem('17px'), height: rem('17px') }} />
+              </ThemeIcon>
+            ) : (
+              <ThemeIcon color="default" variant="subtle">
+                <IconEyeOff style={{ width: rem('17px'), height: rem('17px') }} />
+              </ThemeIcon>
+            ))}
             id="password"
             value={password}
             onChange={handleChange}
@@ -157,17 +158,15 @@ export function Register() {
             visible={visible}
             onVisibilityChange={toggle}
             visibilityToggleButtonProps={{ 'aria-label': 'Toggle password visibility' }}
-            visibilityToggleIcon={({ reveal }) =>
-              reveal ? (
-                <ThemeIcon variant="light">
-                  <IconEye style={{ width: rem('17px'), height: rem('17px') }} />
-                </ThemeIcon>
-              ) : (
-                <ThemeIcon color="default" variant="subtle">
-                  <IconEyeOff style={{ width: rem('17px'), height: rem('17px') }} />
-                </ThemeIcon>
-              )
-            }
+            visibilityToggleIcon={({ reveal }) => (reveal ? (
+              <ThemeIcon variant="light">
+                <IconEye style={{ width: rem('17px'), height: rem('17px') }} />
+              </ThemeIcon>
+            ) : (
+              <ThemeIcon color="default" variant="subtle">
+                <IconEyeOff style={{ width: rem('17px'), height: rem('17px') }} />
+              </ThemeIcon>
+            ))}
             id="confirm-password"
             value={confirmPassword}
             onChange={handleChange}
@@ -177,9 +176,7 @@ export function Register() {
             mt="xl"
             onClick={handleSignup}
             disabled={
-              password === confirmPassword && password.length && email.length && username.length
-                ? false
-                : true
+              !(password === confirmPassword && password.length && email.length && username.length)
             }
           >
             Register

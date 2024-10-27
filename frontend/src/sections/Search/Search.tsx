@@ -1,17 +1,22 @@
 import { Link, useParams, useRouteLoaderData } from 'react-router-dom';
-import { Container, Title, rem, Divider, Text } from '@mantine/core';
+import {
+  Container, Title, rem, Divider, Text,
+} from '@mantine/core';
 
-export function Search() {
+export default function Search() {
   const games: any = useRouteLoaderData('root');
   const { query }: any = useParams();
-  const filteredGames = games.filter((game: any) =>
-    game.title.toLowerCase().includes(query.toLowerCase())
-  );
+  const filteredGames = games.filter((game: any) => game
+    .title
+    .toLowerCase()
+    .includes(query.toLowerCase()));
   if (!filteredGames.length) {
     return (
       <Container size="md" p={rem('40px')}>
         <Title order={1} mt={rem('30px')} mb={rem('60px')}>
-          Search Results for "{query}"
+          Search Results for &quot
+          {query}
+          &quot
         </Title>
 
         <Divider my="sm" />
@@ -25,7 +30,9 @@ export function Search() {
   return (
     <Container size="md" p={rem('40px')}>
       <Title order={1} mt={rem('30px')} mb={rem('60px')}>
-        Search Results for "{query}"
+        Search Results for &quot
+        {query}
+        &quot
       </Title>
 
       <Divider my="sm" />

@@ -37,7 +37,7 @@ export default function InputWithButton(props: any) {
       value={inputValue}
       onChange={handleChange}
       onKeyDown={handleKeyPress}
-      rightSection={
+      rightSection={(
         <ActionIcon size={rem(30)} radius="lg" variant="outline" onClick={handleSearch}>
           <IconArrowRight
             style={{
@@ -47,7 +47,7 @@ export default function InputWithButton(props: any) {
             stroke={3}
           />
         </ActionIcon>
-      }
+      )}
       {...props}
     />
   );

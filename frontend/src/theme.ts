@@ -1,6 +1,6 @@
 import { createTheme } from '@mantine/core';
 
-export const theme = createTheme({
+const theme = createTheme({
   /** Put your mantine theme override here */
   colors: {
     'coyote-blue': [
@@ -30,3 +30,5 @@ export const theme = createTheme({
   fontFamily:
     'Gabarito, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji',
 });
+
+export default theme;

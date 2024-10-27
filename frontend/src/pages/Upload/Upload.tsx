@@ -1,6 +1,8 @@
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Box, Stack, Title, Button, Text } from '@mantine/core';
+import {
+  Box, Stack, Title, Button, Text,
+} from '@mantine/core';
 import { useScrollIntoView } from '@mantine/hooks';
 import { notifications } from '@mantine/notifications';
 import { useForm, isNotEmpty } from '@mantine/form';
@@ -148,25 +150,18 @@ function Upload() {
       },
       body: JSON.stringify(firestoreGameData),
     })
-      .then((res) => {
-        // console.log("res from gameAdd function",res);
-        return res.json();
-      })
+      .then((res) => res.json())
       .then((data) => {
         console.log('data from gameAdd function', data);
         const imageFiles = firestoreGameFiles.images;
         const gameFiles = firestoreGameFiles.files.filter((file: any) => file.platform !== 'web');
 
-        const imageUploadPromises = imageFiles.map((image: any) => {
-          return uploadFile(image, `images/${data.gameID}/${image.name}`);
-        });
+        const imageUploadPromises = imageFiles.map((image: any) => uploadFile(image, `images/${data.gameID}/${image.name}`));
 
-        const gameUploadPromises = gameFiles.map((file: any) => {
-          return uploadFile(
-            file.file,
-            `gameFiles/${data.gameID}/${file.platform}/${file.file.name}`
-          );
-        });
+        const gameUploadPromises = gameFiles.map((file: any) => uploadFile(
+          file.file,
+          `gameFiles/${data.gameID}/${file.platform}/${file.file.name}`,
+        ));
 
         Promise.all(imageUploadPromises)
           .then((res) => console.log(res))
@@ -259,12 +254,13 @@ function Upload() {
         <Box w="100%" maw={700} ref={imagesScroll.targetRef} m="0 auto">
           <Box mb="xs">
             <Title order={3}>
-              Images{' '}
+              Images
+              {' '}
               <Box component="span" c="var(--mantine-color-error)">
                 *
               </Box>
             </Title>
-            <Text c="dimmed">The first (top left-most) image will be used as the game's cover</Text>
+            <Text c="dimmed">The first (top left-most) image will be used as the game&apos;s cover</Text>
           </Box>
           <ImageDropzone {...form} />
         </Box>

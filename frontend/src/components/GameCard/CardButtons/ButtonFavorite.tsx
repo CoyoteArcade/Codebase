@@ -9,9 +9,9 @@ import {
   IconLogin2,
 } from '@tabler/icons-react';
 
-import classes from './ButtonFavorite.module.css';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import classes from './ButtonFavorite.module.css';
 import { AuthContext } from '@/utilities/auth/AuthContext';
 
 function FavoriteButton({ gameID, isFavorite }: any) {

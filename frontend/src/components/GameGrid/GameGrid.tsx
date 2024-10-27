@@ -29,7 +29,7 @@ function GameGrid({ gameData, category = '' }: { gameData: any; category?: strin
 
     const fetchGameImages = async () => {
       setLoading(true);
-      fetch(`https://codebase-ty4d.onrender.com/games/url/images`)
+      fetch('https://codebase-ty4d.onrender.com/games/url/images')
         .then((res) => res.json())
         .then((json) => {
           // console.log('fetch game images response', json);
@@ -49,9 +49,7 @@ function GameGrid({ gameData, category = '' }: { gameData: any; category?: strin
   const findGameImages = (id) => {
     let gameImages = {};
 
-    gameImages = allImageLinks.find((game) => {
-      return game.id === id;
-    });
+    gameImages = allImageLinks.find((game) => game.id === id);
 
     return gameImages;
   };
@@ -87,7 +85,7 @@ function GameGrid({ gameData, category = '' }: { gameData: any; category?: strin
       games.push(
         <Box key={`box-${i}`} style={{ visibility: 'hidden' }}>
           .
-        </Box>
+        </Box>,
       );
     }
   }

@@ -1,9 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
-import { Box, FileButton, Code, Button, Group, Text, ThemeIcon } from '@mantine/core';
+import {
+  Box, FileButton, Code, Button, Group, Text, ThemeIcon,
+} from '@mantine/core';
 import { IconCheck, IconX } from '@tabler/icons-react';
 
-const ARCHIVE_TYPES =
-  'application/zip,application/x-7z-compressed,application/gzip,application/vnd.rar,application/x-zip-compressed,application/x-rar-compressed,application/x-rar';
+const ARCHIVE_TYPES = 'application/zip,application/x-7z-compressed,application/gzip,application/vnd.rar,application/x-zip-compressed,application/x-rar-compressed,application/x-rar';
 
 export default function FileUpload({ file, setFile }: { file: any; setFile: any }) {
   const resetRef = useRef<() => void>(null);
@@ -47,7 +48,9 @@ export default function FileUpload({ file, setFile }: { file: any; setFile: any 
             <IconCheck style={{ width: '60%', height: '60%' }} />
           </ThemeIcon>
           <Text size="md" ta="center" mt="sm">
-            Game Archive: {file.name}
+            Game Archive:
+            {' '}
+            {file.name}
           </Text>
         </Group>
       )}
@@ -60,11 +63,17 @@ export default function FileUpload({ file, setFile }: { file: any; setFile: any 
           </ThemeIcon>
           {/* prettier-ignore */}
           <Text size="md" ta="center" mt="sm">
-            Invalid file format! Try {' '}
-            <Code>.zip</Code>{' '}
-            <Code>.rar</Code>{' '}
-            <Code>.7z</Code>{' or '}
-            <Code>.gz</Code>{' files.'}
+            Invalid file format! Try
+            {' '}
+            {' '}
+            <Code>.zip</Code>
+            {' '}
+            <Code>.rar</Code>
+            {' '}
+            <Code>.7z</Code>
+            {' or '}
+            <Code>.gz</Code>
+            {' files.'}
           </Text>
         </Group>
       )}

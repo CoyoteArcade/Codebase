@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
-import { PillsInput, Pill, Combobox, CheckIcon, Group, useCombobox } from '@mantine/core';
+import {
+  PillsInput, Pill, Combobox, CheckIcon, Group, useCombobox,
+} from '@mantine/core';
 
 const CATEGORIES_LIMIT = 3;
 
@@ -41,14 +43,11 @@ export default function CategorySelect(props: any) {
   const [value, setValue] = useState<string[]>([]);
 
   const handleValueSelect = (val: string) => {
-    setValue((current) =>
-      current.includes(val) ? current.filter((v) => v !== val) : [...current, val]
-    );
+    setValue((current) => (current.includes(val) ? current.filter((v) => v !== val) : [...current, val]));
     setSearch('');
   };
 
-  const handleValueRemove = (val: string) =>
-    setValue((current) => current.filter((v) => v !== val));
+  const handleValueRemove = (val: string) => setValue((current) => current.filter((v) => v !== val));
 
   const values = value.map((item) => (
     <Pill key={item} withRemoveButton onRemove={() => handleValueRemove(item)}>

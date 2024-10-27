@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Box, ThemeIcon } from '@mantine/core';
+import { ThemeIcon } from '@mantine/core';
 import { RichTextEditor, Link } from '@mantine/tiptap';
 import { useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
@@ -37,47 +37,100 @@ import {
   IconPencilQuestion,
 } from '@tabler/icons-react';
 
-const BoldIcon = () => <IconBold size="1.1rem" stroke={1.5} />;
-const ItalicIcon = () => <IconItalic size="1.1rem" stroke={1.5} />;
-const UnderlineIcon = () => <IconUnderline size="1.1rem" stroke={1.5} />;
-const StrikethroughIcon = () => <IconStrikethrough size="1.1rem" stroke={1.5} />;
-const CodeBlockIcon = () => <IconCode size="1.1rem" stroke={1.5} />;
-const ClearFormattingIcon = () => <IconClearFormatting size="1.1rem" stroke={1.5} />;
-const H1Icon = () => <IconH1 size="1.1rem" stroke={1.5} />;
-const H2Icon = () => <IconH2 size="1.1rem" stroke={1.5} />;
-const H3Icon = () => <IconH3 size="1.1rem" stroke={1.5} />;
-const H4Icon = () => <IconH4 size="1.1rem" stroke={1.5} />;
-const BlockquoteIcon = () => <IconBlockquote size="1.1rem" stroke={1.5} />;
-const HrIcon = () => <IconLineDashed size="1.1rem" stroke={1.5} />;
-const BulletListIcon = () => <IconList size="1.1rem" stroke={1.5} />;
-const OrderedListIcon = () => <IconListNumbers size="1.1rem" stroke={1.5} />;
-const SuperscriptIcon = () => <IconSuperscript size="1.1rem" stroke={1.5} />;
-const SubscriptIcon = () => <IconSubscript size="1.1rem" stroke={1.5} />;
-const LinkIcon = () => <IconLink size="1.1rem" stroke={1.5} />;
-const UnlinkIcon = () => <IconLinkOff size="1.1rem" stroke={1.5} />;
-const AlignLeftIcon = () => <IconAlignLeft size="1.1rem" stroke={1.5} />;
-const AlignCenterIcon = () => <IconAlignCenter size="1.1rem" stroke={1.5} />;
-const AlignJustifyIcon = () => <IconAlignJustified size="1.1rem" stroke={1.5} />;
-const AlignRightIcon = () => <IconAlignRight size="1.1rem" stroke={1.5} />;
-const TemplateIcon = () => <IconPencilQuestion size="1.1rem" stroke={1.5} />;
-const UndoIcon = () => <IconArrowBackUp size="1.1rem" stroke={1.5} />;
-const RedoIcon = () => <IconArrowForwardUp size="1.1rem" stroke={1.5} />;
-
 import classes from './TextEditor.module.css';
-import { template1, template2 } from '@/utilities/textEditor/descriptions.js';
+import { template1, template2 } from '@/utilities/textEditor/descriptions';
+import { FormValues } from '../Upload';
+import { UseFormReturnType } from '@mantine/form';
+
+function BoldIcon() {
+  return <IconBold size="1.1rem" stroke={1.5} />;
+}
+function ItalicIcon() {
+  return <IconItalic size="1.1rem" stroke={1.5} />;
+}
+function UnderlineIcon() {
+  return <IconUnderline size="1.1rem" stroke={1.5} />;
+}
+function StrikethroughIcon() {
+  return <IconStrikethrough size="1.1rem" stroke={1.5} />;
+}
+function CodeBlockIcon() {
+  return <IconCode size="1.1rem" stroke={1.5} />;
+}
+function ClearFormattingIcon() {
+  return <IconClearFormatting size="1.1rem" stroke={1.5} />;
+}
+function H1Icon() {
+  return <IconH1 size="1.1rem" stroke={1.5} />;
+}
+function H2Icon() {
+  return <IconH2 size="1.1rem" stroke={1.5} />;
+}
+function H3Icon() {
+  return <IconH3 size="1.1rem" stroke={1.5} />;
+}
+function H4Icon() {
+  return <IconH4 size="1.1rem" stroke={1.5} />;
+}
+function BlockquoteIcon() {
+  return <IconBlockquote size="1.1rem" stroke={1.5} />;
+}
+function HrIcon() {
+  return <IconLineDashed size="1.1rem" stroke={1.5} />;
+}
+function BulletListIcon() {
+  return <IconList size="1.1rem" stroke={1.5} />;
+}
+function OrderedListIcon() {
+  return <IconListNumbers size="1.1rem" stroke={1.5} />;
+}
+function SuperscriptIcon() {
+  return <IconSuperscript size="1.1rem" stroke={1.5} />;
+}
+function SubscriptIcon() {
+  return <IconSubscript size="1.1rem" stroke={1.5} />;
+}
+function LinkIcon() {
+  return <IconLink size="1.1rem" stroke={1.5} />;
+}
+function UnlinkIcon() {
+  return <IconLinkOff size="1.1rem" stroke={1.5} />;
+}
+function AlignLeftIcon() {
+  return <IconAlignLeft size="1.1rem" stroke={1.5} />;
+}
+function AlignCenterIcon() {
+  return <IconAlignCenter size="1.1rem" stroke={1.5} />;
+}
+function AlignJustifyIcon() {
+  return <IconAlignJustified size="1.1rem" stroke={1.5} />;
+}
+function AlignRightIcon() {
+  return <IconAlignRight size="1.1rem" stroke={1.5} />;
+}
+function TemplateIcon() {
+  return <IconPencilQuestion size="1.1rem" stroke={1.5} />;
+}
+function UndoIcon() {
+  return <IconArrowBackUp size="1.1rem" stroke={1.5} />;
+}
+function RedoIcon() {
+  return <IconArrowForwardUp size="1.1rem" stroke={1.5} />;
+}
 
 function TextEditor({ useFor = '', props }: { useFor?: string; props: any }) {
-  const [content, setContent] = useState('');
+  const content = '';
 
   let placeholder = '';
   switch (useFor) {
     case 'description':
-      placeholder =
-        'Talk about features, gameplay mechanics, and story details here! Try clicking the pencil icons in the toolbar for some examples!';
+      placeholder = 'Talk about features, gameplay mechanics, and story details here! Try clicking the pencil icons in the toolbar for some examples!';
       break;
     case 'instructions':
-      placeholder =
-        'For uploaded games, use this section to explain the process on how to download, install, and run your program!';
+      placeholder = 'For uploaded games, use this section to explain the process on how to download, install, and run your program!';
+      break;
+    default:
+      placeholder = 'Placeholder Text';
       break;
   }
 
@@ -96,7 +149,7 @@ function TextEditor({ useFor = '', props }: { useFor?: string; props: any }) {
         },
       }),
       Placeholder.configure({
-        placeholder: placeholder,
+        placeholder,
       }),
       Underline,
       Link,
@@ -107,7 +160,7 @@ function TextEditor({ useFor = '', props }: { useFor?: string; props: any }) {
     content,
   });
 
-  const RedoControl = () => {
+  function RedoControl() {
     return (
       <RichTextEditor.Control
         onClick={() => {
@@ -119,9 +172,9 @@ function TextEditor({ useFor = '', props }: { useFor?: string; props: any }) {
         <RedoIcon />
       </RichTextEditor.Control>
     );
-  };
+  }
 
-  const UndoControl = () => {
+  function UndoControl() {
     return (
       <RichTextEditor.Control
         onClick={() => {
@@ -133,9 +186,9 @@ function TextEditor({ useFor = '', props }: { useFor?: string; props: any }) {
         <UndoIcon />
       </RichTextEditor.Control>
     );
-  };
+  }
 
-  const TemplateControl = ({
+  function TemplateControl({
     template,
     num,
     color = 'coyote-blue',
@@ -143,7 +196,7 @@ function TextEditor({ useFor = '', props }: { useFor?: string; props: any }) {
     template: string;
     num: number;
     color?: string;
-  }) => {
+  }) {
     return (
       <RichTextEditor.Control
         onClick={() => {
@@ -158,7 +211,7 @@ function TextEditor({ useFor = '', props }: { useFor?: string; props: any }) {
         </ThemeIcon>
       </RichTextEditor.Control>
     );
-  };
+  }
 
   useEffect(() => {
     if (useFor === 'description') {
@@ -222,11 +275,11 @@ function TextEditor({ useFor = '', props }: { useFor?: string; props: any }) {
         </RichTextEditor.ControlsGroup>
         {useFor === 'description' && (
           <RichTextEditor.ControlsGroup>
-            <TemplateControl template={template1} num={1} color={'grape'} />
-            <TemplateControl template={template2} num={2} color={'red'} />
+            <TemplateControl template={template1} num={1} color="grape" />
+            <TemplateControl template={template2} num={2} color="red" />
           </RichTextEditor.ControlsGroup>
         )}
-        {useFor === 'instructions' && <RichTextEditor.ControlsGroup></RichTextEditor.ControlsGroup>}
+        {useFor === 'instructions' && <RichTextEditor.ControlsGroup />}
       </RichTextEditor.Toolbar>
       <RichTextEditor.Content />
     </RichTextEditor>

@@ -1,4 +1,7 @@
-import { createBrowserRouter, Navigate, RouterProvider, useParams } from 'react-router-dom';
+import {
+  createBrowserRouter, Navigate, RouterProvider, useParams,
+} from 'react-router-dom';
+import { useContext } from 'react';
 import { Root, loader as gamesLoader } from './pages/Root/Root';
 import ErrorPage from './pages/ErrorPage/ErrorPage';
 import Home from './pages/Home';
@@ -14,25 +17,22 @@ import { Search } from './sections/Search/Search';
 import { Login } from './pages/Authentication/Login/Login';
 import { Register } from './pages/Authentication/Register/Register';
 import { ForgotPassword } from './pages/Authentication/ForgotPassword/ForgotPassword';
-import { useContext } from 'react';
 import { AuthContext } from './utilities/auth/AuthContext';
 
 function RequireAuth({ children, redirectTo }: any) {
   const { user } = useContext(AuthContext);
   if (user) {
     return children;
-  } else {
-    return <Navigate to={redirectTo} replace={true} />;
   }
+  return <Navigate to={redirectTo} replace />;
 }
 
 function GuestOnly({ children, redirectTo }: any) {
   const { user } = useContext(AuthContext);
   if (!user) {
     return children;
-  } else {
-    return <Navigate to={redirectTo} replace={true} />;
   }
+  return <Navigate to={redirectTo} replace />;
 }
 
 function GameCategoryWrapper() {
@@ -76,7 +76,7 @@ const router = createBrowserRouter([
       {
         path: '/login',
         element: (
-          <GuestOnly redirectTo="/" required={true}>
+          <GuestOnly redirectTo="/" required>
             <Login />
           </GuestOnly>
         ),
@@ -84,7 +84,7 @@ const router = createBrowserRouter([
       {
         path: '/register',
         element: (
-          <GuestOnly redirectTo="/" required={true}>
+          <GuestOnly redirectTo="/" required>
             <Register />
           </GuestOnly>
         ),
@@ -92,7 +92,7 @@ const router = createBrowserRouter([
       {
         path: '/forgot-password',
         element: (
-          <GuestOnly redirectTo="/" required={true}>
+          <GuestOnly redirectTo="/" required>
             <ForgotPassword />
           </GuestOnly>
         ),
@@ -100,7 +100,7 @@ const router = createBrowserRouter([
       {
         path: '/profile',
         element: (
-          <RequireAuth redirectTo="/login" required={true}>
+          <RequireAuth redirectTo="/login" required>
             <Profile />
           </RequireAuth>
         ),
@@ -108,7 +108,7 @@ const router = createBrowserRouter([
       {
         path: '/upload',
         element: (
-          <RequireAuth redirectTo="/login" required={true}>
+          <RequireAuth redirectTo="/login" required>
             <Upload />
           </RequireAuth>
         ),
@@ -131,8 +131,6 @@ const router = createBrowserRouter([
 
 export function Router() {
   return (
-    <>
-      <RouterProvider router={router} fallbackElement={<Home />} />
-    </>
+    <RouterProvider router={router} fallbackElement={<Home />} />
   );
 }

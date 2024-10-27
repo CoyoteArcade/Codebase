@@ -1,6 +1,8 @@
 import { useState, useContext, useEffect } from 'react';
 import { useRouteLoaderData } from 'react-router-dom';
-import { Box, Flex, UnstyledButton, Title, Divider, Group, Avatar, Text } from '@mantine/core';
+import {
+  Box, Flex, UnstyledButton, Title, Divider, Group, Avatar, Text,
+} from '@mantine/core';
 import { useScrollIntoView } from '@mantine/hooks';
 import { IconHeart, IconDeviceGamepad, IconShoppingBag } from '@tabler/icons-react';
 
@@ -44,7 +46,7 @@ function Profile() {
   async function getProfile() {
     if (user) {
       const profileResponse = await fetch(
-        `https://codebase-ty4d.onrender.com/profile/${user.uid}`
+        `https://codebase-ty4d.onrender.com/profile/${user.uid}`,
       );
       const profileJson = await profileResponse.json();
       setProfile(profileJson);
@@ -67,7 +69,7 @@ function Profile() {
   }, [profile]);
 
   function getUploads() {
-    let result: any = [];
+    const result: any = [];
     games.filter((game: any) => {
       // @ts-ignore
       if (uploads.includes(game.id)) {
@@ -79,7 +81,7 @@ function Profile() {
   }
 
   function getFavorites() {
-    let result: any = [];
+    const result: any = [];
     games.filter((game: any) => {
       // @ts-ignore
       if (favorites.includes(game.id)) {
@@ -91,7 +93,7 @@ function Profile() {
   }
 
   function getPurchases() {
-    let result: any = [];
+    const result: any = [];
     games.filter((game: any) => {
       // @ts-ignore
       if (purchases.includes(game.id)) {
@@ -131,7 +133,7 @@ function Profile() {
     </UnstyledButton>
   ));
 
-  const NavBar = () => {
+  function NavBar() {
     return (
       <Box component="nav" className={classes.navbar} visibleFrom="xxs">
         <div className={classes.navbarMain}>
@@ -160,7 +162,7 @@ function Profile() {
         </div>
       </Box>
     );
-  };
+  }
 
   return (
     <Flex style={{ flexWrap: 'nowrap' }} align="flex-start" w="100vw">

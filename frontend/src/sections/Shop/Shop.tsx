@@ -4,7 +4,7 @@ import { Box, Title, rem } from '@mantine/core';
 import GameGrid from '@/components/GameGrid/GameGrid';
 import ShopCategories from './ShopCategories/ShopCategories';
 
-import { sortByRelease } from '@/utilities/sortUtils';
+import sortByRelease from '@/utilities/sortUtils';
 import { Game, ShopProps } from '@/types';
 
 import classes from './Shop.module.css';
@@ -18,7 +18,7 @@ export default function Shop({
   gameCategory = '',
   sortBy = '',
 }: ShopProps) {
-  let games: Game[] = useRouteLoaderData('root') as Game[];
+  const games: Game[] = useRouteLoaderData('root') as Game[];
 
   const handleFilters = (games: Game[]) => {
     let filteredGames = games;
