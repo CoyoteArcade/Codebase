@@ -59,7 +59,7 @@ function GameGrid({ gameData, category = '' }: { gameData: any; category?: strin
         <GameCard
           gameObj={game}
           gameImages={findGameImages(game.id)}
-          isFavorite={userLists.includes(game.id)}
+          isFavorite={(userLists as any).includes(game.id)}
           loading={loading}
         />
       </Box>
@@ -71,7 +71,7 @@ function GameGrid({ gameData, category = '' }: { gameData: any; category?: strin
         <GameCard
           gameObj={game}
           gameImages={findGameImages(game.id)}
-          isFavorite={userLists.includes(game.id)}
+          isFavorite={(userLists as any).includes(game.id)}
           loading={loading}
         />
       </Box>

@@ -12,8 +12,8 @@ import Upload from './pages/Upload/Upload';
 import Profile from './pages/Profile/Profile';
 import Test from './pages/Test';
 
-import { Game } from './sections/Game/Game';
-import { Search } from './sections/Search/Search';
+import Game from './sections/Game/Game';
+import Search from './sections/Search/Search';
 import { Login } from './pages/Authentication/Login/Login';
 import { Register } from './pages/Authentication/Register/Register';
 import { ForgotPassword } from './pages/Authentication/ForgotPassword/ForgotPassword';
