@@ -2,21 +2,20 @@
 
 import { Game } from '@/types';
 
-export function sortByRelease(games: Game[]) {
-  let sortedGames = games
+export default function sortByRelease(games: Game[]) {
+  const sortedGames = games
     .sort((a: any, b: any) => {
       const dateA: number = Date.parse(a.releaseDate);
       const dateB: number = Date.parse(b.releaseDate);
 
-      if (isNaN(dateA) && isNaN(dateB)) {
+      if (Number.isNaN(dateA) && Number.isNaN(dateB)) {
         return 0;
-      } else if (isNaN(dateA)) {
+      } if (Number.isNaN(dateA)) {
         return -1;
-      } else if (isNaN(dateB)) {
+      } if (Number.isNaN(dateB)) {
         return 1;
-      } else {
-        return dateA - dateB;
       }
+      return dateA - dateB;
     })
     .reverse();
   return sortedGames;

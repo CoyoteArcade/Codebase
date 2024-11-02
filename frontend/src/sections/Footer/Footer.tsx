@@ -1,9 +1,11 @@
-import { Anchor, Group, Container, ActionIcon, rem } from '@mantine/core';
+import {
+  Anchor, Group, Container, ActionIcon, rem,
+} from '@mantine/core';
 import { IconBrandGithub } from '@tabler/icons-react';
 
+import { NavLink } from 'react-router-dom';
 import Logo from '../../components/Logo/Logo';
 import classes from './Footer.module.css';
-import { NavLink } from 'react-router-dom';
 
 const GITHUB_URL = 'https://github.com/CoyoteArcade/Codebase';
 

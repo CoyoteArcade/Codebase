@@ -24,20 +24,22 @@ function GameCard({
   isFavorite,
   loading = false,
 }: any) {
-  const { id, title, tagline, developer, releaseDate } = gameObj;
+  const {
+    id, title, tagline, developer,
+  } = gameObj;
   let { platforms, categories } = gameObj;
   const aspectRatio = 16 / 9;
 
   useEffect(() => {}, []);
 
-  /** Category Badges **/
+  /** Category Badges * */
   categories = categories.map((category = '') => (
     <Badge key={category} classNames={{ root: classes['card-genres-badge'] }} variant="light">
       {category}
     </Badge>
   ));
 
-  /** Platform Icons **/
+  /** Platform Icons * */
   platforms = platforms.map((platform = '') => <PlatformIcon key={platform} platform={platform} />);
 
   return (
@@ -51,7 +53,7 @@ function GameCard({
                 src={
                   gameImages.urls.length > 0
                     ? gameImages.urls[0]
-                    : `https://placehold.co/1600x900/003e7a/eee`
+                    : 'https://placehold.co/1600x900/003e7a/eee'
                 }
               />
             </AspectRatio>

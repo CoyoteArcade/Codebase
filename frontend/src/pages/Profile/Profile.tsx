@@ -1,6 +1,8 @@
 import { useState, useContext, useEffect } from 'react';
 import { useRouteLoaderData } from 'react-router-dom';
-import { Box, Flex, UnstyledButton, Title, Divider, Group, Avatar, Text } from '@mantine/core';
+import {
+  Box, Flex, UnstyledButton, Title, Divider, Group, Avatar, Text,
+} from '@mantine/core';
 import { useScrollIntoView } from '@mantine/hooks';
 import { IconHeart, IconDeviceGamepad, IconShoppingBag } from '@tabler/icons-react';
 
@@ -44,7 +46,7 @@ function Profile() {
   async function getProfile() {
     if (user) {
       const profileResponse = await fetch(
-        `https://codebase-ty4d.onrender.com/profile/${user.uid}`
+        `https://codebase-ty4d.onrender.com/profile/${user.uid}`,
       );
       const profileJson = await profileResponse.json();
       setProfile(profileJson);
@@ -67,10 +69,9 @@ function Profile() {
   }, [profile]);
 
   function getUploads() {
-    let result: any = [];
+    const result: any = [];
     games.filter((game: any) => {
-      // @ts-ignore
-      if (uploads.includes(game.id)) {
+      if ((uploads as any).includes(game.id)) {
         result.push(game);
       }
     });
@@ -79,10 +80,9 @@ function Profile() {
   }
 
   function getFavorites() {
-    let result: any = [];
+    const result: any = [];
     games.filter((game: any) => {
-      // @ts-ignore
-      if (favorites.includes(game.id)) {
+      if ((favorites as any).includes(game.id)) {
         result.push(game);
       }
     });
@@ -91,10 +91,9 @@ function Profile() {
   }
 
   function getPurchases() {
-    let result: any = [];
+    const result: any = [];
     games.filter((game: any) => {
-      // @ts-ignore
-      if (purchases.includes(game.id)) {
+      if ((purchases as any).includes(game.id)) {
         result.push(game);
       }
     });
@@ -131,7 +130,7 @@ function Profile() {
     </UnstyledButton>
   ));
 
-  const NavBar = () => {
+  function NavBar() {
     return (
       <Box component="nav" className={classes.navbar} visibleFrom="xxs">
         <div className={classes.navbarMain}>
@@ -160,7 +159,7 @@ function Profile() {
         </div>
       </Box>
     );
-  };
+  }
 
   return (
     <Flex style={{ flexWrap: 'nowrap' }} align="flex-start" w="100vw">
@@ -180,7 +179,7 @@ function Profile() {
             <GameGrid gameData={uploadedGames} />
           ) : (
             <Text className={classes.notfound} c="dimmed">
-              'No Uploaded Games Found...'
+              &lsquo;No Uploaded Games Found...&lsquo;
             </Text>
           )}
         </Box>
@@ -198,7 +197,7 @@ function Profile() {
             <GameGrid gameData={purchasedGames} />
           ) : (
             <Text className={classes.notfound} c="dimmed">
-              'No Purchased Games Found...'
+              &lsquo;No Purchased Games Found...&lsquo;
             </Text>
           )}
         </Box>
@@ -216,7 +215,7 @@ function Profile() {
             <GameGrid gameData={favoritedGames} />
           ) : (
             <Text className={classes.notfound} c="dimmed">
-              'No Favorited Games Found...'
+              &lsquo;No Favorited Games Found...&lsquo;
             </Text>
           )}
         </Box>

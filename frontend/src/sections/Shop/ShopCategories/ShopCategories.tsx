@@ -6,7 +6,7 @@ import classes from './ShopCategories.module.css';
 
 function ShopCategories({
   gameData = [],
-  maxCategories,
+  maxCategories = 100,
 }: {
   gameData: any;
   maxCategories?: number;
@@ -24,16 +24,16 @@ function ShopCategories({
   }
 
   // Rendered categories
-  const gameCategories = categories.map((category, idx) => {
-    return (
-      <Box my="sm" key={`${category}${idx}`}>
-        <Title className={classes.title} mb="md" order={2}>
-          {category} Games
-        </Title>
-        <GameGrid gameData={gameData} category={category} />
-      </Box>
-    );
-  });
+  const gameCategories = categories.map((category) => (
+    <Box my="sm" key={`${category}`}>
+      <Title className={classes.title} mb="md" order={2}>
+        {category}
+        {' '}
+        Games
+      </Title>
+      <GameGrid gameData={gameData} category={category} />
+    </Box>
+  ));
 
   return <Stack className={classes.categories}>{gameCategories.slice(0, maxCategories)}</Stack>;
 }

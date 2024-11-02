@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
-import { Box, Checkbox, Stack, TextInput, Divider } from '@mantine/core';
+import {
+  Box, Checkbox, Stack, TextInput, Divider,
+} from '@mantine/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faApple as Apple,
@@ -12,45 +14,41 @@ import FileUpload from './FileUpload';
 
 import classes from './PlatformsInput.module.css';
 
-const LabelWeb = () => {
+function LabelWeb() {
   return (
     <>
-      {/* @ts-ignore */}
       <FontAwesomeIcon icon={Web} />
       &nbsp;&nbsp;Web-hosted
     </>
   );
-};
+}
 
-const LabelMac = () => {
+function LabelMac() {
   return (
     <>
-      {/* @ts-ignore */}
       <FontAwesomeIcon icon={Apple} size="lg" />
       &nbsp;&nbsp;macOS
     </>
   );
-};
+}
 
-const LabelWindows = () => {
+function LabelWindows() {
   return (
     <>
-      {/* @ts-ignore */}
       <FontAwesomeIcon icon={Windows} />
       &nbsp;&nbsp;Windows
     </>
   );
-};
+}
 
-const LabelLinux = () => {
+function LabelLinux() {
   return (
     <>
-      {/* @ts-ignore */}
       <FontAwesomeIcon icon={Linux} />
       &nbsp;&nbsp;Linux
     </>
   );
-};
+}
 
 function PlatformsInput(props: any) {
   const [platformNames, setPlatformNames] = useState<string[]>([]);
@@ -59,31 +57,28 @@ function PlatformsInput(props: any) {
   const [macArchive, setMacArchive] = useState<File | null>(null);
   const [linuxArchive, setLinuxArchive] = useState<File | null>(null);
 
-  const [windowsLink, setWindowsLink] = useState('');
-  const [macLink, setMacLink] = useState('');
-  const [linuxLink, setLinuxLink] = useState('');
   const [hostedLink, setHostedLink] = useState('');
 
   useEffect(() => {
-    let result: object[] = [];
+    const result: object[] = [];
     platformNames.map((name) => {
       switch (name) {
         case 'web':
-          result.push({ name: name, archive: null, link: hostedLink });
+          result.push({ name, archive: null, link: hostedLink });
           break;
         case 'windows':
           if (windowsArchive !== null) {
-            result.push({ name: name, archive: windowsArchive, link: '' });
+            result.push({ name, archive: windowsArchive, link: '' });
           }
           break;
         case 'mac':
           if (macArchive !== null) {
-            result.push({ name: name, archive: macArchive, link: '' });
+            result.push({ name, archive: macArchive, link: '' });
           }
           break;
         case 'linux':
           if (linuxArchive !== null) {
-            result.push({ name: name, archive: linuxArchive, link: '' });
+            result.push({ name, archive: linuxArchive, link: '' });
           }
           break;
       }
@@ -135,7 +130,7 @@ function PlatformsInput(props: any) {
             <Divider />
           </>
         )}
-        <Checkbox value="web" label={<LabelWeb />} onClick={() => setHostedLink('')} disabled/>
+        <Checkbox value="web" label={<LabelWeb />} onClick={() => setHostedLink('')} disabled />
         {platformNames.includes('web') && (
           <TextInput
             type="url"

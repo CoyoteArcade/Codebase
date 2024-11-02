@@ -1,11 +1,15 @@
 import { Link, useRouteError } from 'react-router-dom';
-import { Box, Title, Text, Button, Container, Group, useMantineTheme } from '@mantine/core';
+import {
+  Box, Title, Text, Button, Group, useMantineTheme,
+} from '@mantine/core';
 
 import classes from './ErrorPage.module.css';
 
 export default function ErrorPage() {
   const theme = useMantineTheme();
   const error: any = useRouteError();
+
+  console.log(error);
 
   return (
     <Box className={classes.root}>

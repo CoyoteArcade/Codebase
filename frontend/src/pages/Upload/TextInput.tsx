@@ -27,7 +27,7 @@ function TaglineInput(props: any) {
     <Textarea
       size="md"
       autosize
-      label={'Tagline'}
+      label="Tagline"
       maxLength={TAGLINE_LIMIT}
       description="An engaging hook to draw in your audience"
       onKeyDown={(event) => {
@@ -45,7 +45,7 @@ function VideoInput(props: any) {
     <TextInput
       type="url"
       size="md"
-      label={'Video'}
+      label="Video"
       description="Showcase gameplay with a quick (YouTube) video"
       placeholder="https://www.youtube.com/watch?v=YWp6qjevHH0"
       onKeyDown={(event) => {

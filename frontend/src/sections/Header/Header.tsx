@@ -100,7 +100,7 @@ const logoutButton = (logoutFunction: MouseEventHandler) => (
 
 export default function Header() {
   const { user, setUser } = useContext(AuthContext);
-  let location = useLocation();
+  const location = useLocation();
   // console.log(location);
   const [drawerOpened, drawerHandler] = useDisclosure(false);
   const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
@@ -108,7 +108,6 @@ export default function Header() {
   const handleLogout = () => {
     setUser(null);
     localStorage.removeItem('coyoteArcadeUser');
-    console.log('User logged out');
     notifications.show({
       message: 'You have successfully logged out. Come back soon!',
       autoClose: 3000,
@@ -157,9 +156,7 @@ export default function Header() {
               style={{ textDecoration: 'none' }}
               to="/"
               key="Home"
-              className={({ isActive }: { isActive: boolean }) => {
-                return isActive ? `${classes.link} ${classes.active}` : `${classes.link}`;
-              }}
+              className={({ isActive }: { isActive: boolean }) => (isActive ? `${classes.link} ${classes.active}` : `${classes.link}`)}
             >
               Home
             </NavLink>
@@ -168,9 +165,7 @@ export default function Header() {
               style={{ textDecoration: 'none' }}
               to="/about"
               key="About"
-              className={({ isActive }: { isActive: boolean }) => {
-                return isActive ? `${classes.link} ${classes.active}` : `${classes.link}`;
-              }}
+              className={({ isActive }: { isActive: boolean }) => (isActive ? `${classes.link} ${classes.active}` : `${classes.link}`)}
             >
               About
             </NavLink>
@@ -243,9 +238,7 @@ export default function Header() {
               style={{ textDecoration: 'none' }}
               to="/upload"
               key="Upload"
-              className={({ isActive }: { isActive: boolean }) => {
-                return isActive ? `${classes.link} ${classes.active}` : `${classes.link}`;
-              }}
+              className={({ isActive }: { isActive: boolean }) => (isActive ? `${classes.link} ${classes.active}` : `${classes.link}`)}
             >
               Upload
             </NavLink>
@@ -285,7 +278,7 @@ export default function Header() {
                     w="100%"
                     component={NavLink}
                     to="/login"
-                    onClick={user ? handleLogout : () => console.log('clicked')}
+                    onClick={user ? handleLogout : undefined}
                   >
                     {user ? 'Log Out' : 'Log In'}
                   </Button>
