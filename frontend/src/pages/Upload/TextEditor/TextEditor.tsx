@@ -1,13 +1,15 @@
-import { useEffect } from 'react';
-import { ThemeIcon } from '@mantine/core';
-import { RichTextEditor, Link } from '@mantine/tiptap';
-import { useEditor } from '@tiptap/react';
-import StarterKit from '@tiptap/starter-kit';
-import Underline from '@tiptap/extension-underline';
-import TextAlign from '@tiptap/extension-text-align';
-import Superscript from '@tiptap/extension-superscript';
-import SubScript from '@tiptap/extension-subscript';
-import Placeholder from '@tiptap/extension-placeholder';
+// import { useEffect } from 'react';
+// import { ThemeIcon } from '@mantine/core';
+/* disabled for now */
+
+// import { RichTextEditor, Link } from '@mantine/tiptap';
+// import { useEditor } from '@tiptap/react';
+// import StarterKit from '@tiptap/starter-kit';
+// import Underline from '@tiptap/extension-underline';
+// import TextAlign from '@tiptap/extension-text-align';
+// import Superscript from '@tiptap/extension-superscript';
+// import SubScript from '@tiptap/extension-subscript';
+// import Placeholder from '@tiptap/extension-placeholder';
 
 import {
   IconBold,
@@ -37,8 +39,8 @@ import {
   IconPencilQuestion,
 } from '@tabler/icons-react';
 
-import classes from './TextEditor.module.css';
-import { template1, template2 } from '@/utilities/textEditor/descriptions';
+// import classes from './TextEditor.module.css';
+// import { template1, template2 } from '@/utilities/textEditor/descriptions';
 
 function BoldIcon() {
   return <IconBold size="1.1rem" stroke={1.5} />;
@@ -117,171 +119,173 @@ function RedoIcon() {
 }
 
 function TextEditor({ useFor = '', props }: { useFor?: string; props: any }) {
-  const content = '';
 
-  let placeholder = '';
-  switch (useFor) {
-    case 'description':
-      placeholder = 'Talk about features, gameplay mechanics, and story details here! Try clicking the pencil icons in the toolbar for some examples!';
-      break;
-    case 'instructions':
-      placeholder = 'For uploaded games, use this section to explain the process on how to download, install, and run your program!';
-      break;
-    default:
-      placeholder = 'Placeholder Text';
-      break;
-  }
+  return <p>Placeholder for now</p>;
+  // const content = '';
 
-  const editor = useEditor({
-    extensions: [
-      StarterKit.configure({
-        heading: {
-          HTMLAttributes: {
-            class: classes.heading,
-          },
-        },
-        paragraph: {
-          HTMLAttributes: {
-            class: classes.paragraph,
-          },
-        },
-      }),
-      Placeholder.configure({
-        placeholder,
-      }),
-      Underline,
-      Link,
-      Superscript,
-      SubScript,
-      TextAlign.configure({ types: ['heading', 'paragraph'] }),
-    ],
-    content,
-  });
+  // let placeholder = '';
+  // switch (useFor) {
+  //   case 'description':
+  //     placeholder = 'Talk about features, gameplay mechanics, and story details here! Try clicking the pencil icons in the toolbar for some examples!';
+  //     break;
+  //   case 'instructions':
+  //     placeholder = 'For uploaded games, use this section to explain the process on how to download, install, and run your program!';
+  //     break;
+  //   default:
+  //     placeholder = 'Placeholder Text';
+  //     break;
+  // }
 
-  function RedoControl() {
-    return (
-      <RichTextEditor.Control
-        onClick={() => {
-          editor?.commands.redo();
-        }}
-        aria-label="redo"
-        title="Redo"
-      >
-        <RedoIcon />
-      </RichTextEditor.Control>
-    );
-  }
+  // const editor = useEditor({
+  //   extensions: [
+  //     StarterKit.configure({
+  //       heading: {
+  //         HTMLAttributes: {
+  //           class: classes.heading,
+  //         },
+  //       },
+  //       paragraph: {
+  //         HTMLAttributes: {
+  //           class: classes.paragraph,
+  //         },
+  //       },
+  //     }),
+  //     Placeholder.configure({
+  //       placeholder,
+  //     }),
+  //     Underline,
+  //     Link,
+  //     Superscript,
+  //     SubScript,
+  //     TextAlign.configure({ types: ['heading', 'paragraph'] }),
+  //   ],
+  //   content,
+  // });
 
-  function UndoControl() {
-    return (
-      <RichTextEditor.Control
-        onClick={() => {
-          editor?.commands.undo();
-        }}
-        aria-label="undo"
-        title="Undo"
-      >
-        <UndoIcon />
-      </RichTextEditor.Control>
-    );
-  }
+  // function RedoControl() {
+  //   return (
+  //     <RichTextEditor.Control
+  //       onClick={() => {
+  //         editor?.commands.redo();
+  //       }}
+  //       aria-label="redo"
+  //       title="Redo"
+  //     >
+  //       <RedoIcon />
+  //     </RichTextEditor.Control>
+  //   );
+  // }
 
-  function TemplateControl({
-    template,
-    num,
-    color = 'coyote-blue',
-  }: {
-    template: string;
-    num: number;
-    color?: string;
-  }) {
-    return (
-      <RichTextEditor.Control
-        onClick={() => {
-          editor?.commands.clearContent();
-          editor?.commands.insertContentAt(0, template);
-        }}
-        aria-label={`Insert template: example ${num}`}
-        title={`Insert template: example ${num}`}
-      >
-        <ThemeIcon variant="transparent" color={color}>
-          <TemplateIcon />
-        </ThemeIcon>
-      </RichTextEditor.Control>
-    );
-  }
+  // function UndoControl() {
+  //   return (
+  //     <RichTextEditor.Control
+  //       onClick={() => {
+  //         editor?.commands.undo();
+  //       }}
+  //       aria-label="undo"
+  //       title="Undo"
+  //     >
+  //       <UndoIcon />
+  //     </RichTextEditor.Control>
+  //   );
+  // }
 
-  useEffect(() => {
-    if (useFor === 'description') {
-      if (editor?.getText().trim() === '') {
-        props.setFieldValue('description', '');
-      } else {
-        props.setFieldValue('description', editor?.getHTML());
-      }
-    } else if (useFor === 'instructions') {
-      if (editor?.getText().trim() === '') {
-        props.setFieldValue('instructions', '');
-      } else {
-        props.setFieldValue('instructions', editor?.getHTML());
-      }
-    }
-  }, [editor?.getHTML()]);
+  // function TemplateControl({
+  //   template,
+  //   num,
+  //   color = 'coyote-blue',
+  // }: {
+  //   template: string;
+  //   num: number;
+  //   color?: string;
+  // }) {
+  //   return (
+  //     <RichTextEditor.Control
+  //       onClick={() => {
+  //         editor?.commands.clearContent();
+  //         editor?.commands.insertContentAt(0, template);
+  //       }}
+  //       aria-label={`Insert template: example ${num}`}
+  //       title={`Insert template: example ${num}`}
+  //     >
+  //       <ThemeIcon variant="transparent" color={color}>
+  //         <TemplateIcon />
+  //       </ThemeIcon>
+  //     </RichTextEditor.Control>
+  //   );
+  // }
 
-  return (
-    <RichTextEditor editor={editor} mih={250} w="100%">
-      <RichTextEditor.Toolbar sticky stickyOffset={60}>
-        <RichTextEditor.ControlsGroup>
-          <RichTextEditor.Bold icon={BoldIcon} />
-          <RichTextEditor.Italic icon={ItalicIcon} />
-          <RichTextEditor.Underline icon={UnderlineIcon} />
-          <RichTextEditor.Strikethrough icon={StrikethroughIcon} />
-          <RichTextEditor.CodeBlock icon={CodeBlockIcon} />
-          <RichTextEditor.ClearFormatting icon={ClearFormattingIcon} />
-        </RichTextEditor.ControlsGroup>
+  // useEffect(() => {
+  //   if (useFor === 'description') {
+  //     if (editor?.getText().trim() === '') {
+  //       props.setFieldValue('description', '');
+  //     } else {
+  //       props.setFieldValue('description', editor?.getHTML());
+  //     }
+  //   } else if (useFor === 'instructions') {
+  //     if (editor?.getText().trim() === '') {
+  //       props.setFieldValue('instructions', '');
+  //     } else {
+  //       props.setFieldValue('instructions', editor?.getHTML());
+  //     }
+  //   }
+  // }, [editor?.getHTML()]);
 
-        <RichTextEditor.ControlsGroup>
-          <UndoControl />
-          <RedoControl />
-        </RichTextEditor.ControlsGroup>
+  // return (
+  //   <RichTextEditor editor={editor} mih={250} w="100%">
+  //     <RichTextEditor.Toolbar sticky stickyOffset={60}>
+  //       <RichTextEditor.ControlsGroup>
+  //         <RichTextEditor.Bold icon={BoldIcon} />
+  //         <RichTextEditor.Italic icon={ItalicIcon} />
+  //         <RichTextEditor.Underline icon={UnderlineIcon} />
+  //         <RichTextEditor.Strikethrough icon={StrikethroughIcon} />
+  //         <RichTextEditor.CodeBlock icon={CodeBlockIcon} />
+  //         <RichTextEditor.ClearFormatting icon={ClearFormattingIcon} />
+  //       </RichTextEditor.ControlsGroup>
 
-        <RichTextEditor.ControlsGroup>
-          <RichTextEditor.H1 icon={H1Icon} />
-          <RichTextEditor.H2 icon={H2Icon} />
-          <RichTextEditor.H3 icon={H3Icon} />
-          <RichTextEditor.H4 icon={H4Icon} />
-        </RichTextEditor.ControlsGroup>
+  //       <RichTextEditor.ControlsGroup>
+  //         <UndoControl />
+  //         <RedoControl />
+  //       </RichTextEditor.ControlsGroup>
 
-        <RichTextEditor.ControlsGroup>
-          <RichTextEditor.Blockquote icon={BlockquoteIcon} />
-          <RichTextEditor.Hr icon={HrIcon} />
-          <RichTextEditor.BulletList icon={BulletListIcon} />
-          <RichTextEditor.OrderedList icon={OrderedListIcon} />
-          <RichTextEditor.Subscript icon={SubscriptIcon} />
-          <RichTextEditor.Superscript icon={SuperscriptIcon} />
-        </RichTextEditor.ControlsGroup>
+  //       <RichTextEditor.ControlsGroup>
+  //         <RichTextEditor.H1 icon={H1Icon} />
+  //         <RichTextEditor.H2 icon={H2Icon} />
+  //         <RichTextEditor.H3 icon={H3Icon} />
+  //         <RichTextEditor.H4 icon={H4Icon} />
+  //       </RichTextEditor.ControlsGroup>
 
-        <RichTextEditor.ControlsGroup>
-          <RichTextEditor.Link icon={LinkIcon} />
-          <RichTextEditor.Unlink icon={UnlinkIcon} />
-        </RichTextEditor.ControlsGroup>
+  //       <RichTextEditor.ControlsGroup>
+  //         <RichTextEditor.Blockquote icon={BlockquoteIcon} />
+  //         <RichTextEditor.Hr icon={HrIcon} />
+  //         <RichTextEditor.BulletList icon={BulletListIcon} />
+  //         <RichTextEditor.OrderedList icon={OrderedListIcon} />
+  //         <RichTextEditor.Subscript icon={SubscriptIcon} />
+  //         <RichTextEditor.Superscript icon={SuperscriptIcon} />
+  //       </RichTextEditor.ControlsGroup>
 
-        <RichTextEditor.ControlsGroup>
-          <RichTextEditor.AlignLeft icon={AlignLeftIcon} />
-          <RichTextEditor.AlignCenter icon={AlignCenterIcon} />
-          <RichTextEditor.AlignJustify icon={AlignJustifyIcon} />
-          <RichTextEditor.AlignRight icon={AlignRightIcon} />
-        </RichTextEditor.ControlsGroup>
-        {useFor === 'description' && (
-          <RichTextEditor.ControlsGroup>
-            <TemplateControl template={template1} num={1} color="grape" />
-            <TemplateControl template={template2} num={2} color="red" />
-          </RichTextEditor.ControlsGroup>
-        )}
-        {useFor === 'instructions' && <RichTextEditor.ControlsGroup />}
-      </RichTextEditor.Toolbar>
-      <RichTextEditor.Content />
-    </RichTextEditor>
-  );
+  //       <RichTextEditor.ControlsGroup>
+  //         <RichTextEditor.Link icon={LinkIcon} />
+  //         <RichTextEditor.Unlink icon={UnlinkIcon} />
+  //       </RichTextEditor.ControlsGroup>
+
+  //       <RichTextEditor.ControlsGroup>
+  //         <RichTextEditor.AlignLeft icon={AlignLeftIcon} />
+  //         <RichTextEditor.AlignCenter icon={AlignCenterIcon} />
+  //         <RichTextEditor.AlignJustify icon={AlignJustifyIcon} />
+  //         <RichTextEditor.AlignRight icon={AlignRightIcon} />
+  //       </RichTextEditor.ControlsGroup>
+  //       {useFor === 'description' && (
+  //         <RichTextEditor.ControlsGroup>
+  //           <TemplateControl template={template1} num={1} color="grape" />
+  //           <TemplateControl template={template2} num={2} color="red" />
+  //         </RichTextEditor.ControlsGroup>
+  //       )}
+  //       {useFor === 'instructions' && <RichTextEditor.ControlsGroup />}
+  //     </RichTextEditor.Toolbar>
+  //     <RichTextEditor.Content />
+  //   </RichTextEditor>
+  // );
 }
 
 export default TextEditor;
