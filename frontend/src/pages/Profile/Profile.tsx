@@ -24,7 +24,7 @@ function Profile() {
   const [uploads, setUploads] = useState([]);
   const [purchases, setPurchases] = useState([]);
   const [favorites, setFavorites] = useState([]);
-  const [, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
 
   const uploadsScroll = useScrollIntoView<HTMLDivElement>({
     offset: 80,
@@ -71,7 +71,7 @@ function Profile() {
   function getUploads() {
     const result: any = [];
     games.filter((game: any) => {
-      if (uploads.includes(game.id)) {
+      if ((uploads as any).includes(game.id)) {
         result.push(game);
       }
     });
@@ -82,7 +82,7 @@ function Profile() {
   function getFavorites() {
     const result: any = [];
     games.filter((game: any) => {
-      if (favorites.includes(game.id)) {
+      if ((favorites as any).includes(game.id)) {
         result.push(game);
       }
     });
@@ -93,7 +93,7 @@ function Profile() {
   function getPurchases() {
     const result: any = [];
     games.filter((game: any) => {
-      if (purchases.includes(game.id)) {
+      if ((purchases as any).includes(game.id)) {
         result.push(game);
       }
     });
