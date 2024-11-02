@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { ThemeIcon } from '@mantine/core';
 import { RichTextEditor, Link } from '@mantine/tiptap';
 import { useEditor } from '@tiptap/react';
@@ -39,8 +39,6 @@ import {
 
 import classes from './TextEditor.module.css';
 import { template1, template2 } from '@/utilities/textEditor/descriptions';
-import { FormValues } from '../Upload';
-import { UseFormReturnType } from '@mantine/form';
 
 function BoldIcon() {
   return <IconBold size="1.1rem" stroke={1.5} />;

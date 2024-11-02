@@ -163,13 +163,13 @@ export default function Game() {
           <SimpleGrid cols={1}>
             <SimpleGrid cols={2}>
               {gameAssetLinks.images.length > 0
-                ? gameAssetLinks.images.map((image: String) => (
+                ? gameAssetLinks.images.map((image: string) => (
                   <AspectRatio ratio={16 / 9} key={image as React.Key}>
                     <Image src={image} key={image as React.Key} radius="sm" />
                   </AspectRatio>
                 ))
                 : loading
-                  && catPics.map((image: String) => (
+                  && catPics.map((image: string) => (
                     <AspectRatio ratio={16 / 9} key={image as React.Key}>
                       <Image src={image} key={image as React.Key} radius="sm" />
                       <LoadingOverlay
@@ -206,7 +206,6 @@ export default function Game() {
               <Accordion.Panel>
                 <Box className={classes.description} px="md" style={{ borderRadius: '5px' }}>
                   <TypographyStylesProvider p="0">
-                    {/* @ts-ignore */}
                     <div dangerouslySetInnerHTML={{ __html: game.description }} />
                   </TypographyStylesProvider>
                 </Box>

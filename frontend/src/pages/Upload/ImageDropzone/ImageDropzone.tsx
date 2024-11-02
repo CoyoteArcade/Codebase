@@ -4,7 +4,7 @@ import {
 } from '@mantine/core';
 import { IconUpload, IconPhoto, IconX } from '@tabler/icons-react';
 import {
-  Dropzone, DropzoneProps, IMAGE_MIME_TYPE, FileWithPath,
+  Dropzone, IMAGE_MIME_TYPE, FileWithPath,
 } from '@mantine/dropzone';
 
 import ImageWithMenu from './ImageWithMenu';
@@ -17,7 +17,6 @@ export default function ImageDropzone(props: any) {
   const previews = files.map((file, index) => {
     const imageUrl = URL.createObjectURL(file);
     const handleDelete = () => {
-      // @ts-ignore
       setFiles(files.toSpliced(index, 1));
     };
 

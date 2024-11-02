@@ -24,7 +24,7 @@ function Profile() {
   const [uploads, setUploads] = useState([]);
   const [purchases, setPurchases] = useState([]);
   const [favorites, setFavorites] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [, setLoading] = useState(true);
 
   const uploadsScroll = useScrollIntoView<HTMLDivElement>({
     offset: 80,
@@ -71,7 +71,6 @@ function Profile() {
   function getUploads() {
     const result: any = [];
     games.filter((game: any) => {
-      // @ts-ignore
       if (uploads.includes(game.id)) {
         result.push(game);
       }
@@ -83,7 +82,6 @@ function Profile() {
   function getFavorites() {
     const result: any = [];
     games.filter((game: any) => {
-      // @ts-ignore
       if (favorites.includes(game.id)) {
         result.push(game);
       }
@@ -95,7 +93,6 @@ function Profile() {
   function getPurchases() {
     const result: any = [];
     games.filter((game: any) => {
-      // @ts-ignore
       if (purchases.includes(game.id)) {
         result.push(game);
       }
@@ -182,7 +179,7 @@ function Profile() {
             <GameGrid gameData={uploadedGames} />
           ) : (
             <Text className={classes.notfound} c="dimmed">
-              'No Uploaded Games Found...'
+              &lsquo;No Uploaded Games Found...&lsquo;
             </Text>
           )}
         </Box>
@@ -200,7 +197,7 @@ function Profile() {
             <GameGrid gameData={purchasedGames} />
           ) : (
             <Text className={classes.notfound} c="dimmed">
-              'No Purchased Games Found...'
+              &lsquo;No Purchased Games Found...&lsquo;
             </Text>
           )}
         </Box>
@@ -218,7 +215,7 @@ function Profile() {
             <GameGrid gameData={favoritedGames} />
           ) : (
             <Text className={classes.notfound} c="dimmed">
-              'No Favorited Games Found...'
+              &lsquo;No Favorited Games Found...&lsquo;
             </Text>
           )}
         </Box>

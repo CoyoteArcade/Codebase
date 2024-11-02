@@ -17,7 +17,6 @@ import classes from './PlatformsInput.module.css';
 function LabelWeb() {
   return (
     <>
-      {/* @ts-ignore */}
       <FontAwesomeIcon icon={Web} />
       &nbsp;&nbsp;Web-hosted
     </>
@@ -27,7 +26,6 @@ function LabelWeb() {
 function LabelMac() {
   return (
     <>
-      {/* @ts-ignore */}
       <FontAwesomeIcon icon={Apple} size="lg" />
       &nbsp;&nbsp;macOS
     </>
@@ -37,7 +35,6 @@ function LabelMac() {
 function LabelWindows() {
   return (
     <>
-      {/* @ts-ignore */}
       <FontAwesomeIcon icon={Windows} />
       &nbsp;&nbsp;Windows
     </>
@@ -47,7 +44,6 @@ function LabelWindows() {
 function LabelLinux() {
   return (
     <>
-      {/* @ts-ignore */}
       <FontAwesomeIcon icon={Linux} />
       &nbsp;&nbsp;Linux
     </>
@@ -61,9 +57,6 @@ function PlatformsInput(props: any) {
   const [macArchive, setMacArchive] = useState<File | null>(null);
   const [linuxArchive, setLinuxArchive] = useState<File | null>(null);
 
-  const [windowsLink, setWindowsLink] = useState('');
-  const [macLink, setMacLink] = useState('');
-  const [linuxLink, setLinuxLink] = useState('');
   const [hostedLink, setHostedLink] = useState('');
 
   useEffect(() => {

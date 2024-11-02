@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useContext, useEffect, useState } from 'react';
 import { Box } from '@mantine/core';
 
@@ -11,7 +10,7 @@ function GameGrid({ gameData, category = '' }: { gameData: any; category?: strin
   const [userLists, setUserLists] = useState([]);
   const [allImageLinks, setAllImageLinks] = useState([]);
   const [loading, setLoading] = useState(true);
-  let games = [];
+  let games:any = [];
   let categoryGames;
 
   useEffect(() => {
@@ -46,10 +45,10 @@ function GameGrid({ gameData, category = '' }: { gameData: any; category?: strin
     fetchGameImages();
   }, []);
 
-  const findGameImages = (id) => {
-    let gameImages = {};
+  const findGameImages = (id:any) => {
+    let gameImages:any = {};
 
-    gameImages = allImageLinks.find((game) => game.id === id);
+    gameImages = allImageLinks.find((game:any) => game.id === id);
 
     return gameImages;
   };

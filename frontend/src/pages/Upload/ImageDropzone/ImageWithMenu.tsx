@@ -1,13 +1,10 @@
 import { useState, useEffect } from 'react';
 import {
-  AspectRatio, Box, ActionIcon, Modal, Menu, Image, rem,
+  AspectRatio, Box, ActionIcon, Menu, Image, rem,
 } from '@mantine/core';
-import { useToggle, useDisclosure, useHover } from '@mantine/hooks';
-import {
-  Dropzone, DropzoneProps, IMAGE_MIME_TYPE, FileWithPath,
-} from '@mantine/dropzone';
-import {
-  IconArrowsMaximize, IconCrop, IconPhotoX, IconDots,
+import { useToggle, useHover } from '@mantine/hooks';
+
+import { IconCrop, IconPhotoX, IconDots,
 } from '@tabler/icons-react';
 
 import classes from './ImageWithMenu.module.css';

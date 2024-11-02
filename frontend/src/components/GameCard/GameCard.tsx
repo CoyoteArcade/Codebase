@@ -25,7 +25,7 @@ function GameCard({
   loading = false,
 }: any) {
   const {
-    id, title, tagline, developer, releaseDate,
+    id, title, tagline, developer,
   } = gameObj;
   let { platforms, categories } = gameObj;
   const aspectRatio = 16 / 9;

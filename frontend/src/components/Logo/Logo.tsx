@@ -1,13 +1,12 @@
 import { NavLink } from 'react-router-dom';
 import {
-  Image, Text, Box, Stack, Container, rem,
+  Image, Text, Box, Stack,
 } from '@mantine/core';
 import arcade from '@/assets/coyotearcade.png';
 import classes from './Logo.module.css';
 
 function StyledText({ children }: { children: string }) {
   return (
-    // @ts-ignore
     <Text c="coyote-blue" className={classes.text}>
       {children}
     </Text>

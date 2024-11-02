@@ -7,7 +7,6 @@ import {
   TextInput,
   PasswordInput,
   Button,
-  useMantineTheme,
   ThemeIcon,
   rem,
 } from '@mantine/core';
@@ -22,7 +21,6 @@ import classes from './Register.module.css';
 import { AuthContext } from '@/utilities/auth/AuthContext';
 
 export function Register() {
-  const theme = useMantineTheme();
   const navigate = useNavigate();
   const [visible, { toggle }] = useDisclosure(false);
   const { user, setUser } = useContext(AuthContext);
@@ -30,6 +28,8 @@ export function Register() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+
+  console.log(user);
 
   const handleChange = (event: any) => {
     if (event.target.id === 'email') {

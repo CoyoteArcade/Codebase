@@ -62,7 +62,7 @@ export function ForgotPassword() {
     })
       .then((response) => response.json())
       .then((data) => {
-        // console.log(data);
+        console.log(data);
         notifications.update({
           id: notificationId,
           message: `A password reset link has been sent to email: ${email}`,
@@ -76,7 +76,7 @@ export function ForgotPassword() {
         navigate('/login');
       })
       .catch((error) => {
-        // console.log(error);
+        console.log(error);
         notifications.update({
           id: notificationId,
           message: 'Failed to send link to reset password! Please try again.',
