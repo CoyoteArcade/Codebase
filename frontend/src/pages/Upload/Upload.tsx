@@ -5,6 +5,7 @@ TODO:
 - Add a success notification when the game is successfully uploaded
 - Add an error notification when the game fails to upload
 - Add a redirect to the home page after the game is uploaded successfully
+- might be error with game upload calls, refactor a bit to make sure it works
 */
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -25,6 +26,7 @@ import ImageDropzone from './ImageDropzone/ImageDropzone';
 import TextEditor from './TextEditor/TextEditor';
 
 import classes from './Upload.module.css';
+import RestController from '@/utilities/api/restController';
 
 export interface FormValues {
   id: string;
@@ -39,13 +41,12 @@ export interface FormValues {
   video: string;
 }
 
-const baseURL = 'https://codebase-ty4d.onrender.com';
-
 function Upload() {
   const { user } = useContext(AuthContext);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
+  const restController = RestController.getInstance();
 
   const form = useForm<FormValues>({
     initialValues: {
@@ -81,7 +82,7 @@ function Upload() {
     offset: 60,
   });
 
-  const handleSubmit = (values: any) => {
+  const handleSubmit = async (values: any) => {
     setIsSubmitting(true);
     const notificationId = notifications.show({
       message: 'Attempting to upload game...',
@@ -150,72 +151,62 @@ function Upload() {
         platform: platform.name,
       })),
     };
-
-    fetch(`${baseURL}/games`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(firestoreGameData),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log('data from gameAdd function', data);
-        const imageFiles = firestoreGameFiles.images;
-        const gameFiles = firestoreGameFiles.files.filter((file: any) => file.platform !== 'web');
-
-        const imageUploadPromises = imageFiles.map((image: any) => console.log(image, `images/${data.gameID}/${image.name}`));
-
-        const gameUploadPromises = gameFiles.map((file: any) => console.log(
-          file.file,
-          `gameFiles/${data.gameID}/${file.platform}/${file.file.name}`,
-        ));
-
-        Promise.all(imageUploadPromises)
-          .then((res) => console.log(res))
-          .catch((err) => console.log(err));
-
-        Promise.all(gameUploadPromises)
-          .then((res) => console.log(res))
-          .catch((err) => console.log(err));
-
-        notifications.update({
-          id: notificationId,
-          message: 'Game uploaded successfully!',
-          color: 'green',
-          icon: <IconCheck />,
-          loading: false,
-          autoClose: 3000,
-          withCloseButton: true,
-          withBorder: true,
-        });
-        fetch(`${baseURL}/profile/${(user as any).uid}/uploads/update`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ itemId: data.gameID, action: 'add' }),
-        })
-          .then((res) => res)
-          .then((json) => {
-            console.log(json);
-          })
-          .catch((err) => console.log(err));
-        navigate('/');
-      })
-      .catch((err) => {
-        console.log(err);
-        notifications.update({
-          id: notificationId,
-          message: 'An error occurred while uploading your game! Please try again.',
-          color: 'red',
-          icon: <IconX />,
-          autoClose: 3000,
-          withCloseButton: true,
-          withBorder: true,
-        });
-        setIsSubmitting(false);
+    try {
+      const response = await restController.post<any>('/games', firestoreGameData);
+      console.log( "data from gameAdd function", response);
+      const imageFiles = firestoreGameFiles.images;
+      const gameFiles = firestoreGameFiles.files.filter((file: any) => file.platform !== 'web');
+  
+      const imageUploadPromises = imageFiles.map((image: any) => console.log(image, `images/${response.gameID}/${image.name}`));
+  
+      const gameUploadPromises = gameFiles.map((file: any) => console.log(
+        file.file,
+        `gameFiles/${response.gameID}/${file.platform}/${file.file.name}`,
+      ));
+  
+      Promise.all(imageUploadPromises)
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err));
+  
+      Promise.all(gameUploadPromises)
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err));
+  
+      notifications.update({
+        id: notificationId,
+        message: 'Game uploaded successfully!',
+        color: 'green',
+        icon: <IconCheck />,
+        loading: false,
+        autoClose: 3000,
+        withCloseButton: true,
+        withBorder: true,
       });
+      try {
+        const json = await restController.post<any>(`/games/${response.gameID}/purchase`, { itemId: response.gameID, action: 'add' });
+        console.log(json);
+      } catch (error) {
+        console.error('failed to upload game', error);
+      } finally {
+        setIsSubmitting(false);
+        navigate('/');
+      }
+    } catch (error) {
+      console.error('failed to upload game', error);
+      notifications.update({
+        id: notificationId,
+        message: 'An error occurred while uploading your game! Please try again.',
+        color: 'red',
+        icon: <IconX />,
+        loading: false,
+        autoClose: 3000,
+        withCloseButton: true,
+        withBorder: true,
+      });
+      setIsSubmitting(false);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleError = (errors: typeof form.errors) => {

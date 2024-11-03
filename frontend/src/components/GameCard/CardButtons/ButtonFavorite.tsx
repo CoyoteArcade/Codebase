@@ -13,88 +13,65 @@ import { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import classes from './ButtonFavorite.module.css';
 import { AuthContext } from '@/utilities/auth/AuthContext';
+import RestController from '@/utilities/api/restController';
 
 function FavoriteButton({ gameID, isFavorite }: any) {
   const { user }: any = useContext(AuthContext);
   const navigate = useNavigate();
   const [favorited, favoriteToggle] = useToggle();
+  const restController = RestController.getInstance();
 
   useEffect(() => {
     if (isFavorite) {
       favoriteToggle();
     }
   }, [isFavorite]);
-  // useEffect(() => {
-  //   if (user) {
-  //     fetch(`https://codebase-ty4d.onrender.com/profile/${user.uid}`)
-  //       .then((res) => res.json())
-  //       .then((json) => {
-  //         if(json.favorites.includes(gameID)) {
-  //           favoriteToggle();
-  //         }
-  //       })
-  //       .catch((err) => console.log(err));
-  //   }
-  // }, []);
 
-  const handleClick = (event: any) => {
+  const handleClick = async (event: any) => {
     if (user && !favorited) {
       const body = {
         itemId: gameID,
         action: 'add',
       };
       console.log('body', JSON.stringify(body), body);
-      fetch(`https://codebase-ty4d.onrender.com/profile/${user.uid}/favorites/update`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(body),
-      })
-        .then((res) => res)
-        .then((json) => {
-          console.log(json);
-          console.log(event.target);
-          notifications.show({
-            message: 'Added to favorites!',
-            color: 'green',
-            icon: <IconHeartPlus style={{ width: '20px', height: '20px' }} />,
-            loading: false,
-            autoClose: 1500,
-            withCloseButton: true,
-            withBorder: true,
-          });
-          favoriteToggle();
-        })
-        .catch((err) => console.log(err));
+      try {
+        const json = await restController.post<any>(`/profile/${user.uid}/favorites/update`, body);
+        console.log(json);
+        notifications.show({
+          message: 'Added to favorites!',
+          color: 'green',
+          icon: <IconHeartPlus style={{ width: '20px', height: '20px' }} />,
+          loading: false,
+          autoClose: 1500,
+          withCloseButton: true,
+          withBorder: true,
+        });
+        favoriteToggle();
+      } catch (err) {
+        console.log("user favorite error", err);
+      } 
     } else if (user && favorited) {
       const removeBodyObj = {
         itemId: gameID,
         action: 'remove',
       };
       console.log('body', removeBodyObj);
-      fetch(`https://codebase-ty4d.onrender.com/profile/${user.uid}/favorites/update`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(removeBodyObj),
-      })
-        .then((res) => res)
-        .then((json) => {
-          console.log(json);
-          notifications.show({
-            message: 'Removed from favorites',
-            color: 'red',
-            icon: <IconHeartX style={{ width: '20px', height: '20px' }} />,
-            loading: false,
-            autoClose: 1500,
-            withCloseButton: true,
-            withBorder: true,
-          });
-          favoriteToggle();
-        })
-        .catch((err) => console.log(err));
+      try {
+        const json = await restController.post<any>(`/profile/${user.uid}/favorites/update`, removeBodyObj);
+        console.log(json);
+        notifications.show({
+          message: 'Removed from favorites',
+          color: 'red',
+          icon: <IconHeartX style={{ width: '20px', height: '20px' }} />,
+          loading: false,
+          autoClose: 1500,
+          withCloseButton: true,
+          withBorder: true,
+        });
+        favoriteToggle();
+      } catch (err) {
+        console.log("user unfavorite error",err);
+      }
     } else {
       notifications.show({
         id: 'login',

@@ -11,6 +11,7 @@ import GameGrid from '@/components/GameGrid/GameGrid';
 
 import classes from './Profile.module.css';
 import coyoteavatar from '@/assets/coyoteavatar.png';
+import RestController from '@/utilities/api/restController';
 
 const data = [
   { link: 'uploads', label: 'Uploads', icon: IconDeviceGamepad },
@@ -25,6 +26,7 @@ function Profile() {
   const [purchases, setPurchases] = useState([]);
   const [favorites, setFavorites] = useState([]);
   const [loading, setLoading] = useState(true);
+  const restController = RestController.getInstance();
 
   const uploadsScroll = useScrollIntoView<HTMLDivElement>({
     offset: 80,
@@ -45,11 +47,16 @@ function Profile() {
 
   async function getProfile() {
     if (user) {
-      const profileResponse = await fetch(
-        `https://codebase-ty4d.onrender.com/profile/${user.uid}`,
-      );
-      const profileJson = await profileResponse.json();
-      setProfile(profileJson);
+      try {
+        const profileResponse = await restController.get(
+          `/profile/${user.uid}`,
+        );
+        setProfile(profileResponse);
+      } catch (error) {
+        console.error("get profile error", error);
+      } finally {
+        setLoading(false);
+      }
     }
   }
 

@@ -16,11 +16,13 @@ import { IconArrowLeft, IconCheck, IconX } from '@tabler/icons-react';
 
 import { useState } from 'react';
 import classes from './ForgotPassword.module.css';
+import RestController from '@/utilities/api/restController';
 
 export function ForgotPassword() {
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const restController = RestController.getInstance();
 
   const handleChange = (event: any) => {
     setError('');
@@ -33,7 +35,7 @@ export function ForgotPassword() {
     }
   };
 
-  const handleSubmit = (event: any) => {
+  const handleSubmit = async (event: any) => {
     if (email === '') {
       setError('Please enter an email');
       return;
@@ -51,44 +53,34 @@ export function ForgotPassword() {
       withCloseButton: false,
       withBorder: true,
     });
-    fetch('https://codebase-ty4d.onrender.com/passwordreset', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email,
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        notifications.update({
-          id: notificationId,
-          message: `A password reset link has been sent to email: ${email}`,
-          color: 'green',
-          icon: <IconCheck />,
-          loading: false,
-          autoClose: 3000,
-          withCloseButton: true,
-          withBorder: true,
-        });
-        navigate('/login');
-      })
-      .catch((error) => {
-        console.log(error);
-        notifications.update({
-          id: notificationId,
-          message: 'Failed to send link to reset password! Please try again.',
-          color: 'red',
-          icon: <IconX />,
-          loading: false,
-          autoClose: 3000,
-          withCloseButton: true,
-          withBorder: true,
-        });
+    try {
+      const response = await restController.post('/passwordreset', { email });
+      console.log("Forgot password response",response);
+      notifications.update({
+        id: notificationId,
+        message: `A password reset link has been sent to email: ${email}`,
+        color: 'green',
+        icon: <IconCheck />,
+        loading: false,
+        autoClose: 3000,
+        withCloseButton: true,
+        withBorder: true,
       });
-  };
+      navigate('/login');
+    } catch (error) {
+      console.log(error);
+      notifications.update({
+        id: notificationId,
+        message: 'Failed to send link to reset password! Please try again.',
+        color: 'red',
+        icon: <IconX />,
+        loading: false,
+        autoClose: 3000,
+        withCloseButton: true,
+        withBorder: true,
+      });
+    }
+  }
 
   return (
     <Box className={classes.root}>
