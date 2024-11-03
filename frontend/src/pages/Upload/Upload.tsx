@@ -1,3 +1,11 @@
+/*
+TODO:
+- Fix upload functionality
+- Add a loading spinner to the upload button while the game is being uploaded
+- Add a success notification when the game is successfully uploaded
+- Add an error notification when the game fails to upload
+- Add a redirect to the home page after the game is uploaded successfully
+*/
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -9,7 +17,7 @@ import { useForm, isNotEmpty } from '@mantine/form';
 import { IconCheck, IconX } from '@tabler/icons-react';
 
 import { AuthContext } from '@/utilities/auth/AuthContext';
-import { uploadFile } from '@/api';
+// import { uploadFile } from '@/api';
 import { TitleInput, TaglineInput, VideoInput } from './TextInput';
 import CategorySelect from './CategorySelect';
 import PlatformsInput from './PlatformsInput/PlatformsInput';
@@ -156,9 +164,9 @@ function Upload() {
         const imageFiles = firestoreGameFiles.images;
         const gameFiles = firestoreGameFiles.files.filter((file: any) => file.platform !== 'web');
 
-        const imageUploadPromises = imageFiles.map((image: any) => uploadFile(image, `images/${data.gameID}/${image.name}`));
+        const imageUploadPromises = imageFiles.map((image: any) => console.log(image, `images/${data.gameID}/${image.name}`));
 
-        const gameUploadPromises = gameFiles.map((file: any) => uploadFile(
+        const gameUploadPromises = gameFiles.map((file: any) => console.log(
           file.file,
           `gameFiles/${data.gameID}/${file.platform}/${file.file.name}`,
         ));

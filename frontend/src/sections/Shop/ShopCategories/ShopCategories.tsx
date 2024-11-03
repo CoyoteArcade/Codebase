@@ -12,7 +12,6 @@ function ShopCategories({
   maxCategories?: number;
 }) {
   const categories: Array<string> = [];
-
   for (let i = 0; i < gameData.length; i++) {
     const game = gameData[i];
     for (let j = 0; j < game.categories.length; j++) {

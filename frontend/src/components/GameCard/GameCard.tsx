@@ -29,7 +29,6 @@ function GameCard({
   } = gameObj;
   let { platforms, categories } = gameObj;
   const aspectRatio = 16 / 9;
-
   useEffect(() => {}, []);
 
   /** Category Badges * */
@@ -51,7 +50,7 @@ function GameCard({
             <AspectRatio ratio={aspectRatio} className={classes['card-cover']}>
               <Image
                 src={
-                  gameImages.urls.length > 0
+                  gameImages.urls.length > 0 && gameImages.urls[0]
                     ? gameImages.urls[0]
                     : 'https://placehold.co/1600x900/003e7a/eee'
                 }
