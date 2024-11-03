@@ -32,7 +32,8 @@ export default [
               "args": "after-used",
               "argsIgnorePattern": "^_",
           },
-      ]
+      ],
+      "react/react-in-jsx-scope": "off",
     }
   },
   {

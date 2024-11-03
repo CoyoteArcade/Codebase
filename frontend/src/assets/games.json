@@ -1,8 +1,9 @@
 [
   {
     "id": "6488qm0lXdhWL8vchXUH",
-    "Rating": 1,
-    "Publisher/Developer": "League Games",
+    "rating": 1,
+    "platforms": ["PC", "Mac"],
+    "developer": "League Games",
     "System Requirements": {
       "Graphics": "M1",
       "Memory": "4 GB RAM",
@@ -10,17 +11,18 @@
       "OS": "Mac OS",
       "Storage": "4 GB"
     },
-    "Release Date": "10/20/2021",
-    "Category": ["Multiplayer", "Strategy"],
-    "Title": "League of Champions",
-    "Description": "Win against enemy champions at all cost.",
-    "Screenshots/Images": [""]
+    "releaseDate": "10/20/2021",
+    "categories": ["Multiplayer", "Strategy"],
+    "title": "League of Champions",
+    "description": "Win against enemy champions at all cost.",
+    "images": [""]
   },
   {
     "id": "6zPW66aGoPbMcv7ydZH0",
-    "Rating": 0,
-    "Description": "Build a base to defend yourself from aliens.",
-    "Release Date": "09/15/2009",
+    "rating": 0,
+    "platforms": ["PC", "Mac"],
+    "description": "Build a base to defend yourself from aliens.",
+    "releaseDate": "09/15/2009",
     "System Requirements": {
       "Processor": "Intel i3",
       "Graphics": "Geforce GT",
@@ -28,20 +30,21 @@
       "OS": "Windows XP",
       "Memory": "512 MB RAM"
     },
-    "Title": "Cosmic Invaders",
-    "Publisher/Developer": "Cosmic Games",
-    "Screenshots/Images": [""],
-    "Category": ["Strategy"]
+    "title": "Cosmic Invaders",
+    "developer": "Cosmic Games",
+    "images": [""],
+    "categories": ["Strategy"]
   },
   {
     "id": "7LispgYYatiqI8r3sEqT",
-    "Screenshots/Images": [""],
-    "Publisher/Developer": "Sky Entertainment",
-    "Description": "Embark on an adventure in the skies.",
-    "Category": ["Adventure"],
-    "Title": "Legend of the Sky",
-    "Release Date": "12/14/2019",
-    "Rating": 1,
+    "images": [""],
+    "developer": "Sky Entertainment",
+    "description": "Embark on an adventure in the skies.",
+    "categories": ["Adventure"],
+    "title": "Legend of the Sky",
+    "releaseDate": "12/14/2019",
+    "rating": 1,
+    "platforms": ["PC", "Mac"],
     "System Requirements": {
       "Memory": "4 GB RAM",
       "Storage": "10 GB",
@@ -52,12 +55,13 @@
   },
   {
     "id": "8dDrC3i88a8OrxLPy9np",
-    "Release Date": "10/13/2018",
-    "Category": ["Adventure"],
-    "Publisher/Developer": "Forgotten Games",
-    "Rating": 1,
-    "Screenshots/Images": [""],
-    "Description": "Adventure through the darkness and light up the world as you progress.",
+    "releaseDate": "10/13/2018",
+    "categories": ["Adventure"],
+    "developer": "Forgotten Games",
+    "rating": 1,
+    "platforms": ["PC", "Mac"],
+    "images": [""],
+    "description": "Adventure through the darkness and light up the world as you progress.",
     "System Requirements": {
       "Processor": "Intel Core i3",
       "Graphics": "Radeon 3000",
@@ -65,13 +69,13 @@
       "Storage": "4 GB",
       "OS": "Windows 10"
     },
-    "Title": "Forgotten Shadows"
+    "title": "Forgotten Shadows"
   },
   {
     "id": "8iVVnZNLa542aY7b1H0i",
-    "Release Date": "01/01/2000",
-    "Title": "Nexus Zone",
-    "Category": ["FPS"],
+    "releaseDate": "01/01/2000",
+    "title": "Nexus Zone",
+    "categories": ["FPS"],
     "System Requirements": {
       "Memory": "2 GB RAM",
       "Storage": "1 GB",
@@ -79,14 +83,16 @@
       "Processor": "Intel Core i5-2310",
       "Graphics": "Geforce GT 450"
     },
-    "Rating": 0,
-    "Screenshots/Images": [""],
-    "Publisher/Developer": "Nexus Inc",
-    "Description": "Protect your nexus from the opposing team."
+    "rating": 0,
+    "platforms": ["PC", "Mac"],
+    "images": [""],
+    "developer": "Nexus Inc",
+    "description": "Protect your nexus from the opposing team."
   },
   {
     "id": "Kk4LLiMwiYbI3KDVGPfd",
-    "Rating": 1,
+    "rating": 1,
+    "platforms": ["PC", "Mac"],
     "System Requirements": {
       "Memory": "500 MB RAM",
       "OS": "Windows 7",
@@ -94,16 +100,16 @@
       "Processor": "Intel Core i3",
       "Graphics": "Integrated Graphics"
     },
-    "Description": "Solve puzzle to escape the island.",
-    "Category": ["Puzzle"],
-    "Release Date": "09/09/2012",
-    "Publisher/Developer": "Anonymous",
-    "Screenshots/Images": [""],
-    "Title": "Mystery Island"
+    "description": "Solve puzzle to escape the island.",
+    "categories": ["Puzzle"],
+    "releaseDate": "09/09/2012",
+    "developer": "Anonymous",
+    "images": [""],
+    "title": "Mystery Island"
   },
   {
     "id": "ND81eZ2glIvx9nkCh7rF",
-    "Release Date": "03/25/2010",
+    "releaseDate": "03/25/2010",
     "System Requirements ": {
       "Storage": "500 MB",
       "Graphics": "Intel Integrated Graphics",
@@ -111,12 +117,13 @@
       "OS": "Windows 11",
       "Memory": "1 GB RAM"
     },
-    "Rating": 0,
-    "Description": "Build your own mech to defeat enemy mechs.",
-    "Screenshots/Images": [""],
-    "Publisher/Developer": "Mech Games Inc",
-    "Category": ["Strategy"],
-    "Title": "Mech Wars"
+    "rating": 0,
+    "platforms": ["PC", "Mac"],
+    "description": "Build your own mech to defeat enemy mechs.",
+    "images": [""],
+    "developer": "Mech Games Inc",
+    "categories": ["Strategy"],
+    "title": "Mech Wars"
   },
   {
     "id": "TwKpt2I6gdemNUh64kVY",
@@ -127,23 +134,25 @@
       "Memory": "4 GB RAM",
       "Graphics": "Nvida Geforce 4080"
     },
-    "Rating": 1,
-    "Description": "TDM based FPS, with vibrant colors.",
-    "Publisher/Developer": "Neon Games",
-    "Release Date": "08/21/1990",
-    "Screenshots/Images": [""],
-    "Title": "Neon Shooters",
-    "Category": ["FPS"]
+    "rating": 1,
+    "platforms": ["PC", "Mac"],
+    "description": "TDM based FPS, with vibrant colors.",
+    "developer": "Neon Games",
+    "releaseDate": "08/21/1990",
+    "images": [""],
+    "title": "Neon Shooters",
+    "categories": ["FPS"]
   },
   {
     "id": "UHLMUdAqCSGnwaxLke2J",
-    "Publisher/Developer": "Frontier Games",
-    "Title": "The Frontier",
-    "Screenshot/Images": [""],
-    "Rating": 1,
-    "Category": ["Adventure"],
-    "Release Date": "10/02/2022",
-    "Description": "Go on an adventure in the Wild West as a gunslinging cowboy.",
+    "developer": "Frontier Games",
+    "title": "The Frontier",
+    "images": [""],
+    "rating": 1,
+    "platforms": ["PC", "Mac"],
+    "categories": ["Adventure"],
+    "releaseDate": "10/02/2022",
+    "description": "Go on an adventure in the Wild West as a gunslinging cowboy.",
     "System Requirements": {
       "Memory": "4 GB RAM",
       "Graphics": "M1",
@@ -154,10 +163,10 @@
   },
   {
     "id": "ema3cIa0wE1ClYtyXUZk",
-    "Description": "Build your own empire and attack neighboring empires to expand.",
-    "Publisher/Developer": "Sand Games",
-    "Screenshots/Images": [""],
-    "Release Date": "04/03/2015",
+    "description": "Build your own empire and attack neighboring empires to expand.",
+    "developer": "Sand Games",
+    "images": [""],
+    "releaseDate": "04/03/2015",
     "System Requirements": {
       "Memory": "1 GB RAM",
       "Processor": "A11",
@@ -165,15 +174,16 @@
       "Graphics": "A11",
       "OS": "iOS"
     },
-    "Title": "Empires of Sand",
-    "Category": ["Strategy"],
-    "Rating": 1
+    "title": "Empires of Sand",
+    "categories": ["Strategy"],
+    "rating": 1,
+    "platforms": ["PC", "Mac"]
   },
   {
     "id": "gvB3qly7nhSAAoDlrTwy",
-    "Title": "Block Battle",
-    "Description": "First Person Shooter in a world of blocks.",
-    "Release Date": "12/31/1969",
+    "title": "Block Battle",
+    "description": "First Person Shooter in a world of blocks.",
+    "releaseDate": "12/31/1969",
     "System Requirements": {
       "Storage": "2 GB",
       "Memory": "6 GB RAM",
@@ -181,18 +191,20 @@
       "OS": "Windows 10",
       "Processor": "Intel Core i5-2310"
     },
-    "Screenshots/Images": [""],
-    "Category": ["FPS"],
-    "Publisher/Developer ": "Game Maker",
-    "Rating": 1
+    "images": [""],
+    "categories": ["FPS"],
+    "developer ": "Game Maker",
+    "rating": 1,
+    "platforms": ["PC", "Mac"]
   },
   {
     "id": "l2hSum9Iwls1cy0o9KL4",
-    "Publisher/Developer": "Dynasty Games",
-    "Title": "Dynasty Clash",
-    "Screenshots/Images": [""],
-    "Rating": 1,
-    "Description": "Build your dynasty and defend it from the other kingdoms.",
+    "developer": "Dynasty Games",
+    "title": "Dynasty Clash",
+    "images": [""],
+    "rating": 1,
+    "platforms": ["PC", "Mac"],
+    "description": "Build your dynasty and defend it from the other kingdoms.",
     "System Requirements": {
       "Storage": "30 GB",
       "Processor": "Intel Core i5-9600k",
@@ -200,16 +212,17 @@
       "OS": "Windows 10",
       "Graphics": "Geforce 1080TI"
     },
-    "Category": ["Strategy"],
-    "Release Date": "05/14/2022"
+    "categories": ["Strategy"],
+    "releaseDate": "05/14/2022"
   },
   {
     "id": "mKVEGxOwxDVDIPwOponh",
-    "Screenshots/Images": [""],
-    "Release Date": "10/02/2023",
-    "Publisher/Developer": "Riot Industries",
-    "Rating": 0,
-    "Category": ["FPS"],
+    "images": [""],
+    "releaseDate": "10/02/2023",
+    "developer": "Riot Industries",
+    "rating": 0,
+    "platforms": ["PC", "Mac"],
+    "categories": ["FPS"],
     "System Requirements": {
       "Storage": "1.4 GB",
       "Processor": "Intel Core i3-2300",
@@ -217,8 +230,8 @@
       "OS": "Mac OS",
       "Graphics": "Radeon 2300XT"
     },
-    "Description": "Hold off the hoard of sentinels trying to invade.",
-    "Title": "Sentinel Strike"
+    "description": "Hold off the hoard of sentinels trying to invade.",
+    "title": "Sentinel Strike"
   },
   {
     "id": "mkPOv6Xo2ciUIjHi8P1p",
@@ -229,13 +242,14 @@
       "Processor": "A10",
       "Storage": "100 MB"
     },
-    "Title": "Sugar Run",
-    "Publisher/Developer": "Candy Games",
-    "Screenshots/Images": [""],
-    "Description": "Solve puzzles to make it through the Sugar Run.",
-    "Category": ["Puzzle"],
-    "Release Date": "02/02/2022",
-    "Rating": 0
+    "title": "Sugar Run",
+    "developer": "Candy Games",
+    "images": [""],
+    "description": "Solve puzzles to make it through the Sugar Run.",
+    "categories": ["Puzzle"],
+    "releaseDate": "02/02/2022",
+    "rating": 0,
+    "platforms": ["PC", "Mac"]
   },
   {
     "id": "nJznqHa1IV2uyvXbXduK",
@@ -246,21 +260,23 @@
       "Storage": "10 GB",
       "OS": "Windows 10"
     },
-    "Screenshots/Images": [""],
-    "Category": ["Puzzle"],
-    "Rating": 1,
-    "Release Date": "07/17/2019",
-    "Title": "Quantum Puzzle",
-    "Description": "A puzzle game between dimensions, dive into the quantum realm.",
-    "Publisher/Developer": "Quantum Games"
+    "images": [""],
+    "categories": ["Puzzle"],
+    "rating": 1,
+    "platforms": ["PC", "Mac"],
+    "releaseDate": "07/17/2019",
+    "title": "Quantum Puzzle",
+    "description": "A puzzle game between dimensions, dive into the quantum realm.",
+    "developer": "Quantum Games"
   },
   {
     "id": "oIZNDHlHFhDEOj9SOIeE",
-    "Description": "Hop in with your friends and drop in to this battle royale.",
-    "Title": "Royal Clash",
-    "Publisher/Developer": "Royal Games",
-    "Rating": 1,
-    "Screenshots/Images": [""],
+    "description": "Hop in with your friends and drop in to this battle royale.",
+    "title": "Royal Clash",
+    "developer": "Royal Games",
+    "rating": 1,
+    "platforms": ["PC", "Mac"],
+    "images": [""],
     "System Requirements": {
       "Processor": "Intel Core i7-9600k",
       "Graphics": "Geforce GTX 2060",
@@ -268,15 +284,16 @@
       "OS": "Windows 10",
       "Memory": "8 GB RAM"
     },
-    "Category": ["Multiplayer"],
-    "Release Date": "01/01/2022"
+    "categories": ["Multiplayer"],
+    "releaseDate": "01/01/2022"
   },
   {
     "id": "qYRHPuVLytzoWeyFnE5p",
-    "Description": "Go on a long haul odyssey and enjoy the journey.",
-    "Rating": 0,
-    "Screenshots/Images": [""],
-    "Publisher/Developer": "Long Games Inc.",
+    "description": "Go on a long haul odyssey and enjoy the journey.",
+    "rating": 0,
+    "platforms": ["PC", "Mac"],
+    "images": [""],
+    "developer": "Long Games Inc.",
     "System Requirements": {
       "OS": "Windows 10",
       "Graphics": "Geforce GTX 980",
@@ -284,14 +301,15 @@
       "Processor": "Intel Core i5",
       "Storage": "2 GB"
     },
-    "Title": "The Long Odyssey",
-    "Category": ["Adventure"],
-    "Release Date": "10/28/2020"
+    "title": "The Long Odyssey",
+    "categories": ["Adventure"],
+    "releaseDate": "10/28/2020"
   },
   {
     "id": "rU2nANp8UmpYYPopjxmT",
-    "Rating": 1,
-    "Release Date": "07/03/2023",
+    "rating": 1,
+    "platforms": ["PC", "Mac"],
+    "releaseDate": "07/03/2023",
     "System Requirements": {
       "Processor": "Ryzen 7 5600X",
       "Graphics": "Geforce GTX 2080TI",
@@ -299,20 +317,21 @@
       "OS": "Windows 11",
       "Storage": "45 GB"
     },
-    "Category": ["Multiplayer"],
-    "Publisher/Developer": "Infiltrator",
-    "Description": "Search and destroy your enemy or detonate the device.",
-    "Screenshots/Images": [""],
-    "Title": "Infiltrate"
+    "categories": ["Multiplayer"],
+    "developer": "Infiltrator",
+    "description": "Search and destroy your enemy or detonate the device.",
+    "images": [""],
+    "title": "Infiltrate"
   },
   {
     "id": "w6GPX90k5XNtMvCh68ko",
-    "Description": "Get to the frontline and shoot the enemy with your friends.",
-    "Category": ["Multiplayer", "FPS"],
-    "Rating": 0,
-    "Publisher/Developer": "Tactical Games Inc.",
-    "Screenshots/Images": [""],
-    "Release Date": "12/31/2020",
+    "description": "Get to the frontline and shoot the enemy with your friends.",
+    "categories": ["Multiplayer", "FPS"],
+    "rating": 0,
+    "platforms": ["PC", "Mac"],
+    "developer": "Tactical Games Inc.",
+    "images": [""],
+    "releaseDate": "12/31/2020",
     "System Requirements": {
       "OS": "Windows 10",
       "Graphics": "Integrated Graphics",
@@ -320,11 +339,11 @@
       "Processor": "Intel Pentium",
       "Memory": "2 GB RAM"
     },
-    "Title": "Tactical Warfront"
+    "title": "Tactical Warfront"
   },
   {
     "id": "zD4zvobzlY8iuHvjGYVs",
-    "Screenshots/Images": [""],
+    "images": [""],
     "System Requirements": {
       "OS": "Windows 8",
       "Processor": "Intel Pentium",
@@ -332,22 +351,23 @@
       "Graphics": "Radeon 6900",
       "Storage": "4 GB"
     },
-    "Description": "Control your puppets to escape this twisted puppet world.",
-    "Rating": 1,
-    "Release Date": "10/31/2015",
-    "Category": ["Puzzle"],
-    "Publisher/Developer": "Puppet Mister",
-    "Title": "Puppet Masters"
+    "description": "Control your puppets to escape this twisted puppet world.",
+    "rating": 1,
+    "platforms": ["PC", "Mac"],
+    "releaseDate": "10/31/2015",
+    "categories": ["Puzzle"],
+    "developer": "Puppet Mister",
+    "title": "Puppet Masters"
   },
   {
     "id": "znKI1b6VVDQmSOYZZjbx",
-    "Release Date": "2020-12-10",
-    "Screenshots/Images": [
+    "releaseDate": "2020-12-10",
+    "images": [
       "https://cdn.cloudflare.steamstatic.com/steam/apps/1091500/ss_3a0d6d1c7f8b8f9e6b9c7b7b3b6d7b9b2a4f7f7b.jpg?t=1633018251",
       "https://cdn.cloudflare.steamstatic.com/steam/apps/1091500/ss_4a9b6c1e4e1f6e9a0e1c8b4b7a9c7b1b5b7f7f7b.jpg?t=1633018251",
       "https://cdn.cloudflare.steamstatic.com/steam/apps/1091500/ss_7e3a9a1f4c4d3d8e0e8f8b3b9a6d7b1b7b4f7f7b.jpg?t=1633018251"
     ],
-    "Publisher/Developer": "CD Projekt Red",
+    "developer": "CD Projekt Red",
     "System Requirements": {
       "OS": "Windows 10 64-bit",
       "Graphics": "NVIDIA GeForce GTX 780 3GB / AMD Radeon RX 470",
@@ -355,9 +375,10 @@
       "Memory": "8 GB",
       "Processor": "Intel Core i5-3570K / AMD FX-8310"
     },
-    "Title": "Cyberpunk 2077",
-    "Rating": 44,
-    "Category": ["Action", "Adventure", "RPG"],
-    "Description": "Cyberpunk 2077 is an open-world, action-adventure story set in Night City, a megalopolis obsessed with power, glamour and body modification. You play as V, a mercenary outlaw going after a one-of-a-kind implant that is the key to immortality. You can customize your character’s cyberware, skillset and playstyle, and explore a vast city where the choices you make shape the story and the world around you."
+    "title": "Cyberpunk 2077",
+    "rating": 44,
+    "platforms": ["PC", "Mac"],
+    "categories": ["Action", "Adventure", "RPG"],
+    "description": "Cyberpunk 2077 is an open-world, action-adventure story set in Night City, a megalopolis obsessed with power, glamour and body modification. You play as V, a mercenary outlaw going after a one-of-a-kind implant that is the key to immortality. You can customize your character’s cyberware, skillset and playstyle, and explore a vast city where the choices you make shape the story and the world around you."
   }
 ]

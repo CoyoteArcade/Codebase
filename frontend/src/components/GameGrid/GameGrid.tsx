@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { Box } from '@mantine/core';
+import mockGames from '@/assets/games.json';
 
 import { AuthContext } from '@/utilities/auth/AuthContext';
 import { GameCard } from '@/components/GameCard/GameCard';
@@ -28,17 +29,25 @@ function GameGrid({ gameData, category = '' }: { gameData: any; category?: strin
 
     const fetchGameImages = async () => {
       setLoading(true);
-      fetch('https://codebase-ty4d.onrender.com/games/url/images')
-        .then((res) => res.json())
-        .then((json) => {
-          // console.log('fetch game images response', json);
-          setAllImageLinks(json.images);
-          setLoading(false);
-        })
-        .catch((err) => {
-          setLoading(false);
-          console.log(err);
-        });
+      if (import.meta.env.PROD) {
+        fetch('https://codebase-ty4d.onrender.com/games/url/images')
+          .then((res) => res.json())
+          .then((json) => {
+            // console.log('fetch game images response', json);
+            setAllImageLinks(json.images);
+            setLoading(false);
+          })
+          .catch((err) => {
+            setLoading(false);
+            console.log(err);
+          });
+      } else {
+        const images:any = mockGames.map((game:any) => {
+          return { id: game.id, urls: game.images };
+        } );
+        setAllImageLinks(images);
+        setLoading(false);
+      }
     };
 
     fetchProfile();
