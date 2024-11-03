@@ -19,6 +19,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useContext, useState } from 'react';
 import classes from './Register.module.css';
 import { AuthContext } from '@/utilities/auth/AuthContext';
+import RestController from '@/utilities/api/restController';
 
 export function Register() {
   const navigate = useNavigate();
@@ -28,6 +29,7 @@ export function Register() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const restController = RestController.getInstance();
 
   console.log(user);
 
@@ -50,35 +52,35 @@ export function Register() {
       console.log('Error: Passwords do not match');
       return;
     }
-    const request = await fetch('https://codebase-ty4d.onrender.com/signup', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email,
-        username,
-        password,
-        confirmPassword,
-      }),
-    });
-    const response = await request.json();
-    console.log('response', response);
-    if (response.message === 'Signed up') {
+    try {
+      const response = await restController.post<any>('/signup', { email, username, password, confirmPassword });
+      console.log('signup response', response);
+      if (response.message === 'Signed up') {
+        notifications.show({
+          message: 'Signup Successful!',
+          color: 'green',
+          icon: <IconCheck />,
+          autoClose: 3000,
+          withCloseButton: true,
+          withBorder: true,
+        });
+        setUser((response as any).user);
+        navigate('/');
+      } else if (response.message === 'Error signing up') {
+        console.log(response.error, response.errorCode);
+        notifications.show({
+          message: `Error: ${response.message} (${response.errorCode})`,
+          color: 'red',
+          icon: <IconX />,
+          autoClose: 3000,
+          withCloseButton: true,
+          withBorder: true,
+        });
+      }
+    } catch (error) {
+      console.error('failed to signup', error);
       notifications.show({
-        message: 'Signup Successful!',
-        color: 'green',
-        icon: <IconCheck />,
-        autoClose: 3000,
-        withCloseButton: true,
-        withBorder: true,
-      });
-      setUser((response as any).user);
-      navigate('/');
-    } else if (response.message === 'Error signing up') {
-      console.log(response.error, response.errorCode);
-      notifications.show({
-        message: `Error: ${response.message} (${response.errorCode})`,
+        message: `Request Error: ${error}`,
         color: 'red',
         icon: <IconX />,
         autoClose: 3000,

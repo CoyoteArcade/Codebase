@@ -23,6 +23,7 @@ import { AuthContext } from '@/utilities/auth/AuthContext';
 import { getVideoId } from '@/utilities/video/embedYoutube';
 import classes from './Game.module.css';
 import Downloads from './Downloads';
+import RestController from '@/utilities/api/restController';
 
 const catPics = [
   'https://placekitten.com/1920/1084',
@@ -39,6 +40,7 @@ export default function Game() {
     mac: '',
     linux: '',
   } as any);
+  const restController = RestController.getInstance();
 
   const games: any = useRouteLoaderData('root');
   const { id } = useParams();
@@ -61,32 +63,27 @@ export default function Game() {
 
   useEffect(() => {
     const fetchGameAssets = async () => {
-      const response = await fetch(`https://codebase-ty4d.onrender.com/games/${id}/url`);
-      const json = await response.json();
-      console.log(json);
-      setGameAssetLinks(json);
-      setLoading(false);
+      try {
+        const json = await restController.get<any>(`/games/${id}/url`);
+        console.log(json);
+        setGameAssetLinks(json);
+      } catch (error) {
+        console.error('failed to fetch game assets', error);
+      } finally {
+        setLoading(false);
+      }
     };
     fetchGameAssets();
   }, [id]);
 
-  const handlePurchase = () => {
+  const handlePurchase = async () => {
     if (user) {
-      fetch(
-        `https://codebase-ty4d.onrender.com/profile/${(user as any).uid}/purchases/update`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ itemId: id, action: 'add' }),
-        },
-      )
-        .then((res) => res)
-        .then((json) => {
-          console.log(json);
-        })
-        .catch((err) => console.log(err));
+      try {
+        const json = await restController.post<any>(`/games/${id}/purchase`, { itemId: id, action: 'add' });
+        console.log(json);
+      } catch (error) {
+        console.error('failed to purchase game', error);
+      }
     }
   };
 

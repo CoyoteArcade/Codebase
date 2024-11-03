@@ -1,23 +1,24 @@
 import { Outlet } from 'react-router-dom';
 import { Box } from '@mantine/core';
 import ScrollToTop from '@/components/ScrollToTop';
-import mockGames from '@/assets/games.json';
 
 import Header from '../../sections/Header/Header';
 import Footer from '../../sections/Footer/Footer';
 
 import classes from './Root.module.css';
+import RestController from '@/utilities/api/restController';
+import { Game } from '@/types';
 
 export async function loader() {
-  let games = [];
-  if (import.meta.env.PROD) {
-    const gamesResponse = await fetch('https://codebase-ty4d.onrender.com/games');
-    const gamesJson = await gamesResponse.json();
+  const restController = RestController.getInstance();
+  let games:Game[] = [];
+  try {
+    const gamesJson = await restController.get<Game[]>('/games');
     if (gamesJson.length) {
       games = gamesJson;
     }
-  } else {
-    games = mockGames;
+  } catch (error) {
+    console.error('failed to receive games', error);
   }
   return games;
 }

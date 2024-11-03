@@ -21,6 +21,7 @@ import {
 // import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import classes from './Login.module.css';
 import { AuthContext } from '@/utilities/auth/AuthContext';
+import RestController from '@/utilities/api/restController';
 
 export function Login() {
   const navigate = useNavigate();
@@ -28,6 +29,7 @@ export function Login() {
   const [emailError, setEmailError] = useState('');
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
+  const restController = RestController.getInstance();
 
   const { user, setUser } = useContext(AuthContext);
 
@@ -81,14 +83,7 @@ export function Login() {
       withBorder: true,
     });
     try {
-      const request = await fetch('https://codebase-ty4d.onrender.com/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
-      });
-      response = await request.json();
+      const response = await restController.post<any>('/login', { email, password });
       if ((response as any).message === 'Signed in') {
         notifications.update({
           id: notificationId,
@@ -119,7 +114,7 @@ export function Login() {
         setUser(null);
       }
     } catch (error) {
-      console.log('error', error);
+      console.log('login error', error);
       response = { error };
       notifications.update({
         id: notificationId,
@@ -133,7 +128,7 @@ export function Login() {
       });
       setUser(null);
     }
-    console.log('response', response);
+    console.log('login response', response);
   };
 
   return (

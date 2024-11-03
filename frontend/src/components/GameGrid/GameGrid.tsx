@@ -1,51 +1,44 @@
 import { useContext, useEffect, useState } from 'react';
 import { Box } from '@mantine/core';
-import mockGames from '@/assets/games.json';
 
 import { AuthContext } from '@/utilities/auth/AuthContext';
 import { GameCard } from '@/components/GameCard/GameCard';
 import classes from './GameGrid.module.css';
+import RestController from '@/utilities/api/restController';
 
 function GameGrid({ gameData, category = '' }: { gameData: any; category?: string }) {
   const { user }: any = useContext(AuthContext);
   const [userLists, setUserLists] = useState([]);
   const [allImageLinks, setAllImageLinks] = useState([]);
   const [loading, setLoading] = useState(true);
+  const restController = RestController.getInstance();
   let games:any = [];
   let categoryGames;
 
   useEffect(() => {
     const fetchProfile = async () => {
       if (user) {
-        fetch(`https://codebase-ty4d.onrender.com/profile/${user.uid}`)
-          .then((res) => res.json())
-          .then((json) => {
-            // console.log('fetch profile response', json);
-            setUserLists(json.favorites);
-          })
-          .catch((err) => console.log(err));
+        try {
+          const json = await restController.get<any>(`/profile/${user.uid}`);
+          setUserLists(json.favorites);
+        } catch (error) {
+          console.error('failed to fetch profile', error);
+        } finally {
+          setLoading(false);
+        }
+      } else {
+        setLoading(false);
       }
     };
 
     const fetchGameImages = async () => {
       setLoading(true);
-      if (import.meta.env.PROD) {
-        fetch('https://codebase-ty4d.onrender.com/games/url/images')
-          .then((res) => res.json())
-          .then((json) => {
-            // console.log('fetch game images response', json);
-            setAllImageLinks(json.images);
-            setLoading(false);
-          })
-          .catch((err) => {
-            setLoading(false);
-            console.log(err);
-          });
-      } else {
-        const images:any = mockGames.map((game:any) => {
-          return { id: game.id, urls: game.images };
-        } );
-        setAllImageLinks(images);
+      try {
+        const json = await restController.get<any>('/games/url/images');
+        setAllImageLinks(json.images);
+      } catch (error) {
+        console.error('failed to fetch game images', error);
+      } finally {
         setLoading(false);
       }
     };

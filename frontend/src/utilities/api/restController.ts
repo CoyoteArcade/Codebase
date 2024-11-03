@@ -5,7 +5,7 @@ type FetchOptions = {
 };
 
 class RestController {
-    private baseUrl!: URL;
+    private baseUrl!: string;
     private static instance: RestController;
 
     private constructor() {
@@ -26,16 +26,16 @@ class RestController {
         return RestController.instance;
     }
 
-    private async fetch<T>(endpoint: URL, options: FetchOptions): Promise<T> {
+    private async fetch<T>(endpoint: string, options: FetchOptions): Promise<T> {
         const response = await fetch(`${this.baseUrl}${endpoint}`, options);
         return response.json();
     }
 
-    public async get<T>(endpoint: URL): Promise<T> {
+    public async get<T>(endpoint: string): Promise<T> {
         return this.fetch<T>(endpoint, { method: 'GET' });
     }
     
-    public async post<T>(endpoint: URL, data: unknown): Promise<T> {
+    public async post<T>(endpoint: string, data: unknown): Promise<T> {
         return this.fetch<T>(endpoint, {
           method: 'POST',
           headers: {
@@ -45,7 +45,7 @@ class RestController {
         });
     }
     
-    public async put<T>(endpoint: URL, data: unknown): Promise<T> {
+    public async put<T>(endpoint: string, data: unknown): Promise<T> {
         return this.fetch<T>(endpoint, {
           method: 'PUT',
           headers: {
@@ -55,7 +55,7 @@ class RestController {
         });
     }
     
-    public async delete<T>(endpoint: URL): Promise<T> {
+    public async delete<T>(endpoint: string): Promise<T> {
         return this.fetch<T>(endpoint, { method: 'DELETE' });
     }
 }
