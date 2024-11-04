@@ -27,8 +27,14 @@ class RestController {
     }
 
     private async fetch<T>(endpoint: string, options: FetchOptions): Promise<T> {
-        const response = await fetch(`${this.baseUrl}${endpoint}`, options);
-        return response.json();
+        let json = null;
+        try {
+            const response = await fetch(`${this.baseUrl}${endpoint}`, options);
+            json = await response.json();
+        } catch (error) {
+            console.log('fetch error', error);
+        }
+        return json;
     }
 
     public async get<T>(endpoint: string): Promise<T> {
