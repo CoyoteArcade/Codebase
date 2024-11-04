@@ -335,6 +335,7 @@ const addToFavorites = async (userId, itemId) => {
     favorites.add(itemId);
     await updateDoc(userRef, { favorites: Array.from(favorites) });
     console.log('Favorites updated');
+    return Array.from(favorites);
   } catch (error) {
     console.error('Error updating favorites:', error);
     throw error;
@@ -357,6 +358,7 @@ const removeFromFavorites = async (userId, itemId) => {
     favorites.delete(itemId);
     await updateDoc(userRef, { favorites: Array.from(favorites) });
     console.log('Favorite removed');
+    return Array.from(favorites);
   } catch (error) {
     console.error('Error removing favorite:', error);
     throw error;
