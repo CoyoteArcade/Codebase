@@ -11,6 +11,7 @@ import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Box, Stack, Title, Button, Text,
+  Textarea,
 } from '@mantine/core';
 import { useScrollIntoView } from '@mantine/hooks';
 import { notifications } from '@mantine/notifications';
@@ -23,7 +24,6 @@ import { TitleInput, TaglineInput, VideoInput } from './TextInput';
 import CategorySelect from './CategorySelect';
 import PlatformsInput from './PlatformsInput/PlatformsInput';
 import ImageDropzone from './ImageDropzone/ImageDropzone';
-import TextEditor from './TextEditor/TextEditor';
 
 import classes from './Upload.module.css';
 import RestController from '@/utilities/api/restController';
@@ -54,10 +54,10 @@ function Upload() {
       developer: '', // todo
       title: '',
       tagline: '',
-      description: '',
+      description: 'Insert game description here',
       categories: [],
       platforms: [],
-      instructions: '',
+      instructions: 'Insert download and install instructions here',
       images: [],
       video: '',
     },
@@ -247,7 +247,6 @@ function Upload() {
           <Box ref={platformsScroll.targetRef}>
             <PlatformsInput {...form} />
           </Box>
-        </Stack>
 
         {/* Images */}
         <Box w="100%" maw={700} ref={imagesScroll.targetRef} m="0 auto">
@@ -269,7 +268,7 @@ function Upload() {
           <Title order={3} mb="xs">
             Game Page Description
           </Title>
-          <TextEditor useFor="description" props={form} />
+          <Textarea {...form.getInputProps('description')} />
         </Box>
 
         {/* Download & Install Instructions */}
@@ -277,13 +276,14 @@ function Upload() {
           <Title order={3} mb="xs">
             Download & Install Instructions
           </Title>
-          <TextEditor useFor="instructions" props={form} />
+          <Textarea {...form.getInputProps('instructions')} />
         </Box>
 
         {/* Upload Button */}
         <Button size="lg" m="0 auto" type="submit" disabled={isSubmitting}>
           {isSubmitting ? 'Uploading...' : 'UPLOAD'}
         </Button>
+        </Stack>
       </Stack>
     </Box>
   );
