@@ -239,7 +239,47 @@ const getGameImages = async (gameIds) => {
     throw error;
   }
 };
-  
+
+/**
+ * Get the download URLs for all game files (Windows, Mac, Linux) for a specific game ID.
+ * @param {string} gameId - ID of the game to get files for.
+ * @returns {Object} - Object with download URLs for Windows, Mac, and Linux files.
+ * @example
+ * {
+ * windows: 'url1',
+ * mac: 'url2',
+ * linux: 'url3',
+ * }
+ * @throws {Error} - Error if there is an issue getting the game files.
+ */
+const getGameFiles = async (gameId) => {
+  const gamePath = `gameFiles/${gameId}/`;
+  const windowsPath = `${gamePath}windows/`;
+  const macPath = `${gamePath}mac/`;
+  const linuxPath = `${gamePath}linux/`;
+  let windows = '';
+  let mac = '';
+  let linux = '';
+  try {
+    const windowsFiles = await storage.getFiles({ prefix: windowsPath });
+    // console.log('Windows files:', windowsFiles);
+    if (windowsFiles[0].length > 0) {
+      windows = await getDownloadURL(windowsFiles[0][0]);
+    }
+    const macFiles = await storage.getFiles({ prefix: macPath });
+    if (macFiles[0].length > 0) {
+      mac = await getDownloadURL(macFiles[0][0]);
+    }
+    const linuxFiles = await storage.getFiles({ prefix: linuxPath });
+    if (linuxFiles[0].length > 0) {
+      linux = await getDownloadURL(linuxFiles[0][0]);
+    }
+    return { windows, mac, linux };
+  } catch (error) {
+    console.error('Error getting game files:', error);
+    throw error;
+  }
+}
 
 // const uploadFile = async (file, path) => {
 //   if (!file) return;
@@ -523,6 +563,7 @@ export {
   // signOut,
   // signUp,
   // passwordReset,
+  getGameFiles,
   getGameImages,
   // uploadFile,
   // deleteFile,

@@ -10,6 +10,7 @@ import {
   // passwordReset,
   // displayUserProfile,
   getGameImages,
+  getGameFiles,
   // addToFavorites,
   // removeFromFavorites,
   // addToPurchases,
@@ -119,46 +120,27 @@ app.post('/games', async (req, res) => {
 //   }
 // });
 
-// app.get('/games/:id/url', async (req, res) => {
-//   const { id } = req.params;
-//   const imagePath = `images/${id}/`;
-//   const gamePath = `gameFiles/${id}/`;
-//   const windowsPath = `${gamePath}windows/`;
-//   const macPath = `${gamePath}mac/`;
-//   const linuxPath = `${gamePath}linux/`;
-//   let imageUrls = [];
-//   let windows = '';
-//   let mac = '';
-//   let linux = '';
-//   try {
-//     const windowsFiles = await listFiles(windowsPath);
-//     if (windowsFiles.length > 0) {
-//       windows = await getFileUrl(`${windowsPath}${windowsFiles[0].name}`);
-//     }
-//     const macFiles = await listFiles(macPath);
-//     if (macFiles.length > 0) {
-//       mac = await getFileUrl(`${macPath}${macFiles[0].name}`);
-//     }
-//     const linuxFiles = await listFiles(linuxPath);
-//     if (linuxFiles.length > 0) {
-//       linux = await getFileUrl(`${linuxPath}${linuxFiles[0].name}`);
-//     }
-//     const imageFiles = await listFiles(imagePath);
-
-//     for (const file of imageFiles) {
-//       // console.log(file.name);
-//       const filePath = `${imagePath}${file.name}`;
-//       const url = await getFileUrl(filePath);
-//       imageUrls.push(url);
-//     }
-//     res
-//       .status(200)
-//       .json({ message: 'Success', images: imageUrls, windows, mac, linux });
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).send({ message: 'Server Error', error });
-//   }
-// });
+app.get('/games/:id/url', async (req, res) => {
+  const { id } = req.params;
+  let imageUrls = [];
+  let windows = '';
+  let mac = '';
+  let linux = '';
+  try {
+    const imageFiles = await getGameImages([id]);
+    imageUrls = imageFiles[id];
+    const gameFiles = await getGameFiles(id);
+    windows = gameFiles.windows;
+    mac = gameFiles.mac;
+    linux = gameFiles.linux;
+    res
+      .status(200)
+      .json({ message: 'Success', images: imageUrls, windows, mac, linux });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ message: 'Server Error', error });
+  }
+});
 
 // // Fetches all game file URLs asynchronously in one request
 // app.get('/games/url/gamefiles', async (req, res) => {
@@ -216,7 +198,7 @@ app.post('/games/url/images', async (req, res) => {
   let images = {};
   try {
     const imageUrls = await getGameImages(gameIds);
-    console.log(imageUrls);
+    // console.log(imageUrls);
     res.status(200).json({ message: 'Success', images: imageUrls });
   } catch (error) {
     console.log(error);
