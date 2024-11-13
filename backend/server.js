@@ -2,16 +2,14 @@ import express from 'express';
 import cors from 'cors';
 import {
   getGames,
-  // addGame,
+  addGame,
   getCategory,
   // signIn,
   // signUp,
   // signOut,
   // passwordReset,
   // displayUserProfile,
-  // getFileUrl,
-  // listFiles,
-  // listPrefixes,
+  getGameImages,
   // addToFavorites,
   // removeFromFavorites,
   // addToPurchases,
@@ -51,14 +49,14 @@ app.get('/games/category/:category', async (req, res) => {
   }
 });
 
-// app.post('/games', async (req, res) => {
-//   try {
-//     const gameID = await addGame(req.body);
-//     res.status(201).send({ message: 'Game Added', gameID });
-//   } catch (error) {
-//     res.status(500).send({ message: 'Server Error', error });
-//   }
-// });
+app.post('/games', async (req, res) => {
+  try {
+    const gameID = await addGame(req.body);
+    res.status(201).send({ message: 'Game Added', gameID });
+  } catch (error) {
+    res.status(500).send({ message: 'Server Error', error });
+  }
+});
 
 // app.post('/login', async (req, res) => {
 //   const { email, password } = req.body;
@@ -213,40 +211,18 @@ app.get('/games/category/:category', async (req, res) => {
 // });
 
 // // Fetches all image URLs asynchronously in one request
-// app.get('/games/url/images', async (req, res) => {
-//   let images = [];
-
-//   try {
-//     const imageSubFolders = await listPrefixes('/images');
-//     images = await Promise.all(
-//       imageSubFolders.map(async (subFolder) => {
-//         let imageUrls = [];
-//         const gameId = subFolder
-//           .toString()
-//           .substring(subFolder.root.toString().length)
-//           .replace('images/', '');
-
-//         const imageFiles = await listFiles(subFolder);
-//         imageUrls = await Promise.all(
-//           imageFiles.map(async (file) => {
-//             const imagePath = file
-//               .toString()
-//               .substring(file.root.toString().length);
-//             const url = await getFileUrl(imagePath);
-//             return url;
-//           })
-//         );
-
-//         return { id: gameId, urls: imageUrls };
-//       })
-//     );
-
-//     res.status(200).json({ message: 'Success', images: images });
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).send({ message: 'Server Error', error });
-//   }
-// });
+app.post('/games/url/images', async (req, res) => {
+  let {gameIds} = req.body;
+  let images = {};
+  try {
+    const imageUrls = await getGameImages(gameIds);
+    console.log(imageUrls);
+    res.status(200).json({ message: 'Success', images: imageUrls });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ message: 'Server Error', error });
+  }
+});
 
 // app.post('/profile/:id/favorites/update', async (req, res) => {
 //   // console.log("req.body",req.body);

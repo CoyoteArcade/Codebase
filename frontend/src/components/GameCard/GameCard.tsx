@@ -20,7 +20,7 @@ import classes from './GameCard.module.css';
 
 function GameCard({
   gameObj,
-  gameImages = { id: '', urls: [] },
+  gameImages = [],
   isFavorite,
   loading = false,
 }: any) {
@@ -50,8 +50,8 @@ function GameCard({
             <AspectRatio ratio={aspectRatio} className={classes['card-cover']}>
               <Image
                 src={
-                  gameImages.urls.length > 0 && gameImages.urls[0]
-                    ? gameImages.urls[0]
+                  gameImages.length > 0 && gameImages[0]
+                    ? gameImages[0]
                     : 'https://placehold.co/1600x900/003e7a/eee'
                 }
               />

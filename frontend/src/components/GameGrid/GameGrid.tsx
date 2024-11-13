@@ -31,10 +31,10 @@ function GameGrid({ gameData, category = '' }: { gameData: any; category?: strin
       }
     };
 
-    const fetchGameImages = async () => {
+    const fetchGameImages = async (gameIds:[string]) => {
       setLoading(true);
       try {
-        const json = await restController.get<any>('/games/url/images');
+        const json = await restController.post<any>('/games/url/images', { gameIds });
         setAllImageLinks(json.images);
       } catch (error) {
         console.error('failed to fetch game images', error);
@@ -42,15 +42,15 @@ function GameGrid({ gameData, category = '' }: { gameData: any; category?: strin
         setLoading(false);
       }
     };
-
+    const gameIds = gameData.map((game:any) => game.id);
     fetchProfile();
-    fetchGameImages();
+    fetchGameImages(gameIds);
   }, []);
 
   const findGameImages = (id:any) => {
     let gameImages:any = {};
 
-    gameImages = allImageLinks.find((game:any) => game.id === id);
+    gameImages = allImageLinks[id] || [];
 
     return gameImages;
   };

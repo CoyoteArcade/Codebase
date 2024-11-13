@@ -11,6 +11,7 @@
 // } from 'firebase-admin/firestore';
 import { initializeApp, applicationDefault, cert } from 'firebase-admin/app';
 import { getFirestore, Timestamp, FieldValue, Filter } from 'firebase-admin/firestore';
+import { getDownloadURL, getStorage } from 'firebase-admin/storage';
 // import {
 //   getAuth,
 //   signInWithEmailAndPassword,
@@ -48,7 +49,7 @@ const db = getFirestore(app);
 
 // const auth = getAuth(app);
 
-// const storage = getStorage(app);
+const storage = getStorage().bucket(process.env.FIREBASE_STORAGE_BUCKET);
 
 /**
  * Get all games or games that match a specific query.
@@ -95,29 +96,31 @@ const getCategory = async (category = undefined) => {
   return gameList;
 };
 
-// /**
-//  * Add a new game to the database.
-//  * @param {Object} game - Game object to add to the database.
-//  * @param {string} game.Title - Title of the game.
-//  * @param {string} game.Description - Description of the game.
-//  * @param {Array} game.Category - Array of categories the game belongs to.
-//  * @param {string} game.Publisher/Developer - Publisher or developer of the game.
-//  * @param {number} game.Rating - Rating of the game.
-//  * @param {string} game.Release Date - Release date of the game.
-//  * @param {Array} game.Screenshots/Images - Array of URLs for screenshots or images of the game.
-//  * @param {Object} game.System Requirements - Object containing system requirements for the game.
-//  * @param {string} game.System Requirements.Graphics - Graphics card required for the game.
-//  * @param {string} game.System Requirements.Memory - Amount of memory required for the game.
-//  * @param {string} game.System Requirements.OS - Operating system required for the game.
-//  * @param {string} game.System Requirements.Processor - Processor required for the game.
-//  * @param {string} game.System Requirements.Storage - Amount of storage required for the game.
-//  */
-// const addGame = async (game = undefined) => {
-//   if (game === undefined) return;
-//   const docRef = await addDoc(collection(db, 'games'), game);
-//   console.log('Document written with ID: ', docRef.id);
-//   return docRef.id;
-// };
+/**
+ * Add a new game to the database.
+ * @param {Object} game - Game object to add to the database.
+ * @param {string} game.title - Title of the game.
+ * @param {string} game.description - Description of the game.
+ * @param {Array} game.categories - Array of categories the game belongs to.
+ * @param {string} game.developer - Publisher or developer of the game.
+ * @param {number} game.rating - Rating of the game.
+ * @param {string} game.releaseDate Date - Release date of the game.
+ * @param {Array} game.images - Array of URLs for screenshots or images of the game.
+ * @param {Array} game.platforms - Array of platforms the game is available on.
+ * @param {string} game.tagline - Short tagline or slogan for the game.
+ * @param {string} game.video - URL for a video trailer or gameplay footage.
+ */
+const addGame = async (game = undefined) => {
+  if (game === undefined) return;
+  try {
+    const docRef = await db.collection('games').add(game);
+    console.log('Document written with ID: ', docRef.id);
+    return docRef.id;
+  } catch (error) {
+    console.error('Error adding document: ', error);
+    throw error;
+  }
+};
 
 // const signIn = async (email, password) => {
 //   let result;
@@ -203,39 +206,40 @@ const getCategory = async (category = undefined) => {
 //     });
 // };
 
-// const listFiles = async (path) => {
-//   const listRef = ref(storage, path);
-//   try {
-//     const res = await listAll(listRef);
+/**
+ * Get the image urls for all provided game IDs.
+ * @param {Array} gameIds 
+ * @returns {Object} - Object with game IDs as keys and image URLs as values.
+ * @example
+ * {
+ *  'gameId1': ['url1', 'url2', 'url3'],
+ * 'gameId2': ['url4', 'url5', 'url6'],
+ * }
+ */
+const getGameImages = async (gameIds) => {
+  let images = {};
+  // console.log('Getting images for game IDs:', gameIds);
+  try {
+    for (const gameId of gameIds) {
+      const imageUrls = [];
+      const [files] = await storage.getFiles({ prefix: `images/${gameId}/` });
 
-//     return res.items; // Array of file references
-//   } catch (error) {
-//     console.error('Error listing files', error);
-//     throw error;
-//   }
-// };
+      for (const file of files) {
+        const url = await getDownloadURL(file);
+        imageUrls.push(url);
+      }
 
-// const listPrefixes = async (path) => {
-//   const listRef = ref(storage, path);
-//   try {
-//     const res = await listAll(listRef);
-//     return res.prefixes; // Array of (subfolder references??)
-//   } catch (error) {
-//     console.error('Error listing refs', error);
-//     throw error;
-//   }
-// };
+      images[gameId] = imageUrls;
+    }
 
-// const getFileUrl = async (path) => {
-//   const storageRef = ref(storage, path);
-//   try {
-//     const url = await getDownloadURL(storageRef);
-//     return url;
-//   } catch (error) {
-//     console.error('Error getting file URL', error);
-//     throw error;
-//   }
-// };
+    return images;
+  }
+  catch (error) {
+    console.error('Error getting game images:', error);
+    throw error;
+  }
+};
+  
 
 // const uploadFile = async (file, path) => {
 //   if (!file) return;
@@ -513,15 +517,13 @@ const getCategory = async (category = undefined) => {
 
 export {
   getGames,
-  // addGame,
+  addGame,
   getCategory,
   // signIn,
   // signOut,
   // signUp,
   // passwordReset,
-  // listFiles,
-  // listPrefixes,
-  // getFileUrl,
+  getGameImages,
   // uploadFile,
   // deleteFile,
   // updateRating,
